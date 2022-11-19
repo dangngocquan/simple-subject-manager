@@ -1,8 +1,5 @@
 package code.curriculum;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class Curriculum {
     public static Major TOAN_TIN;
 
