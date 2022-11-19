@@ -3,7 +3,7 @@ package code;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-public class ScreenCreateNewPlan extends JPanel {
+public class ScreenCreateNewPlan1 extends JPanel {
     // Properties and Objects
     private String[] buttonTexts = {
             "Back", "Next"
@@ -11,7 +11,7 @@ public class ScreenCreateNewPlan extends JPanel {
     private Button[] buttons;
 
     // Constructor
-    public ScreenCreateNewPlan(int width, int height) {
+    public ScreenCreateNewPlan1(int width, int height) {
         // Set basic properties
         setLayout(null);
         setSize(width, height);
@@ -31,6 +31,10 @@ public class ScreenCreateNewPlan extends JPanel {
         // Set location for each button
         buttons[0].setLocation(width / 16, height / 8 * 7, Button.BOTTOM_LEFT);
         buttons[1].setLocation(width / 16 * 15, height / 8 * 7, Button.BOTTOM_RIGHT);
+    }
+
+    public Button[] getButtons() {
+        return this.buttons;
     }
 
     // Auto called method of JPanel
