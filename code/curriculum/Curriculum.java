@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Curriculum {
-    public static final Major TOAN_TIN = null;
+    public static Major TOAN_TIN;
 
     public Curriculum() {
         // TOAN_TIN
@@ -20,7 +20,7 @@ public class Curriculum {
 
         Subject INM1000 = new Subject("Tin học cơ sở", "INM1000", 2);
 
-        Subject HIS1050 = new Subject("Cơ sở văn hóa Việt Nam", "HIS1050", 3);
+        Subject HIS1056 = new Subject("Cơ sở văn hóa Việt Nam", "HIS1050", 3);
         Subject GEO1050 = new Subject("Khoa học trái đất và sự sống", "GEO1050", 3);
         Subject THL1057 = new Subject("Nhà nước và pháp luật đại cương", "THL1057", 2);
         Subject MAT1060 = new Subject("Nhập môn phân tích dữ liệu", "MAT1060", 2);
@@ -170,7 +170,6 @@ public class Curriculum {
         MAT3335.addParentSubject(MAT2301);
         MAT3368.addParentSubject(MAT2405);
         MAT3327.addParentSubject(MAT2304);
-        // MAT3327.addParentSubject(MAT2307);
         MAT3327.addParentSubject(MAT2404);
         MAT3565.addParentSubject(MAT3514);
         MAT3565.addParentSubject(MAT2405);
@@ -197,5 +196,93 @@ public class Curriculum {
         MAT4072.addParentSubject(MAT2407);
         MAT3371.addParentSubject(MAT3372);
 
+        // Create KnowledgeParts
+        KnowledgePart knowledgeGeneral = new KnowledgePart("Khối kiến thức chung", 16, 0);
+        knowledgeGeneral.addCompulsorySubject1(PHI1006);
+        knowledgeGeneral.addCompulsorySubject1(PEC1008);
+        knowledgeGeneral.addCompulsorySubject1(PHI1002);
+        knowledgeGeneral.addCompulsorySubject1(HIS1001);
+        knowledgeGeneral.addCompulsorySubject1(POL1001);
+        knowledgeGeneral.addCompulsorySubject1(FLF1107);
+        knowledgeGeneral.addCompulsorySubject1(FLF1307);
+        knowledgeGeneral.addCompulsorySubject1(FLF1407);
+
+        KnowledgePart knowledgeField = new KnowledgePart("Khối kiến thức theo lĩnh vực", 2, 5);
+        knowledgeField.addCompulsorySubject1(INM1000);
+        knowledgeField.addOptionalSubject1(HIS1056);
+        knowledgeField.addOptionalSubject1(GEO1050);
+        knowledgeField.addOptionalSubject1(THL1057);
+        knowledgeField.addOptionalSubject1(MAT1060);
+        knowledgeField.addOptionalSubject1(PHY1070);
+        knowledgeField.addOptionalSubject1(PHY1020);
+
+        KnowledgePart knowledgeMajor = new KnowledgePart("Khối kiến thức theo khối ngành", 6, 0);
+        knowledgeMajor.addCompulsorySubject1(PHY1100);
+        knowledgeMajor.addCompulsorySubject1(PHY1103);
+
+        KnowledgePart knowledgeGroupMajor = new KnowledgePart("Khối kiến thức theo nhóm ngành", 46, 3);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2300);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2301);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2302);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2303);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2304);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2314);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT3409);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2404);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2405);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2406);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2407);
+        knowledgeGroupMajor.addCompulsorySubject1(MAT2315);
+        knowledgeGroupMajor.addOptionalSubject1(MAT2316);
+        knowledgeGroupMajor.addOptionalSubject1(MAT2317);
+        knowledgeGroupMajor.addOptionalSubject1(MAT2318);
+        knowledgeGroupMajor.addOptionalSubject1(MAT2319);
+
+        KnowledgePart knowledgeSpecializedMajor = new KnowledgePart("Khối kiến thức ngành", 35, 15);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3500);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3365);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3372);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3366);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3514);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3504);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3507);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3452);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3525);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3359);
+        knowledgeSpecializedMajor.addCompulsorySubject1(MAT3533);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3367);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3545);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3539);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3323);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3509);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3456);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3531);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3508);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3335);
+        knowledgeSpecializedMajor.addOptionalSubject1(MAT3368);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3327);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3565);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3532);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3561);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3562);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3333);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3334);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3323);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3369);
+        knowledgeSpecializedMajor.addOptionalSubject2(MAT3370);
+
+        KnowledgePart knowledgeUndergraduate = new KnowledgePart("Khóa luận tốt nghiệp/ Học phần thay thế", 7, 0);
+        knowledgeUndergraduate.addCompulsorySubject1(MAT4082);
+        knowledgeUndergraduate.addCompulsorySubject2(MAT4072);
+        knowledgeUndergraduate.addCompulsorySubject2(MAT3371);
+
+        // Create Major
+        TOAN_TIN = new Major("Toán Tin");
+        TOAN_TIN.addKnowledgePart(knowledgeGeneral);
+        TOAN_TIN.addKnowledgePart(knowledgeField);
+        TOAN_TIN.addKnowledgePart(knowledgeMajor);
+        TOAN_TIN.addKnowledgePart(knowledgeGroupMajor);
+        TOAN_TIN.addKnowledgePart(knowledgeSpecializedMajor);
+        TOAN_TIN.addKnowledgePart(knowledgeUndergraduate);
     }
 }
