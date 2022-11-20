@@ -16,15 +16,17 @@ public class Data {
                 String path = "assets\\data\\SCHOOLS";
                 File[] schoolFolders = (new File(path)).listFiles();
                 for (File schoolFolder : schoolFolders) {
+                    String path1 = path + "\\" + schoolFolder.getName();
                     // Create a School instance
                     School school = new School("");
 
                     // Add Department to School
                     File[] departmentFolders = schoolFolder.listFiles();
                     for (File departmentFolder : departmentFolders) {
+                        String path2 = path1 + "\\" + departmentFolder.getName();
                         if (departmentFolder.isFile()) {
                             // this is file txt contains name of school
-                            String schoolName = getStringFromFile(path + "\\" + departmentFolder.getName());
+                            String schoolName = getStringFromFile(path2);
                             school.setName(schoolName);
                         } else {
                             // this is a folder Department of school
@@ -32,17 +34,17 @@ public class Data {
                             Department department = new Department("");
 
                             // Add Major to Department
-                            String path1 = path + "\\" + departmentFolder.getName();
                             File[] majorFolders = departmentFolder.listFiles();
                             for (File majorFolder : majorFolders) {
+                                String path3 = path2 + "\\" + majorFolder.getName();
                                 if (majorFolder.isFile()) {
                                     // this is a file txt contains name of department
-                                    String departmentName = getStringFromFile(path1 + "\\" + majorFolder.getName());
+                                    String departmentName = getStringFromFile(path3);
                                     department.setName(departmentName);
                                 } else {
                                     // this is a folder Major of department
                                     // Create Major instance by read file data
-                                    Major major = getMajorFromFolder(path1 + "\\" + majorFolder.getName());
+                                    Major major = getMajorFromFolder(path3);
                                     // Add Major to Department
                                     department.addMajor(major);
                                 }
@@ -70,6 +72,7 @@ public class Data {
             String line = reader.readLine();
             while (line != null) {
                 result += line;
+                line = reader.readLine();
             }
             // Close
             reader.close();

@@ -11,7 +11,7 @@ import java.awt.Color;
 public class ScreenCurriculumInformation extends JPanel {
     // Properties and Objects
     private String[] buttonTexts = {
-
+            Data.SCHOOLS.getSchools().get(0).getDepartmentNames().get(0)
     };
     private Button[] buttons;
     private JList subjectList;
