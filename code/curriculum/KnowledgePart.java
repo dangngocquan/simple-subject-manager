@@ -12,20 +12,25 @@ public class KnowledgePart {
     private List<Subject> compulsorySubjecs2;
     private List<Subject> optionalSubjects2;
     private int minCreditsCompulsorySubjects;
-
     private int minCreditsOptionalSubjects;
+    private String descriptionCompulsory1;
+    private String descriptionCompulsory2;
+    private String descriptionOptional1;
+    private String descriptionOptional2;
 
     // Constructor
-    public KnowledgePart(String name,
-            int minCreditsCompulsorySubjects,
-            int minCreditsOptionalSubjects) {
+    public KnowledgePart(String name) {
         this.name = name;
         this.compulsorySubjecs1 = new LinkedList<Subject>();
         this.optionalSubjects1 = new LinkedList<Subject>();
         this.compulsorySubjecs2 = new LinkedList<Subject>();
         this.optionalSubjects2 = new LinkedList<Subject>();
-        this.minCreditsCompulsorySubjects = minCreditsCompulsorySubjects;
-        this.minCreditsOptionalSubjects = minCreditsCompulsorySubjects;
+        this.minCreditsCompulsorySubjects = 0;
+        this.minCreditsOptionalSubjects = 0;
+        this.descriptionCompulsory1 = "";
+        this.descriptionCompulsory2 = "";
+        this.descriptionOptional1 = "";
+        this.descriptionOptional2 = "";
     }
 
     // Getter
@@ -61,6 +66,39 @@ public class KnowledgePart {
         return this.optionalSubjects1;
     }
 
+    public String getDescriptionCompulsory1() {
+        return this.descriptionCompulsory1;
+    }
+
+    public String getDescriptionCompulsory2() {
+        return this.descriptionCompulsory2;
+    }
+
+    public String getDescriptionOptional1() {
+        return this.descriptionOptional1;
+    }
+
+    public String getDescriptionOptional2() {
+        return this.descriptionOptional2;
+    }
+
+    public List<Subject> getSubjects() {
+        List<Subject> subjects = new LinkedList<Subject>();
+        for (Subject subject : this.compulsorySubjecs1) {
+            subjects.add(subject);
+        }
+        for (Subject subject : this.compulsorySubjecs2) {
+            subjects.add(subject);
+        }
+        for (Subject subject : this.optionalSubjects1) {
+            subjects.add(subject);
+        }
+        for (Subject subject : this.optionalSubjects2) {
+            subjects.add(subject);
+        }
+        return subjects;
+    }
+
     // Setter
     public void setName(String name) {
         this.name = name;
@@ -92,5 +130,21 @@ public class KnowledgePart {
 
     public void addOptionalSubject2(Subject subject) {
         this.optionalSubjects2.add(subject);
+    }
+
+    public void setDescriptionCompulsory1(String description) {
+        this.descriptionCompulsory1 = description;
+    }
+
+    public void setDescriptionCompulsory2(String description) {
+        this.descriptionCompulsory2 = description;
+    }
+
+    public void setDescriptionOptional1(String description) {
+        this.descriptionOptional1 = description;
+    }
+
+    public void setDescriptionOptional2(String description) {
+        this.descriptionOptional2 = description;
     }
 }

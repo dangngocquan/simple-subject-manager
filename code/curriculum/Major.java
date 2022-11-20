@@ -31,4 +31,15 @@ public class Major {
     public void addKnowledgePart(KnowledgePart knowledgePart) {
         this.knowledgeParts.add(knowledgePart);
     }
+
+    public List<Subject> getSubjects() {
+        List<Subject> subjects = new LinkedList<Subject>();
+        for (KnowledgePart knowledgePart : this.knowledgeParts) {
+            List<Subject> subjectsOfKnowledge = knowledgePart.getSubjects();
+            for (Subject subject : subjectsOfKnowledge) {
+                subjects.add(subject);
+            }
+        }
+        return subjects;
+    }
 }
