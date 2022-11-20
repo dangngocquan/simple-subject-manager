@@ -3,15 +3,13 @@ package code;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import code.curriculum.Data;
-
 import java.awt.Graphics;
 import java.awt.Color;
 
 public class ScreenCurriculumInformation extends JPanel {
     // Properties and Objects
     private String[] buttonTexts = {
-            Data.SCHOOLS.getSchools().get(0).getDepartmentNames().get(0)
+            "Quay lại"
     };
     private Button[] buttons;
     private JList subjectList;

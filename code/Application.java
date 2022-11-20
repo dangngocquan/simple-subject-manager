@@ -2,6 +2,9 @@ package code;
 
 import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
+
+import code.curriculum.Data;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -25,6 +28,7 @@ public class Application extends JFrame {
         setAlwaysOnTop(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
+        new Data();
 
         // Create screens
         screenMainMenu = new ScreenMainMenu(width, height - 36);
