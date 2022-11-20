@@ -7,4 +7,5 @@ public class Setting {
     public static int FONT_STYLE_00 = Font.PLAIN;
     public static int FONT_STYLE_01 = Font.BOLD;
     public static int FONT_SIZE_MEDIUM = 24;
+    public static int FONT_SIZE_SMALL = 14;
 }

@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 public class ScreenCreateNewPlan1 extends JPanel {
     // Properties and Objects
     private String[] buttonTexts = {
-            "Back", "Next"
+            "Quay lại", "Tiếp theo"
     };
     private Button[] buttons;
 

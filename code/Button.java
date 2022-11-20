@@ -30,6 +30,7 @@ public class Button extends JButton {
     private int fontStyle, fontSize;
     private int rootLocationType = 0;
     private int xPos = 0, yPos = 0;
+    private boolean isDependOnText = true;
 
     // Constructor
     public Button(String text) {
@@ -37,6 +38,44 @@ public class Button extends JButton {
         setFocusPainted(false);
     }
 
+    // Getter
+    public boolean isButtonDependOnText() {
+        return this.isDependOnText;
+    }
+
+    public int getButtonWidth() {
+        return this.width;
+    }
+
+    public int getButtonHeight() {
+        return this.height;
+    }
+
+    public String getFontName() {
+        return this.fontName;
+    }
+
+    public int getFontStyle() {
+        return this.fontStyle;
+    }
+
+    public int getFontSize() {
+        return this.fontSize;
+    }
+
+    public int getXPosition() {
+        return this.xPos;
+    }
+
+    public int getYPosition() {
+        return this.yPos;
+    }
+
+    public int getRootLocationType() {
+        return this.rootLocationType;
+    }
+
+    // Setter
     // Set font for button's text
     public void setFont(String fontName, int fontStyle, int fontSize) {
         this.fontName = fontName;
@@ -50,6 +89,19 @@ public class Button extends JButton {
         this.height = fontMetrics.getHeight() + fontMetrics.stringWidth("ABC") / 2;
         setSize(this.width, this.height);
         setFont(new Font(fontName, fontStyle, fontSize));
+    }
+
+    // Button size depend on text
+    public void setSizeDependOnText(boolean flag) {
+        this.isDependOnText = flag;
+    }
+
+    // Set size of button when button not depend on text
+    public void setSizeButton(int width, int height) {
+        setSizeDependOnText(false);
+        this.width = width;
+        this.height = height;
+        setSize(this.width, this.height);
     }
 
     // Set color for button's text
@@ -99,37 +151,5 @@ public class Button extends JButton {
                 break;
         }
         setBounds(xPos, yPos, width, height);
-    }
-
-    public int getButtonWidth() {
-        return this.width;
-    }
-
-    public int getButtonHeight() {
-        return this.height;
-    }
-
-    public String getFontName() {
-        return this.fontName;
-    }
-
-    public int getFontStyle() {
-        return this.fontStyle;
-    }
-
-    public int getFontSize() {
-        return this.fontSize;
-    }
-
-    public int getXPosition() {
-        return this.xPos;
-    }
-
-    public int getYPosition() {
-        return this.yPos;
-    }
-
-    public int getRootLocationType() {
-        return this.rootLocationType;
     }
 }

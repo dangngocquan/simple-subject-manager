@@ -10,7 +10,6 @@ public class Subject {
     private int numberCredits;
     private List<Subject> parentSubjects; // prerequisite subjects
     private List<String> parentSubjectCodes;
-    // private List<Subject> childSubjects;
 
     // Constructor
     public Subject(String name, String code, int credits) {
@@ -19,8 +18,6 @@ public class Subject {
         this.numberCredits = credits;
         this.parentSubjects = new LinkedList<Subject>();
         this.parentSubjectCodes = new LinkedList<String>();
-        // this.childSubjects = new LinkedList<Subject>();
-
     }
 
     // Getter method
@@ -44,10 +41,6 @@ public class Subject {
         return this.parentSubjectCodes;
     }
 
-    // public List<Subject> getChildSubjects() {
-    // return this.childSubjects;
-    // }
-
     // Setter method
     public void setName(String name) {
         this.subjectName = name;
@@ -63,14 +56,9 @@ public class Subject {
 
     public void addParentSubject(Subject subject) {
         this.parentSubjects.add(subject);
-        // subject.addChildSubject(this);
     }
 
     public void addParentSubjectCode(String code) {
         this.parentSubjectCodes.add(code);
     }
-
-    // public void addChildSubject(Subject subject) {
-    // this.childSubjects.add(subject);
-    // }
 }

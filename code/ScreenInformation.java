@@ -3,15 +3,16 @@ package code;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 
-public class ScreenPlans extends JPanel {
+public class ScreenInformation extends JPanel {
     // Properties and Objects
     private String[] buttonTexts = {
-            "Các kế hoạch hiện có", "Tạo kế hoạch mới", "Quay lại"
+            "Khung chương trình đào tạo", "Quay lại"
     };
     private Button[] buttons;
 
     // Constructor
-    public ScreenPlans(int width, int height) {
+    public ScreenInformation(int width, int height) {
+        // Set basic properties for this screen
         setLayout(null);
         setBounds(0, 0, width, height);
         setSize(width, height);
@@ -28,9 +29,8 @@ public class ScreenPlans extends JPanel {
         }
 
         // Set location for each button
-        buttons[0].setLocation(width / 2, height / 12 * 3, Button.TOP_CENTER);
-        buttons[1].setLocation(width / 2, height / 12 * 5, Button.TOP_CENTER);
-        buttons[2].setLocation(width / 2, height / 12 * 7, Button.TOP_CENTER);
+        buttons[0].setLocation(width / 2, height / 12 * 5, Button.TOP_CENTER);
+        buttons[1].setLocation(width / 2, height / 12 * 7, Button.TOP_CENTER);
     }
 
     // Get buttons

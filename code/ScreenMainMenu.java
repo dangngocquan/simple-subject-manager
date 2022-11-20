@@ -6,7 +6,7 @@ import java.awt.Graphics;
 public class ScreenMainMenu extends JPanel {
     // Properties and Objects
     private String[] buttonTexts = {
-            "Plans"
+            "Các kế hoạch", "Tài khoản", "Thông tin"
     };
     private Button[] buttons;
 
@@ -29,7 +29,9 @@ public class ScreenMainMenu extends JPanel {
         }
 
         // Set location for each button
-        buttons[0].setLocation(width / 2, height / 3, Button.TOP_CENTER);
+        buttons[0].setLocation(width / 2, height / 12 * 3, Button.TOP_CENTER);
+        buttons[1].setLocation(width / 2, height / 12 * 5, Button.TOP_CENTER);
+        buttons[2].setLocation(width / 2, height / 12 * 7, Button.TOP_CENTER);
     }
 
     // Get buttons
