@@ -1,5 +1,13 @@
 package code.file_handler;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import code.curriculum.KnowledgePart;
+import code.curriculum.Major;
+import code.curriculum.Subject;
+
 public class ReadFile {
     // Get string from a file
     public static String getStringFromFile(String path) {
@@ -66,7 +74,7 @@ public class ReadFile {
                     Subject subject = new Subject(name, code, credits);
                     // Add parent subject codes for this subject
                     for (String parentSubjectCode : parentSubjectCodes) {
-                        subject.addParentSubjectCode(parentSubjectCode);
+                        subject.addParentSubjectCode(parentSubjectCode.split("/"));
                     }
                     // Add subject to KnowlegePart of Major
                     int lastIndex = major.getKnowledgeParts().size() - 1;
@@ -110,13 +118,22 @@ public class ReadFile {
 
             // Add relative between subject
             for (Subject subject : major.getSubjects()) {
-                List<String> parentSubjectCodes = subject.getParentSubjectCodes();
-                for (Subject checkingSubject : major.getSubjects()) {
-                    if (parentSubjectCodes.contains(
-                            checkingSubject.getCode())) {
-                        subject.addParentSubject(checkingSubject);
+                for (String[] parentSubjectCodes : subject.getParentSubjectCodes()) {
+                    Subject[] parentSubjects = new Subject[parentSubjectCodes.length];
+                    int count = 0;
+                    for (String parentSubjectCode : parentSubjectCodes) {
+                        for (Subject checkingSubject : major.getSubjects()) {
+                            if (parentSubjectCode.equals(checkingSubject.getCode())) {
+                                if (count < parentSubjectCodes.length) {
+                                    parentSubjects[count] = checkingSubject;
+                                    count++;
+                                }
+                            }
+                        }
                     }
+                    subject.addParentSubject(parentSubjects);
                 }
+
             }
 
             // Close file

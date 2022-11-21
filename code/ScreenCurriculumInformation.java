@@ -1,6 +1,6 @@
 package code;
 
-import javax.swing.JList;
+// import javax.swing.JList;
 import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,10 +15,9 @@ public class ScreenCurriculumInformation extends JPanel {
             "Quay lại"
     };
     private Button[] buttons;
-    private JList subjectList;
     private JPanel headPanel, bodyPanel;
     private JPanel headPanel1, headPanel2;
-    private JPanel bodyPanel0, bodyPanel1, bodyPanel2, bodyPanel3;
+    private JPanel bodyPanel0;
 
     // Constructor
     public ScreenCurriculumInformation(int width, int height, ScreenInformation parentScreen) {
@@ -43,7 +42,8 @@ public class ScreenCurriculumInformation extends JPanel {
         bodyPanel = new JPanel();
         bodyPanel.setLayout(null);
         bodyPanel.setSize(width, height - headPanel.getHeight());
-        bodyPanel.setBounds(0, headPanel.getHeight(), bodyPanel.getWidth(), bodyPanel.getHeight());
+        bodyPanel.setBounds(0, headPanel.getHeight(), bodyPanel.getWidth(),
+                bodyPanel.getHeight());
 
         // Create sub panels of "headPanel"
         headPanel1 = new JPanel();
@@ -53,13 +53,16 @@ public class ScreenCurriculumInformation extends JPanel {
 
         headPanel2 = new JPanel();
         headPanel2.setLayout(null);
-        headPanel2.setSize(headPanel.getWidth() - headPanel1.getWidth(), headPanel.getHeight());
-        headPanel2.setBounds(headPanel1.getWidth(), 0, headPanel2.getWidth(), headPanel2.getHeight());
+        headPanel2.setSize(headPanel.getWidth() - headPanel1.getWidth(),
+                headPanel.getHeight());
+        headPanel2.setBounds(headPanel1.getWidth(), 0, headPanel2.getWidth(),
+                headPanel2.getHeight());
 
         // Create sub panels of "bodyPanel"
         bodyPanel0 = new JPanel();
         bodyPanel0.setLayout(null);
-        bodyPanel0.setSize(bodyPanel.getWidth() / 16 * 15, bodyPanel.getHeight() / 16 * 15);
+        bodyPanel0.setSize(bodyPanel.getWidth() / 16 * 15, bodyPanel.getHeight() / 16
+                * 15);
         bodyPanel0.setBounds(bodyPanel.getWidth() / 2 - bodyPanel0.getWidth() / 2,
                 bodyPanel.getHeight() / 2 - bodyPanel0.getHeight() / 2,
                 bodyPanel0.getWidth(), bodyPanel0.getHeight());
@@ -76,7 +79,8 @@ public class ScreenCurriculumInformation extends JPanel {
         }
 
         // Set location for each button
-        buttons[0].setLocation(headPanel1.getWidth() / 2, headPanel1.getHeight() / 2, Button.CENTER_CENTER);
+        buttons[0].setLocation(headPanel1.getWidth() / 2, headPanel1.getHeight() / 2,
+                Button.CENTER_CENTER);
 
         // Add sub panels and buttons to "mainScreen"
         mainScreen.add(headPanel);
@@ -85,9 +89,19 @@ public class ScreenCurriculumInformation extends JPanel {
         headPanel.add(headPanel2);
         headPanel1.add(buttons[0]);
         bodyPanel.add(bodyPanel0);
+        bodyPanel0.add(
+                new PanelMajor(0, 0, bodyPanel0.getWidth(), bodyPanel0.getHeight(), null,
+                        PanelMajor.TOP_LEFT));
 
         // Add screens to this panel
         add(mainScreen);
+
+        // Set visible of screens
+        mainScreen.setVisible(true);
+
+        // Set color and other
+        headPanel1.setBackground(Color.BLACK);
+        headPanel2.setBackground(Color.BLACK);
     }
 
     // Get buttons
@@ -108,8 +122,6 @@ public class ScreenCurriculumInformation extends JPanel {
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        headPanel1.setBackground(new Color(0, 0, 0));
-        bodyPanel.setBackground(new Color(100, 0, 0));
     }
 
     // Handler buttons
