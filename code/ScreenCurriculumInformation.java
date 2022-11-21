@@ -2,12 +2,15 @@ package code;
 
 import javax.swing.JList;
 import javax.swing.JPanel;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Graphics;
 import java.awt.Color;
 
 public class ScreenCurriculumInformation extends JPanel {
-    // Properties and Objects
+    // Properties, Objects and Screens
+    private ScreenInformation parentScreen;
+    private JPanel mainScreen;
     private String[] buttonTexts = {
             "Quay lại"
     };
@@ -18,13 +21,20 @@ public class ScreenCurriculumInformation extends JPanel {
     private JPanel bodyPanel0, bodyPanel1, bodyPanel2, bodyPanel3;
 
     // Constructor
-    public ScreenCurriculumInformation(int width, int height) {
+    public ScreenCurriculumInformation(int width, int height, ScreenInformation parentScreen) {
         // Set basic properties
         setLayout(null);
         setSize(width, height);
         setBounds(0, 0, width, height);
+        this.parentScreen = parentScreen;
 
-        // Create panels and basic properties for them
+        // Create screens
+        mainScreen = new JPanel();
+        mainScreen.setLayout(null);
+        mainScreen.setSize(width, height);
+        mainScreen.setBounds(0, 0, width, height);
+
+        // Create sub panels of "mainScreen"
         headPanel = new JPanel();
         headPanel.setLayout(null);
         headPanel.setSize(width, height / 8);
@@ -35,6 +45,7 @@ public class ScreenCurriculumInformation extends JPanel {
         bodyPanel.setSize(width, height - headPanel.getHeight());
         bodyPanel.setBounds(0, headPanel.getHeight(), bodyPanel.getWidth(), bodyPanel.getHeight());
 
+        // Create sub panels of "headPanel"
         headPanel1 = new JPanel();
         headPanel1.setLayout(null);
         headPanel1.setSize(headPanel.getWidth() / 16 * 3, headPanel.getHeight());
@@ -45,6 +56,7 @@ public class ScreenCurriculumInformation extends JPanel {
         headPanel2.setSize(headPanel.getWidth() - headPanel1.getWidth(), headPanel.getHeight());
         headPanel2.setBounds(headPanel1.getWidth(), 0, headPanel2.getWidth(), headPanel2.getHeight());
 
+        // Create sub panels of "bodyPanel"
         bodyPanel0 = new JPanel();
         bodyPanel0.setLayout(null);
         bodyPanel0.setSize(bodyPanel.getWidth() / 16 * 15, bodyPanel.getHeight() / 16 * 15);
@@ -60,18 +72,22 @@ public class ScreenCurriculumInformation extends JPanel {
                     Setting.FONT_NAME_01,
                     Setting.FONT_STYLE_01,
                     Setting.FONT_SIZE_MEDIUM);
+            buttons[count].addActionListener(new ButtonHandler());
         }
 
         // Set location for each button
         buttons[0].setLocation(headPanel1.getWidth() / 2, headPanel1.getHeight() / 2, Button.CENTER_CENTER);
 
-        // Relative between panels and buttons
-        add(headPanel);
-        add(bodyPanel);
+        // Add sub panels and buttons to "mainScreen"
+        mainScreen.add(headPanel);
+        mainScreen.add(bodyPanel);
         headPanel.add(headPanel1);
         headPanel.add(headPanel2);
         headPanel1.add(buttons[0]);
         bodyPanel.add(bodyPanel0);
+
+        // Add screens to this panel
+        add(mainScreen);
     }
 
     // Get buttons
@@ -79,10 +95,31 @@ public class ScreenCurriculumInformation extends JPanel {
         return this.buttons;
     }
 
+    // Get parentScreen
+    public ScreenInformation getParentScreen() {
+        return this.parentScreen;
+    }
+
+    // Get mainScreen
+    public JPanel getMainScreen() {
+        return this.mainScreen;
+    }
+
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         headPanel1.setBackground(new Color(0, 0, 0));
         bodyPanel.setBackground(new Color(100, 0, 0));
+    }
+
+    // Handler buttons
+    private class ButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            // Press at "Back" of headPanel1 of headPanel of mainScreen
+            if (event.getSource() == buttons[0]) {
+                getParentScreen().getMainScreen().setVisible(true);
+                getParentScreen().getScreenCurriculumInformation().setVisible(false);
+            }
+        }
     }
 }

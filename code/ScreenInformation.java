@@ -2,20 +2,33 @@ package code;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ScreenInformation extends JPanel {
-    // Properties and Objects
+    // Properties, Objects and Screens
     private String[] buttonTexts = {
             "Khung chương trình đào tạo", "Quay lại"
     };
     private Button[] buttons;
+    private ScreenMainMenu parentScreen;
+    private JPanel mainScreen;
+    private ScreenCurriculumInformation screenCurriculumInformation;
 
     // Constructor
-    public ScreenInformation(int width, int height) {
+    public ScreenInformation(int width, int height, ScreenMainMenu parentScreen) {
         // Set basic properties for this screen
         setLayout(null);
         setBounds(0, 0, width, height);
         setSize(width, height);
+        this.parentScreen = parentScreen;
+
+        // Create screens
+        mainScreen = new JPanel();
+        mainScreen.setLayout(null);
+        mainScreen.setSize(width, height);
+        mainScreen.setBounds(0, 0, width, height);
+        screenCurriculumInformation = new ScreenCurriculumInformation(width, height, this);
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -25,12 +38,25 @@ public class ScreenInformation extends JPanel {
                     Setting.FONT_NAME_01,
                     Setting.FONT_STYLE_01,
                     Setting.FONT_SIZE_MEDIUM);
-            add(buttons[count]);
+            buttons[count].addActionListener(new ButtonHandler());
         }
 
         // Set location for each button
         buttons[0].setLocation(width / 2, height / 12 * 5, Button.TOP_CENTER);
         buttons[1].setLocation(width / 2, height / 12 * 7, Button.TOP_CENTER);
+
+        // Add buttons to mainScreen
+        for (Button button : buttons) {
+            mainScreen.add(button);
+        }
+
+        // Add screen to this panel
+        add(mainScreen);
+        add(screenCurriculumInformation);
+
+        // Set visible of screens
+        mainScreen.setVisible(true);
+        screenCurriculumInformation.setVisible(false);
     }
 
     // Get buttons
@@ -38,8 +64,39 @@ public class ScreenInformation extends JPanel {
         return this.buttons;
     }
 
+    // Get parentScreen
+    public ScreenMainMenu getParentScreen() {
+        return this.parentScreen;
+    }
+
+    // Get mainScreen
+    public JPanel getMainScreen() {
+        return this.mainScreen;
+    }
+
+    // Get screenCurriculumInformation
+    public ScreenCurriculumInformation getScreenCurriculumInformation() {
+        return this.screenCurriculumInformation;
+    }
+
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+    }
+
+    // Handler buttons
+    private class ButtonHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            // Press at "Curriculums" in mainScreen
+            if (event.getSource() == buttons[0]) {
+                getScreenCurriculumInformation().setVisible(true);
+                getMainScreen().setVisible(false);
+            }
+            // Press at "Back" in mainScreen
+            else if (event.getSource() == buttons[1]) {
+                getParentScreen().getMainScreen().setVisible(true);
+                getParentScreen().getScreenInformation().setVisible(false);
+            }
+        }
     }
 }
