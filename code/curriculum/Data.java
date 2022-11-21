@@ -59,4 +59,34 @@ public class Data {
         }
     }
 
+    // Get School by name
+    public static School getSchool(String schoolName) {
+        for (School school : SCHOOLS.getSchools()) {
+            if (school.getName().equals(schoolName)) {
+                return school;
+            }
+        }
+        return null;
+    }
+
+    // Get Department by name
+    public static Department getDepartment(String departmentName, School school) {
+        for (Department department : school.getDepartments()) {
+            if (department.getName().equals(departmentName)) {
+                return department;
+            }
+        }
+        return null;
+    }
+
+    // Get Major by name
+    public static Major getMajor(String majorName, Department department) {
+        for (Major major : department.getMajors()) {
+            if (major.getName().equals(majorName)) {
+                return major;
+            }
+        }
+        return null;
+    }
+
 }

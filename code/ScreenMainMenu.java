@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 
 public class ScreenMainMenu extends JPanel {
     // Propertie, Objects and Screens
+    private Application applicationFrame;
     private String[] buttonTexts = {
             "Các kế hoạch", "Tài khoản", "Thông tin"
     };
@@ -16,8 +17,9 @@ public class ScreenMainMenu extends JPanel {
     private ScreenInformation screenInformation;
 
     // Constructor
-    public ScreenMainMenu(int width, int height) {
+    public ScreenMainMenu(int width, int height, Application frame) {
         // Set basic properties for this screen
+        this.applicationFrame = frame;
         setLayout(null);
         setBounds(0, 0, width, height);
         setSize(width, height);
@@ -27,8 +29,8 @@ public class ScreenMainMenu extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, mainScreen.getWidth(), mainScreen.getHeight());
-        screenPlans = new ScreenPlans(width, height, this);
-        screenInformation = new ScreenInformation(width, height, this);
+        screenPlans = new ScreenPlans(width, height, this, applicationFrame);
+        screenInformation = new ScreenInformation(width, height, this, applicationFrame);
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -60,6 +62,11 @@ public class ScreenMainMenu extends JPanel {
         mainScreen.setVisible(true);
         screenPlans.setVisible(false);
         screenInformation.setVisible(false);
+    }
+
+    // Get application frame
+    public Application getApplicationFrame() {
+        return this.applicationFrame;
     }
 
     // Get buttons

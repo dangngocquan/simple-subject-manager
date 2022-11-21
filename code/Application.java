@@ -25,7 +25,7 @@ public class Application extends JFrame {
         new Data();
 
         // Create screens
-        screenMainMenu = new ScreenMainMenu(width, height - 36);
+        screenMainMenu = new ScreenMainMenu(width, height - 36, this);
 
         // Add screens to frame
         add(screenMainMenu);

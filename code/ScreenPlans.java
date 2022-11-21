@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 public class ScreenPlans extends JPanel {
     // Properties, Objects and Screens
+    private Application applicationFrame;
     private String[] buttonTexts = {
             "Các kế hoạch hiện có", "Tạo kế hoạch mới", "Quay lại"
     };
@@ -16,8 +17,9 @@ public class ScreenPlans extends JPanel {
     private ScreenCreateNewPlan1 screenCreateNewPlan1;
 
     // Constructor
-    public ScreenPlans(int width, int height, ScreenMainMenu parentScreen) {
+    public ScreenPlans(int width, int height, ScreenMainMenu parentScreen, Application frame) {
         // Set basic properties
+        this.applicationFrame = frame;
         setLayout(null);
         setBounds(0, 0, width, height);
         setSize(width, height);
@@ -28,7 +30,7 @@ public class ScreenPlans extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, width, height);
-        screenCreateNewPlan1 = new ScreenCreateNewPlan1(width, height, this);
+        screenCreateNewPlan1 = new ScreenCreateNewPlan1(width, height, this, applicationFrame);
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -58,6 +60,11 @@ public class ScreenPlans extends JPanel {
         // Set visible screens
         mainScreen.setVisible(true);
         screenCreateNewPlan1.setVisible(false);
+    }
+
+    // Get application frame
+    public Application getApplicationFrame() {
+        return this.applicationFrame;
     }
 
     // Get buttons

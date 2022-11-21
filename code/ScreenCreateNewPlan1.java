@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 
 public class ScreenCreateNewPlan1 extends JPanel {
     // Properties, Objects and Screens
+    private Application applicationFrame;
     private String[] buttonTexts = {
             "Quay lại", "Tiếp theo"
     };
@@ -15,8 +16,9 @@ public class ScreenCreateNewPlan1 extends JPanel {
     private JPanel mainScreen;
 
     // Constructor
-    public ScreenCreateNewPlan1(int width, int height, ScreenPlans parentScreen) {
+    public ScreenCreateNewPlan1(int width, int height, ScreenPlans parentScreen, Application frame) {
         // Set basic properties
+        this.applicationFrame = frame;
         setLayout(null);
         setSize(width, height);
         setBounds(0, 0, width, height);
@@ -53,6 +55,11 @@ public class ScreenCreateNewPlan1 extends JPanel {
 
         // Set visible of screens
         mainScreen.setVisible(true);
+    }
+
+    // Get application frame
+    public Application getApplicationFrame() {
+        return this.applicationFrame;
     }
 
     // Get buttons in mainScreen

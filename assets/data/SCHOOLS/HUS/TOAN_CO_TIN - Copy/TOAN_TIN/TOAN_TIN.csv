@@ -1,0 +1,85 @@
+﻿Type,Code,Name,Credits,Parents
+knowledge,Khối kiến thức chung,;,;,;
+compulsory1,Các học phần bắt buộc,;,16,;
+subject,PHI1006,Triết học Mác - Lênin,3,;
+subject,PEC1008,Kinh tế chính trị Mác - Lênin,2,PHI1006
+subject,PHI1002,Chủ nghĩa xã hội khoa học,2,;
+subject,HIS1001,Lịch sử Đảng Cộng sản Việt Nam,2,;
+subject,POL1001,Tư tưởng Hồ Chí Minh,2,;
+subject,FLF1107,Tiếng Anh B1,5,;
+subject,FLF1307,Tiếng Pháp B1,5,;
+subject,FLF1407,Tiếng Trung B1,5,;
+knowledge,Khối kiến thức theo lĩnh vực,;,;,;
+compulsory1,Các học phần bắt buộc,;,2,;
+subject,INM1000,Tin học cơ sở,2,;
+optional1,Các học phần tự chọn,;,5,;
+subject,HIS1056,Cơ sở văn hóa Việt Nam,3,;
+subject,GEO1050,Khoa học trái đất và sự sống,3,;
+subject,THL1057,Nhà nước và pháp luật đại cương,2,PHI1006
+subject,MAT1060,Nhập môn phân tích dữ liệu,2,;
+subject,PHY1070,Nhập môn Internet kết nối vạn vật,2,;
+subject,PHY1020,Nhập môn Robotics,3,;
+knowledge,Khối kiến thức theo khối ngành,;,;,;
+compulsory1,Các học phần bắt buộc,;,6,;
+subject,PHY1100,Cơ - Nhiệt,3,MAT2302
+subject,PHY1103,Điện - Quang,3,MAT2302
+knowledge,Khối liến thức theo nhóm ngành,;,;,;
+compulsory1,Các học phần bắt buộc,;,46,;
+subject,MAT2300,Đại số tuyến tính 1,4,;
+subject,MAT2301,Đại số tuyến tính 2,4,MAT2300
+subject,MAT2302,Giải tích 1,5,;
+subject,MAT2303,Giải tích 2,5,MAT2302
+subject,MAT2304,Giải tích 3,4,MAT2303
+subject,MAT2314,Phương trình vi phân,4,MAT2301;MAT2303
+subject,MAT3409,Giải tích hàm ứng dụng,3,MAT2301;MAT2304
+subject,MAT2404,Giải tích số,4,MAT2314;MAT2316/MAT2317/MAT2318/MAT2319
+subject,MAT2405,Xác suất,3,MAT2303;MAT2301
+subject,MAT2406,Thống kê ứng dụng,4,MAT2405
+subject,MAT2407,Tối ưu hóa,3,MAT2301;MAT2302
+subject,MAT2315,Phương pháp nghiên cứu khoa học,3,;
+optional1,Các học phần tự chọn,;,3,;
+subject,MAT2316,Lập trình C++,3,INM1000
+subject,MAT2317,Lập trình Java,3,INM1000
+subject,MAT2318,Lập trình Python,3,INM1000
+subject,MAT2319,Lập trình Julia,3,INM1000
+knowledge,Khối kiến thức ngành,;,;,;
+compulsory1,Các học phàn bắt buộc,;,35,;
+subject,MAT3500,Toán rời rạc,4,MAT2302;MAT2300
+subject,MAT3365,Phương trình đạo hàm riêng,3,MAT2314
+subject,MAT3372,Các thành phần phần mềm,3,MAT2316/MAT2317/MAT2318/MAT2319
+subject,MAT3366,Hệ thống máy tính,3,MAT2316/MAT2317/MAT2318/MAT2319
+subject,MAT3514,Cấu trúc dữ liệu và thuật toán,4,MAT2316/MAT2317/MAT2318/MAT2319
+subject,MAT3504,Thiết kế và đánh giá thuật toán,3,MAT2301/MAT2303/MAT3500/MAT3514
+subject,MAT3507,Cơ sở dữ liệu,4,MAT2316/MAT2317/MAT2318/MAT2319;MAT3500
+subject,MAT3452,Phân tích thống kê nhiều chiều,3,MAT2406
+subject,MAT3525,Thực hành tính toán,2,MAT2404
+subject,MAT3359,Thực hành chuyên ngành,3,;
+subject,MAT3533,Học máy,3,MAT2406;MAT2404;MAT3514
+optional1,Các học phần chuyên sâu và bổ trợ định hướng Tin học,;,15,;
+subject,MAT3367,Đại số ứng dụng,3,;
+subject,MAT3545,Lý thuyết tính toán,3,MAT3500;MAT3504
+subject,MAT3539,Mật mã và an toàn dữ liệu,3,MAT2316/MAT2317/MAT2318/MAT2319
+subject,MAT3323,Tối ưu rời rạc,3,MAT2407;MAT3500
+subject,MAT3509,Ngôn ngữ hình thức và Ôtômat,3,MAT2316/MAT2317/MAT2318/MAT2319;MAT3500
+subject,MAT3456,Logic ứng dụng,3,MAT2316/MAT2317/MAT2318/MAT2319;MAT3500
+subject,MAT3531,Tính toán phân tán,3,MAT3366;MAT3372
+subject,MAT3508,Nhập môn trí tuệ nhân tạo,3,MAT3507;MAT3500
+subject,MAT3335,Đại số máy tính,3,MAT2316/MAT2317/MAT2318/MAT2319;MAT2301
+subject,MAT3368,Thuật toán ngẫu nhiên,3,MAT2405
+optional2,Các học phần chuyên sâu và bổ trợ định hướng Tính toán khoa học,;,15,;
+subject,MAT3327,Điều khiển tối ưu,3,MAT2304;MAT2307;MAT2404
+subject,MAT3565,Nhập môn khai phá các tập dữ liệu lớn,3,MAT3514;MAT2405;MAT3507
+subject,MAT3532,Tính toán song song,3,MAT3504;MAT3366
+subject,MAT3561,Xử lý ngôn ngữ tự nhiên và ứng dụng,3,MAT3508;MAT3509
+subject,MAT3562,Thị giác máy tính,3,MAT2303;MAT2301;MAT2316/MAT2317/MAT2318/MAT2319
+subject,MAT3333,Các mô hình toán ứng dụng 1,3,MAT2304;MAT2405
+subject,MAT3334,Các mô hình toán ứng dụng 2,3,MAT2314;MAT2406
+subject,MAT3323,Tối ưu rời rạc,3,MAT2407;MAT3500
+subject,MAT3369,Giải tích số nâng cao,3,MAT2404
+subject,MAT3370,Thống kê Bayes,3,MAT2405
+knowledge,Khóa luận tốt nghiệp/ Học phần thay thế,;,;,;
+optional1,Học phần tự chọn,;,7,;
+subject,MAT4082,Khóa luận tốt nghiệp,7,;
+optional2,Học phần tự chọn,;,7,;
+subject,MAT4072,Một số vấn đề chọn lọc trong tính toán khoa học,4,MAT2404;MAT2407
+subject,MAT3371,Xây dựng phần mềm,3,MAT3372

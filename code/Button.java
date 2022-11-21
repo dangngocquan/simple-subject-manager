@@ -91,17 +91,51 @@ public class Button extends JButton {
         setFont(new Font(fontName, fontStyle, fontSize));
     }
 
+    // Set text
+    public void setText(String text, boolean sizeDependOnText) {
+        if (sizeDependOnText) {
+            setText(text);
+            Font font = new Font(fontName, fontStyle, fontSize);
+            Canvas c = new Canvas();
+            FontMetrics fontMetrics = c.getFontMetrics(font);
+            this.width = fontMetrics.stringWidth(getText()) + fontMetrics.stringWidth("ABCDEF");
+            this.height = fontMetrics.getHeight() + fontMetrics.stringWidth("ABC") / 2;
+            setSize(this.width, this.height);
+        } else {
+            setText(text);
+        }
+    }
+
+    // Set text and size
+    public void setText(String text, int fontSize1, boolean sizeDependOnText) {
+        if (sizeDependOnText) {
+            setText(text);
+            Font font = new Font(this.fontName, this.fontStyle, fontSize1);
+            Canvas c = new Canvas();
+            FontMetrics fontMetrics = c.getFontMetrics(font);
+            this.width = fontMetrics.stringWidth(getText()) + fontMetrics.stringWidth("ABCDEF");
+            this.height = fontMetrics.getHeight() + fontMetrics.stringWidth("ABC") / 2;
+            setSize(this.width, this.height);
+        } else {
+            setFont(new Font(fontName, fontStyle, fontSize1));
+            setText(text);
+        }
+    }
+
     // Button size depend on text
     public void setSizeDependOnText(boolean flag) {
         this.isDependOnText = flag;
     }
 
     // Set size of button when button not depend on text
-    public void setSizeButton(int width, int height) {
-        setSizeDependOnText(false);
+    public void setSizeButton(int width, int height, boolean sizeDependOnText) {
         this.width = width;
         this.height = height;
         setSize(this.width, this.height);
+        if (sizeDependOnText) {
+            setText(getText());
+        }
+
     }
 
     // Set color for button's text
