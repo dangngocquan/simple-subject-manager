@@ -43,7 +43,7 @@ subject,MAT2317,Lập trình Java,3,INM1000
 subject,MAT2318,Lập trình Python,3,INM1000
 subject,MAT2319,Lập trình Julia,3,INM1000
 knowledge,Khối kiến thức ngành,;,;,;
-compulsory1,Các học phàn bắt buộc,;,35,;
+compulsory1,Các học phần bắt buộc,;,35,;
 subject,MAT3500,Toán rời rạc,4,MAT2302;MAT2300
 subject,MAT3365,Phương trình đạo hàm riêng,3,MAT2314
 subject,MAT3372,Các thành phần phần mềm,3,MAT2316/MAT2317/MAT2318/MAT2319

@@ -1,12 +1,8 @@
 package code.panel;
 
 import java.awt.Graphics;
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.swing.JPanel;
 import java.awt.Font;
-
 import code.Setting;
 import code.button.Button;
 import code.curriculum.KnowledgePart;
@@ -31,7 +27,6 @@ public class PanelKnowledgePart extends JPanel {
 
         // Height of this panel
         int height = 0;
-        List<PanelSubject> listPanelSubject = new LinkedList<PanelSubject>();
 
         // Add row of knowledge name
         PanelString knowledgeNamePanel = new PanelString(0, height, knowledgePart.getName(), width, font);
@@ -48,22 +43,13 @@ public class PanelKnowledgePart extends JPanel {
             height += heightRow;
         }
 
-        Subject subject = knowledgePart.getCompulsorySubjects1().get(1);
-        PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
-                font);
-        listPanelSubject.add(panelSubject);
-        add(panelSubject);
-        height += panelSubject.getHeight();
-
-        // // Add compulsory subjects 1 (if have)
-        // for (Subject subject : knowledgePart.getCompulsorySubjects1()) {
-        // PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
-        // font);
-        // listPanelSubject.add(panelSubject);
-        // add(panelSubject);
-        // height += panelSubject.getHeight();
-        // System.out.println(panelSubject.getHeight());
-        // }
+        // Add compulsory subjects 1 (if have)
+        for (Subject subject : knowledgePart.getCompulsorySubjects1()) {
+            PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
+                    font);
+            add(panelSubject);
+            height += panelSubject.getHeight();
+        }
 
         // Add description Compulsory 2 (if have)
         if (!knowledgePart.getDescriptionCompulsory2().isEmpty()) {
@@ -75,14 +61,13 @@ public class PanelKnowledgePart extends JPanel {
             height += heightRow;
         }
 
-        // // Add compulsory subjects 2 (if have)
-        // for (Subject subject : knowledgePart.getCompulsorySubjects2()) {
-        // PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
-        // font);
-        // listPanelSubject.add(panelSubject);
-        // add(panelSubject);
-        // height += panelSubject.getHeight();
-        // }
+        // Add compulsory subjects 2 (if have)
+        for (Subject subject : knowledgePart.getCompulsorySubjects2()) {
+            PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
+                    font);
+            add(panelSubject);
+            height += panelSubject.getHeight();
+        }
 
         // Add description Optional 1 (if have)
         if (!knowledgePart.getDescriptionOptional1().isEmpty()) {
@@ -94,14 +79,13 @@ public class PanelKnowledgePart extends JPanel {
             height += heightRow;
         }
 
-        // // Add Optional subjects 1 (if have)
-        // for (Subject subject : knowledgePart.getOptionalSubjects1()) {
-        // PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
-        // font);
-        // listPanelSubject.add(panelSubject);
-        // add(panelSubject);
-        // height += panelSubject.getHeight();
-        // }
+        // Add Optional subjects 1 (if have)
+        for (Subject subject : knowledgePart.getOptionalSubjects1()) {
+            PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
+                    font);
+            add(panelSubject);
+            height += panelSubject.getHeight();
+        }
 
         // Add description Optional 2 (if have)
         if (!knowledgePart.getDescriptionOptional2().isEmpty()) {
@@ -113,14 +97,13 @@ public class PanelKnowledgePart extends JPanel {
             height += heightRow;
         }
 
-        // // Add Optional subjects 2 (if have)
-        // for (Subject subject : knowledgePart.getOptionalSubjects2()) {
-        // PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
-        // font);
-        // listPanelSubject.add(panelSubject);
-        // add(panelSubject);
-        // height += panelSubject.getHeight();
-        // }
+        // Add Optional subjects 2 (if have)
+        for (Subject subject : knowledgePart.getOptionalSubjects2()) {
+            PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
+                    font);
+            add(panelSubject);
+            height += panelSubject.getHeight();
+        }
 
         // Set up properties for this panel
         setLayout(null);

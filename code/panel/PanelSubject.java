@@ -9,7 +9,6 @@ import code.curriculum.Subject;
 
 import java.awt.Graphics;
 import java.awt.Font;
-import java.awt.BorderLayout;
 
 public class PanelSubject extends JPanel {
         // Properties
@@ -33,7 +32,7 @@ public class PanelSubject extends JPanel {
                 this.width = width;
                 setSize(this.width, this.height);
                 setLayout(null);
-                setBounds(0, 0, this.width, this.height);
+                setBounds(x, y, this.width, this.height);
 
                 // Create panels
                 mainPanel = new JPanel();
@@ -47,20 +46,20 @@ public class PanelSubject extends JPanel {
                 panelCode.setBounds(0, 0, panelCode.getWidth(), panelCode.getHeight());
 
                 panelName = new JPanel();
-                panelName.setLayout(new BorderLayout());
+                panelName.setLayout(null);
                 panelName.setSize((this.width - panelCode.getWidth()) / 11 * 6,
                                 this.height);
                 panelName.setBounds(panelCode.getWidth(), 0, panelName.getWidth(), panelName.getHeight());
 
                 panelCredit = new JPanel();
-                panelCredit.setLayout(new BorderLayout());
+                panelCredit.setLayout(null);
                 panelCredit.setSize((this.width - panelCode.getWidth() - panelName.getWidth()) / 5,
                                 this.height);
                 panelCredit.setBounds(panelCode.getWidth() + panelName.getWidth(), 0,
                                 panelCredit.getWidth(), panelCredit.getHeight());
 
                 panelParentSubjectCodes = new JPanel();
-                panelParentSubjectCodes.setLayout(new BorderLayout());
+                panelParentSubjectCodes.setLayout(null);
                 panelParentSubjectCodes.setSize(
                                 this.width - panelCode.getWidth() - panelName.getWidth() - panelCredit.getWidth(),
                                 this.height);
@@ -79,9 +78,6 @@ public class PanelSubject extends JPanel {
 
                 // Add mainPanel to this panel
                 add(mainPanel);
-
-                // Paint
-                panelName.setBackground(Setting.COLOR_RED_04);
 
         }
 

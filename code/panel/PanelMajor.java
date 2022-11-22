@@ -48,8 +48,11 @@ public class PanelMajor extends JPanel {
         contentPanel.setBounds(0, headerPanel.getHeight(), contentPanel.getWidth(), contentPanel.getHeight());
 
         //
-        contentPanel.add(new PanelKnowledgePart(0, 0, major.getKnowledgeParts().get(4),
+        contentPanel.add(new PanelKnowledgePart(0, 0,
+                major.getKnowledgeParts().get(4),
                 contentPanel.getWidth(), null));
+        // contentPanel.add(new PanelSubject(0, 100, major.getSubjects().get(39),
+        // contentPanel.getWidth(), null));
 
         // Add sub panels to this panel
         add(headerPanel);
