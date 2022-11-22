@@ -2,7 +2,7 @@ package code.panel;
 
 import javax.swing.JPanel;
 
-import code.curriculum.Data;
+// import code.curriculum.Data;
 import code.curriculum.Major;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -48,7 +48,8 @@ public class PanelMajor extends JPanel {
         contentPanel.setBounds(0, headerPanel.getHeight(), contentPanel.getWidth(), contentPanel.getHeight());
 
         //
-        contentPanel.add(new PanelSubject(major.getSubjects().get(0), contentPanel.getWidth()));
+        contentPanel.add(new PanelKnowledgePart(0, 0, major.getKnowledgeParts().get(4),
+                contentPanel.getWidth(), null));
 
         // Add sub panels to this panel
         add(headerPanel);

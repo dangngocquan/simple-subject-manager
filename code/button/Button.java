@@ -1,6 +1,9 @@
 package code.button;
 
 import javax.swing.JButton;
+
+// import code.Setting;
+
 import java.awt.Font;
 import java.awt.Canvas;
 import java.awt.FontMetrics;
@@ -117,8 +120,8 @@ public class Button extends JButton {
             this.height = fontMetrics.getHeight() + fontMetrics.stringWidth("ABC") / 2;
             setSize(this.width, this.height);
         } else {
-            setFont(new Font(fontName, fontStyle, fontSize1));
-            setText(text);
+            setFont(fontName, fontStyle, fontSize1);
+            setText(text, sizeDependOnText);
         }
     }
 

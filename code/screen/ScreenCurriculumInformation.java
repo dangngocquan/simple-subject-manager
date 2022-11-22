@@ -154,7 +154,7 @@ public class ScreenCurriculumInformation extends JPanel {
                 buttons[2].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight(), true);
                 buttons[3].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight(), true);
                 buttons[4].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight(), true);
-                buttons[2].setEnabled(true);
+                buttons[2].setEnabled(false);
                 buttons[3].setEnabled(false);
                 buttons[4].setEnabled(false);
         }
