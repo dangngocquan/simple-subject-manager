@@ -1,24 +1,29 @@
-package code;
+package code.screen;
 
 import javax.swing.JPanel;
+
+import code.Application;
+import code.Setting;
+import code.button.Button;
+
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ScreenInformation extends JPanel {
+public class ScreenPlans extends JPanel {
     // Properties, Objects and Screens
     private Application applicationFrame;
     private String[] buttonTexts = {
-            "Khung chương trình đào tạo", "Quay lại"
+            "Các kế hoạch hiện có", "Tạo kế hoạch mới", "Quay lại"
     };
     private Button[] buttons;
     private ScreenMainMenu parentScreen;
     private JPanel mainScreen;
-    private ScreenCurriculumInformation screenCurriculumInformation;
+    private ScreenCreateNewPlan1 screenCreateNewPlan1;
 
     // Constructor
-    public ScreenInformation(int width, int height, ScreenMainMenu parentScreen, Application frame) {
-        // Set basic properties for this screen
+    public ScreenPlans(int width, int height, ScreenMainMenu parentScreen, Application frame) {
+        // Set basic properties
         this.applicationFrame = frame;
         setLayout(null);
         setBounds(0, 0, width, height);
@@ -30,7 +35,7 @@ public class ScreenInformation extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, width, height);
-        screenCurriculumInformation = new ScreenCurriculumInformation(width, height, this, applicationFrame);
+        screenCreateNewPlan1 = new ScreenCreateNewPlan1(width, height, this, applicationFrame);
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -40,25 +45,26 @@ public class ScreenInformation extends JPanel {
                     Setting.FONT_NAME_01,
                     Setting.FONT_STYLE_01,
                     Setting.FONT_SIZE_MEDIUM);
-            buttons[count].addActionListener(new ButtonHandler());
+            buttons[count].addActionListener(new ButtonHandle());
         }
 
         // Set location for each button
-        buttons[0].setLocation(width / 2, height / 12 * 5, Button.TOP_CENTER);
-        buttons[1].setLocation(width / 2, height / 12 * 7, Button.TOP_CENTER);
+        buttons[0].setLocation(width / 2, height / 12 * 3, Button.TOP_CENTER);
+        buttons[1].setLocation(width / 2, height / 12 * 5, Button.TOP_CENTER);
+        buttons[2].setLocation(width / 2, height / 12 * 7, Button.TOP_CENTER);
 
         // Add buttons to mainScreen
         for (Button button : buttons) {
             mainScreen.add(button);
         }
 
-        // Add screen to this panel
+        // Add screens to this panel
         add(mainScreen);
-        add(screenCurriculumInformation);
+        add(screenCreateNewPlan1);
 
-        // Set visible of screens
+        // Set visible screens
         mainScreen.setVisible(true);
-        screenCurriculumInformation.setVisible(false);
+        screenCreateNewPlan1.setVisible(false);
     }
 
     // Get application frame
@@ -71,7 +77,7 @@ public class ScreenInformation extends JPanel {
         return this.buttons;
     }
 
-    // Get parentScreen
+    // Get parent screen
     public ScreenMainMenu getParentScreen() {
         return this.parentScreen;
     }
@@ -81,9 +87,9 @@ public class ScreenInformation extends JPanel {
         return this.mainScreen;
     }
 
-    // Get screenCurriculumInformation
-    public ScreenCurriculumInformation getScreenCurriculumInformation() {
-        return this.screenCurriculumInformation;
+    // Get ScreenCreateNewPlan1
+    public ScreenCreateNewPlan1 getScreenCreateNewPlan1() {
+        return this.screenCreateNewPlan1;
     }
 
     // Auto called method of JPanel
@@ -91,18 +97,22 @@ public class ScreenInformation extends JPanel {
         super.paintComponent(g);
     }
 
-    // Handler buttons
-    private class ButtonHandler implements ActionListener {
+    // Handler buttons in mainScreen
+    private class ButtonHandle implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            // Press at "Curriculums" in mainScreen
+            // Press at "Existing plans" button
             if (event.getSource() == buttons[0]) {
-                getScreenCurriculumInformation().setVisible(true);
+
+            }
+            // Press at "Create new plan" button
+            else if (event.getSource() == buttons[1]) {
+                getScreenCreateNewPlan1().setVisible(true);
                 getMainScreen().setVisible(false);
             }
-            // Press at "Back" in mainScreen
-            else if (event.getSource() == buttons[1]) {
+            // Press at "Back" button
+            else if (event.getSource() == buttons[2]) {
                 getParentScreen().getMainScreen().setVisible(true);
-                getParentScreen().getScreenInformation().setVisible(false);
+                getParentScreen().getScreenPlans().setVisible(false);
             }
         }
     }

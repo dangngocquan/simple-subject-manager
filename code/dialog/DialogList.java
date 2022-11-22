@@ -1,4 +1,4 @@
-package code;
+package code.dialog;
 
 import javax.swing.Icon;
 import javax.swing.JOptionPane;

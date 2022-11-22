@@ -1,4 +1,4 @@
-package code;
+package code.button;
 
 import javax.swing.JButton;
 import java.awt.Font;

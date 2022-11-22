@@ -10,6 +10,7 @@ public class Setting {
     public static int FONT_SIZE_MEDIUM = 24;
     public static int FONT_SIZE_SMALL = 18;
     public static int FONT_SIZE_VERY_SMALL = 11;
+    public static Color COLOR_NULL = new Color(0, 0, 0, 0);
     public static Color COLOR_BLACK = new Color(0, 0, 0);
     public static Color COLOR_WHITE = new Color(255, 255, 255);
     public static Color COLOR_RED_01 = new Color(50, 0, 0);

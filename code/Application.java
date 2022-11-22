@@ -4,6 +4,7 @@ import java.awt.GraphicsEnvironment;
 import javax.swing.JFrame;
 
 import code.curriculum.Data;
+import code.screen.ScreenMainMenu;
 
 public class Application extends JFrame {
     // Properties and screens
@@ -25,7 +26,7 @@ public class Application extends JFrame {
         new Data();
 
         // Create screens
-        screenMainMenu = new ScreenMainMenu(width, height - 36, this);
+        screenMainMenu = new ScreenMainMenu(width - 14, height - 36, this);
 
         // Add screens to frame
         add(screenMainMenu);

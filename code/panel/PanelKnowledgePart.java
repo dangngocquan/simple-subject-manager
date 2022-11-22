@@ -1,4 +1,4 @@
-package code;
+package code.panel;
 
 import java.awt.Graphics;
 
