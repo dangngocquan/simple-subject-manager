@@ -1,11 +1,9 @@
 package code.panel;
 
-// import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import java.awt.Color;
 import code.Setting;
 import code.curriculum.Subject;
-
 import java.awt.Graphics;
 import java.awt.Font;
 
@@ -63,6 +61,15 @@ public class PanelSubject extends JPanel {
 
                 // Add mainPanel to this panel
                 add(mainPanel);
+        }
+
+        // Set background Color
+        public void setBackgroundColorPanelSubject(Color color) {
+                mainPanel.setBackground(color);
+                panelCode.setBackground(color);
+                panelName.setBackground(color);
+                panelCredit.setBackground(color);
+                panelParentSubjectCodes.setBackground(color);
         }
 
         // Auto called method of JPanel

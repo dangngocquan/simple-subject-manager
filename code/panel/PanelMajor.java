@@ -8,7 +8,6 @@ import code.button.Button;
 import code.curriculum.KnowledgePart;
 import code.curriculum.Major;
 import java.awt.Graphics;
-import java.awt.Color;
 
 public class PanelMajor extends JPanel {
     // Constants panel's root location

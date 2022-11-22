@@ -27,9 +27,11 @@ public class PanelKnowledgePart extends JPanel {
 
                 // Height of this panel
                 int height = 0;
+                int countSubjects = 0;
 
                 // Add row of knowledge name
                 PanelString knowledgeNamePanel = new PanelString(0, height, knowledgePart.getName(), width, font);
+                knowledgeNamePanel.setBackground(Setting.COLOR_RED_02);
                 add(knowledgeNamePanel);
                 height += heightRow;
 
@@ -39,6 +41,7 @@ public class PanelKnowledgePart extends JPanel {
                                         + knowledgePart.getMinCreditsCompulsorySubjects() + " tín chỉ)";
                         PanelString desCompulsory1Panel = new PanelString(0, height,
                                         str, width, font);
+                        desCompulsory1Panel.setBackground(Setting.COLOR_GREEN_02);
                         add(desCompulsory1Panel);
                         height += heightRow;
                 }
@@ -47,6 +50,12 @@ public class PanelKnowledgePart extends JPanel {
                 for (Subject subject : knowledgePart.getCompulsorySubjects1()) {
                         PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
                                         font);
+                        if (countSubjects % 2 == 0) {
+                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_03);
+                        } else {
+                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_04);
+                        }
+                        countSubjects++;
                         add(panelSubject);
                         height += panelSubject.getHeight();
                 }
@@ -57,6 +66,7 @@ public class PanelKnowledgePart extends JPanel {
                                         + knowledgePart.getMinCreditsCompulsorySubjects() + " tín chỉ)";
                         PanelString desCompulsory2Panel = new PanelString(0, height,
                                         str, width, font);
+                        desCompulsory2Panel.setBackground(Setting.COLOR_GREEN_02);
                         add(desCompulsory2Panel);
                         height += heightRow;
                 }
@@ -65,6 +75,12 @@ public class PanelKnowledgePart extends JPanel {
                 for (Subject subject : knowledgePart.getCompulsorySubjects2()) {
                         PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
                                         font);
+                        if (countSubjects % 2 == 0) {
+                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_03);
+                        } else {
+                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_04);
+                        }
+                        countSubjects++;
                         add(panelSubject);
                         height += panelSubject.getHeight();
                 }
@@ -75,6 +91,7 @@ public class PanelKnowledgePart extends JPanel {
                                         + knowledgePart.getMinCreditsOptionalSubjects() + " tín chỉ)";
                         PanelString desOptional1Panel = new PanelString(0, height,
                                         str, width, font);
+                        desOptional1Panel.setBackground(Setting.COLOR_GREEN_02);
                         add(desOptional1Panel);
                         height += heightRow;
                 }
@@ -83,6 +100,12 @@ public class PanelKnowledgePart extends JPanel {
                 for (Subject subject : knowledgePart.getOptionalSubjects1()) {
                         PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
                                         font);
+                        if (countSubjects % 2 == 0) {
+                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_03);
+                        } else {
+                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_04);
+                        }
+                        countSubjects++;
                         add(panelSubject);
                         height += panelSubject.getHeight();
                 }
@@ -91,9 +114,10 @@ public class PanelKnowledgePart extends JPanel {
                 if (!knowledgePart.getDescriptionOptional2().isEmpty()) {
                         String str = knowledgePart.getDescriptionOptional2() + " ("
                                         + knowledgePart.getMinCreditsOptionalSubjects() + " tín chỉ)";
-                        PanelString desOptional1Panel = new PanelString(0, height,
+                        PanelString desOptional2Panel = new PanelString(0, height,
                                         str, width, font);
-                        add(desOptional1Panel);
+                        desOptional2Panel.setBackground(Setting.COLOR_GREEN_02);
+                        add(desOptional2Panel);
                         height += heightRow;
                 }
 
@@ -101,6 +125,12 @@ public class PanelKnowledgePart extends JPanel {
                 for (Subject subject : knowledgePart.getOptionalSubjects2()) {
                         PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
                                         font);
+                        if (countSubjects % 2 == 0) {
+                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_03);
+                        } else {
+                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_04);
+                        }
+                        countSubjects++;
                         add(panelSubject);
                         height += panelSubject.getHeight();
                 }
