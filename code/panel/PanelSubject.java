@@ -12,63 +12,44 @@ import java.awt.Font;
 
 public class PanelSubject extends JPanel {
         // Properties
-        private int width, height;
         private JPanel mainPanel;
-        private JPanel panelCode;
-        private JPanel panelName;
-        private JPanel panelCredit;
-        private JPanel panelParentSubjectCodes;
+        private PanelString panelCode;
+        private PanelString panelName;
+        private PanelString panelCredit;
+        private PanelString panelParentSubjectCodes;
 
         // Constructor
         public PanelSubject(int x, int y, Subject subject, int width, Font font) {
-                // Create pattern button to get height
-                Button button = new Button("A");
-                button.setFont(Setting.FONT_NAME_01,
-                                Setting.FONT_STYLE_01,
-                                Setting.FONT_SIZE_SMALL);
-
-                // Properties of this panel
-                this.height = button.getHeight() * (Math.max(subject.getParentSubjectCodes().size(), 1));
-                this.width = width;
-                setSize(this.width, this.height);
-                setLayout(null);
-                setBounds(x, y, this.width, this.height);
+                // Create defaulr font
+                if (font == null) {
+                        font = new Font(Setting.FONT_NAME_01,
+                                        Setting.FONT_STYLE_01,
+                                        Setting.FONT_SIZE_SMALL);
+                }
 
                 // Create panels
+                panelParentSubjectCodes = new PanelString(width - width / 12 * 4, 0,
+                                subject.getParentSubjectCodes(), width / 12 * 4, font);
+
+                panelCredit = new PanelString((width - panelParentSubjectCodes.getWidth()) / 8 * 7, 0,
+                                subject.getNumberCredits() + "", (width - panelParentSubjectCodes.getWidth()) / 8,
+                                font);
+
+                panelName = new PanelString((width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7,
+                                0, subject.getName(),
+                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7 * 6, font);
+
+                panelCode = new PanelString(0, 0, subject.getCode(),
+                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7, font);
+
+                // Height of mainPanel
+                int height = panelParentSubjectCodes.getHeight();
+
+                // mainPanel
                 mainPanel = new JPanel();
                 mainPanel.setLayout(null);
-                mainPanel.setSize(this.width, this.height);
+                mainPanel.setSize(width, height);
                 mainPanel.setBounds(0, 0, mainPanel.getWidth(), mainPanel.getHeight());
-
-                panelCode = new JPanel();
-                panelCode.setLayout(null);
-                panelCode.setSize(this.width / 12, this.height);
-                panelCode.setBounds(0, 0, panelCode.getWidth(), panelCode.getHeight());
-
-                panelName = new JPanel();
-                panelName.setLayout(null);
-                panelName.setSize((this.width - panelCode.getWidth()) / 11 * 6,
-                                this.height);
-                panelName.setBounds(panelCode.getWidth(), 0, panelName.getWidth(), panelName.getHeight());
-
-                panelCredit = new JPanel();
-                panelCredit.setLayout(null);
-                panelCredit.setSize((this.width - panelCode.getWidth() - panelName.getWidth()) / 5,
-                                this.height);
-                panelCredit.setBounds(panelCode.getWidth() + panelName.getWidth(), 0,
-                                panelCredit.getWidth(), panelCredit.getHeight());
-
-                panelParentSubjectCodes = new JPanel();
-                panelParentSubjectCodes.setLayout(null);
-                panelParentSubjectCodes.setSize(
-                                this.width - panelCode.getWidth() - panelName.getWidth() - panelCredit.getWidth(),
-                                this.height);
-                panelParentSubjectCodes.setBounds(panelCode.getWidth() + panelName.getWidth() + panelCredit.getWidth(),
-                                0,
-                                panelParentSubjectCodes.getWidth(), panelParentSubjectCodes.getHeight());
-
-                // Add String to panels
-                updateText(subject, font);
 
                 // Relative between panels
                 mainPanel.add(panelCode);
@@ -76,18 +57,13 @@ public class PanelSubject extends JPanel {
                 mainPanel.add(panelCredit);
                 mainPanel.add(panelParentSubjectCodes);
 
+                // Properties of this panel
+                setLayout(null);
+                setSize(width, height);
+                setBounds(x, y, getWidth(), getHeight());
+
                 // Add mainPanel to this panel
                 add(mainPanel);
-
-        }
-
-        // Update text of Panel subject
-        public void updateText(Subject subject, Font font) {
-                panelCode.add(new PanelString(0, 0, subject.getCode(), panelCode.getWidth(), font));
-                panelName.add(new PanelString(0, 0, subject.getName(), panelName.getWidth(), font));
-                panelCredit.add(new PanelString(0, 0, subject.getNumberCredits() + "", panelCredit.getWidth(), font));
-                panelParentSubjectCodes.add(new PanelString(0, 0, subject.getParentSubjectCodes(),
-                                panelParentSubjectCodes.getWidth(), font));
         }
 
         // Auto called method of JPanel
