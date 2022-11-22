@@ -2,6 +2,9 @@ package code.panel;
 
 import javax.swing.JPanel;
 
+import code.Setting;
+import code.button.Button;
+import code.curriculum.KnowledgePart;
 // import code.curriculum.Data;
 import code.curriculum.Major;
 import java.awt.Graphics;
@@ -20,10 +23,13 @@ public class PanelMajor extends JPanel {
     public static final int BOTTOM_RIGHT = 8;
 
     // Properties
-    private int width, height;
-    private int xPos, yPos, rootLocationType;
-    private Major major;
-    private JPanel headerPanel, contentPanel;
+    private int width, height; // size of this panel
+    private int xPos, yPos, rootLocationType; // location of top-left point
+    private Major major; // data major
+    private JPanel headerPanel; // contains title
+    private JPanel contentPanel; // a part of scrollPanel wil be shown here
+    private JPanel scrollPanel; // Contains all information of major
+    private int cursorScroll = 0; // to define where the contentPanel in scrolllPanel
 
     // Constructor
     public PanelMajor(int x, int y, int width, int height, Major major, int rootLocationType) {
@@ -47,15 +53,64 @@ public class PanelMajor extends JPanel {
         contentPanel.setSize(width, height - headerPanel.getHeight());
         contentPanel.setBounds(0, headerPanel.getHeight(), contentPanel.getWidth(), contentPanel.getHeight());
 
-        //
-        contentPanel.add(new PanelKnowledgePart(0, 0,
-                major.getKnowledgeParts().get(4),
-                contentPanel.getWidth(), null));
+        // Create titles for headerPanel
+        Button titleCode = new Button("Mã       ");
+        titleCode.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
+        titleCode.setBorderPainted(false);
+        titleCode.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight(), false);
+        titleCode.setBounds(0, 0, titleCode.getWidth(), titleCode.getHeight());
+
+        Button titleName = new Button(
+                "Tên môn học                                                                                  ");
+        titleName.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
+        titleName.setBorderPainted(false);
+        titleName.setSizeButton(headerPanel.getWidth() / 12 * 6, headerPanel.getHeight(), false);
+        titleName.setBounds(titleCode.getWidth(), 0, titleName.getWidth(), titleName.getHeight());
+
+        Button titleCredits = new Button("Số tín ");
+        titleCredits.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
+        titleCredits.setBorderPainted(false);
+        titleCredits.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight(), false);
+        titleCredits.setBounds(titleCode.getWidth() + titleName.getWidth(), 0,
+                titleCredits.getWidth(), titleCredits.getHeight());
+
+        Button titleParentCodes = new Button("Mã học phần tiên quyết                            ");
+        titleParentCodes.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
+        titleParentCodes.setBorderPainted(false);
+        titleParentCodes.setSizeButton(headerPanel.getWidth() / 12 * 4, headerPanel.getHeight(), false);
+        titleParentCodes.setBounds(titleCode.getWidth() + titleName.getWidth() + titleCredits.getWidth(), 0,
+                headerPanel.getWidth() - titleCode.getWidth() - titleName.getWidth() - titleCredits.getWidth(),
+                titleParentCodes.getHeight());
+
+        // Create scrollPanel
+        scrollPanel = new JPanel();
+        int heightScroll = 0;
+        for (KnowledgePart knowledgePart : major.getKnowledgeParts()) {
+            PanelKnowledgePart panelKnowledgePart = new PanelKnowledgePart(0, heightScroll, knowledgePart,
+                    contentPanel.getWidth(), null);
+            scrollPanel.add(panelKnowledgePart);
+            heightScroll += panelKnowledgePart.getHeight();
+        }
+        scrollPanel.setLayout(null);
+        scrollPanel.setSize(contentPanel.getWidth(), heightScroll);
+        updateContentShowing();
 
         // Add sub panels to this panel
         add(headerPanel);
         add(contentPanel);
+        headerPanel.add(titleCode);
+        headerPanel.add(titleName);
+        headerPanel.add(titleCredits);
+        headerPanel.add(titleParentCodes);
+        contentPanel.add(scrollPanel);
 
+        setCurscorScroll(500);
+
+    }
+
+    // Update contentPanel
+    public void updateContentShowing() {
+        scrollPanel.setBounds(0, -cursorScroll, scrollPanel.getWidth(), scrollPanel.getHeight());
     }
 
     // Get rootLocationType
@@ -66,6 +121,12 @@ public class PanelMajor extends JPanel {
     // Get major
     public Major getMajor() {
         return this.major;
+    }
+
+    // set cursorScroll
+    public void setCurscorScroll(int value) {
+        this.cursorScroll = value;
+        updateContentShowing();
     }
 
     // Set root location tyoe

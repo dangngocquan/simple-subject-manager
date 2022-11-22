@@ -4,7 +4,6 @@ package code.panel;
 import javax.swing.JPanel;
 
 import code.Setting;
-import code.button.Button;
 import code.curriculum.Subject;
 
 import java.awt.Graphics;
