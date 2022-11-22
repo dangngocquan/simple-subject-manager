@@ -59,11 +59,11 @@ public class KnowledgePart {
     }
 
     public List<Subject> getCompulsorySubjects2() {
-        return this.compulsorySubjecs1;
+        return this.compulsorySubjecs2;
     }
 
     public List<Subject> getOptionalSubjects2() {
-        return this.optionalSubjects1;
+        return this.optionalSubjects2;
     }
 
     public String getDescriptionCompulsory1() {

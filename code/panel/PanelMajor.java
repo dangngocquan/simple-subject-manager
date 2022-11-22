@@ -1,11 +1,11 @@
 package code.panel;
 
 import javax.swing.JPanel;
-
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
 import code.Setting;
 import code.button.Button;
 import code.curriculum.KnowledgePart;
-// import code.curriculum.Data;
 import code.curriculum.Major;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -104,7 +104,8 @@ public class PanelMajor extends JPanel {
         headerPanel.add(titleParentCodes);
         contentPanel.add(scrollPanel);
 
-        setCurscorScroll(500);
+        // Add MouseWheelListener to this panel
+        addMouseWheelListener(new MouseWheelHandler());
 
     }
 
@@ -123,9 +124,21 @@ public class PanelMajor extends JPanel {
         return this.major;
     }
 
+    // get CursorScroll
+    public int getCursorScroll() {
+        return this.cursorScroll;
+    }
+
+    // Get max cursorScroll
+    public int getMaxCursorScroll() {
+        return Math.max(0, this.scrollPanel.getHeight() - this.contentPanel.getHeight() + 50);
+    }
+
     // set cursorScroll
     public void setCurscorScroll(int value) {
-        this.cursorScroll = value;
+        if (value >= 0 && value <= getMaxCursorScroll()) {
+            this.cursorScroll = value;
+        }
         updateContentShowing();
     }
 
@@ -176,7 +189,16 @@ public class PanelMajor extends JPanel {
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        headerPanel.setBackground(new Color(100, 100, 100));
-        contentPanel.setBackground(new Color(200, 200, 200));
+    }
+
+    private class MouseWheelHandler implements MouseWheelListener {
+        public void mouseWheelMoved(MouseWheelEvent event) {
+            if (event.getWheelRotation() < 0) {
+                setCurscorScroll(getCursorScroll() - 30);
+            } else {
+                setCurscorScroll(getCursorScroll() + 30);
+            }
+            updateContentShowing();
+        }
     }
 }
