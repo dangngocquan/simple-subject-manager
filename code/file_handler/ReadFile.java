@@ -98,6 +98,8 @@ public class ReadFile {
                         major.getKnowledgeParts().get(lastIndex).setDescriptionCompulsory(datas[1]);
                         major.getKnowledgeParts().get(lastIndex)
                                 .setMinCreditsCompulsorySubjects(Integer.parseInt(datas[3]));
+                    } else if (type.equals("mainDesOptional")) {
+                        major.getKnowledgeParts().get(lastIndex).setMainDescriptionOptionalSubjects(datas[1]);
                     } else if (type.equals("optional")) {
                         major.getKnowledgeParts().get(lastIndex).getOptionalSubjects().add(new LinkedList<Subject>());
                         major.getKnowledgeParts().get(lastIndex).addDescriptionOptional(datas[1]);

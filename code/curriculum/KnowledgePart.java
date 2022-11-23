@@ -11,6 +11,7 @@ public class KnowledgePart {
     private int minCreditsCompulsorySubjects;
     private int minCreditsOptionalSubjects;
     private String descriptionCompulsory;
+    private String mainDescriptionOptionalSubjects;
     private List<String> descriptionOptionals;
 
     // Constructor
@@ -21,6 +22,7 @@ public class KnowledgePart {
         this.minCreditsCompulsorySubjects = 0;
         this.minCreditsOptionalSubjects = 0;
         this.descriptionCompulsory = "";
+        this.mainDescriptionOptionalSubjects = "";
         this.descriptionOptionals = new LinkedList<String>();
     }
 
@@ -57,6 +59,10 @@ public class KnowledgePart {
 
     public String getDescriptionCompulsory() {
         return this.descriptionCompulsory;
+    }
+
+    public String getMainDescriptionOptionalSubjects() {
+        return this.mainDescriptionOptionalSubjects;
     }
 
     public List<String> getDescriptionOptionals() {
@@ -107,6 +113,10 @@ public class KnowledgePart {
 
     public void setDescriptionCompulsory(String description) {
         this.descriptionCompulsory = description;
+    }
+
+    public void setMainDescriptionOptionalSubjects(String des) {
+        this.mainDescriptionOptionalSubjects = des;
     }
 
     public void addDescriptionOptional(String description) {

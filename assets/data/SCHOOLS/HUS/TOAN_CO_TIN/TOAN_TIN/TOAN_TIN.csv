@@ -56,6 +56,7 @@ subject,MAT3452,Phân tích thống kê nhiều chiều,3,MAT2406
 subject,MAT3525,Thực hành tính toán,2,MAT2404
 subject,MAT3359,Thực hành chuyên ngành,3,;
 subject,MAT3533,Học máy,3,MAT2406;MAT2404;MAT3514
+mainDesOptional,Chọn một trong các định hướng,;,;,;
 optional,Các học phần chuyên sâu và bổ trợ định hướng Tin học,;,15,;
 subject,MAT3367,Đại số ứng dụng,3,;
 subject,MAT3545,Lý thuyết tính toán,3,MAT3500;MAT3504
@@ -79,8 +80,9 @@ subject,MAT3323,Tối ưu rời rạc,3,MAT2407;MAT3500
 subject,MAT3369,Giải tích số nâng cao,3,MAT2404
 subject,MAT3370,Thống kê Bayes,3,MAT2405
 knowledge,Khóa luận tốt nghiệp/ Học phần thay thế,;,;,;
-optional,Học phần tự chọn,;,7,;
+mainDesOptional,Chọn Khóa luận tốt nghiệp hoặc Các học phần thay thế,,,
+optional,Khóa luận tốt nghiệp,;,7,;
 subject,MAT4082,Khóa luận tốt nghiệp,7,;
-optional,Học phần tự chọn,;,7,;
+optional,Các học phần thay thế,;,7,;
 subject,MAT4072,Một số vấn đề chọn lọc trong tính toán khoa học,4,MAT2404;MAT2407
 subject,MAT3371,Xây dựng phần mềm,3,MAT3372

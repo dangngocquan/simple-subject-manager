@@ -42,7 +42,10 @@ public class PanelKnowledgePart extends JPanel {
                         String str = knowledgePart.getDescriptionCompulsory() + " ("
                                         + knowledgePart.getMinCreditsCompulsorySubjects() + " tín chỉ)";
                         PanelString desCompulsory1Panel = new PanelString(0, height,
-                                        str, width, font);
+                                        str, width,
+                                        new Font(Setting.FONT_NAME_01,
+                                                        Setting.FONT_STYLE_03,
+                                                        Setting.FONT_SIZE_SMALL));
                         desCompulsory1Panel.setBackground(Setting.COLOR_GREEN_02);
                         add(desCompulsory1Panel);
                         height += heightRow;
@@ -62,6 +65,19 @@ public class PanelKnowledgePart extends JPanel {
                         height += panelSubject.getHeight();
                 }
 
+                // Add main description of optional subjects
+                if (!knowledgePart.getMainDescriptionOptionalSubjects().isEmpty()) {
+                        String str = knowledgePart.getMainDescriptionOptionalSubjects();
+                        PanelString desCompulsory1Panel = new PanelString(0, height,
+                                        str, width,
+                                        new Font(Setting.FONT_NAME_01,
+                                                        Setting.FONT_STYLE_03,
+                                                        Setting.FONT_SIZE_SMALL));
+                        desCompulsory1Panel.setBackground(Setting.COLOR_GREEN_01);
+                        add(desCompulsory1Panel);
+                        height += heightRow;
+                }
+
                 // Add description Optional and subjects optional (if have)
                 for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsList(); count++) {
                         List<Subject> optionalSubjectList = knowledgePart.getOptionalSubjects().get(count);
@@ -69,7 +85,10 @@ public class PanelKnowledgePart extends JPanel {
                                         + knowledgePart.getMinCreditsOptionalSubjects() + " tín chỉ)";
                         // Add panel of description
                         PanelString desOptionalPanel = new PanelString(0, height,
-                                        optionalDescription, width, font);
+                                        optionalDescription, width,
+                                        new Font(Setting.FONT_NAME_01,
+                                                        Setting.FONT_STYLE_03,
+                                                        Setting.FONT_SIZE_SMALL));
                         desOptionalPanel.setBackground(Setting.COLOR_GREEN_02);
                         add(desOptionalPanel);
                         height += heightRow;
