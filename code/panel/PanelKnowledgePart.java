@@ -1,6 +1,8 @@
 package code.panel;
 
 import java.awt.Graphics;
+import java.util.List;
+
 import javax.swing.JPanel;
 import java.awt.Font;
 import code.Setting;
@@ -35,9 +37,9 @@ public class PanelKnowledgePart extends JPanel {
                 add(knowledgeNamePanel);
                 height += heightRow;
 
-                // Add description Compulsory 1 (if have)
-                if (!knowledgePart.getDescriptionCompulsory1().isEmpty()) {
-                        String str = knowledgePart.getDescriptionCompulsory1() + " ("
+                // Add description Compulsory (if have)
+                if (!knowledgePart.getDescriptionCompulsory().isEmpty()) {
+                        String str = knowledgePart.getDescriptionCompulsory() + " ("
                                         + knowledgePart.getMinCreditsCompulsorySubjects() + " tín chỉ)";
                         PanelString desCompulsory1Panel = new PanelString(0, height,
                                         str, width, font);
@@ -46,8 +48,8 @@ public class PanelKnowledgePart extends JPanel {
                         height += heightRow;
                 }
 
-                // Add compulsory subjects 1 (if have)
-                for (Subject subject : knowledgePart.getCompulsorySubjects1()) {
+                // Add compulsory subjects (if have)
+                for (Subject subject : knowledgePart.getCompulsorySubjects()) {
                         PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
                                         font);
                         if (countSubjects % 2 == 0) {
@@ -60,79 +62,32 @@ public class PanelKnowledgePart extends JPanel {
                         height += panelSubject.getHeight();
                 }
 
-                // Add description Compulsory 2 (if have)
-                if (!knowledgePart.getDescriptionCompulsory2().isEmpty()) {
-                        String str = knowledgePart.getDescriptionCompulsory2() + " ("
-                                        + knowledgePart.getMinCreditsCompulsorySubjects() + " tín chỉ)";
-                        PanelString desCompulsory2Panel = new PanelString(0, height,
-                                        str, width, font);
-                        desCompulsory2Panel.setBackground(Setting.COLOR_GREEN_02);
-                        add(desCompulsory2Panel);
-                        height += heightRow;
-                }
-
-                // Add compulsory subjects 2 (if have)
-                for (Subject subject : knowledgePart.getCompulsorySubjects2()) {
-                        PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
-                                        font);
-                        if (countSubjects % 2 == 0) {
-                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_03);
-                        } else {
-                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_04);
-                        }
-                        countSubjects++;
-                        add(panelSubject);
-                        height += panelSubject.getHeight();
-                }
-
-                // Add description Optional 1 (if have)
-                if (!knowledgePart.getDescriptionOptional1().isEmpty()) {
-                        String str = knowledgePart.getDescriptionOptional1() + " ("
+                // Add description Optional and subjects optional (if have)
+                for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsList(); count++) {
+                        List<Subject> optionalSubjectList = knowledgePart.getOptionalSubjects().get(count);
+                        String optionalDescription = knowledgePart.getDescriptionOptionals().get(count) + " ("
                                         + knowledgePart.getMinCreditsOptionalSubjects() + " tín chỉ)";
-                        PanelString desOptional1Panel = new PanelString(0, height,
-                                        str, width, font);
-                        desOptional1Panel.setBackground(Setting.COLOR_GREEN_02);
-                        add(desOptional1Panel);
+                        // Add panel of description
+                        PanelString desOptionalPanel = new PanelString(0, height,
+                                        optionalDescription, width, font);
+                        desOptionalPanel.setBackground(Setting.COLOR_GREEN_02);
+                        add(desOptionalPanel);
                         height += heightRow;
-                }
 
-                // Add Optional subjects 1 (if have)
-                for (Subject subject : knowledgePart.getOptionalSubjects1()) {
-                        PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
-                                        font);
-                        if (countSubjects % 2 == 0) {
-                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_03);
-                        } else {
-                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_04);
+                        // Add panel of subjects
+                        for (Subject subject : optionalSubjectList) {
+                                PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
+                                                font);
+                                if (countSubjects % 2 == 0) {
+                                        panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_03);
+                                } else {
+                                        panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_04);
+                                }
+                                countSubjects++;
+                                add(panelSubject);
+                                height += panelSubject.getHeight();
                         }
-                        countSubjects++;
-                        add(panelSubject);
-                        height += panelSubject.getHeight();
-                }
 
-                // Add description Optional 2 (if have)
-                if (!knowledgePart.getDescriptionOptional2().isEmpty()) {
-                        String str = knowledgePart.getDescriptionOptional2() + " ("
-                                        + knowledgePart.getMinCreditsOptionalSubjects() + " tín chỉ)";
-                        PanelString desOptional2Panel = new PanelString(0, height,
-                                        str, width, font);
-                        desOptional2Panel.setBackground(Setting.COLOR_GREEN_02);
-                        add(desOptional2Panel);
-                        height += heightRow;
-                }
-
-                // Add Optional subjects 2 (if have)
-                for (Subject subject : knowledgePart.getOptionalSubjects2()) {
-                        PanelSubject panelSubject = new PanelSubject(0, height, subject, width,
-                                        font);
-                        if (countSubjects % 2 == 0) {
-                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_03);
-                        } else {
-                                panelSubject.setBackgroundColorPanelSubject(Setting.COLOR_GRAY_04);
-                        }
-                        countSubjects++;
-                        add(panelSubject);
-                        height += panelSubject.getHeight();
                 }
 
                 // Set up properties for this panel

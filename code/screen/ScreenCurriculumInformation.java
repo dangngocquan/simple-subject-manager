@@ -128,11 +128,8 @@ public class ScreenCurriculumInformation extends JPanel {
                 headPanel2.add(buttons[4]);
                 headPanel3.add(buttons[1]);
                 bodyPanel.add(bodyPanel0);
-                bodyPanel0.add(
-                                new PanelMajor(0, 0, bodyPanel0.getWidth(), bodyPanel0.getHeight(),
-                                                Data.SCHOOLS.getSchools().get(0).getDepartments().get(0).getMajors()
-                                                                .get(0),
-                                                PanelMajor.TOP_LEFT));
+                bodyPanel0.add(new PanelMajor(0, 0, bodyPanel0.getWidth(), bodyPanel0.getHeight(),
+                                major, PanelMajor.TOP_LEFT));
 
                 // Add screens to this panel
                 add(mainScreen);
@@ -157,6 +154,10 @@ public class ScreenCurriculumInformation extends JPanel {
                 buttons[2].setEnabled(false);
                 buttons[3].setEnabled(false);
                 buttons[4].setEnabled(false);
+                bodyPanel0.removeAll();
+                bodyPanel0.add(new PanelMajor(0, 0, bodyPanel0.getWidth(), bodyPanel0.getHeight(),
+                                major, PanelMajor.TOP_LEFT));
+                repaint();
         }
 
         // Get application frame

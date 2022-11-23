@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+
 import code.curriculum.KnowledgePart;
 import code.curriculum.Major;
 import code.curriculum.Subject;
@@ -61,7 +63,7 @@ public class ReadFile {
             // read data
             String line = reader.readLine(); // Title
             line = reader.readLine();
-            String typeSubject = ""; // "compulsory1" | "compulsory2" | "optional1" | "optional2"
+            String typeSubject = ""; // "compulsory" | "optional"
             while (line != null) {
                 String[] datas = line.split(",");
                 String type = datas[0];
@@ -78,14 +80,12 @@ public class ReadFile {
                     }
                     // Add subject to KnowlegePart of Major
                     int lastIndex = major.getKnowledgeParts().size() - 1;
-                    if (typeSubject.equals("compulsory1")) {
-                        major.getKnowledgeParts().get(lastIndex).addCompulsorySubject1(subject);
-                    } else if (typeSubject.equals("compulsory2")) {
-                        major.getKnowledgeParts().get(lastIndex).addCompulsorySubject2(subject);
-                    } else if (typeSubject.equals("optional1")) {
-                        major.getKnowledgeParts().get(lastIndex).addOptionalSubject1(subject);
-                    } else if (typeSubject.equals("optional2")) {
-                        major.getKnowledgeParts().get(lastIndex).addOptionalSubject2(subject);
+                    if (typeSubject.equals("compulsory")) {
+                        major.getKnowledgeParts().get(lastIndex).addCompulsorySubject(subject);
+                    } else if (typeSubject.equals("optional")) {
+                        major.getKnowledgeParts().get(lastIndex).addOptionalSubject(
+                                subject,
+                                major.getKnowledgeParts().get(lastIndex).getNumberOfOptionalSubjectsList() - 1);
                     }
                 } else if (type.equals("knowledge")) {
                     // Create and add new KnowledgePart to major
@@ -94,20 +94,13 @@ public class ReadFile {
                     // Add compulsory | optional to last knowledgePart of major
                     typeSubject = type;
                     int lastIndex = major.getKnowledgeParts().size() - 1;
-                    if (type.equals("compulsory1")) {
-                        major.getKnowledgeParts().get(lastIndex).setDescriptionCompulsory1(datas[1]);
+                    if (type.equals("compulsory")) {
+                        major.getKnowledgeParts().get(lastIndex).setDescriptionCompulsory(datas[1]);
                         major.getKnowledgeParts().get(lastIndex)
                                 .setMinCreditsCompulsorySubjects(Integer.parseInt(datas[3]));
-                    } else if (type.equals("compulsory2")) {
-                        major.getKnowledgeParts().get(lastIndex).setDescriptionCompulsory2(datas[1]);
-                        major.getKnowledgeParts().get(lastIndex)
-                                .setMinCreditsCompulsorySubjects(Integer.parseInt(datas[3]));
-                    } else if (type.equals("optional1")) {
-                        major.getKnowledgeParts().get(lastIndex).setDescriptionOptional1(datas[1]);
-                        major.getKnowledgeParts().get(lastIndex)
-                                .setMinCreditsOptionalSubjects(Integer.parseInt(datas[3]));
-                    } else if (type.equals("optional2")) {
-                        major.getKnowledgeParts().get(lastIndex).setDescriptionOptional2(datas[1]);
+                    } else if (type.equals("optional")) {
+                        major.getKnowledgeParts().get(lastIndex).getOptionalSubjects().add(new LinkedList<Subject>());
+                        major.getKnowledgeParts().get(lastIndex).addDescriptionOptional(datas[1]);
                         major.getKnowledgeParts().get(lastIndex)
                                 .setMinCreditsOptionalSubjects(Integer.parseInt(datas[3]));
                     }

@@ -1,0 +1,76 @@
+﻿Type,Code,Name,Credits,Parents
+knowledge,Khối kiến thức chung (chưa tính Giáo dục thể chất và Giáo dục quốc phòng - an ninh),;,;,;
+compulsory,Các học phần bắt buộc,;,16,;
+subject,PHI1006,Triết học Mác - Lênin,3,;
+subject,PEC1008,Kinh tế chính trị Mác - Lênin,2,PHI1006
+subject,PHI1002,Chủ nghĩa xã hội khoa học,2,;
+subject,HIS1001,Lịch sử Đảng Cộng sản Việt Nam,2,;
+subject,POL1001,Tư tưởng Hồ Chí Minh,2,;
+optional,Ngoại ngữ B1,,5,
+subject,FLF1107,Tiếng Anh B1,5,;
+subject,FLF1307,Tiếng Pháp B1,5,;
+subject,FLF1407,Tiếng Trung B1,5,;
+knowledge,Khối kiến thức theo lĩnh vực,;,;,;
+compulsory,Các học phần bắt buộc,;,2,;
+subject,INM1000,Tin học cơ sở,2,;
+optional,Các học phần tự chọn,;,5,;
+subject,HIS1056,Cơ sở văn hóa Việt Nam,3,;
+subject,GEO1050,Khoa học trái đất và sự sống,3,;
+subject,THL1057,Nhà nước và pháp luật đại cương,2,PHI1006
+subject,MAT1060,Nhập môn phân tích dữ liệu,2,;
+subject,PHY1070,Nhập môn Internet kết nối vạn vật,2,;
+subject,PHY1020,Nhập môn Robotics,3,;
+knowledge,Khối kiến thức theo khối ngành,;,;,;
+compulsory,Các học phần bắt buộc,;,6,;
+subject,MAT1076,Cơ học lý thuyết,3,MAT2302
+subject,PHY1059,Cơ sở vật lý hiện đại,3,MAT2314;MAT1076
+knowledge,Khối kiến thức theo nhóm ngành,;,;,;
+compulsory,Các học phần bắt buộc,;,46,;
+subject,MAT2300,Đại số tuyến tính 1,4,;
+subject,MAT2301,Đại số tuyến tính 2,4,MAT2300
+subject,MAT2302,Giải tích 1,5,;
+subject,MAT2303,Giải tích 2,5,MAT2302
+subject,MAT2304,Giải tích 3,4,MAT2303
+subject,MAT2314,Phương trình vi phân,4,MAT2301;MAT2303
+subject,MAT2306,Phương trình đạo hàm riêng 1,3,MAT2304;MAT2314
+subject,MAT2308,Xác suất 1,3,MAT2300;MAT2302
+subject,MAT2407,Tối ưu hóa,3,MAT2301;MAT2303
+subject,MAT2310,Hình học giải tích,2,MAT2301
+subject,MAT2311,Thống kê ứng dụng,4,MAT2308
+subject,MAT2315,Phương pháp nghiên cứu khoa học,3,;
+optional,Các học phần tự chọn,;,3,;
+subject,MAT2316,Lập trình C/C++,3,INM1000
+subject,MAT2317,Lập trình Java,3,INM1000
+subject,MAT2318,Lập trình Python,3,INM1000
+subject,MAT2319,Lập trình Julia,3,INM1000
+knowledge,Khối kiến thức ngành,;,;,;
+compulsory,Các học phần bắt buộc,;,33,;
+subject,MAT3300,Đại số đại cương,4,MAT2301
+subject,MAT3301,Giải tích hàm,3,MAT2301;MAT2304
+subject,MAT3302,Toán rời rạc,4,MAT2300;MAT2302
+subject,MAT3344,Giải tích phức,4,MAT2301;MAT2304
+subject,MAT3304,Thực hành tính toán,2,MAT2307
+subject,MAT3305,Tôpô đại cương,3,MAT2302
+subject,MAT3306,Cơ sở hình học vi phân,3,MAT2301;MAT3305
+subject,MAT3307,Lý thuyết độ đo và tích phân,3,MAT2304
+subject,MAT3347,Lý thuyết Galois,4,MAT3300
+subject,MAT3359,Thực hành chuyên ngành,3,;
+optional,Các học phần chuyên sâu về Toán lý thuyết,;,15,;
+subject,MAT3339,Đại số tuyến tính 3,3,MAT2301
+subject,MAT3310,Cơ sở tôpô đại số,3,MAT3300;MAT3305
+subject,MAT3311,Lý thuyết nhóm và biểu diễn nhóm,3,MAT3300
+subject,MAT3312,Hình học đại số,3,MAT3300;MAT3305
+subject,MAT3313,Lý thuyết số,3,MAT2301;MAT2304
+subject,MAT3314,Tôpô vi phân,3,MAT2301;MAT2304;MAT3305
+subject,MAT3315,Không gian véctơ tôpô,3,MAT2301;MAT3305
+subject,MAT3316,Giải tích phổ toán tử,3,MAT3301
+subject,MAT3317,Phương trình đạo hàm riêng 2,3,MAT3301;MAT3307
+subject,MAT3318,Giải tích trên đa tạp,3,MAT3339;MAT3305
+subject,MAT3345,Lý thuyết ổn định của phương trình vi phân,3,MAT2314
+subject,MAT3320,Phương trình tích phân,3,MAT2314;MAT3301;MAT3344
+subject,MAT3321,Quá trình ngẫu nhiên,3,MAT2311
+subject,MAT3322,Xác suất 2,3,MAT2308;MAT3301;MAT3307
+subject,MAT3323,Tối ưu rời rạc,3,MAT2407;MAT3302
+subject,MAT3324,Tổ hợp,3,MAT3302
+subject,MAT3325,Lịch sử toán học,3,MAT2314;MAT2304
+subject,MAT3326,Xeemina Toán lý thuyết,3,MAT2308
