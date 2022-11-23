@@ -2,6 +2,10 @@ package code.curriculum;
 
 import java.io.File;
 import code.file_handler.ReadFile;
+import code.objects.Department;
+import code.objects.Major;
+import code.objects.School;
+import code.objects.SchoolManager;
 
 public class Data {
     public static SchoolManager SCHOOLS = null;

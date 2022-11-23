@@ -6,11 +6,21 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 
-import code.curriculum.KnowledgePart;
-import code.curriculum.Major;
-import code.curriculum.Subject;
+import code.objects.KnowledgePart;
+import code.objects.Major;
+import code.objects.Subject;
 
 public class ReadFile {
+    public static final String PATH_DATA = "C:/GPA_Plan/Accounts";
+    public static final String PATH_DATA_1 = "C:/GPA_Plan/Accounts/count.txt";
+
+    // Get number current accounts
+    public static int getNumberExistingAccounts() {
+        WriteFile.createDefaultPathData();
+        File file = new File(PATH_DATA);
+        return file.list().length - 1;
+    }
+
     // Get string from a file
     public static String getStringFromFile(String path) {
         String result = "";

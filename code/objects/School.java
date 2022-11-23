@@ -1,4 +1,4 @@
-package code.curriculum;
+package code.objects;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -4,9 +4,10 @@ import javax.swing.JPanel;
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseWheelEvent;
 import code.Setting;
-import code.button.Button;
-import code.curriculum.KnowledgePart;
-import code.curriculum.Major;
+import code.objects.Button;
+import code.objects.KnowledgePart;
+import code.objects.Major;
+
 import java.awt.Graphics;
 
 public class PanelMajor extends JPanel {
@@ -130,7 +131,7 @@ public class PanelMajor extends JPanel {
 
     // Get max cursorScroll
     public int getMaxCursorScroll() {
-        return Math.max(0, this.scrollPanel.getHeight() - this.contentPanel.getHeight() + 50);
+        return Math.max(0, this.scrollPanel.getHeight() - this.contentPanel.getHeight());
     }
 
     // set cursorScroll
@@ -193,9 +194,13 @@ public class PanelMajor extends JPanel {
     private class MouseWheelHandler implements MouseWheelListener {
         public void mouseWheelMoved(MouseWheelEvent event) {
             if (event.getWheelRotation() < 0) {
-                setCurscorScroll(getCursorScroll() - 30);
+                for (int count = 0; count < 30; count++) {
+                    setCurscorScroll(getCursorScroll() - 1);
+                }
             } else {
-                setCurscorScroll(getCursorScroll() + 30);
+                for (int count = 0; count < 30; count++) {
+                    setCurscorScroll(getCursorScroll() + 1);
+                }
             }
             updateContentShowing();
         }

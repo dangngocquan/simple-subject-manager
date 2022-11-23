@@ -5,8 +5,8 @@ import java.util.List;
 import javax.swing.JPanel;
 import java.awt.Font;
 import code.Setting;
-import code.curriculum.KnowledgePart;
-import code.curriculum.Subject;
+import code.objects.KnowledgePart;
+import code.objects.Subject;
 
 public class PanelKnowledgePart extends JPanel {
         public PanelKnowledgePart(int x, int y, KnowledgePart knowledgePart, int width, Font font) {

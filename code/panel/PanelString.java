@@ -4,7 +4,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
 import code.Setting;
-import code.button.Button;
+import code.objects.Button;
+
 import java.awt.Graphics;
 import java.util.List;
 

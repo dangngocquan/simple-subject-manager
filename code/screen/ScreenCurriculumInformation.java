@@ -6,12 +6,12 @@ import javax.swing.JPanel;
 
 import code.Application;
 import code.Setting;
-import code.button.Button;
 import code.curriculum.Data;
-import code.curriculum.Department;
-import code.curriculum.Major;
-import code.curriculum.School;
 import code.dialog.DialogList;
+import code.objects.Button;
+import code.objects.Department;
+import code.objects.Major;
+import code.objects.School;
 import code.panel.PanelMajor;
 
 import java.awt.event.ActionEvent;

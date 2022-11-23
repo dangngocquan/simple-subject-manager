@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 import code.Application;
 import code.Setting;
-import code.button.Button;
+import code.objects.Button;
 
 import java.awt.Graphics;
 import java.awt.event.ActionListener;

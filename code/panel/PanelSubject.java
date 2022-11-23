@@ -3,7 +3,8 @@ package code.panel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import code.Setting;
-import code.curriculum.Subject;
+import code.objects.Subject;
+
 import java.awt.Graphics;
 import java.awt.Font;
 
