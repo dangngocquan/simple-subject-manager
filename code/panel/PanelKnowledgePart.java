@@ -2,11 +2,9 @@ package code.panel;
 
 import java.awt.Graphics;
 import java.util.List;
-
 import javax.swing.JPanel;
 import java.awt.Font;
 import code.Setting;
-import code.button.Button;
 import code.curriculum.KnowledgePart;
 import code.curriculum.Subject;
 
@@ -19,14 +17,6 @@ public class PanelKnowledgePart extends JPanel {
                                         Setting.FONT_SIZE_SMALL);
                 }
 
-                // Get height of a row
-                // Create pattern button to get height
-                Button button = new Button("A");
-                button.setFont(font.getFontName(),
-                                font.getStyle(),
-                                font.getSize());
-                int heightRow = button.getHeight();
-
                 // Height of this panel
                 int height = 0;
                 int countSubjects = 0;
@@ -35,20 +25,20 @@ public class PanelKnowledgePart extends JPanel {
                 PanelString knowledgeNamePanel = new PanelString(0, height, knowledgePart.getName(), width, font);
                 knowledgeNamePanel.setBackground(Setting.COLOR_RED_02);
                 add(knowledgeNamePanel);
-                height += heightRow;
+                height += knowledgeNamePanel.getHeight();
 
                 // Add description Compulsory (if have)
                 if (!knowledgePart.getDescriptionCompulsory().isEmpty()) {
                         String str = knowledgePart.getDescriptionCompulsory() + " ("
                                         + knowledgePart.getMinCreditsCompulsorySubjects() + " tín chỉ)";
-                        PanelString desCompulsory1Panel = new PanelString(0, height,
+                        PanelString desCompulsoryPanel = new PanelString(0, height,
                                         str, width,
                                         new Font(Setting.FONT_NAME_01,
                                                         Setting.FONT_STYLE_03,
                                                         Setting.FONT_SIZE_SMALL));
-                        desCompulsory1Panel.setBackground(Setting.COLOR_GREEN_02);
-                        add(desCompulsory1Panel);
-                        height += heightRow;
+                        desCompulsoryPanel.setBackground(Setting.COLOR_GREEN_02);
+                        add(desCompulsoryPanel);
+                        height += desCompulsoryPanel.getHeight();
                 }
 
                 // Add compulsory subjects (if have)
@@ -68,14 +58,14 @@ public class PanelKnowledgePart extends JPanel {
                 // Add main description of optional subjects
                 if (!knowledgePart.getMainDescriptionOptionalSubjects().isEmpty()) {
                         String str = knowledgePart.getMainDescriptionOptionalSubjects();
-                        PanelString desCompulsory1Panel = new PanelString(0, height,
+                        PanelString desMainOptionalSubjectPanel = new PanelString(0, height,
                                         str, width,
                                         new Font(Setting.FONT_NAME_01,
                                                         Setting.FONT_STYLE_03,
                                                         Setting.FONT_SIZE_SMALL));
-                        desCompulsory1Panel.setBackground(Setting.COLOR_GREEN_01);
-                        add(desCompulsory1Panel);
-                        height += heightRow;
+                        desMainOptionalSubjectPanel.setBackground(Setting.COLOR_GREEN_01);
+                        add(desMainOptionalSubjectPanel);
+                        height += desMainOptionalSubjectPanel.getHeight();
                 }
 
                 // Add description Optional and subjects optional (if have)
@@ -91,7 +81,7 @@ public class PanelKnowledgePart extends JPanel {
                                                         Setting.FONT_SIZE_SMALL));
                         desOptionalPanel.setBackground(Setting.COLOR_GREEN_02);
                         add(desOptionalPanel);
-                        height += heightRow;
+                        height += desOptionalPanel.getHeight();
 
                         // Add panel of subjects
                         for (Subject subject : optionalSubjectList) {

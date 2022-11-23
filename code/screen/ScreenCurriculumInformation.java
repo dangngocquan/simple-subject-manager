@@ -208,8 +208,10 @@ public class ScreenCurriculumInformation extends JPanel {
                                         major = department.getMajors().get(0);
 
                                         // Dialog for user to choose Department
-                                        DialogList dialog2 = new DialogList((JFrame) applicationFrame, "Chọn Khoa",
-                                                        "Chọn khoa", school.getDepartmentNames().toArray(),
+                                        DialogList dialog2 = new DialogList((JFrame) applicationFrame,
+                                                        "Chọn khoa của trường " + school.getName(),
+                                                        "Chọn khoa của trường " + school.getName(),
+                                                        school.getDepartmentNames().toArray(),
                                                         school.getDepartmentNames().get(0));
                                         String departmentName = dialog2.run();
                                         if (departmentName == null || departmentName.isEmpty()) {
@@ -220,8 +222,9 @@ public class ScreenCurriculumInformation extends JPanel {
 
                                                 // Dialog for user to choose Major
                                                 DialogList dialog3 = new DialogList((JFrame) applicationFrame,
-                                                                "Chọn ngành",
-                                                                "Chọn ngành", department.getMajorNames().toArray(),
+                                                                "Chọn ngành của khoa " + department.getName(),
+                                                                "Chọn ngành của khoa " + department.getName(),
+                                                                department.getMajorNames().toArray(),
                                                                 department.getMajorNames().get(0));
                                                 String majorName = dialog3.run();
                                                 if (majorName == null || majorName.isEmpty()) {
