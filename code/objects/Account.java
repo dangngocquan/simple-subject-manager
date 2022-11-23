@@ -18,4 +18,8 @@ public class Account {
     public String getName() {
         return this.name;
     }
+
+    public List<Plan> getPlans() {
+        return this.plans;
+    }
 }
