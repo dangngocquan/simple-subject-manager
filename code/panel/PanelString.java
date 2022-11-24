@@ -95,6 +95,48 @@ public class PanelString extends JPanel {
         setLayout(null);
         setSize(width, height);
         setBounds(x, y, width, height);
+    }
+
+    public PanelString(int x, int y, String[] texts, int width, Font font) {
+        // Set default font
+        if (font == null) {
+            font = new Font(Setting.FONT_NAME_01,
+                    Setting.FONT_STYLE_01,
+                    Setting.FONT_SIZE_SMALL);
+        }
+
+        // Get height of a row
+        // Create pattern button to get height
+        Button button = new Button("A");
+        button.setFont(font.getFontName(),
+                font.getStyle(),
+                font.getSize());
+        int heightRow = button.getHeight();
+
+        // Height of this panel
+        int height = 0;
+
+        // Create labels and add to this panel
+        for (int count1 = 0; count1 < texts.length; count1++) {
+            String rowContent = texts[count1];
+
+            JLabel label = new JLabel(rowContent);
+            label.setLayout(null);
+            label.setFont(font);
+            label.setSize(width, heightRow);
+            label.setBounds(15, heightRow * count1, width, heightRow);
+            add(label);
+            height += heightRow;
+        }
+
+        if (texts.length == 0) {
+            height += heightRow;
+        }
+
+        // Set up this panel
+        setLayout(null);
+        setSize(width, height);
+        setBounds(x, y, width, height);
 
     }
 
