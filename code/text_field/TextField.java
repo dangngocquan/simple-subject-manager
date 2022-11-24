@@ -8,6 +8,9 @@ import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.LinkedList;
+import java.util.List;
+
 import code.Setting;
 import java.awt.Graphics;
 import java.awt.Font;
@@ -15,33 +18,34 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class TextField extends JPanel {
+    private JTextField field;
 
     // Constructor
     public TextField(int x, int y, int width, int height, String defaultText) {
-        JTextField fieldName = new JTextField(defaultText);
-        fieldName.setLayout(null);
-        fieldName.setFont(new Font(
+        JTextField field = new JTextField(defaultText);
+        field.setLayout(null);
+        field.setFont(new Font(
                 Setting.FONT_NAME_01,
                 Setting.FONT_STYLE_01,
                 Setting.FONT_SIZE_SMALL));
-        fieldName.setSize(width, height);
-        fieldName.setBounds(0, 0, width, height);
-        fieldName.setForeground(Setting.COLOR_GRAY_03);
-        fieldName.addFocusListener(new FocusAdapter() {
+        field.setSize(width, height);
+        field.setBounds(0, 0, width, height);
+        field.setForeground(Setting.COLOR_GRAY_03);
+        field.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent event) {
-                if (fieldName.getText().equals(defaultText) && fieldName.getForeground() == Setting.COLOR_GRAY_03) {
-                    fieldName.setForeground(Setting.COLOR_BLACK);
-                    fieldName.setText("");
+                if (field.getText().equals(defaultText) && field.getForeground() == Setting.COLOR_GRAY_03) {
+                    field.setForeground(Setting.COLOR_BLACK);
+                    field.setText("");
                 }
                 super.focusGained(event);
             }
 
             @Override
             public void focusLost(FocusEvent event) {
-                if (fieldName.getText().isEmpty()) {
-                    fieldName.setForeground(Setting.COLOR_GRAY_03);
-                    fieldName.setText(defaultText);
+                if (field.getText().isEmpty()) {
+                    field.setForeground(Setting.COLOR_GRAY_03);
+                    field.setText(defaultText);
                 }
                 super.focusLost(event);
             }
@@ -51,8 +55,17 @@ public class TextField extends JPanel {
         setSize(width, height);
         setBounds(x, y, width, height);
         setVisible(true);
-        add(fieldName);
+        add(field);
 
+    }
+
+    // Get input data
+    public String getInputString() {
+        String input = "";
+        if (field.getForeground() == Setting.COLOR_BLACK) {
+            input = field.getText();
+        }
+        return input;
     }
 
     // Auto called method of JPanel
