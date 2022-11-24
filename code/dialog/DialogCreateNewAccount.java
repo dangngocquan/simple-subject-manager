@@ -70,7 +70,9 @@ public class DialogCreateNewAccount {
         PanelString messagePanel = new PanelString(width / 20, height / 20, messageLines, width / 10 * 9, null);
         dialog.add(messagePanel);
         dialog.add(new TextField(width / 20, messagePanel.getY() + messagePanel.getHeight(),
-                width / 20 * 18, 50));
+                width / 20 * 18, 50, "Họ và tên"));
+        dialog.add(new TextField(width / 20, messagePanel.getY() + messagePanel.getHeight() + 70,
+                width / 20 * 18, 50, "Tên đăng nhập"));
 
         // Show dialog
         dialog.setVisible(true);
