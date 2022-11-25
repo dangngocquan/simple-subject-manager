@@ -16,11 +16,13 @@ public class TextField extends JTextField {
     private Shape shape;
     private int thickness;
     private int arcWidth, arcHeight;
+    private String defaultText;
 
     // Constructor
     public TextField(int x, int y, int width, int height, String defaultText, int thickness, int arcWidth,
             int arcHeight) {
         super(defaultText);
+        this.defaultText = defaultText;
         this.thickness = thickness;
         this.arcWidth = arcWidth;
         this.arcHeight = arcHeight;
@@ -55,6 +57,11 @@ public class TextField extends JTextField {
                 super.focusLost(event);
             }
         });
+    }
+
+    // Get default text
+    public String getDefaultText() {
+        return this.defaultText;
     }
 
     // Get input data

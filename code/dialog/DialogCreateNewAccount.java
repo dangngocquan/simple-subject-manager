@@ -2,9 +2,14 @@ package code.dialog;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import code.Setting;
+import code.file_handler.ReadFile;
+import code.file_handler.WriteFile;
+import code.objects.Account;
 import code.objects.Button;
 import code.panel.PanelString;
 import code.text_field.TextField;
@@ -34,6 +39,7 @@ public class DialogCreateNewAccount {
         dialog = new JDialog(f, title, true);
         dialog.setLayout(null);
         dialog.setSize(width, height);
+        dialog.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         int xPos = x, yPos = y;
         switch (rootLocationType) {
             case 0:
@@ -108,7 +114,37 @@ public class DialogCreateNewAccount {
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             if (event.getSource() == button) {
-                dialog.dispose();
+                if (fieldName.getText().isEmpty() ||
+                        (fieldName.getText().equals(fieldName.getDefaultText())
+                                && fieldName.getForeground() == Setting.COLOR_GRAY_03)) {
+                    JOptionPane.showMessageDialog(dialog, "Bạn chưa nhập Họ và tên",
+                            "Invalid input",
+                            JOptionPane.WARNING_MESSAGE);
+                } else if (fieldUsername.getText().isEmpty() ||
+                        (fieldUsername.getText().equals(fieldUsername.getDefaultText())
+                                && fieldUsername.getForeground() == Setting.COLOR_GRAY_03)) {
+                    JOptionPane.showMessageDialog(dialog, "Bạn chưa nhập Tên đăng nhập",
+                            "Invalid input",
+                            JOptionPane.WARNING_MESSAGE);
+                } else if (ReadFile.isExistingUsername(fieldName.getText())) {
+                    JOptionPane.showMessageDialog(dialog, "Tên đăng nhập đã được sử dụng",
+                            "Invalid input",
+                            JOptionPane.WARNING_MESSAGE);
+                } else if (fieldPassword.getText().isEmpty() ||
+                        (fieldPassword.getText().equals(fieldPassword.getDefaultText())
+                                && fieldPassword.getForeground() == Setting.COLOR_GRAY_03)) {
+                    JOptionPane.showMessageDialog(dialog, "Bạn chưa thiết lập mật khẩu",
+                            "Invalid input",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    WriteFile.createNewAccount(new Account(
+                            fieldName.getText(), fieldUsername.getText(), fieldPassword.getText()));
+                    WriteFile.writeStringToFile(ReadFile.PATH_DATA_TEMP_1, fieldUsername.getText(), false);
+                    JOptionPane.showMessageDialog(dialog, "Tạo tài khoản thành công.",
+                            "Create account successed",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    dialog.dispose();
+                }
             }
         }
     }

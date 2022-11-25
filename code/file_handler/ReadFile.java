@@ -11,13 +11,16 @@ import code.objects.Major;
 import code.objects.Subject;
 
 public class ReadFile {
-    public static final String PATH_DATA = "C:/GPA_Plan/Accounts";
-    public static final String PATH_DATA_1 = "C:/GPA_Plan/Accounts/count.txt";
+    public static final String PATH_DATA = "C:/GPA_Plan";
+    public static final String PATH_DATA_TEMP = "C:/GPA_Plan/Temp";
+    public static final String PATH_DATA_TEMP_1 = "C:/GPA_Plan/Temp/tempAccount.txt";
+    public static final String PATH_DATA_ACCOUNT = "C:/GPA_Plan/Accounts";
+    public static final String PATH_DATA_ACCOUNT_1 = "C:/GPA_Plan/Accounts/count.txt";
 
     // Get number current accounts
     public static int getNumberExistingAccounts() {
         WriteFile.createDefaultPathData();
-        File file = new File(PATH_DATA);
+        File file = new File(PATH_DATA_ACCOUNT);
         return file.list().length - 1;
     }
 
@@ -41,6 +44,11 @@ public class ReadFile {
 
         }
         return result;
+    }
+
+    // Check existing username
+    public static boolean isExistingUsername(String username) {
+        return false;
     }
 
     // Get a Major instance from a folder, this folder contains a file txt and a
