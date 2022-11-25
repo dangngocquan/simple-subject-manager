@@ -97,7 +97,7 @@ public class ReadFile {
         File file = new File(path);
         if (file.exists()) {
             // Get information
-            List<String> lines = getStringLinesFromFile(path + "/" + "information.txt");
+            List<String> lines = getStringLinesFromFile(path + "/" + "informations.txt");
             String name = lines.get(0);
             String username = lines.get(1);
             String password = lines.get(2);
@@ -144,6 +144,13 @@ public class ReadFile {
     public static boolean isExistingUsername(String username) {
         Account account = findAccountByUsername(username);
         return !(account == null);
+    }
+
+    // Get current Account
+    public static Account getCurrentAccount() {
+        WriteFile.createDefaultPathData();
+        String currentUsername = getStringFromFile(PATH_DATA_TEMP_1);
+        return findAccountByUsername(currentUsername);
     }
 
     // Get a Major instance from a folder, this folder contains a file txt and a

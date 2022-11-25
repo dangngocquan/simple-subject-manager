@@ -22,7 +22,8 @@ public class PanelKnowledgePart extends JPanel {
                 int countSubjects = 0;
 
                 // Add row of knowledge name
-                PanelString knowledgeNamePanel = new PanelString(0, height, knowledgePart.getName(), width, font);
+                PanelString knowledgeNamePanel = new PanelString(0, height, knowledgePart.getName(), width, font,
+                                PanelString.TOP_LEFT);
                 knowledgeNamePanel.setBackground(Setting.COLOR_RED_02);
                 add(knowledgeNamePanel);
                 height += knowledgeNamePanel.getHeight();
@@ -35,7 +36,8 @@ public class PanelKnowledgePart extends JPanel {
                                         str, width,
                                         new Font(Setting.FONT_NAME_01,
                                                         Setting.FONT_STYLE_03,
-                                                        Setting.FONT_SIZE_SMALL));
+                                                        Setting.FONT_SIZE_SMALL),
+                                        PanelString.TOP_LEFT);
                         desCompulsoryPanel.setBackground(Setting.COLOR_GREEN_02);
                         add(desCompulsoryPanel);
                         height += desCompulsoryPanel.getHeight();
@@ -62,7 +64,8 @@ public class PanelKnowledgePart extends JPanel {
                                         str, width,
                                         new Font(Setting.FONT_NAME_01,
                                                         Setting.FONT_STYLE_03,
-                                                        Setting.FONT_SIZE_SMALL));
+                                                        Setting.FONT_SIZE_SMALL),
+                                        PanelString.TOP_LEFT);
                         desMainOptionalSubjectPanel.setBackground(Setting.COLOR_GREEN_01);
                         add(desMainOptionalSubjectPanel);
                         height += desMainOptionalSubjectPanel.getHeight();
@@ -78,7 +81,8 @@ public class PanelKnowledgePart extends JPanel {
                                         optionalDescription, width,
                                         new Font(Setting.FONT_NAME_01,
                                                         Setting.FONT_STYLE_03,
-                                                        Setting.FONT_SIZE_SMALL));
+                                                        Setting.FONT_SIZE_SMALL),
+                                        PanelString.TOP_LEFT);
                         desOptionalPanel.setBackground(Setting.COLOR_GREEN_02);
                         add(desOptionalPanel);
                         height += desOptionalPanel.getHeight();

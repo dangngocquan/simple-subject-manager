@@ -1,11 +1,11 @@
 package code.screen;
 
 import javax.swing.JPanel;
-
 import code.Application;
 import code.Setting;
+import code.file_handler.ReadFile;
 import code.objects.Button;
-
+import code.panel.PanelString;
 import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -18,6 +18,7 @@ public class ScreenMainMenu extends JPanel {
     };
     private Button[] buttons;
     private JPanel mainScreen;
+    private PanelString descriptionPanel;
     private ScreenPlans screenPlans;
     private ScreenInformation screenInformation;
     private ScreenAccounts screenAccounts;
@@ -39,6 +40,11 @@ public class ScreenMainMenu extends JPanel {
         screenInformation = new ScreenInformation(width, height, this, applicationFrame);
         screenAccounts = new ScreenAccounts(width, height, this, applicationFrame);
 
+        // Create description (Who is using app?)
+        descriptionPanel = new PanelString(width / 2, height / 12 * 2,
+                "Xin chào, " + ReadFile.getCurrentAccount().getName(), width,
+                null, PanelString.BOTTOM_CENTER);
+
         // Create buttons
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
@@ -59,6 +65,9 @@ public class ScreenMainMenu extends JPanel {
         for (Button button : buttons) {
             mainScreen.add(button);
         }
+
+        // Add description panel to mainScreen
+        mainScreen.add(descriptionPanel);
 
         // Add screens to this screen
         add(mainScreen);

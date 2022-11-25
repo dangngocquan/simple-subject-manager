@@ -5,13 +5,25 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import code.Setting;
 import code.objects.Button;
-
+import java.awt.Canvas;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.List;
 
 public class PanelString extends JPanel {
+    // Constants PanelString's root location
+    public static final int TOP_LEFT = 0;
+    public static final int TOP_CENTER = 1;
+    public static final int TOP_RIGHT = 2;
+    public static final int CENTER_LEFT = 3;
+    public static final int CENTER_CENTER = 4;
+    public static final int CENTER_RIGHT = 5;
+    public static final int BOTTOM_LEFT = 6;
+    public static final int BOTTOM_CENTER = 7;
+    public static final int BOTTOM_RIGHT = 8;
+
     // Contructor
-    public PanelString(int x, int y, String text, int width, Font font) {
+    public PanelString(int x, int y, String text, int width, Font font, int rootLocationType) {
         // Set default font
         if (font == null) {
             font = new Font(Setting.FONT_NAME_01,
@@ -30,24 +42,64 @@ public class PanelString extends JPanel {
         // Height of this panel
         int height = heightRow;
 
-        // Set up panel
-        setLayout(null);
-        setSize(width, height);
-        setBounds(x, y, width, height);
-
         // Create label
         JLabel label = new JLabel(text);
         label.setLayout(null);
         label.setFont(font);
         label.setSize(width, heightRow);
-        label.setBounds(15, 0, width, height);
+        Canvas c = new Canvas();
+        FontMetrics f = c.getFontMetrics(font);
+        label.setBounds((width - f.stringWidth(text)) / 2, 0, width, height);
 
         // Add label to this panel
         add(label);
 
+        // Set up panel
+        setLayout(null);
+        setSize(width, height);
+        int xPos = 0, yPos = 0;
+        switch (rootLocationType) {
+            case 0:
+                xPos = x;
+                yPos = y;
+                break;
+            case 1:
+                xPos = x - width / 2;
+                yPos = y;
+                break;
+            case 2:
+                xPos = x - width;
+                yPos = y;
+                break;
+            case 3:
+                xPos = x;
+                yPos = y - height / 2;
+                break;
+            case 4:
+                xPos = x - width / 2;
+                yPos = y - height / 2;
+                break;
+            case 5:
+                xPos = x - width;
+                yPos = y - height / 2;
+                break;
+            case 6:
+                xPos = x;
+                yPos = y - height;
+                break;
+            case 7:
+                xPos = x - width / 2;
+                yPos = y - height;
+                break;
+            case 8:
+                xPos = x - width;
+                yPos = y - height;
+                break;
+        }
+        setBounds(xPos, yPos, width, height);
     }
 
-    public PanelString(int x, int y, List<String[]> textsList, int width, Font font) {
+    public PanelString(int x, int y, List<String[]> textsList, int width, Font font, int rootLocationType) {
         // Set default font
         if (font == null) {
             font = new Font(Setting.FONT_NAME_01,
@@ -91,13 +143,52 @@ public class PanelString extends JPanel {
             height += heightRow;
         }
 
-        // Set up this panel
+        // Set up panel
         setLayout(null);
         setSize(width, height);
-        setBounds(x, y, width, height);
+        int xPos = 0, yPos = 0;
+        switch (rootLocationType) {
+            case 0:
+                xPos = x;
+                yPos = y;
+                break;
+            case 1:
+                xPos = x - width / 2;
+                yPos = y;
+                break;
+            case 2:
+                xPos = x - width;
+                yPos = y;
+                break;
+            case 3:
+                xPos = x;
+                yPos = y - height / 2;
+                break;
+            case 4:
+                xPos = x - width / 2;
+                yPos = y - height / 2;
+                break;
+            case 5:
+                xPos = x - width;
+                yPos = y - height / 2;
+                break;
+            case 6:
+                xPos = x;
+                yPos = y - height;
+                break;
+            case 7:
+                xPos = x - width / 2;
+                yPos = y - height;
+                break;
+            case 8:
+                xPos = x - width;
+                yPos = y - height;
+                break;
+        }
+        setBounds(xPos, yPos, width, height);
     }
 
-    public PanelString(int x, int y, String[] texts, int width, Font font) {
+    public PanelString(int x, int y, String[] texts, int width, Font font, int rootLocationType) {
         // Set default font
         if (font == null) {
             font = new Font(Setting.FONT_NAME_01,
@@ -133,10 +224,49 @@ public class PanelString extends JPanel {
             height += heightRow;
         }
 
-        // Set up this panel
+        // Set up panel
         setLayout(null);
         setSize(width, height);
-        setBounds(x, y, width, height);
+        int xPos = 0, yPos = 0;
+        switch (rootLocationType) {
+            case 0:
+                xPos = x;
+                yPos = y;
+                break;
+            case 1:
+                xPos = x - width / 2;
+                yPos = y;
+                break;
+            case 2:
+                xPos = x - width;
+                yPos = y;
+                break;
+            case 3:
+                xPos = x;
+                yPos = y - height / 2;
+                break;
+            case 4:
+                xPos = x - width / 2;
+                yPos = y - height / 2;
+                break;
+            case 5:
+                xPos = x - width;
+                yPos = y - height / 2;
+                break;
+            case 6:
+                xPos = x;
+                yPos = y - height;
+                break;
+            case 7:
+                xPos = x - width / 2;
+                yPos = y - height;
+                break;
+            case 8:
+                xPos = x - width;
+                yPos = y - height;
+                break;
+        }
+        setBounds(xPos, yPos, width, height);
 
     }
 

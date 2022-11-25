@@ -27,18 +27,20 @@ public class PanelSubject extends JPanel {
 
                 // Create panels
                 panelParentSubjectCodes = new PanelString(width - width / 12 * 4, 0,
-                                subject.getParentSubjectCodes(), width / 12 * 4, font);
+                                subject.getParentSubjectCodes(), width / 12 * 4, font, PanelString.TOP_LEFT);
 
                 panelCredit = new PanelString((width - panelParentSubjectCodes.getWidth()) / 8 * 7, 0,
                                 subject.getNumberCredits() + "", (width - panelParentSubjectCodes.getWidth()) / 8,
-                                font);
+                                font, PanelString.TOP_LEFT);
 
                 panelName = new PanelString((width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7,
                                 0, subject.getName(),
-                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7 * 6, font);
+                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7 * 6, font,
+                                PanelString.TOP_LEFT);
 
                 panelCode = new PanelString(0, 0, subject.getCode(),
-                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7, font);
+                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7, font,
+                                PanelString.TOP_LEFT);
 
                 // Height of mainPanel
                 int height = panelParentSubjectCodes.getHeight();
