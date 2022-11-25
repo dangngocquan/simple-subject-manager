@@ -48,14 +48,18 @@ public class Application extends JFrame {
                                         width / 2, height / 2, DialogCreateNewAccount.CENTER_CENTER,
                                         "Create new account",
                                         messages);
+                        screenMainMenu.updateDescriptionPanel();
+                        screenMainMenu.repaint();
                 }
-
                 // Check again
                 if (ReadFile.getNumberExistingAccounts() == 0) {
                         JOptionPane.showMessageDialog(this, "Ứng dụng sẽ đóng");
                         dispose();
                 }
-
         }
 
+        // Get screen main menu
+        public ScreenMainMenu getScreenMainMenu() {
+                return this.screenMainMenu;
+        }
 }

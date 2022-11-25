@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
 import code.file_handler.ReadFile;
+import code.objects.Account;
 import code.objects.Button;
 import code.panel.PanelString;
 import java.awt.Graphics;
@@ -41,9 +42,11 @@ public class ScreenMainMenu extends JPanel {
         screenAccounts = new ScreenAccounts(width, height, this, applicationFrame);
 
         // Create description (Who is using app?)
-        descriptionPanel = new PanelString(width / 2, height / 12 * 2,
-                "Xin chào, " + ReadFile.getCurrentAccount().getName(), width,
+        descriptionPanel = new PanelString(getWidth() / 2, getHeight() / 12 * 2,
+                "", getWidth(),
                 null, PanelString.BOTTOM_CENTER);
+        mainScreen.add(descriptionPanel);
+        updateDescriptionPanel();
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -65,9 +68,6 @@ public class ScreenMainMenu extends JPanel {
         for (Button button : buttons) {
             mainScreen.add(button);
         }
-
-        // Add description panel to mainScreen
-        mainScreen.add(descriptionPanel);
 
         // Add screens to this screen
         add(mainScreen);
@@ -110,6 +110,21 @@ public class ScreenMainMenu extends JPanel {
     // Get JPanel screenInformation
     public ScreenInformation getScreenInformation() {
         return this.screenInformation;
+    }
+
+    // Update description
+    public void updateDescriptionPanel() {
+        mainScreen.remove(descriptionPanel);
+        String currentName = "";
+        Account account = ReadFile.getCurrentAccount();
+        if (account != null) {
+            currentName = "Xin chào, " + account.getName();
+        }
+        this.descriptionPanel = new PanelString(getWidth() / 2, getHeight() / 12 * 2,
+                currentName, getWidth(),
+                null, PanelString.BOTTOM_CENTER);
+        mainScreen.add(descriptionPanel);
+
     }
 
     // Auto called method of JPanel

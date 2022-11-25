@@ -3,7 +3,6 @@ package code.dialog;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import code.Setting;
@@ -127,7 +126,7 @@ public class DialogCreateNewAccount {
                     JOptionPane.showMessageDialog(dialog, "Bạn chưa nhập Tên đăng nhập",
                             "Invalid input",
                             JOptionPane.WARNING_MESSAGE);
-                } else if (ReadFile.isExistingUsername(fieldName.getText())) {
+                } else if (ReadFile.isExistingUsername(fieldUsername.getText())) {
                     JOptionPane.showMessageDialog(dialog, "Tên đăng nhập đã được sử dụng",
                             "Invalid input",
                             JOptionPane.WARNING_MESSAGE);

@@ -17,7 +17,7 @@ public class ScreenAccounts extends JPanel {
     private Button[] buttons;
     private ScreenMainMenu parentScreen;
     private JPanel mainScreen;
-    // private ScreenCurriculumInformation screenCurriculumInformation;
+    private ScreenCreateNewAccount screenCreateNewAccount;
 
     // Constructor
     public ScreenAccounts(int width, int height, ScreenMainMenu parentScreen, Application frame) {
@@ -33,8 +33,8 @@ public class ScreenAccounts extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, width, height);
-        // screenCurriculumInformation = new ScreenCurriculumInformation(width, height,
-        // this, applicationFrame);
+        screenCreateNewAccount = new ScreenCreateNewAccount(width, height,
+                this, applicationFrame);
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -59,11 +59,11 @@ public class ScreenAccounts extends JPanel {
 
         // Add screen to this panel
         add(mainScreen);
-        // add(screenCurriculumInformation);
+        add(screenCreateNewAccount);
 
         // Set visible of screens
         mainScreen.setVisible(true);
-        // screenCurriculumInformation.setVisible(false);
+        screenCreateNewAccount.setVisible(false);
     }
 
     // Get application frame
@@ -79,6 +79,11 @@ public class ScreenAccounts extends JPanel {
     // Get parentScreen
     public ScreenMainMenu getParentScreen() {
         return this.parentScreen;
+    }
+
+    // Get Screen create new account
+    public ScreenCreateNewAccount getScreenCreateNewAccount() {
+        return this.screenCreateNewAccount;
     }
 
     // Get mainScreen
@@ -106,12 +111,13 @@ public class ScreenAccounts extends JPanel {
             }
             // Press at "Create New Account" in mainScreen
             else if (event.getSource() == buttons[1]) {
-                // getParentScreen().getMainScreen().setVisible(true);
+                getScreenCreateNewAccount().setVisible(true);
                 getMainScreen().setVisible(false);
             }
             // Press at "Back" in mainScreen
             else if (event.getSource() == buttons[2]) {
                 getParentScreen().getMainScreen().setVisible(true);
+                getParentScreen().updateDescriptionPanel();
                 getParentScreen().getScreenAccounts().setVisible(false);
             }
         }
