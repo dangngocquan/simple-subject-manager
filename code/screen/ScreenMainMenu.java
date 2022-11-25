@@ -20,6 +20,7 @@ public class ScreenMainMenu extends JPanel {
     private JPanel mainScreen;
     private ScreenPlans screenPlans;
     private ScreenInformation screenInformation;
+    private ScreenAccounts screenAccounts;
 
     // Constructor
     public ScreenMainMenu(int width, int height, Application frame) {
@@ -36,6 +37,7 @@ public class ScreenMainMenu extends JPanel {
         mainScreen.setBounds(0, 0, mainScreen.getWidth(), mainScreen.getHeight());
         screenPlans = new ScreenPlans(width, height, this, applicationFrame);
         screenInformation = new ScreenInformation(width, height, this, applicationFrame);
+        screenAccounts = new ScreenAccounts(width, height, this, applicationFrame);
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -61,11 +63,13 @@ public class ScreenMainMenu extends JPanel {
         // Add screens to this screen
         add(mainScreen);
         add(screenPlans);
+        add(screenAccounts);
         add(screenInformation);
 
         // Set visible of screens
         mainScreen.setVisible(true);
         screenPlans.setVisible(false);
+        screenAccounts.setVisible(false);
         screenInformation.setVisible(false);
     }
 
@@ -89,6 +93,11 @@ public class ScreenMainMenu extends JPanel {
         return this.screenPlans;
     }
 
+    // Get Screen Accounts
+    public ScreenAccounts getScreenAccounts() {
+        return this.screenAccounts;
+    }
+
     // Get JPanel screenInformation
     public ScreenInformation getScreenInformation() {
         return this.screenInformation;
@@ -105,6 +114,11 @@ public class ScreenMainMenu extends JPanel {
             // Press "Plans" button on "screenMainMenu" screen
             if (event.getSource() == getButtons()[0]) {
                 getScreenPlans().setVisible(true);
+                getMainScreen().setVisible(false);
+            }
+            // Press "Accounts" button on "screenMainMenu" screen
+            else if (event.getSource() == getButtons()[1]) {
+                getScreenAccounts().setVisible(true);
                 getMainScreen().setVisible(false);
             }
             // Press "Information" button on "screenMainMenu" screen
