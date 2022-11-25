@@ -76,19 +76,24 @@ public class DialogCreateNewAccount {
         dialog.setBounds(xPos, yPos, width, height);
 
         // Create objects in this panel (String, button, ...)
-        PanelString messagePanel = new PanelString(width / 20, height / 20, messageLines, width / 10 * 9, null);
-        fieldName = new TextField(width / 20, messagePanel.getY() + messagePanel.getHeight() + 10,
-                width / 20 * 18, 50, "Họ và tên");
-        fieldUsername = new TextField(width / 20, messagePanel.getY() + messagePanel.getHeight() + 70,
-                width / 20 * 18, 50, "Tên đăng nhập");
-        fieldPassword = new TextField(width / 20, messagePanel.getY() + messagePanel.getHeight() + 130,
-                width / 20 * 18, 50, "Mật khẩu");
+        int tempHeight = 30;
+        PanelString messagePanel = new PanelString(width / 20 - 15, tempHeight, messageLines, width / 10 * 9, null);
+        tempHeight += messagePanel.getHeight() + 10;
+        fieldName = new TextField(width / 20, tempHeight,
+                width / 20 * 18, 50, "Họ và tên", 2, 15, 15);
+        tempHeight += fieldName.getHeight() + 10;
+        fieldUsername = new TextField(width / 20, tempHeight,
+                width / 20 * 18, 50, "Tên đăng nhập", 2, 15, 15);
+        tempHeight += fieldUsername.getHeight() + 10;
+        fieldPassword = new TextField(width / 20, tempHeight,
+                width / 20 * 18, 50, "Mật khẩu", 2, 15, 15);
+        tempHeight += fieldPassword.getHeight() + 10;
         button = new Button("Create");
         button.setFont(
                 Setting.FONT_NAME_01,
                 Setting.FONT_STYLE_01,
                 Setting.FONT_SIZE_SMALL);
-        button.setLocation(width / 2, messagePanel.getY() + messagePanel.getHeight() + 190, Button.TOP_CENTER);
+        button.setLocation(width / 2, tempHeight, Button.TOP_CENTER);
         button.addActionListener(new ButtonHandler());
         dialog.add(messagePanel);
         dialog.add(fieldName);
