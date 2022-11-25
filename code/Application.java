@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import code.curriculum.Data;
 import code.dialog.DialogCreateNewAccount;
 import code.file_handler.ReadFile;
-import code.objects.Account;
 import code.screen.ScreenMainMenu;
 
 public class Application extends JFrame {

@@ -34,4 +34,13 @@ public class Account {
     public List<Plan> getPlans() {
         return this.plans;
     }
+
+    // Setter
+    public void setPlans(List<Plan> plans) {
+        this.plans = plans;
+    }
+
+    public void addPlan(Plan plan) {
+        this.plans.add(plan);
+    }
 }

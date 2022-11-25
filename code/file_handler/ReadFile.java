@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
-
+import java.util.List;
+import code.objects.Account;
 import code.objects.KnowledgePart;
 import code.objects.Major;
+import code.objects.Plan;
 import code.objects.Subject;
 
 public class ReadFile {
@@ -46,9 +48,102 @@ public class ReadFile {
         return result;
     }
 
+    // Get string from a file more line
+    public static List<String> getStringLinesFromFile(String path) {
+        List<String> strings = new LinkedList<String>();
+        try {
+            FileInputStream file = new FileInputStream(path);
+            InputStreamReader inputStreamReader = new InputStreamReader(file, "UTF-8");
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            String line = reader.readLine();
+            while (line != null) {
+                strings.add(line);
+                line = reader.readLine();
+            }
+            // Close
+            reader.close();
+            inputStreamReader.close();
+            file.close();
+        } catch (Exception e) {
+
+        }
+        return strings;
+    }
+
+    // Get Plan from file
+    public static Plan getPlanFromFile(String path) {
+        return null;
+    }
+
+    // Get Plans from file
+    public static List<Plan> getPlans(String path) {
+        List<Plan> plans = new LinkedList<Plan>();
+        File file = new File(path);
+        if (file.exists()) {
+            String[] nameFolders = file.list();
+            for (String nameFolder : nameFolders) {
+                String path1 = path + "/" + nameFolder;
+                File tempFile = new File(path1);
+                if (tempFile.isDirectory()) {
+                    plans.add(getPlanFromFile(path1));
+                }
+            }
+        }
+        return plans;
+    }
+
+    // Get account from file
+    public static Account getAccountFromFile(String path) {
+        File file = new File(path);
+        if (file.exists()) {
+            // Get information
+            List<String> lines = getStringLinesFromFile(path + "/" + "information.txt");
+            String name = lines.get(0);
+            String username = lines.get(1);
+            String password = lines.get(2);
+            // get plans
+            List<Plan> plans = getPlans(path);
+            // Create account
+            Account account = new Account(name, username, password);
+            account.setPlans(plans);
+            return account;
+        }
+        return null;
+
+    }
+
+    // Get existing accounts
+    public static List<Account> getAccounts() {
+        List<Account> accounts = new LinkedList<Account>();
+        File file = new File(ReadFile.PATH_DATA_ACCOUNT);
+        if (file.exists()) {
+            String[] nameFolders = file.list();
+            for (String nameFolder : nameFolders) {
+                String path1 = ReadFile.PATH_DATA_ACCOUNT + "/" + nameFolder;
+                File tempFile = new File(path1);
+                if (tempFile.isDirectory()) {
+                    accounts.add(getAccountFromFile(path1));
+                }
+            }
+        }
+        return accounts;
+    }
+
+    // Find Account by username
+    public static Account findAccountByUsername(String username) {
+        List<Account> accounts = getAccounts();
+        for (Account account : accounts) {
+            if (account.getUsername().equals(username)) {
+                return account;
+            }
+        }
+        return null;
+    }
+
     // Check existing username
     public static boolean isExistingUsername(String username) {
-        return false;
+        Account account = findAccountByUsername(username);
+        return !(account == null);
     }
 
     // Get a Major instance from a folder, this folder contains a file txt and a
