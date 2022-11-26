@@ -3,6 +3,7 @@ package code.screen;
 import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
+import code.file_handler.ReadFile;
 import code.objects.Button;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -112,6 +113,8 @@ public class ScreenAccounts extends JPanel {
             // Press at "Existing Accounts" in mainScreen
             if (event.getSource() == buttons[0]) {
                 screenExistingAccounts.setVisible(true);
+                screenExistingAccounts.updatePanelListAccount();
+                screenExistingAccounts.updatePanelAccountInfor(ReadFile.getCurrentAccount());
                 getMainScreen().setVisible(false);
             }
             // Press at "Create New Account" in mainScreen
