@@ -44,7 +44,7 @@ public class ScreenMainMenu extends JPanel {
         // Create description (Who is using app?)
         descriptionPanel = new PanelString(getWidth() / 2, getHeight() / 12 * 2,
                 "", getWidth(),
-                null, PanelString.BOTTOM_CENTER);
+                null, PanelString.BOTTOM_CENTER, 0);
         mainScreen.add(descriptionPanel);
         updateDescriptionPanel();
 
@@ -122,7 +122,7 @@ public class ScreenMainMenu extends JPanel {
         }
         this.descriptionPanel = new PanelString(getWidth() / 2, getHeight() / 12 * 2,
                 currentName, getWidth(),
-                null, PanelString.BOTTOM_CENTER);
+                null, PanelString.BOTTOM_CENTER, 0);
         mainScreen.add(descriptionPanel);
 
     }

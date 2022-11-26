@@ -83,7 +83,7 @@ public class DialogCreateNewAccount {
         // Create objects in this panel (String, button, ...)
         int tempHeight = 30;
         PanelString messagePanel = new PanelString(width / 20 - 15, tempHeight, messageLines, width / 10 * 9, null,
-                PanelString.TOP_LEFT);
+                PanelString.TOP_LEFT, 0);
         tempHeight += messagePanel.getHeight() + 10;
         fieldName = new TextField(width / 20, tempHeight,
                 width / 20 * 18, 50, "Họ và tên", 2, 15, 15);

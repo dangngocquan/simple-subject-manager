@@ -101,10 +101,11 @@ public class ReadFile {
             String name = lines.get(0);
             String username = lines.get(1);
             String password = lines.get(2);
+            String timeAccountCreated = lines.get(3);
             // get plans
             List<Plan> plans = getPlans(path);
             // Create account
-            Account account = new Account(name, username, password);
+            Account account = new Account(name, username, password, timeAccountCreated);
             account.setPlans(plans);
             return account;
         }

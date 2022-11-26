@@ -23,7 +23,7 @@ public class PanelString extends JPanel {
     public static final int BOTTOM_RIGHT = 8;
 
     // Contructor
-    public PanelString(int x, int y, String text, int width, Font font, int rootLocationType) {
+    public PanelString(int x, int y, String text, int width, Font font, int rootLocationType, int locationText) {
         // Set default font
         if (font == null) {
             font = new Font(Setting.FONT_NAME_01,
@@ -49,7 +49,13 @@ public class PanelString extends JPanel {
         label.setSize(width, heightRow);
         Canvas c = new Canvas();
         FontMetrics f = c.getFontMetrics(font);
-        label.setBounds((width - f.stringWidth(text)) / 2, 0, width, height);
+        if (locationText > 0) {
+            label.setBounds(locationText, 0, width, height);
+        } else if (locationText == 0) {
+            label.setBounds((width - f.stringWidth(text)) / 2, 0, width, height);
+        } else {
+            label.setBounds(width - f.stringWidth(text) + locationText, 0, width, height);
+        }
 
         // Add label to this panel
         add(label);
@@ -188,7 +194,7 @@ public class PanelString extends JPanel {
         setBounds(xPos, yPos, width, height);
     }
 
-    public PanelString(int x, int y, String[] texts, int width, Font font, int rootLocationType) {
+    public PanelString(int x, int y, String[] texts, int width, Font font, int rootLocationType, int locationText) {
         // Set default font
         if (font == null) {
             font = new Font(Setting.FONT_NAME_01,
@@ -215,7 +221,15 @@ public class PanelString extends JPanel {
             label.setLayout(null);
             label.setFont(font);
             label.setSize(width, heightRow);
-            label.setBounds(15, heightRow * count1, width, heightRow);
+            Canvas c = new Canvas();
+            FontMetrics f = c.getFontMetrics(font);
+            if (locationText > 0) {
+                label.setBounds(locationText, heightRow * count1, width, heightRow);
+            } else if (locationText == 0) {
+                label.setBounds((width - f.stringWidth(rowContent)) / 2, heightRow * count1, width, heightRow);
+            } else {
+                label.setBounds(width - f.stringWidth(rowContent) + locationText, heightRow * count1, width, heightRow);
+            }
             add(label);
             height += heightRow;
         }

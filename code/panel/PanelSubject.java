@@ -31,16 +31,16 @@ public class PanelSubject extends JPanel {
 
                 panelCredit = new PanelString((width - panelParentSubjectCodes.getWidth()) / 8 * 7, 0,
                                 subject.getNumberCredits() + "", (width - panelParentSubjectCodes.getWidth()) / 8,
-                                font, PanelString.TOP_LEFT);
+                                font, PanelString.TOP_LEFT, 0);
 
                 panelName = new PanelString((width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7,
                                 0, subject.getName(),
                                 (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7 * 6, font,
-                                PanelString.TOP_LEFT);
+                                PanelString.TOP_LEFT, 0);
 
                 panelCode = new PanelString(0, 0, subject.getCode(),
                                 (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7, font,
-                                PanelString.TOP_LEFT);
+                                PanelString.TOP_LEFT, 0);
 
                 // Height of mainPanel
                 int height = panelParentSubjectCodes.getHeight();

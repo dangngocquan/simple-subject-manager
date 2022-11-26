@@ -17,6 +17,7 @@ public class ScreenAccounts extends JPanel {
     private Button[] buttons;
     private ScreenMainMenu parentScreen;
     private JPanel mainScreen;
+    private ScreenExistingAccounts screenExistingAccounts;
     private ScreenCreateNewAccount screenCreateNewAccount;
 
     // Constructor
@@ -33,6 +34,8 @@ public class ScreenAccounts extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, width, height);
+        screenExistingAccounts = new ScreenExistingAccounts(width, height,
+                this, applicationFrame);
         screenCreateNewAccount = new ScreenCreateNewAccount(width, height,
                 this, applicationFrame);
 
@@ -60,10 +63,12 @@ public class ScreenAccounts extends JPanel {
         // Add screen to this panel
         add(mainScreen);
         add(screenCreateNewAccount);
+        add(screenExistingAccounts);
 
         // Set visible of screens
         mainScreen.setVisible(true);
         screenCreateNewAccount.setVisible(false);
+        screenExistingAccounts.setVisible(false);
     }
 
     // Get application frame
@@ -91,10 +96,10 @@ public class ScreenAccounts extends JPanel {
         return this.mainScreen;
     }
 
-    // // Get screenCurriculumInformation
-    // public ScreenCurriculumInformation getScreenCurriculumInformation() {
-    // return this.screenCurriculumInformation;
-    // }
+    // Get Screen Exisitng accounts
+    public ScreenExistingAccounts getScreenExistingAccounts() {
+        return this.screenExistingAccounts;
+    }
 
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
@@ -106,7 +111,7 @@ public class ScreenAccounts extends JPanel {
         public void actionPerformed(ActionEvent event) {
             // Press at "Existing Accounts" in mainScreen
             if (event.getSource() == buttons[0]) {
-                // getScreenCurriculumInformation().setVisible(true);
+                screenExistingAccounts.setVisible(true);
                 getMainScreen().setVisible(false);
             }
             // Press at "Create New Account" in mainScreen

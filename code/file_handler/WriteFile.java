@@ -25,6 +25,16 @@ public class WriteFile {
                     file11.createNewFile();
                 }
                 writeStringToFile(ReadFile.PATH_DATA_ACCOUNT_1, "1", false);
+                // Create "C:/GPA_Plan/Temp"
+                File file2 = new File(ReadFile.PATH_DATA_TEMP);
+                if (file2.exists()) {
+                    // Format "C:/GPA_Plan/Accounts/tempAccount.txt", save username of current
+                    // account use application
+                    File file21 = new File(ReadFile.PATH_DATA_TEMP_1);
+                    if (file21.exists()) {
+                        writeStringToFile(ReadFile.PATH_DATA_TEMP_1, "", false);
+                    }
+                }
             }
             // Create "C:/GPA_Plan/Temp"
             File file2 = new File(ReadFile.PATH_DATA_TEMP);
@@ -88,7 +98,8 @@ public class WriteFile {
         try {
             file3.createNewFile();
             writeStringToFile(ReadFile.PATH_DATA_ACCOUNT + "/" + nameFolder + "/informations.txt",
-                    account.getName() + "\n" + account.getUsername() + "\n" + account.getPassword(),
+                    account.getName() + "\n" + account.getUsername() + "\n" + account.getPassword() + "\n"
+                            + account.getTimeAccountCreated(),
                     false);
         } catch (Exception e) {
 
