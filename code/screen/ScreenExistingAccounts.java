@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
 import code.dialog.DialogChangePassword;
+import code.dialog.DialogLoginAccount;
 import code.file_handler.ReadFile;
 import code.file_handler.WriteFile;
 import code.objects.Account;
@@ -91,11 +92,11 @@ public class ScreenExistingAccounts extends JPanel {
         // Set location of buttons
         buttons[0].setLocation(panelButton1.getWidth() / 2, panelButton1.getHeight() / 2, Button.CENTER_CENTER);
         panelButton1.add(buttons[0]);
-        buttons[1].setLocation(panelButton2.getWidth() / 6, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
+        buttons[1].setLocation(panelButton2.getWidth() / 2, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
         panelButton2.add(buttons[1]);
-        buttons[2].setLocation(panelButton2.getWidth() / 6 * 5, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
+        buttons[2].setLocation(panelButton2.getWidth() / 4 * 3, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
         panelButton2.add(buttons[2]);
-        buttons[3].setLocation(panelButton2.getWidth() / 6 * 3, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
+        buttons[3].setLocation(panelButton2.getWidth() / 4, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
         panelButton2.add(buttons[3]);
 
         // add panels
@@ -147,7 +148,7 @@ public class ScreenExistingAccounts extends JPanel {
             buttons[3].setVisible(true);
         } else {
             buttons[1].setVisible(true);
-            buttons[2].setVisible(true);
+            buttons[2].setVisible(false);
             buttons[3].setVisible(false);
         }
         repaint();
@@ -192,6 +193,22 @@ public class ScreenExistingAccounts extends JPanel {
                         "Change password", messageLines, accountShowing);
                 updateDataListAccount();
                 accountShowing = ReadFile.getCurrentAccount();
+            }
+            // Press "Delete" button on "panelButton2"
+            else if (event.getSource() == getButtons()[2]) {
+                String[] messageLines = {
+                        "Trước khi xóa tài khoản này, bạn cần đăng nhập một tài khoản khác, hoặc",
+                        "tạo một tài khoản mới" };
+                new DialogLoginAccount(width / 2, height / 2, width / 2, height / 2,
+                        DialogChangePassword.CENTER_CENTER,
+                        "Login account", messageLines, accountShowing);
+                if (!accountShowing.getUsername().equals(ReadFile.getCurrentAccount().getUsername())) {
+                    WriteFile.removeAccount(accountShowing);
+                    accountShowing = ReadFile.getCurrentAccount();
+                    updateDataListAccount();
+                    updatePanelListAccount();
+
+                }
             }
         }
     }

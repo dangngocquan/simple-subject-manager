@@ -107,6 +107,47 @@ public class WriteFile {
         }
     }
 
+    // Remove folder
+    public static void removeFolder(File file) {
+        if (file.isFile()) {
+            file.delete();
+        } else {
+            File[] files = file.listFiles();
+            if (files.length > 0) {
+                for (File file1 : files) {
+                    removeFolder(file1);
+                }
+            }
+            file.delete();
+        }
+    }
+
+    // Remove account
+    public static void removeAccount(Account account) {
+        createDefaultPathData();
+        File file = new File(ReadFile.PATH_DATA_ACCOUNT);
+        if (file.exists()) {
+            // Folders account
+            for (String accountFolderNames : file.list()) {
+                String path1 = ReadFile.PATH_DATA_ACCOUNT + "/" + accountFolderNames;
+                File file1 = new File(path1);
+                if (file1.exists() && file1.isDirectory()) {
+                    // file in a folder account
+                    for (String fileName : file1.list()) {
+                        String path2 = path1 + "/" + fileName;
+                        if (fileName.equals("informations.txt")) {
+                            String tempUsername = ReadFile.getStringLinesFromFile(path2).get(1);
+                            if (tempUsername.equals(account.getUsername())) {
+                                removeFolder(file1);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // Change information of account
     public static void changeInformationAccount(Account oldAccount, Account newAccount, String type) {
         // Create new infor
@@ -154,7 +195,6 @@ public class WriteFile {
                 }
             }
         }
-
     }
 
 }

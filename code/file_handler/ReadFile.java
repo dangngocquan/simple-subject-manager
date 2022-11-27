@@ -122,7 +122,7 @@ public class ReadFile {
             for (String nameFolder : nameFolders) {
                 String path1 = ReadFile.PATH_DATA_ACCOUNT + "/" + nameFolder;
                 File tempFile = new File(path1);
-                if (tempFile.isDirectory()) {
+                if (tempFile.isDirectory() && tempFile.listFiles().length != 0) {
                     accounts.add(getAccountFromFile(path1));
                 }
             }
