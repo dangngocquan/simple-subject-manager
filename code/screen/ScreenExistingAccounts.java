@@ -197,17 +197,23 @@ public class ScreenExistingAccounts extends JPanel {
             // Press "Delete" button on "panelButton2"
             else if (event.getSource() == getButtons()[2]) {
                 String[] messageLines = {
-                        "Trước khi xóa tài khoản này, bạn cần đăng nhập một tài khoản khác, hoặc",
-                        "tạo một tài khoản mới" };
+                        "Trước khi xóa tài khoản này, bạn cần đăng nhập một tài khoản khác.",
+                };
                 new DialogLoginAccount(width / 2, height / 2, width / 2, height / 2,
                         DialogChangePassword.CENTER_CENTER,
                         "Login account", messageLines, accountShowing);
                 if (!accountShowing.getUsername().equals(ReadFile.getCurrentAccount().getUsername())) {
                     WriteFile.removeAccount(accountShowing);
+                    JOptionPane.showMessageDialog(panelAccountInfor,
+                            String.format(
+                                    "Tài khoản \"%s\" đã được xóa thành công.\nHiện tại bạn đang ở tài khoản \"%s\".",
+                                    accountShowing.getName(), ReadFile.getCurrentAccount().getName()),
+                            "Notification",
+                            JOptionPane.INFORMATION_MESSAGE);
                     accountShowing = ReadFile.getCurrentAccount();
                     updateDataListAccount();
                     updatePanelListAccount();
-
+                    updatePanelAccountInfor(accountShowing);
                 }
             }
         }

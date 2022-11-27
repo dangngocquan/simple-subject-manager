@@ -2,7 +2,7 @@ package code.screen;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import java.awt.Font;
 import code.Application;
 import code.Setting;
 import code.file_handler.ReadFile;
@@ -22,7 +22,7 @@ public class ScreenCreateNewAccount extends JPanel {
     private ScreenAccounts parentScreen;
     private TextField fieldName = null, fieldUsername = null, fieldPassword = null;
     private String[] buttonTexts = {
-            "Create account", "Cancer"
+            "Tạo", "Hủy"
     };
     private Button[] buttons;
 
@@ -55,20 +55,21 @@ public class ScreenCreateNewAccount extends JPanel {
         // Create text fields
         int tempHeight = 30;
         String[] messageLines = {
-                "", ""
+                "TẠO TÀI KHOẢN MỚI"
         };
-        PanelString messagePanel = new PanelString(width / 20 - 15, tempHeight, messageLines, width / 10 * 9, null,
-                PanelString.TOP_LEFT, 0);
-        tempHeight += messagePanel.getHeight() + 10;
-        fieldName = new TextField(width / 20, tempHeight,
-                width / 20 * 18, 50, "Họ và tên", 2, 15, 15);
-        tempHeight += fieldName.getHeight() + 10;
-        fieldUsername = new TextField(width / 20, tempHeight,
-                width / 20 * 18, 50, "Tên đăng nhập", 2, 15, 15);
-        tempHeight += fieldUsername.getHeight() + 10;
-        fieldPassword = new TextField(width / 20, tempHeight,
-                width / 20 * 18, 50, "Mật khẩu", 2, 15, 15);
-        tempHeight += fieldPassword.getHeight() + 10;
+        PanelString messagePanel = new PanelString(width / 2, tempHeight, messageLines, width / 10 * 9,
+                new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_BIG),
+                PanelString.TOP_CENTER, 0);
+        tempHeight += messagePanel.getHeight() + 30;
+        fieldName = new TextField(width / 2, tempHeight,
+                width / 20 * 15, 50, TextField.TOP_CENTER, "Họ và tên", 2, 15, 15);
+        tempHeight += fieldName.getHeight() + 20;
+        fieldUsername = new TextField(width / 2, tempHeight,
+                width / 20 * 15, 50, TextField.TOP_CENTER, "Tên đăng nhập", 2, 15, 15);
+        tempHeight += fieldUsername.getHeight() + 20;
+        fieldPassword = new TextField(width / 2, tempHeight,
+                width / 20 * 15, 50, TextField.TOP_CENTER, "Mật khẩu", 2, 15, 15);
+        tempHeight += fieldPassword.getHeight() + 20;
 
         // Set location for each button
         buttons[0].setLocation(width / 4, tempHeight, Button.TOP_CENTER);
@@ -79,6 +80,7 @@ public class ScreenCreateNewAccount extends JPanel {
             mainScreen.add(button);
         }
 
+        mainScreen.add(messagePanel);
         mainScreen.add(fieldName);
         mainScreen.add(fieldUsername);
         mainScreen.add(fieldPassword);

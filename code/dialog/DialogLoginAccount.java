@@ -87,11 +87,11 @@ public class DialogLoginAccount {
         PanelString messagePanel = new PanelString(width / 20 - 15, tempHeight, messageLines, width / 10 * 9, null,
                 PanelString.TOP_LEFT, width / 20);
         tempHeight += messagePanel.getHeight() + 10;
-        fieldUsername = new TextField(width / 20, tempHeight,
-                width / 20 * 18, 50, "Tên đăng nhập", 2, 15, 15);
+        fieldUsername = new TextField(width / 2, tempHeight,
+                width / 20 * 18, 50, TextField.TOP_CENTER, "Tên đăng nhập", 2, 15, 15);
         tempHeight += fieldUsername.getHeight() + 10;
-        fieldPassword = new TextField(width / 20, tempHeight,
-                width / 20 * 18, 50, "Mật khẩu", 2, 15, 15);
+        fieldPassword = new TextField(width / 2, tempHeight,
+                width / 20 * 18, 50, TextField.TOP_CENTER, "Mật khẩu", 2, 15, 15);
         tempHeight += fieldPassword.getHeight() + 10;
         button = new Button("Đăng nhập");
         button.setFont(

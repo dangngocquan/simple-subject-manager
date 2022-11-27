@@ -18,8 +18,20 @@ public class TextField extends JTextField {
     private int arcWidth, arcHeight;
     private String defaultText;
 
+    // Constants panel's root location
+    public static final int TOP_LEFT = 0;
+    public static final int TOP_CENTER = 1;
+    public static final int TOP_RIGHT = 2;
+    public static final int CENTER_LEFT = 3;
+    public static final int CENTER_CENTER = 4;
+    public static final int CENTER_RIGHT = 5;
+    public static final int BOTTOM_LEFT = 6;
+    public static final int BOTTOM_CENTER = 7;
+    public static final int BOTTOM_RIGHT = 8;
+
     // Constructor
-    public TextField(int x, int y, int width, int height, String defaultText, int thickness, int arcWidth,
+    public TextField(int x, int y, int width, int height, int rootLocationType, String defaultText, int thickness,
+            int arcWidth,
             int arcHeight) {
         super(defaultText);
         this.defaultText = defaultText;
@@ -33,7 +45,46 @@ public class TextField extends JTextField {
                 Setting.FONT_STYLE_01,
                 Setting.FONT_SIZE_SMALL));
         setSize(width, height);
-        setBounds(x, y, width, height);
+        int xPos = 0, yPos = 0;
+        switch (rootLocationType) {
+            case 0:
+                xPos = x;
+                yPos = y;
+                break;
+            case 1:
+                xPos = x - width / 2;
+                yPos = y;
+                break;
+            case 2:
+                xPos = x - width;
+                yPos = y;
+                break;
+            case 3:
+                xPos = x;
+                yPos = y - height / 2;
+                break;
+            case 4:
+                xPos = x - width / 2;
+                yPos = y - height / 2;
+                break;
+            case 5:
+                xPos = x - width;
+                yPos = y - height / 2;
+                break;
+            case 6:
+                xPos = x;
+                yPos = y - height;
+                break;
+            case 7:
+                xPos = x - width / 2;
+                yPos = y - height;
+                break;
+            case 8:
+                xPos = x - width;
+                yPos = y - height;
+                break;
+        }
+        setBounds(xPos, yPos, width, height);
         setForeground(Setting.COLOR_GRAY_03);
         setBorder(new LineBorder(Setting.COLOR_GRAY_03, thickness, true));
         addFocusListener(new FocusAdapter() {
