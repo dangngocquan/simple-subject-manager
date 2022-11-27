@@ -1,9 +1,12 @@
 package code.screen;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
+import code.dialog.DialogChangePassword;
 import code.file_handler.ReadFile;
+import code.file_handler.WriteFile;
 import code.objects.Account;
 import code.objects.Button;
 import code.panel.PanelAccount;
@@ -15,18 +18,22 @@ import java.awt.Graphics;
 public class ScreenExistingAccounts extends JPanel {
     // Properties
     // private Application applicationFrame;
+    private int width, height;
     private ScreenAccounts parentScreen;
     private String[] buttonTexts = {
-            "Quay lại"
+            "Quay lại", "Sử dụng", "Xóa", "Đổi mật khẩu"
     };
     private Button[] buttons;
-    private JPanel panelListAccount, panelAccountInfor;
+    private PanelAccountList panelListAccount;
+    private JPanel panelAccountInfor;
     private JPanel panelButton1, panelButton2;
     private JPanel panelGroup1, panelGroup2;
     private Account accountShowing = ReadFile.getCurrentAccount();
 
     public ScreenExistingAccounts(int width, int height, ScreenAccounts parentScreen, Application frame) {
         // Set basic properties
+        this.width = width;
+        this.height = height;
         this.parentScreen = parentScreen;
         // this.applicationFrame = frame;
         setLayout(null);
@@ -50,10 +57,8 @@ public class ScreenExistingAccounts extends JPanel {
         panelButton1.setBounds(0, panelGroup1.getHeight() - panelButton1.getHeight(),
                 panelButton1.getWidth(), panelButton1.getHeight());
 
-        panelListAccount = new JPanel();
-        panelListAccount.setLayout(null);
-        panelListAccount.setSize(panelGroup1.getWidth(), height - panelButton1.getHeight());
-        panelListAccount.setBounds(0, 0, panelListAccount.getWidth(), panelListAccount.getHeight());
+        panelListAccount = new PanelAccountList(0, 0, panelGroup1.getWidth(), height - panelButton1.getHeight(),
+                ReadFile.getAccounts(), this);
 
         panelButton2 = new JPanel();
         panelButton2.setLayout(null);
@@ -71,8 +76,6 @@ public class ScreenExistingAccounts extends JPanel {
         // Add information to panels
         panelAccountInfor.add(new PanelAccount(0, 0, panelAccountInfor.getWidth(),
                 panelAccountInfor.getHeight(), accountShowing));
-        panelListAccount.add(new PanelAccountList(0, 0, panelListAccount.getWidth(), panelListAccount.getHeight(),
-                ReadFile.getAccounts(), this));
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -88,6 +91,12 @@ public class ScreenExistingAccounts extends JPanel {
         // Set location of buttons
         buttons[0].setLocation(panelButton1.getWidth() / 2, panelButton1.getHeight() / 2, Button.CENTER_CENTER);
         panelButton1.add(buttons[0]);
+        buttons[1].setLocation(panelButton2.getWidth() / 6, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
+        panelButton2.add(buttons[1]);
+        buttons[2].setLocation(panelButton2.getWidth() / 6 * 5, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
+        panelButton2.add(buttons[2]);
+        buttons[3].setLocation(panelButton2.getWidth() / 6 * 3, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
+        panelButton2.add(buttons[3]);
 
         // add panels
         panelGroup1.add(panelListAccount);
@@ -116,16 +125,31 @@ public class ScreenExistingAccounts extends JPanel {
 
     // Update the lastest account list
     public void updatePanelListAccount() {
-        panelListAccount.removeAll();
-        panelListAccount.add(new PanelAccountList(0, 0, panelListAccount.getWidth(), panelListAccount.getHeight(),
-                ReadFile.getAccounts(), this));
+        panelGroup1.remove(panelListAccount);
+        panelListAccount = new PanelAccountList(0, 0, panelListAccount.getWidth(), panelListAccount.getHeight(),
+                ReadFile.getAccounts(), this);
+        panelGroup1.add(panelListAccount);
         repaint();
+    }
+
+    public void updateDataListAccount() {
+        panelListAccount.updateContentPanel(ReadFile.getAccounts());
     }
 
     public void updatePanelAccountInfor(Account account) {
         panelAccountInfor.removeAll();
+        this.accountShowing = account;
         panelAccountInfor.add(new PanelAccount(0, 0, panelAccountInfor.getWidth(),
                 panelAccountInfor.getHeight(), account));
+        if (accountShowing.getUsername().equals(ReadFile.getCurrentAccount().getUsername())) {
+            buttons[1].setVisible(false);
+            buttons[2].setVisible(true);
+            buttons[3].setVisible(true);
+        } else {
+            buttons[1].setVisible(true);
+            buttons[2].setVisible(true);
+            buttons[3].setVisible(false);
+        }
         repaint();
     }
 
@@ -136,19 +160,39 @@ public class ScreenExistingAccounts extends JPanel {
     // Handler when press at button
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            // Press "Back" button on "panelButton1" screen
+            // Press "Back" button on "panelButton1"
             if (event.getSource() == getButtons()[0]) {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenExistingAccounts().setVisible(false);
             }
-            // // Press "Accounts" button on "screenMainMenu" screen
-            // else if (event.getSource() == getButtons()[1]) {
+            // Press "Use" button on "panelbutton2"
+            else if (event.getSource() == getButtons()[1]) {
+                String passwordInput = JOptionPane.showInputDialog(panelAccountInfor,
+                        "Bạn cần nhập mật khẩu của tài khoản này", "Login", JOptionPane.QUESTION_MESSAGE);
+                if (passwordInput != null) {
+                    if (passwordInput.equals(accountShowing.getPassword())) {
+                        WriteFile.writeStringToFile(ReadFile.PATH_DATA_TEMP_1, accountShowing.getUsername(), false);
+                        JOptionPane.showMessageDialog(panelAccountInfor, "Đặng nhập tài khoản thành công",
+                                "Notification",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        updatePanelAccountInfor(accountShowing);
+                    } else {
+                        JOptionPane.showMessageDialog(panelAccountInfor, "Mật khẩu không chính xác",
+                                "Notification",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
 
-            // }
-            // // Press "Information" button on "screenMainMenu" screen
-            // else if (event.getSource() == getButtons()[2]) {
-
-            // }
+            }
+            // Press "Change password" button on "panelButton2"
+            else if (event.getSource() == getButtons()[3]) {
+                String[] messageLines = {};
+                new DialogChangePassword(width / 2, height / 2, width / 2, height / 2,
+                        DialogChangePassword.CENTER_CENTER,
+                        "Change password", messageLines, accountShowing);
+                updateDataListAccount();
+                accountShowing = ReadFile.getCurrentAccount();
+            }
         }
     }
 }

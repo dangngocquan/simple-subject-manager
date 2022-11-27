@@ -148,9 +148,17 @@ public class ScreenCreateNewAccount extends JPanel {
                     WriteFile.createNewAccount(new Account(
                             fieldName.getText(), fieldUsername.getText(), fieldPassword.getText()));
                     WriteFile.writeStringToFile(ReadFile.PATH_DATA_TEMP_1, fieldUsername.getText(), false);
-                    JOptionPane.showMessageDialog(applicationFrame, "Tạo tài khoản thành công.",
+                    JOptionPane.showMessageDialog(applicationFrame,
+                            "Tạo tài khoản thành công.\nTài khoản hiện tại đang sử dụng: " + fieldName.getText(),
                             "Create account successed",
                             JOptionPane.INFORMATION_MESSAGE);
+                    // Set default text
+                    fieldName.setText("Họ và tên");
+                    fieldName.setForeground(Setting.COLOR_GRAY_03);
+                    fieldUsername.setText("Tên đăng nhập");
+                    fieldUsername.setForeground(Setting.COLOR_GRAY_03);
+                    fieldPassword.setText("Mật khẩu");
+                    fieldPassword.setForeground(Setting.COLOR_GRAY_03);
                     // Return parent screen
                     getParentScreen().getMainScreen().setVisible(true);
                     getParentScreen().getScreenCreateNewAccount().setVisible(false);

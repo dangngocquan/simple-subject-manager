@@ -154,6 +154,20 @@ public class ReadFile {
         return findAccountByUsername(currentUsername);
     }
 
+    // Get index of curent account
+    public static int getIndexCurrentAccount() {
+        WriteFile.createDefaultPathData();
+        String currentUsername = getStringFromFile(PATH_DATA_TEMP_1);
+        int index = 0;
+        for (Account account : getAccounts()) {
+            if (account.getUsername().equals(currentUsername)) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
     // Get a Major instance from a folder, this folder contains a file txt and a
     // file csv
     public static Major getMajorFromFolder(String path) {

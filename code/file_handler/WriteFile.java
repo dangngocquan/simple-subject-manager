@@ -3,6 +3,7 @@ package code.file_handler;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
+import java.util.List;
 
 import code.objects.Account;
 
@@ -103,6 +104,55 @@ public class WriteFile {
                     false);
         } catch (Exception e) {
 
+        }
+    }
+
+    // Change information of account
+    public static void changeInformationAccount(Account oldAccount, Account newAccount, String type) {
+        // Create new infor
+        String name = oldAccount.getName();
+        String userName = oldAccount.getUsername();
+        String password = oldAccount.getPassword();
+        String timeCreated = oldAccount.getTimeAccountCreated();
+
+        switch (type) {
+            case "name":
+                name = newAccount.getName();
+                break;
+            case "password":
+                password = newAccount.getPassword();
+                break;
+            case "timeCreated":
+                timeCreated = newAccount.getTimeAccountCreated();
+                break;
+            default:
+                break;
+        }
+
+        // Update
+        createDefaultPathData();
+        File file = new File(ReadFile.PATH_DATA_ACCOUNT);
+        if (file.exists()) {
+            String[] nameFolders = file.list();
+            for (String nameFolder : nameFolders) {
+                String path1 = ReadFile.PATH_DATA_ACCOUNT + "/" + nameFolder;
+                File tempFile = new File(path1);
+                if (tempFile.isDirectory()) {
+                    String path2 = path1 + "/" + "informations.txt";
+                    File tempFile2 = new File(path2);
+                    if (tempFile2.exists()) {
+                        List<String> data = ReadFile.getStringLinesFromFile(path2);
+                        // Check username to find account
+                        if (data.get(1).equals(userName)) {
+                            writeStringToFile(path2, name + "\n" + userName + "\n" + password + "\n" + timeCreated,
+                                    false);
+                            break;
+                        }
+
+                    }
+
+                }
+            }
         }
 
     }
