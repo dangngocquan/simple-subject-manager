@@ -1,6 +1,8 @@
 package code;
 
 import java.awt.GraphicsEnvironment;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -26,6 +28,8 @@ public class Application extends JFrame {
                 setAlwaysOnTop(false);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setLayout(null);
+                ImageIcon icon = new ImageIcon("assets/icon/logo.png");
+                setIconImage(icon.getImage());
                 new Data();
 
                 // Create screens

@@ -196,15 +196,7 @@ public class PanelAccountList extends JPanel {
 
     private class MouseWheelHandler implements MouseWheelListener {
         public void mouseWheelMoved(MouseWheelEvent event) {
-            if (event.getWheelRotation() < 0) {
-                for (int count = 0; count < 30; count++) {
-                    setCurscorScroll(getCursorScroll() - 1);
-                }
-            } else {
-                for (int count = 0; count < 30; count++) {
-                    setCurscorScroll(getCursorScroll() + 1);
-                }
-            }
+            setCurscorScroll(getCursorScroll() + event.getWheelRotation() * 20);
             updateContentShowing();
         }
     }
