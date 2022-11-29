@@ -12,7 +12,6 @@ import code.objects.Department;
 import code.objects.Major;
 import code.objects.School;
 import code.panel.PanelString;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -30,6 +29,8 @@ public class ScreenCreateNewPlan1 extends JPanel {
     private Department department = school.getDepartments().get(0);
     private Major major = department.getMajors().get(0);
 
+    private ScreenCreateNewPlan2 screenCreateNewPlan2;
+
     // Constructor
     public ScreenCreateNewPlan1(int width, int height, ScreenPlans parentScreen, Application frame) {
         // Set basic properties
@@ -38,6 +39,7 @@ public class ScreenCreateNewPlan1 extends JPanel {
         setSize(width, height);
         setBounds(0, 0, width, height);
         this.parentScreen = parentScreen;
+        this.screenCreateNewPlan2 = new ScreenCreateNewPlan2(width, height, this, frame, major);
 
         // Create screens
         mainScreen = new JPanel();
@@ -108,14 +110,13 @@ public class ScreenCreateNewPlan1 extends JPanel {
         optionPanel.add(buttons[6]);
         optionPanel.add(buttons[7]);
 
-        contentPanel.setBackground(Setting.COLOR_GREEN_02);
-        optionPanel.setBackground(Setting.COLOR_GREEN_02);
-
         // Add screens to this panel
         add(mainScreen);
+        add(screenCreateNewPlan2);
 
         // Set visible of screens
         mainScreen.setVisible(true);
+        screenCreateNewPlan2.setVisible(false);
     }
 
     // Get application frame
@@ -126,6 +127,16 @@ public class ScreenCreateNewPlan1 extends JPanel {
     // Get buttons in mainScreen
     public Button[] getButtons() {
         return this.buttons;
+    }
+
+    // Get mainScreen
+    public JPanel getMainScreen() {
+        return this.mainScreen;
+    }
+
+    // Get screen create new plan 2
+    public ScreenCreateNewPlan2 getScreenCreateNewPlan2() {
+        return this.screenCreateNewPlan2;
     }
 
     // Get parent screen of this panel
@@ -144,10 +155,6 @@ public class ScreenCreateNewPlan1 extends JPanel {
         buttons[2].setEnabled(false);
         buttons[3].setEnabled(false);
         buttons[4].setEnabled(false);
-        // contentPanel.removeAll();
-        // bodyPanel0.add(new PanelMajor(0, 0, bodyPanel0.getWidth(),
-        // bodyPanel0.getHeight(),
-        // major, PanelMajor.TOP_LEFT));
         repaint();
     }
 
@@ -166,7 +173,9 @@ public class ScreenCreateNewPlan1 extends JPanel {
             }
             // Press at "Next" in mainScreen
             else if (event.getSource() == buttons[1]) {
-
+                screenCreateNewPlan2.setMajor(major);
+                screenCreateNewPlan2.setVisible(true);
+                mainScreen.setVisible(false);
             }
             // Press "Change" of School
             else if (event.getSource() == buttons[5]) {

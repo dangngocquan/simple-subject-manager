@@ -194,6 +194,104 @@ public class PanelString extends JPanel {
         setBounds(xPos, yPos, width, height);
     }
 
+    public PanelString(int x, int y, List<String[]> textsList, int width, Font font, int rootLocationType,
+            int locationText) {
+        // Set default font
+        if (font == null) {
+            font = new Font(Setting.FONT_NAME_01,
+                    Setting.FONT_STYLE_01,
+                    Setting.FONT_SIZE_SMALL);
+        }
+
+        // Get height of a row
+        // Create pattern button to get height
+        Button button = new Button("A");
+        button.setFont(font.getFontName(),
+                font.getStyle(),
+                font.getSize());
+        int heightRow = button.getHeight();
+
+        // Height of this panel
+        int height = 0;
+
+        // Create labels and add to this panel
+        for (int count1 = 0; count1 < textsList.size(); count1++) {
+            String rowContent = "";
+            String[] texts = textsList.get(count1);
+            for (int count2 = 0; count2 < texts.length; count2++) {
+                if (count2 > 0) {
+                    rowContent += " / " + texts[count2];
+                } else {
+                    rowContent += texts[count2];
+                }
+            }
+
+            JLabel label = new JLabel(rowContent);
+            label.setLayout(null);
+            label.setFont(font);
+            label.setSize(width, heightRow);
+            Canvas c = new Canvas();
+            FontMetrics f = c.getFontMetrics(font);
+            if (locationText > 0) {
+                label.setBounds(locationText, heightRow * count1, width, heightRow);
+            } else if (locationText == 0) {
+                label.setBounds((width - f.stringWidth(rowContent)) / 2, heightRow * count1, width, heightRow);
+            } else {
+                label.setBounds(width - f.stringWidth(rowContent) + locationText, heightRow * count1, width, heightRow);
+            }
+            add(label);
+            height += heightRow;
+        }
+
+        if (textsList.size() == 0) {
+            height += heightRow;
+        }
+
+        // Set up panel
+        setLayout(null);
+        setSize(width, height);
+        int xPos = 0, yPos = 0;
+        switch (rootLocationType) {
+            case 0:
+                xPos = x;
+                yPos = y;
+                break;
+            case 1:
+                xPos = x - width / 2;
+                yPos = y;
+                break;
+            case 2:
+                xPos = x - width;
+                yPos = y;
+                break;
+            case 3:
+                xPos = x;
+                yPos = y - height / 2;
+                break;
+            case 4:
+                xPos = x - width / 2;
+                yPos = y - height / 2;
+                break;
+            case 5:
+                xPos = x - width;
+                yPos = y - height / 2;
+                break;
+            case 6:
+                xPos = x;
+                yPos = y - height;
+                break;
+            case 7:
+                xPos = x - width / 2;
+                yPos = y - height;
+                break;
+            case 8:
+                xPos = x - width;
+                yPos = y - height;
+                break;
+        }
+        setBounds(xPos, yPos, width, height);
+    }
+
     public PanelString(int x, int y, String[] texts, int width, Font font, int rootLocationType, int locationText) {
         // Set default font
         if (font == null) {
