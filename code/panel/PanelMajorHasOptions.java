@@ -2,6 +2,7 @@ package code.panel;
 
 import javax.swing.JPanel;
 import java.awt.event.MouseWheelListener;
+import java.util.Arrays;
 import java.util.List;
 import java.awt.event.MouseWheelEvent;
 import code.Setting;
@@ -9,12 +10,13 @@ import code.objects.Button;
 import code.objects.KnowledgePart;
 import code.objects.Major;
 import code.objects.Subject;
-
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class PanelMajor extends JPanel {
+public class PanelMajorHasOptions extends JPanel {
     // Constants panel's root location
     public static final int TOP_LEFT = 0;
     public static final int TOP_CENTER = 1;
@@ -32,6 +34,11 @@ public class PanelMajor extends JPanel {
     public static final Color COLOR_SUBJECT_1 = Setting.COLOR_GRAY_05;
     public static final Color COLOR_SUBJECT_2 = Setting.COLOR_GRAY_04;
 
+    public static final Color COLOR_SUBJECT_ENTERED = Setting.COLOR_VIOLET_03;
+    public static final Color COLOR_SUBJECT_EXITED_1 = Setting.COLOR_GRAY_05;
+    public static final Color COLOR_SUBJECT_EXITED_2 = Setting.COLOR_GRAY_04;
+    public static final Color COLOR_SUBJECT_PRESSED = Setting.COLOR_GREEN_03;
+
     // Properties
     private int width, height; // size of this panel
     private int xPos, yPos, rootLocationType; // location of top-left point
@@ -40,14 +47,19 @@ public class PanelMajor extends JPanel {
     private JPanel contentPanel; // a part of scrollPanel wil be shown here
     private JPanel scrollPanel; // Contains all information of major
     private int cursorScroll = 0; // to define where the contentPanel in scrolllPanel
+    private PanelSubject[] panelSubjects = null;
+    private boolean[] isSelectedSubject = null;
 
     // Constructor
-    public PanelMajor(int x, int y, int width, int height, Major major, int rootLocationType) {
+    public PanelMajorHasOptions(int x, int y, int width, int height, Major major, int rootLocationType) {
         // Properties, Objects
         this.width = width;
         this.height = height;
         this.major = major;
         this.rootLocationType = rootLocationType;
+        this.panelSubjects = new PanelSubject[major.getSubjects().size()];
+        this.isSelectedSubject = new boolean[panelSubjects.length];
+        Arrays.fill(this.isSelectedSubject, false);
         setLayout(null);
         setSize(width, height);
         setLocation(x, y, rootLocationType);
@@ -132,6 +144,10 @@ public class PanelMajor extends JPanel {
                 } else {
                     panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_2);
                 }
+
+                panelSubjects[countSubjects] = panelSubject;
+                panelSubjects[countSubjects].addMouseListener(new MouseHandler());
+
                 countSubjects++;
                 scrollPanel.add(panelSubject);
                 heightScroll += panelSubject.getHeight();
@@ -182,6 +198,10 @@ public class PanelMajor extends JPanel {
                     } else {
                         panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_2);
                     }
+
+                    panelSubjects[countSubjects] = panelSubject;
+                    panelSubjects[countSubjects].addMouseListener(new MouseHandler());
+
                     countSubjects++;
                     scrollPanel.add(panelSubject);
                     heightScroll += panelSubject.getHeight();
@@ -300,6 +320,66 @@ public class PanelMajor extends JPanel {
                 setCurscorScroll(getCursorScroll() + event.getWheelRotation());
             }
             updateContentShowing();
+        }
+    }
+
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            for (int count = 0; count < panelSubjects.length; count++) {
+                if (e.getSource() == panelSubjects[count]) {
+                    isSelectedSubject[count] = !isSelectedSubject[count];
+                    if (isSelectedSubject[count]) {
+                        panelSubjects[count].setBackgroundColorPanelSubject(COLOR_SUBJECT_PRESSED);
+                    } else {
+                        if (count % 2 == 0) {
+                            panelSubjects[count].setBackgroundColorPanelSubject(COLOR_SUBJECT_EXITED_1);
+                        } else {
+                            panelSubjects[count].setBackgroundColorPanelSubject(COLOR_SUBJECT_EXITED_2);
+                        }
+                    }
+                }
+            }
+            repaint();
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            for (int count = 0; count < panelSubjects.length; count++) {
+                if (e.getSource() == panelSubjects[count]) {
+                    if (!isSelectedSubject[count]) {
+                        panelSubjects[count].setBackgroundColorPanelSubject(COLOR_SUBJECT_ENTERED);
+                    }
+
+                }
+            }
+            repaint();
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            for (int count = 0; count < panelSubjects.length; count++) {
+                if (e.getSource() == panelSubjects[count]) {
+                    if (!isSelectedSubject[count]) {
+                        if (count % 2 == 0) {
+                            panelSubjects[count].setBackgroundColorPanelSubject(COLOR_SUBJECT_EXITED_1);
+                        } else {
+                            panelSubjects[count].setBackgroundColorPanelSubject(COLOR_SUBJECT_EXITED_2);
+                        }
+                    }
+                }
+            }
+            repaint();
         }
     }
 }

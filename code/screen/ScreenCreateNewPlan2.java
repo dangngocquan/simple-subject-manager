@@ -8,6 +8,7 @@ import code.Setting;
 import code.objects.Button;
 import code.objects.Major;
 import code.panel.PanelMajor;
+import code.panel.PanelMajorHasOptions;
 import code.panel.PanelString;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -106,7 +107,7 @@ public class ScreenCreateNewPlan2 extends JPanel {
     // Update content panels
     public void updateContentPanel() {
         contentPanel.removeAll();
-        contentPanel.add(new PanelMajor(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
+        contentPanel.add(new PanelMajorHasOptions(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
                 major, PanelMajor.TOP_LEFT));
         repaint();
     }

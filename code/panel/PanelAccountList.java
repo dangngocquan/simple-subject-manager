@@ -11,11 +11,18 @@ import code.file_handler.ReadFile;
 import code.objects.Account;
 import code.objects.Button;
 import code.screen.ScreenExistingAccounts;
-
+import java.awt.Color;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 public class PanelAccountList extends JPanel {
+    public static final Color COLOR_ACCOUNT_1 = Setting.COLOR_GRAY_05;
+    public static final Color COLOR_ACCOUNT_2 = Setting.COLOR_GRAY_04;
+
+    public static final Color COLOR_ACCOUNT_ENTERED = Setting.COLOR_VIOLET_03;
+    public static final Color COLOR_ACCOUNT_EXITED_1 = Setting.COLOR_GRAY_05;
+    public static final Color COLOR_ACCOUNT_EXITED_2 = Setting.COLOR_GRAY_04;
+    public static final Color COLOR_ACCOUNT_PRESSED = Setting.COLOR_GREEN_03;
     // Properties
     private ScreenExistingAccounts parentScreen;
     private JPanel headerPanel;
@@ -116,18 +123,18 @@ public class PanelAccountList extends JPanel {
                     headerPanel.getWidth() / 8 * 3, null, PanelString.TOP_LEFT, 10);
             // Set background color
             if (count == indexPanelAccountPressing) {
-                numberOrder.setBackground(Setting.COLOR_ORANGE_02);
-                name.setBackground(Setting.COLOR_ORANGE_02);
-                timeCreated.setBackground(Setting.COLOR_ORANGE_02);
+                numberOrder.setBackground(COLOR_ACCOUNT_PRESSED);
+                name.setBackground(COLOR_ACCOUNT_PRESSED);
+                timeCreated.setBackground(COLOR_ACCOUNT_PRESSED);
             } else {
                 if (count % 2 == 0) {
-                    numberOrder.setBackground(Setting.COLOR_GRAY_04);
-                    name.setBackground(Setting.COLOR_GRAY_04);
-                    timeCreated.setBackground(Setting.COLOR_GRAY_04);
+                    numberOrder.setBackground(COLOR_ACCOUNT_1);
+                    name.setBackground(COLOR_ACCOUNT_1);
+                    timeCreated.setBackground(COLOR_ACCOUNT_1);
                 } else {
-                    numberOrder.setBackground(Setting.COLOR_GRAY_03);
-                    name.setBackground(Setting.COLOR_GRAY_03);
-                    timeCreated.setBackground(Setting.COLOR_GRAY_03);
+                    numberOrder.setBackground(COLOR_ACCOUNT_2);
+                    name.setBackground(COLOR_ACCOUNT_2);
+                    timeCreated.setBackground(COLOR_ACCOUNT_2);
                 }
             }
 
@@ -216,18 +223,18 @@ public class PanelAccountList extends JPanel {
                         e.getSource() == times.get(count)) {
                     getParentScreen().updatePanelAccountInfor(accountList.get(count));
                     indexPanelAccountPressing = count;
-                    orderNumbers.get(count).setBackground(Setting.COLOR_ORANGE_02);
-                    names.get(count).setBackground(Setting.COLOR_ORANGE_02);
-                    times.get(count).setBackground(Setting.COLOR_ORANGE_02);
+                    orderNumbers.get(count).setBackground(COLOR_ACCOUNT_PRESSED);
+                    names.get(count).setBackground(COLOR_ACCOUNT_PRESSED);
+                    times.get(count).setBackground(COLOR_ACCOUNT_PRESSED);
                 } else {
                     if (count % 2 == 0) {
-                        orderNumbers.get(count).setBackground(Setting.COLOR_GRAY_04);
-                        names.get(count).setBackground(Setting.COLOR_GRAY_04);
-                        times.get(count).setBackground(Setting.COLOR_GRAY_04);
+                        orderNumbers.get(count).setBackground(COLOR_ACCOUNT_1);
+                        names.get(count).setBackground(COLOR_ACCOUNT_1);
+                        times.get(count).setBackground(COLOR_ACCOUNT_1);
                     } else {
-                        orderNumbers.get(count).setBackground(Setting.COLOR_GRAY_03);
-                        names.get(count).setBackground(Setting.COLOR_GRAY_03);
-                        times.get(count).setBackground(Setting.COLOR_GRAY_03);
+                        orderNumbers.get(count).setBackground(COLOR_ACCOUNT_2);
+                        names.get(count).setBackground(COLOR_ACCOUNT_2);
+                        times.get(count).setBackground(COLOR_ACCOUNT_2);
                     }
                 }
             }
@@ -245,19 +252,13 @@ public class PanelAccountList extends JPanel {
                         e.getSource() == names.get(count) ||
                         e.getSource() == times.get(count)) {
                     if (count == indexPanelAccountPressing) {
-                        orderNumbers.get(count).setBackground(Setting.COLOR_ORANGE_02);
-                        names.get(count).setBackground(Setting.COLOR_ORANGE_02);
-                        times.get(count).setBackground(Setting.COLOR_ORANGE_02);
+                        orderNumbers.get(count).setBackground(COLOR_ACCOUNT_PRESSED);
+                        names.get(count).setBackground(COLOR_ACCOUNT_PRESSED);
+                        times.get(count).setBackground(COLOR_ACCOUNT_PRESSED);
                     } else {
-                        if (count % 2 == 0) {
-                            orderNumbers.get(count).setBackground(Setting.COLOR_GREEN_02);
-                            names.get(count).setBackground(Setting.COLOR_GREEN_02);
-                            times.get(count).setBackground(Setting.COLOR_GREEN_02);
-                        } else {
-                            orderNumbers.get(count).setBackground(Setting.COLOR_GREEN_01);
-                            names.get(count).setBackground(Setting.COLOR_GREEN_01);
-                            times.get(count).setBackground(Setting.COLOR_GREEN_01);
-                        }
+                        orderNumbers.get(count).setBackground(COLOR_ACCOUNT_ENTERED);
+                        names.get(count).setBackground(COLOR_ACCOUNT_ENTERED);
+                        times.get(count).setBackground(COLOR_ACCOUNT_ENTERED);
                     }
 
                 }
@@ -271,18 +272,18 @@ public class PanelAccountList extends JPanel {
                         e.getSource() == names.get(count) ||
                         e.getSource() == times.get(count)) {
                     if (count == indexPanelAccountPressing) {
-                        orderNumbers.get(count).setBackground(Setting.COLOR_ORANGE_02);
-                        names.get(count).setBackground(Setting.COLOR_ORANGE_02);
-                        times.get(count).setBackground(Setting.COLOR_ORANGE_02);
+                        orderNumbers.get(count).setBackground(COLOR_ACCOUNT_PRESSED);
+                        names.get(count).setBackground(COLOR_ACCOUNT_PRESSED);
+                        times.get(count).setBackground(COLOR_ACCOUNT_PRESSED);
                     } else {
                         if (count % 2 == 0) {
-                            orderNumbers.get(count).setBackground(Setting.COLOR_GRAY_04);
-                            names.get(count).setBackground(Setting.COLOR_GRAY_04);
-                            times.get(count).setBackground(Setting.COLOR_GRAY_04);
+                            orderNumbers.get(count).setBackground(COLOR_ACCOUNT_EXITED_1);
+                            names.get(count).setBackground(COLOR_ACCOUNT_EXITED_1);
+                            times.get(count).setBackground(COLOR_ACCOUNT_EXITED_1);
                         } else {
-                            orderNumbers.get(count).setBackground(Setting.COLOR_GRAY_03);
-                            names.get(count).setBackground(Setting.COLOR_GRAY_03);
-                            times.get(count).setBackground(Setting.COLOR_GRAY_03);
+                            orderNumbers.get(count).setBackground(COLOR_ACCOUNT_EXITED_2);
+                            names.get(count).setBackground(COLOR_ACCOUNT_EXITED_2);
+                            times.get(count).setBackground(COLOR_ACCOUNT_EXITED_2);
                         }
                     }
 
