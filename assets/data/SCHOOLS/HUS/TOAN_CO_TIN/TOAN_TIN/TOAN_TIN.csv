@@ -1,6 +1,6 @@
 ﻿Type,Code,Name,Credits,Parents
 knowledge,Khối kiến thức chung (chưa tính Giáo dục thể chất và Giáo dục quốc phòng - an ninh),;,;,;
-compulsory,Các học phần bắt buộc,;,16,;
+compulsory,Các học phần bắt buộc,;,11,;
 subject,PHI1006,Triết học Mác - Lênin,3,;
 subject,PEC1008,Kinh tế chính trị Mác - Lênin,2,PHI1006
 subject,PHI1002,Chủ nghĩa xã hội khoa học,2,;

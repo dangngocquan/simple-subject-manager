@@ -1,10 +1,14 @@
 package code.panel;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import java.awt.event.MouseWheelListener;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.awt.event.MouseWheelEvent;
+
+import code.Application;
 import code.Setting;
 import code.objects.Button;
 import code.objects.KnowledgePart;
@@ -40,6 +44,7 @@ public class PanelMajorHasOptions extends JPanel {
     public static final Color COLOR_SUBJECT_PRESSED = Setting.COLOR_GREEN_03;
 
     // Properties
+    private Application applicationFrame;
     private int width, height; // size of this panel
     private int xPos, yPos, rootLocationType; // location of top-left point
     private Major major; // data major
@@ -51,15 +56,16 @@ public class PanelMajorHasOptions extends JPanel {
     private boolean[] isSelectedSubject = null;
 
     // Constructor
-    public PanelMajorHasOptions(int x, int y, int width, int height, Major major, int rootLocationType) {
+    public PanelMajorHasOptions(int x, int y, int width, int height, Major major, int rootLocationType,
+            Application frame) {
         // Properties, Objects
+        this.applicationFrame = frame;
         this.width = width;
         this.height = height;
         this.major = major;
         this.rootLocationType = rootLocationType;
         this.panelSubjects = new PanelSubject[major.getSubjects().size()];
-        this.isSelectedSubject = new boolean[panelSubjects.length];
-        Arrays.fill(this.isSelectedSubject, false);
+        this.isSelectedSubject = new boolean[major.getSubjects().size()];
         setLayout(null);
         setSize(width, height);
         setLocation(x, y, rootLocationType);
@@ -206,7 +212,7 @@ public class PanelMajorHasOptions extends JPanel {
                     scrollPanel.add(panelSubject);
                     heightScroll += panelSubject.getHeight();
                 }
-                // START Create panel for subjects
+                // FINISH Create panel for subjects
             }
             // FINISH Create panel for description Optional and subjects optional (there are
             // many description optional)
@@ -237,6 +243,62 @@ public class PanelMajorHasOptions extends JPanel {
         scrollPanel.setBounds(0, -cursorScroll, scrollPanel.getWidth(), scrollPanel.getHeight());
     }
 
+    // Check if the plan has enought credit
+    public boolean isValidPlan() {
+        // Check each knowledgePart
+        int indexSubject = 0;
+        for (KnowledgePart knowledgePart : major.getKnowledgeParts()) {
+            int tempCredits = 0;
+            // START Check compulsory subjects (if have)
+            for (Subject subject : knowledgePart.getCompulsorySubjects()) {
+                if (isSelectedSubject[indexSubject]) {
+                    tempCredits += subject.getNumberCredits();
+                }
+                indexSubject++;
+            }
+            if (tempCredits < knowledgePart.getMinCreditsCompulsorySubjects()) {
+                JOptionPane.showMessageDialog(applicationFrame,
+                        "Bạn chưa đăng kí đủ tín chỉ ở\n" + knowledgePart.getName(),
+                        "Not enough credits",
+                        JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            // FINISH Check compulsory subjects (if have)
+
+            boolean isEnough = false;
+            if (knowledgePart.getNumberOfOptionalSubjectsList() == 0) {
+                isEnough = true;
+            }
+            // START Check each list optional subjects
+            for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsList(); count++) {
+                // Get list subjects of this optional
+                List<Subject> optionalSubjectList = knowledgePart.getOptionalSubjects().get(count);
+                tempCredits = 0;
+                // START Check a list optional subjects
+                for (Subject subject : optionalSubjectList) {
+                    if (isSelectedSubject[indexSubject]) {
+                        tempCredits += subject.getNumberCredits();
+                    }
+                    indexSubject++;
+                }
+                if (tempCredits >= knowledgePart.getMinCreditsOptionalSubjects()) {
+                    isEnough = true;
+                }
+                // FINISH Check a list optional subjects
+            }
+
+            if (!isEnough) {
+                JOptionPane.showMessageDialog(applicationFrame,
+                        "Bạn chưa đăng kí đủ tín chỉ ở\n" + knowledgePart.getName(),
+                        "Not enough credits",
+                        JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+            // FINISH Check each list optional subjects
+        }
+        return true;
+    }
+
     // Get rootLocationType
     public int getRootLocationType() {
         return this.rootLocationType;
@@ -255,6 +317,52 @@ public class PanelMajorHasOptions extends JPanel {
     // Get max cursorScroll
     public int getMaxCursorScroll() {
         return Math.max(0, this.scrollPanel.getHeight() - this.contentPanel.getHeight());
+    }
+
+    // Get list subjects selecting
+    public List<Subject> getListSubjectSelected() {
+        List<Subject> ans = new LinkedList<Subject>();
+        List<Subject> subjects = major.getSubjects();
+        for (int count = 0; count < subjects.size(); count++) {
+            if (isSelectedSubject[count]) {
+                ans.add(subjects.get(count));
+            }
+        }
+        return ans;
+    }
+
+    // Set selected for all compulsory subject
+    public void setSelectedCompulsorySubject(boolean flag) {
+        int index = 0;
+        for (KnowledgePart knowledgePart : major.getKnowledgeParts()) {
+            for (int i = 0; i < knowledgePart.getCompulsorySubjects().size(); i++) {
+                isSelectedSubject[index] = flag;
+                index++;
+            }
+
+            for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsList(); count++) {
+                // Get list subjects of this optional
+                List<Subject> optionalSubjectList = knowledgePart.getOptionalSubjects().get(count);
+                index += optionalSubjectList.size();
+            }
+        }
+        updateBackgroundSelectedPanels();
+    }
+
+    // update background color for selected panels
+    public void updateBackgroundSelectedPanels() {
+        for (int count = 0; count < panelSubjects.length; count++) {
+            if (isSelectedSubject[count]) {
+                panelSubjects[count].setBackgroundColorPanelSubject(COLOR_SUBJECT_PRESSED);
+            } else {
+                if (count % 2 == 0) {
+                    panelSubjects[count].setBackgroundColorPanelSubject(COLOR_SUBJECT_EXITED_1);
+                } else {
+                    panelSubjects[count].setBackgroundColorPanelSubject(COLOR_SUBJECT_EXITED_2);
+                }
+            }
+        }
+        repaint();
     }
 
     // set cursorScroll

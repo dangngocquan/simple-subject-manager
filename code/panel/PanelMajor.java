@@ -186,7 +186,7 @@ public class PanelMajor extends JPanel {
                     scrollPanel.add(panelSubject);
                     heightScroll += panelSubject.getHeight();
                 }
-                // START Create panel for subjects
+                // FINISH Create panel for subjects
             }
             // FINISH Create panel for description Optional and subjects optional (there are
             // many description optional)

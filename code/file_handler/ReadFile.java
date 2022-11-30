@@ -154,6 +154,27 @@ public class ReadFile {
         return findAccountByUsername(currentUsername);
     }
 
+    // Gget path of current account
+    public static String getPathCurrentAccount() {
+        String currentUsername = getStringFromFile(PATH_DATA_TEMP_1);
+        File file = new File(ReadFile.PATH_DATA_ACCOUNT);
+        if (file.exists()) {
+            String[] nameFolders = file.list();
+            for (String nameFolder : nameFolders) {
+                String path1 = ReadFile.PATH_DATA_ACCOUNT + "/" + nameFolder;
+                File tempFile = new File(path1);
+                if (tempFile.isDirectory()) {
+                    String path2 = path1 + "/informations.txt";
+                    String username = getStringLinesFromFile(path2).get(1);
+                    if (username.equals(currentUsername)) {
+                        return path1;
+                    }
+                }
+            }
+        }
+        return "";
+    }
+
     // Get index of curent account
     public static int getIndexCurrentAccount() {
         WriteFile.createDefaultPathData();

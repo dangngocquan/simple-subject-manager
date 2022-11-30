@@ -220,7 +220,7 @@ public class ScreenCurriculumInformation extends JPanel {
                                                 major = department.getMajors().get(0);
 
                                                 // Dialog for user to choose Major
-                                                DialogList dialog3 = new DialogList((JFrame) applicationFrame,
+                                                DialogList dialog3 = new DialogList(applicationFrame,
                                                                 "Chọn ngành của khoa " + department.getName(),
                                                                 "Chọn ngành của khoa " + department.getName(),
                                                                 department.getMajorNames().toArray(),

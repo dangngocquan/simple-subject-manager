@@ -6,6 +6,8 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 
 import code.objects.Account;
+import code.objects.Plan;
+import code.objects.Subject;
 
 public class WriteFile {
     // Create default path data to save data of this application
@@ -194,6 +196,87 @@ public class WriteFile {
 
                 }
             }
+        }
+    }
+
+    // Create new subject file
+    public static void createNewSubject(String path, Subject subject) {
+        String code = subject.getCode();
+        String name = subject.getName();
+        int credits = subject.getNumberCredits();
+
+        String parentSubjectCodes = "";
+        for (int count1 = 0; count1 < subject.getParentSubjectCodes().size(); count1++) {
+            String[] parentCodes = subject.getParentSubjectCodes().get(count1);
+            String temp = "";
+            for (int count = 0; count < parentCodes.length; count++) {
+                if (count > 0) {
+                    temp += "/";
+                }
+                temp += parentCodes[count];
+            }
+            if (count1 > 0) {
+                parentSubjectCodes += ";";
+            }
+            parentSubjectCodes += temp;
+        }
+        if (subject.getParentSubjectCodes().size() == 0) {
+            parentSubjectCodes = ";";
+        }
+
+        int state = subject.getState();
+        String characterScore = subject.getCharacterScore();
+        String color = subject.getColor().getRed() + ";" + subject.getColor().getGreen() + ";"
+                + subject.getColor().getBlue();
+
+        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s",
+                code, name, credits, parentSubjectCodes, state, characterScore, color);
+
+        writeStringToFile(path, data, false);
+    }
+
+    // Create new plan for current account
+    public static void createNewPlan(Plan plan) {
+        // Create folder for plan
+        String path = ReadFile.getPathCurrentAccount();
+        String count = ReadFile.getStringFromFile(path + "/count.txt");
+        String namePlanFolder = "plan" + count;
+        writeStringToFile(path + "/count.txt", (Integer.parseInt(count) + 1) + "", false);
+        String path1 = path + "/" + namePlanFolder;
+
+        File file = new File(path1);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        // Create file information.txt in folder plan
+        String path2 = path1 + "/informations.txt";
+        File file2 = new File(path2);
+        if (!file2.exists()) {
+            try {
+                file2.createNewFile();
+            } catch (Exception e) {
+
+            }
+        }
+        // Write data for information.txt
+        writeStringToFile(path2, plan.getName(), false);
+
+        // Create files for each subject in plan
+        List<Subject> subjects = plan.getSubjects();
+        for (int i = 0; i < subjects.size(); i++) {
+            // Create file for subject
+            String tempPath = path1 + "/" + i + ".txt";
+            File tempFile = new File(tempPath);
+            if (!tempFile.exists()) {
+                try {
+                    tempFile.createNewFile();
+                } catch (Exception e) {
+
+                }
+            }
+            // Write data
+            createNewSubject(tempPath, subjects.get(i));
         }
     }
 

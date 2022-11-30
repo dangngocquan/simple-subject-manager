@@ -2,14 +2,24 @@ package code.objects;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.awt.Color;
 
 public class Subject {
+    // Constant state of subject
+    public static int STILL_NOT_REGISTER = 0;
+    public static int GOING_TO_REGISTER = 1;
+    public static int REGISTERED = 2;
+    public static int COMPLETED = 3;
+
     // Properties
     private String subjectName;
     private String subjectCode;
     private int numberCredits;
     private List<Subject[]> parentSubjects; // prerequisite subjects
     private List<String[]> parentSubjectCodes;
+    private int state = 0;
+    private String characterScore = "";
+    private Color color = new Color(255, 255, 255);
 
     // Constructor
     public Subject(String name, String code, int credits) {
@@ -61,6 +71,18 @@ public class Subject {
         return lst;
     }
 
+    public int getState() {
+        return this.state;
+    }
+
+    public String getCharacterScore() {
+        return this.characterScore;
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
     // Setter method
     public void setName(String name) {
         this.subjectName = name;
@@ -80,5 +102,17 @@ public class Subject {
 
     public void addParentSubjectCode(String[] codes) {
         this.parentSubjectCodes.add(codes);
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public void setCharacterScore(String score) {
+        this.characterScore = score;
+    }
+
+    public void setColor(int r, int g, int b) {
+        this.color = new Color(r, g, b);
     }
 }

@@ -5,7 +5,8 @@ import java.awt.GraphicsEnvironment;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import javax.swing.UIManager;
+import java.awt.Font;
 import code.curriculum.Data;
 import code.dialog.DialogCreateNewAccount;
 import code.file_handler.ReadFile;
@@ -23,6 +24,12 @@ public class Application extends JFrame {
         public Application() {
                 // Set properties
                 super("HUS");
+                UIManager.put("OptionPane.messageFont", new Font(Setting.FONT_NAME_01,
+                                Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
+                UIManager.put("OptionPane.buttonFont", new Font(Setting.FONT_NAME_01,
+                                Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
+                UIManager.put("OptionPane.font", new Font(Setting.FONT_NAME_01,
+                                Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
                 setSize(width, height);
                 setResizable(false);
                 setAlwaysOnTop(false);
