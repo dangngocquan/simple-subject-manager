@@ -94,7 +94,7 @@ public class DialogCreateNewAccount {
         fieldPassword = new TextField(width / 2, tempHeight,
                 width / 20 * 18, 50, TextField.TOP_CENTER, "Mật khẩu", 2, 15, 15);
         tempHeight += fieldPassword.getHeight() + 10;
-        button = new Button("Create");
+        button = new Button("Tạo");
         button.setFont(
                 Setting.FONT_NAME_01,
                 Setting.FONT_STYLE_01,

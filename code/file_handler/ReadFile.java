@@ -106,7 +106,30 @@ public class ReadFile {
                 subjects.add(getSubjectFromFile(tempPath));
             }
         }
-        return new Plan(name, subjects);
+        // Create relative between subjects
+        for (Subject subject : subjects) {
+            for (int i = 0; i < subject.getParentSubjectCodes().size(); i++) {
+                String[] parentCodes = subject.getParentSubjectCodes().get(i);
+                List<Subject> parentSubjects = new LinkedList<>();
+                for (int j = 0; j < parentCodes.length; j++) {
+                    String parentCode = parentCodes[j];
+                    for (Subject checkSubject : subjects) {
+                        if (checkSubject.getCode().equals(parentCode)) {
+                            parentSubjects.add(checkSubject);
+                        }
+                    }
+
+                }
+                Subject[] arr = new Subject[parentSubjects.size()];
+                for (int k = 0; k < arr.length; k++) {
+                    arr[k] = parentSubjects.get(k);
+                }
+                subject.addParentSubject(arr);
+            }
+        }
+
+        Plan plan = new Plan(name, subjects);
+        return plan;
     }
 
     // Get Plans from file

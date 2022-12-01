@@ -20,6 +20,7 @@ public class ScreenPlans extends JPanel {
     private ScreenMainMenu parentScreen;
     private JPanel mainScreen;
     private ScreenCreateNewPlan1 screenCreateNewPlan1;
+    private ScreenExistingPlans screenExistingPlans;
 
     // Constructor
     public ScreenPlans(int width, int height, ScreenMainMenu parentScreen, Application frame) {
@@ -36,6 +37,7 @@ public class ScreenPlans extends JPanel {
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, width, height);
         screenCreateNewPlan1 = new ScreenCreateNewPlan1(width, height, this, applicationFrame);
+        screenExistingPlans = new ScreenExistingPlans(width, height, this, applicationFrame);
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -61,10 +63,12 @@ public class ScreenPlans extends JPanel {
         // Add screens to this panel
         add(mainScreen);
         add(screenCreateNewPlan1);
+        add(screenExistingPlans);
 
         // Set visible screens
         mainScreen.setVisible(true);
         screenCreateNewPlan1.setVisible(false);
+        screenExistingPlans.setVisible(false);
     }
 
     // Get application frame
@@ -92,6 +96,11 @@ public class ScreenPlans extends JPanel {
         return this.screenCreateNewPlan1;
     }
 
+    // Get ScreenExistingPlans
+    public ScreenExistingPlans getScreenExistingPlans() {
+        return this.screenExistingPlans;
+    }
+
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -102,7 +111,10 @@ public class ScreenPlans extends JPanel {
         public void actionPerformed(ActionEvent event) {
             // Press at "Existing plans" button
             if (event.getSource() == buttons[0]) {
-
+                getScreenExistingPlans().setCurscorScroll(0);
+                getScreenExistingPlans().updateButton();
+                getScreenExistingPlans().setVisible(true);
+                getMainScreen().setVisible(false);
             }
             // Press at "Create new plan" button
             else if (event.getSource() == buttons[1]) {
