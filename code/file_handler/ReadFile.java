@@ -70,9 +70,43 @@ public class ReadFile {
         return strings;
     }
 
+    // Get subject from file
+    public static Subject getSubjectFromFile(String path) {
+        List<String> data = getStringLinesFromFile(path);
+        String code = data.get(0);
+        String name = data.get(1);
+        int credits = Integer.parseInt(data.get(2));
+        List<String[]> parentSubjectCodes = new LinkedList<>();
+        for (String str : data.get(3).split(";")) {
+            parentSubjectCodes.add(str.split("/"));
+        }
+        int state = Integer.parseInt(data.get(4));
+        String characterScore = data.get(5);
+        String[] rgb = data.get(6).split(";");
+
+        Subject subject = new Subject(name, code, credits);
+        for (String[] parentCode : parentSubjectCodes) {
+            subject.addParentSubjectCode(parentCode);
+        }
+        subject.setCharacterScore(characterScore);
+        subject.setState(state);
+        subject.setColor(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[0]), Integer.parseInt(rgb[2]));
+
+        return subject;
+    }
+
     // Get Plan from file
     public static Plan getPlanFromFile(String path) {
-        return null;
+        String name = getStringFromFile(path + "/informations.txt");
+        List<Subject> subjects = new LinkedList<Subject>();
+        File file = new File(path);
+        for (String nameFile : file.list()) {
+            String tempPath = path + "/" + nameFile;
+            if (nameFile.matches("subject[0-9]{1,}[.]txt")) {
+                subjects.add(getSubjectFromFile(tempPath));
+            }
+        }
+        return new Plan(name, subjects);
     }
 
     // Get Plans from file

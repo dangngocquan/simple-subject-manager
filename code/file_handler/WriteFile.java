@@ -266,7 +266,7 @@ public class WriteFile {
         List<Subject> subjects = plan.getSubjects();
         for (int i = 0; i < subjects.size(); i++) {
             // Create file for subject
-            String tempPath = path1 + "/" + i + ".txt";
+            String tempPath = path1 + "/subject" + i + ".txt";
             File tempFile = new File(tempPath);
             if (!tempFile.exists()) {
                 try {
