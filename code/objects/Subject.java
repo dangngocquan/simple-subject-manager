@@ -19,6 +19,8 @@ public class Subject {
     private List<String[]> parentSubjectCodes;
     private int state = 0;
     private String characterScore = "";
+    private double score10 = -1.0;
+    private double score4 = -1.0;
     private Color color = new Color(255, 255, 255);
 
     // Constructor
@@ -83,6 +85,28 @@ public class Subject {
         return this.color;
     }
 
+    public double getScore10() {
+        return this.score10;
+    }
+
+    public String getStringScore10() {
+        if (score10 < 0) {
+            return "";
+        }
+        return score10 + "";
+    }
+
+    public String getStringScore4() {
+        if (score4 < 0) {
+            return "";
+        }
+        return score4 + "";
+    }
+
+    public double getScore4() {
+        return this.score4;
+    }
+
     // Setter method
     public void setName(String name) {
         this.subjectName = name;
@@ -114,5 +138,13 @@ public class Subject {
 
     public void setColor(int r, int g, int b) {
         this.color = new Color(r, g, b);
+    }
+
+    public void setScore10(double value) {
+        this.score10 = value;
+    }
+
+    public void setScore4(double value) {
+        this.score4 = value;
     }
 }

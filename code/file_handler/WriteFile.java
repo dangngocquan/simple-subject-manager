@@ -228,9 +228,11 @@ public class WriteFile {
         String characterScore = subject.getCharacterScore();
         String color = subject.getColor().getRed() + ";" + subject.getColor().getGreen() + ";"
                 + subject.getColor().getBlue();
+        double score10 = subject.getScore10();
+        double score4 = subject.getScore4();
 
-        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s",
-                code, name, credits, parentSubjectCodes, state, characterScore, color);
+        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n%s",
+                code, name, credits, parentSubjectCodes, state, characterScore, color, score10, score4);
 
         writeStringToFile(path, data, false);
     }

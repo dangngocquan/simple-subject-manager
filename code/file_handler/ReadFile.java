@@ -83,6 +83,8 @@ public class ReadFile {
         int state = Integer.parseInt(data.get(4));
         String characterScore = data.get(5);
         String[] rgb = data.get(6).split(";");
+        double score10 = Double.parseDouble(data.get(7));
+        double score4 = Double.parseDouble(data.get(8));
 
         Subject subject = new Subject(name, code, credits);
         for (String[] parentCode : parentSubjectCodes) {
@@ -91,6 +93,8 @@ public class ReadFile {
         subject.setCharacterScore(characterScore);
         subject.setState(state);
         subject.setColor(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[0]), Integer.parseInt(rgb[2]));
+        subject.setScore10(score10);
+        subject.setScore4(score4);
 
         return subject;
     }
