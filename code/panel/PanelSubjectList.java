@@ -73,7 +73,7 @@ public class PanelSubjectList extends JPanel {
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
         Button titleName = new Button(
-                "Tên môn học                                                                   ");
+                "Tên môn học                                                     ");
         titleName.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
         titleName.setBorderPainted(false);
         titleName.setSizeButton(headerPanel.getWidth() / 12 * 5, headerPanel.getHeight(), false);
@@ -87,11 +87,12 @@ public class PanelSubjectList extends JPanel {
         titleCredits.setBounds(titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
 
-        Button titleParentCodes = new Button("Mã học phần tiên quyết                  ");
+        Button titleParentCodes = new Button("Mã học phần tiên quyết                    ");
         titleParentCodes.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
         titleParentCodes.setBorderPainted(false);
         titleParentCodes.setSizeButton(headerPanel.getWidth() / 12 * 4, headerPanel.getHeight(), false);
-        titleParentCodes.setBounds(titleCode.getWidth() + titleName.getWidth() + titleCredits.getWidth(), 0,
+        titleParentCodes.setBounds(
+                titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth() + titleCredits.getWidth(), 0,
                 headerPanel.getWidth() - titleOrder.getWidth() - titleCode.getWidth() - titleName.getWidth()
                         - titleCredits.getWidth(),
                 titleParentCodes.getHeight());
@@ -122,6 +123,7 @@ public class PanelSubjectList extends JPanel {
         // Add sub panels to this panel
         add(headerPanel);
         add(contentPanel);
+        headerPanel.add(titleOrder);
         headerPanel.add(titleCode);
         headerPanel.add(titleName);
         headerPanel.add(titleCredits);

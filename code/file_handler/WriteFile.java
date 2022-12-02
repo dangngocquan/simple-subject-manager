@@ -78,7 +78,7 @@ public class WriteFile {
         createDefaultPathData();
         // Create name for new folder
         int count = Integer.parseInt(ReadFile.getStringFromFile(ReadFile.PATH_DATA_ACCOUNT_1));
-        String nameFolder = "account" + count;
+        String nameFolder = String.format("account%03d", count);
         count++;
         // Write new data for C:/GPA_Plan/Accounts/count.txt
         writeStringToFile(ReadFile.PATH_DATA_ACCOUNT_1, count + "", false);
@@ -239,9 +239,9 @@ public class WriteFile {
     public static void createNewPlan(Plan plan) {
         // Create folder for plan
         String path = ReadFile.getPathCurrentAccount();
-        String count = ReadFile.getStringFromFile(path + "/count.txt");
-        String namePlanFolder = "plan" + count;
-        writeStringToFile(path + "/count.txt", (Integer.parseInt(count) + 1) + "", false);
+        int count = Integer.parseInt(ReadFile.getStringFromFile(path + "/count.txt"));
+        String namePlanFolder = String.format("plan%03d", count);
+        writeStringToFile(path + "/count.txt", (count + 1) + "", false);
         String path1 = path + "/" + namePlanFolder;
 
         File file = new File(path1);
@@ -266,7 +266,7 @@ public class WriteFile {
         List<Subject> subjects = plan.getSubjects();
         for (int i = 0; i < subjects.size(); i++) {
             // Create file for subject
-            String tempPath = path1 + "/subject" + i + ".txt";
+            String tempPath = path1 + String.format("/subject%03d.txt", i);
             File tempFile = new File(tempPath);
             if (!tempFile.exists()) {
                 try {
