@@ -11,13 +11,14 @@ import java.awt.Font;
 public class PanelSubject extends JPanel {
         // Properties
         private JPanel mainPanel;
+        private PanelString panelOrder;
         private PanelString panelCode;
         private PanelString panelName;
         private PanelString panelCredit;
         private PanelString panelParentSubjectCodes;
 
         // Constructor
-        public PanelSubject(int x, int y, Subject subject, int width, Font font) {
+        public PanelSubject(int x, int y, Subject subject, int width, Font font, int index) {
                 // Create defaulr font
                 if (font == null) {
                         font = new Font(Setting.FONT_NAME_01,
@@ -32,13 +33,24 @@ public class PanelSubject extends JPanel {
                                 subject.getNumberCredits() + "", (width - panelParentSubjectCodes.getWidth()) / 8,
                                 font, PanelString.TOP_LEFT, 15);
 
-                panelName = new PanelString((width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7,
+                panelName = new PanelString(
+                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7 * 2,
                                 0, subject.getName(),
-                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7 * 6, font,
+                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7 * 5, font,
                                 PanelString.TOP_LEFT, 15);
 
-                panelCode = new PanelString(0, 0, subject.getCode(),
-                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7, font,
+                panelCode = new PanelString(
+                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()
+                                                - panelName.getWidth()) / 2,
+                                0, subject.getCode(),
+                                (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()
+                                                - panelName.getWidth()) / 2,
+                                font,
+                                PanelString.TOP_LEFT, 15);
+                panelOrder = new PanelString(0, 0, index + "",
+                                width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()
+                                                - panelName.getWidth() - panelCode.getWidth(),
+                                font,
                                 PanelString.TOP_LEFT, 15);
 
                 // Height of mainPanel
@@ -51,6 +63,7 @@ public class PanelSubject extends JPanel {
                 mainPanel.setBounds(0, 0, mainPanel.getWidth(), mainPanel.getHeight());
 
                 // Relative between panels
+                mainPanel.add(panelOrder);
                 mainPanel.add(panelCode);
                 mainPanel.add(panelName);
                 mainPanel.add(panelCredit);
@@ -68,6 +81,7 @@ public class PanelSubject extends JPanel {
         // Set background Color
         public void setBackgroundColorPanelSubject(Color color) {
                 mainPanel.setBackground(color);
+                panelOrder.setBackground(color);
                 panelCode.setBackground(color);
                 panelName.setBackground(color);
                 panelCredit.setBackground(color);

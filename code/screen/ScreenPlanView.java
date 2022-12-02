@@ -26,7 +26,6 @@ public class ScreenPlanView extends JPanel {
     private JPanel optionalPanel, viewPanel;
     private JPanel contentPanel;
     private PanelSubjectList panelSubjectList;
-    private int cursorScroll = 0;
     private String[] buttonTexts = {
             "Quay lại", "Danh sách môn", "Cập nhật điểm", "Sơ đồ liên hệ các môn", "Tính toán GPA"
     };
@@ -86,6 +85,10 @@ public class ScreenPlanView extends JPanel {
         buttons[3].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 11, Button.TOP_LEFT);
         buttons[4].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 14, Button.TOP_LEFT);
 
+        // Create panels
+        panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(), plan,
+                PanelSubjectList.TOP_LEFT);
+
         // Add subpanels
         add(mainScreen);
         mainScreen.add(optionalPanel);
@@ -96,9 +99,11 @@ public class ScreenPlanView extends JPanel {
         optionalPanel.add(buttons[3]);
         optionalPanel.add(buttons[4]);
         viewPanel.add(contentPanel);
+        contentPanel.add(panelSubjectList);
 
         // Set visible of screens
         mainScreen.setVisible(true);
+        panelSubjectList.setVisible(true);
         optionalPanel.setBackground(Setting.COLOR_BLUE_03);
         contentPanel.setBackground(Setting.COLOR_GRAY_03);
     }
