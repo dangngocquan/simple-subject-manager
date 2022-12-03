@@ -6,13 +6,15 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import code.Setting;
+import code.dialog.DialogUpdateSubject;
+import code.file_handler.WriteFile;
 import code.objects.Button;
 import code.objects.Plan;
 import code.objects.Subject;
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class PanelUpdateScoreSubject extends JPanel {
+public class PanelUpdateSubject extends JPanel {
     // Constants panel's root location
     public static final int TOP_LEFT = 0;
     public static final int TOP_CENTER = 1;
@@ -41,13 +43,15 @@ public class PanelUpdateScoreSubject extends JPanel {
     private JPanel scrollPanel; // Contains all information of plan
     private int cursorScroll = 0; // to define where the contentPanel in scrolllPanel
     private PanelSubject2[] panelSubjects = null;
+    private int indexPlan;
 
     // Constructor
-    public PanelUpdateScoreSubject(int x, int y, int width, int height, Plan plan, int rootLocationType) {
+    public PanelUpdateSubject(int x, int y, int width, int height, Plan plan, int indexPlan, int rootLocationType) {
         // Properties, Objects
         this.width = width;
         this.height = height;
         this.plan = plan;
+        this.indexPlan = indexPlan;
         this.rootLocationType = rootLocationType;
         setLayout(null);
         setSize(width, height);
@@ -164,6 +168,35 @@ public class PanelUpdateScoreSubject extends JPanel {
         scrollPanel.setBounds(0, -cursorScroll, scrollPanel.getWidth(), scrollPanel.getHeight());
     }
 
+    // Update content data
+    public void updateContentData() {
+        contentPanel.remove(scrollPanel);
+        scrollPanel.removeAll();
+
+        int heightScroll = 0;
+        int countSubjects = 0;
+        panelSubjects = new PanelSubject2[plan.getSubjects().size()];
+
+        // START Create panel for compulsory subjects (if have)
+        for (Subject subject : plan.getSubjects()) {
+            PanelSubject2 panelSubject = new PanelSubject2(0, heightScroll, subject, width,
+                    null, countSubjects + 1);
+            panelSubjects[countSubjects] = panelSubject;
+            panelSubjects[countSubjects].addMouseListener(new MouseHandler());
+            if (countSubjects % 2 == 0) {
+                panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
+            } else {
+                panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_2);
+            }
+            countSubjects++;
+            scrollPanel.add(panelSubject);
+            heightScroll += panelSubject.getHeight();
+        }
+
+        contentPanel.add(scrollPanel);
+        repaint();
+    }
+
     // Get rootLocationType
     public int getRootLocationType() {
         return this.rootLocationType;
@@ -258,7 +291,17 @@ public class PanelUpdateScoreSubject extends JPanel {
 
         @Override
         public void mousePressed(MouseEvent e) {
-
+            for (int i = 0; i < panelSubjects.length; i++) {
+                if (e.getSource() == panelSubjects[i]) {
+                    DialogUpdateSubject dialog = new DialogUpdateSubject(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                            Setting.WIDTH / 3 * 2, Setting.HEIGHT / 5 * 4,
+                            DialogUpdateSubject.CENTER_CENTER, "Update subject", (new String[] {}),
+                            plan.getSubjects().get(i), plan.getConversionTable());
+                    plan.getSubjects().set(i, dialog.getSubject());
+                    WriteFile.editSubject(indexPlan, i, plan.getSubjects().get(i));
+                }
+            }
+            updateContentData();
         }
 
         @Override

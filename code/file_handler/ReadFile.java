@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 import code.objects.Account;
+import code.objects.ConversionTable;
 import code.objects.KnowledgePart;
 import code.objects.Major;
 import code.objects.Plan;
@@ -101,7 +102,9 @@ public class ReadFile {
 
     // Get Plan from file
     public static Plan getPlanFromFile(String path) {
-        String name = getStringFromFile(path + "/informations.txt");
+        List<String> data = getStringLinesFromFile(path + "/informations.txt");
+        String name = data.get(0);
+        int indexConversionTable = Integer.parseInt(data.get(1));
         List<Subject> subjects = new LinkedList<Subject>();
         File file = new File(path);
         for (String nameFile : file.list()) {
@@ -132,7 +135,7 @@ public class ReadFile {
             }
         }
 
-        Plan plan = new Plan(name, subjects);
+        Plan plan = new Plan(name, subjects, indexConversionTable);
         return plan;
     }
 
@@ -353,8 +356,21 @@ public class ReadFile {
             inputStreamReader.close();
             file.close();
         } catch (Exception e) {
-
         }
         return major;
+    }
+
+    // Get conversion table from a file txt
+    public static ConversionTable getConversionTableFromFile(String path) {
+        List<String> data = getStringLinesFromFile(path);
+        String name = data.get(0);
+        String[] score10 = data.get(1).split(",");
+        String[] characterScore = data.get(2).split(",");
+        String[] score4 = data.get(3).split(",");
+        ConversionTable conversionTable = new ConversionTable(name);
+        conversionTable.setScore10(score10);
+        conversionTable.setCharacterScore(characterScore);
+        conversionTable.setScore4(score4);
+        return conversionTable;
     }
 }

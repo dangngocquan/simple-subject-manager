@@ -1,9 +1,14 @@
 package code;
 
+import java.awt.GraphicsEnvironment;
 import java.awt.Font;
 import java.awt.Color;
 
 public class Setting {
+    public static int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment()
+            .getMaximumWindowBounds().getWidth());
+    public static int HEIGHT = (int) ((GraphicsEnvironment.getLocalGraphicsEnvironment()
+            .getMaximumWindowBounds().getHeight()));
     public static String FONT_NAME_01 = "Arial";
     public static int FONT_STYLE_00 = Font.PLAIN;
     public static int FONT_STYLE_01 = Font.BOLD;

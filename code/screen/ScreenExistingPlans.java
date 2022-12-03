@@ -59,7 +59,7 @@ public class ScreenExistingPlans extends JPanel {
                     Setting.FONT_NAME_01,
                     Setting.FONT_STYLE_01,
                     Setting.FONT_SIZE_MEDIUM);
-            buttons[count].addActionListener(new ButtonHandle());
+            buttons[count].addActionListener(new ButtonHandler());
         }
 
         // Set location for each button
@@ -116,7 +116,7 @@ public class ScreenExistingPlans extends JPanel {
             tempButton.setLocation(contentPanel.getWidth() / 2, heightScroll, Button.TOP_CENTER);
             scrollPanel.add(tempButton);
             buttonPlans[i] = tempButton;
-            buttonPlans[i].addActionListener(new ButtonHandle());
+            buttonPlans[i].addActionListener(new ButtonHandler());
             heightScroll += tempButton.getHeight() + 33;
         }
         scrollPanel.setLayout(null);
@@ -161,7 +161,7 @@ public class ScreenExistingPlans extends JPanel {
     }
 
     // Handler buttons in mainScreen
-    private class ButtonHandle implements ActionListener {
+    private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             // Press at "Back" button
             if (event.getSource() == buttons[0]) {

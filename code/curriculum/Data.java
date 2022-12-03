@@ -2,6 +2,8 @@ package code.curriculum;
 
 import java.io.File;
 import code.file_handler.ReadFile;
+import code.objects.ConversionTable;
+import code.objects.ConversionTableManager;
 import code.objects.Department;
 import code.objects.Major;
 import code.objects.School;
@@ -9,6 +11,7 @@ import code.objects.SchoolManager;
 
 public class Data {
     public static SchoolManager SCHOOLS = null;
+    public static ConversionTableManager CONVERSIONS = null;
 
     public Data() {
         if (SCHOOLS == null) {
@@ -61,6 +64,23 @@ public class Data {
 
             }
         }
+
+        // CONVERSION_TABLES
+        if (CONVERSIONS == null) {
+            CONVERSIONS = new ConversionTableManager();
+            try {
+                String path = "assets\\data\\CONVERSIONS";
+                File file = new File(path);
+                for (String nameFile : file.list()) {
+                    String path1 = path + "\\" + nameFile;
+                    ConversionTable conversionTable = ReadFile.getConversionTableFromFile(path1);
+                    CONVERSIONS.addConversionTable(conversionTable);
+                }
+
+            } catch (Exception e) {
+
+            }
+        }
     }
 
     // Get School by name
@@ -91,6 +111,17 @@ public class Data {
             }
         }
         return null;
+    }
+
+    // Get index Conversion by name
+    public static int getIndexConnversion(String name) {
+        for (int i = 0; i < CONVERSIONS.getConversionTables().size(); i++) {
+            ConversionTable conversion = CONVERSIONS.getConversionTables().get(i);
+            if (conversion.getName().equals(name)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

@@ -237,6 +237,24 @@ public class WriteFile {
         writeStringToFile(path, data, false);
     }
 
+    // Edit subject
+    public static void editSubject(int indexPlan, int indexSubject, Subject subject) {
+        String path = ReadFile.getPathCurrentAccount();
+        String[] planFolderNames = (new File(path)).list();
+        int tempIndexPlan = 0;
+        for (String planFolderName : planFolderNames) {
+            String path1 = path + "/" + planFolderName;
+            File file = new File(path1);
+            if (file.isDirectory()) {
+                if (indexPlan == tempIndexPlan) {
+                    String path2 = path1 + "/" + (new File(path1)).list()[indexSubject + 1];
+                    createNewSubject(path2, subject);
+                }
+                tempIndexPlan++;
+            }
+        }
+    }
+
     // Create new plan for current account
     public static void createNewPlan(Plan plan) {
         // Create folder for plan
@@ -262,7 +280,7 @@ public class WriteFile {
             }
         }
         // Write data for information.txt
-        writeStringToFile(path2, plan.getName(), false);
+        writeStringToFile(path2, plan.getName() + "\n" + plan.getIndexConversionTable(), false);
 
         // Create files for each subject in plan
         List<Subject> subjects = plan.getSubjects();

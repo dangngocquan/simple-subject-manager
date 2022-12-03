@@ -27,6 +27,7 @@ public class ScreenCreateNewPlan3 extends JPanel {
     };
     private Button[] buttons;
     private List<Subject> subjects;
+    private int indexConversionTable = 0;
 
     // Constructor
     public ScreenCreateNewPlan3(int width, int height, ScreenCreateNewPlan2 parentScreen, Application frame,
@@ -111,9 +112,19 @@ public class ScreenCreateNewPlan3 extends JPanel {
         return this.mainScreen;
     }
 
+    // Get index conversion table
+    public int getIndexConversionTable() {
+        return this.indexConversionTable;
+    }
+
     // Set list subject
     public void setListSubjectSelected(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    // Set index conversion table
+    public void setIndexConversionTable(int index) {
+        this.indexConversionTable = index;
     }
 
     // Auto called method of JPanel
@@ -133,7 +144,7 @@ public class ScreenCreateNewPlan3 extends JPanel {
                             "Invalid input",
                             JOptionPane.WARNING_MESSAGE);
                 } else {
-                    Plan plan = new Plan(fieldName.getText(), subjects);
+                    Plan plan = new Plan(fieldName.getText(), subjects, indexConversionTable);
                     WriteFile.createNewPlan(plan);
                     JOptionPane.showMessageDialog(applicationFrame, "Tạo kế hoạch thành công",
                             "Create plan successed",

@@ -8,7 +8,7 @@ import code.file_handler.ReadFile;
 import code.objects.Button;
 import code.objects.Plan;
 import code.panel.PanelSubjectList;
-import code.panel.PanelUpdateScoreSubject;
+import code.panel.PanelUpdateSubject;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -27,9 +27,9 @@ public class ScreenPlanView extends JPanel {
     private JPanel optionalPanel, viewPanel;
     private JPanel contentPanel;
     private PanelSubjectList panelSubjectList;
-    private PanelUpdateScoreSubject panelUpdateScoreSubject;
+    private PanelUpdateSubject panelUpdateSubject;
     private String[] buttonTexts = {
-            "Quay lại", "Danh sách môn", "Cập nhật điểm", "Sơ đồ liên hệ các môn", "Tính toán GPA"
+            "Quay lại", "Danh sách môn học", "Cập nhật môn học", "Sơ đồ liên hệ các môn học", "Tính toán GPA"
     };
     private Button[] buttons;
 
@@ -90,8 +90,8 @@ public class ScreenPlanView extends JPanel {
         // Create panels
         panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(), plan,
                 PanelSubjectList.TOP_LEFT);
-        panelUpdateScoreSubject = new PanelUpdateScoreSubject(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
-                plan, PanelUpdateScoreSubject.TOP_LEFT);
+        panelUpdateSubject = new PanelUpdateSubject(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
+                plan, indexPlan, PanelUpdateSubject.TOP_LEFT);
 
         // Add subpanels
         add(mainScreen);
@@ -104,12 +104,12 @@ public class ScreenPlanView extends JPanel {
         optionalPanel.add(buttons[4]);
         viewPanel.add(contentPanel);
         contentPanel.add(panelSubjectList);
-        contentPanel.add(panelUpdateScoreSubject);
+        contentPanel.add(panelUpdateSubject);
 
         // Set visible of screens
         mainScreen.setVisible(true);
         panelSubjectList.setVisible(true);
-        panelUpdateScoreSubject.setVisible(false);
+        panelUpdateSubject.setVisible(false);
         optionalPanel.setBackground(Setting.COLOR_BLUE_03);
         contentPanel.setBackground(Setting.COLOR_GRAY_03);
     }
@@ -141,12 +141,12 @@ public class ScreenPlanView extends JPanel {
             // Press at "List subject" button
             else if (event.getSource() == buttons[1]) {
                 panelSubjectList.setVisible(true);
-                panelUpdateScoreSubject.setVisible(false);
+                panelUpdateSubject.setVisible(false);
             }
-            // Press at "Update score of subject" button
+            // Press at "Update subject" button
             else if (event.getSource() == buttons[2]) {
                 panelSubjectList.setVisible(false);
-                panelUpdateScoreSubject.setVisible(true);
+                panelUpdateSubject.setVisible(true);
             }
         }
     }

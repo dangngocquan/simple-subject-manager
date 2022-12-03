@@ -1,7 +1,5 @@
 package code;
 
-import java.awt.GraphicsEnvironment;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -14,10 +12,8 @@ import code.screen.ScreenMainMenu;
 
 public class Application extends JFrame {
         // Properties and screens
-        private int width = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment()
-                        .getMaximumWindowBounds().getWidth());
-        private int height = (int) ((GraphicsEnvironment.getLocalGraphicsEnvironment()
-                        .getMaximumWindowBounds().getHeight()));
+        private int width = Setting.WIDTH;
+        private int height = Setting.HEIGHT;
         private ScreenMainMenu screenMainMenu;
 
         // Constructor

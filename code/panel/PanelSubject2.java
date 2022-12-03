@@ -42,17 +42,17 @@ public class PanelSubject2 extends JPanel {
                 panelScore10 = new PanelString(panelCredit.getX() + panelCredit.getWidth(), 0,
                                 subject.getStringScore10(),
                                 width / 24 * 3, font,
-                                PanelString.TOP_LEFT, 15);
+                                PanelString.TOP_LEFT, 0);
                 panelCharacterScore = new PanelString(panelScore10.getX() + panelScore10.getWidth(), 0,
                                 subject.getCharacterScore(),
                                 width / 24 * 3, font,
-                                PanelString.TOP_LEFT, 15);
+                                PanelString.TOP_LEFT, 0);
                 panelScore4 = new PanelString(panelCharacterScore.getX() + panelCharacterScore.getWidth(), 0,
                                 subject.getStringScore4(),
                                 width - panelOrder.getWidth() - panelCode.getWidth() - panelName.getWidth()
                                                 - panelCredit.getWidth() - panelScore10.getWidth()
                                                 - panelCharacterScore.getWidth(),
-                                font, PanelString.TOP_LEFT, 15);
+                                font, PanelString.TOP_LEFT, 0);
 
                 // Height of mainPanel
                 int height = panelCharacterScore.getHeight();
@@ -70,7 +70,7 @@ public class PanelSubject2 extends JPanel {
                 mainPanel.add(panelCredit);
                 mainPanel.add(panelScore10);
                 mainPanel.add(panelCharacterScore);
-                mainPanel.add(panelScore10);
+                mainPanel.add(panelScore4);
 
                 // Properties of this panel
                 setLayout(null);

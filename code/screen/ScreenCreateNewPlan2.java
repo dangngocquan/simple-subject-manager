@@ -31,6 +31,7 @@ public class ScreenCreateNewPlan2 extends JPanel {
     private JPanel mainScreen, contentPanel;
     private Major major;
     private PanelMajorHasOptions panelMajor;
+    private int indexConversionTable = 0;
 
     // Constructor
     public ScreenCreateNewPlan2(int width, int height, ScreenCreateNewPlan1 parentScreen, Application frame,
@@ -137,6 +138,11 @@ public class ScreenCreateNewPlan2 extends JPanel {
         return this.screenCreateNewPlan3;
     }
 
+    // Get index conversion
+    public int getIndexConversion() {
+        return this.indexConversionTable;
+    }
+
     // Update content panels
     public void updateContentPanel() {
         contentPanel.removeAll();
@@ -144,6 +150,11 @@ public class ScreenCreateNewPlan2 extends JPanel {
                 major, PanelMajor.TOP_LEFT, applicationFrame);
         contentPanel.add(panelMajor);
         repaint();
+    }
+
+    // Set index conversion table
+    public void setIndexConversionTable(int index) {
+        this.indexConversionTable = index;
     }
 
     // Set major
@@ -171,6 +182,7 @@ public class ScreenCreateNewPlan2 extends JPanel {
             else if (event.getSource() == buttons[1]) {
                 if (panelMajor.isValidPlan()) {
                     getScreenCreateNewPlan3().setListSubjectSelected(panelMajor.getListSubjectSelected());
+                    getScreenCreateNewPlan3().setIndexConversionTable(indexConversionTable);
                     getScreenCreateNewPlan3().setVisible(true);
                     getMainScreen().setVisible(false);
                 }
