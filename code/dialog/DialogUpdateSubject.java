@@ -2,8 +2,11 @@ package code.dialog;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import code.Setting;
 import code.objects.Button;
@@ -202,7 +205,30 @@ public class DialogUpdateSubject {
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             if (event.getSource() == buttons[0]) {
-
+                List<String> values = new LinkedList<>();
+                for (int i = 0; i <= 1000; i++) {
+                    values.add(i / 100.0 + "");
+                }
+                DialogList dialog1 = new DialogList(dialog, "Chọn điểm mà bạn muốn cập nhật", "Edit score",
+                        values.toArray(), values.get(0));
+                String score = dialog1.run();
+                if (score != null) {
+                    Double score10 = Double.parseDouble(score);
+                    subject.setScore10(score10);
+                    subject.setCharacterScore(conversionTable.convert10ToAlpha(score10));
+                    subject.setScore4(conversionTable.convertAlphaTo4(subject.getCharacterScore()));
+                    if (((int) (subject.getScore10() * 100) < 400 && (int) (subject.getScore10() * 100) >= 0) ||
+                            (subject.getCharacterScore().equals("F")) ||
+                            ((int) (subject.getScore4() * 100) < 100) && (int) (subject.getScore4() * 100) >= 0) {
+                        subject.setScore10(-1.0);
+                        subject.setCharacterScore("");
+                        subject.setScore4(-1.0);
+                        JOptionPane.showMessageDialog(dialog,
+                                "Điểm này có vẻ chưa đủ qua môn.\nThooi, bao giờ qua thì cập nhật điểm nhé", "Smile",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    updateContent();
+                }
             }
             // Edit character point
             else if (event.getSource() == buttons[1]) {
@@ -216,6 +242,16 @@ public class DialogUpdateSubject {
                     }
                     if (!conversionTable.convert4ToAlpha(subject.getScore4()).equals(score)) {
                         subject.setScore4(conversionTable.convertAlphaTo4(score));
+                    }
+                    if (((int) (subject.getScore10() * 100) < 400 && (int) (subject.getScore10() * 100) >= 0) ||
+                            (subject.getCharacterScore().equals("F")) ||
+                            ((int) (subject.getScore4() * 100) < 100) && (int) (subject.getScore4() * 100) >= 0) {
+                        subject.setScore10(-1.0);
+                        subject.setCharacterScore("");
+                        subject.setScore4(-1.0);
+                        JOptionPane.showMessageDialog(dialog,
+                                "Điểm này có vẻ chưa đủ qua môn.\nThooi, bao giờ qua thì cập nhật điểm nhé", "Smile",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
                     updateContent();
                 }
@@ -231,6 +267,16 @@ public class DialogUpdateSubject {
                     subject.setCharacterScore(conversionTable.convert4ToAlpha(score4));
                     if (!conversionTable.convert10ToAlpha(subject.getScore10()).equals(subject.getCharacterScore())) {
                         subject.setScore10(-1.0);
+                    }
+                    if (((int) (subject.getScore10() * 100) < 400 && (int) (subject.getScore10() * 100) >= 0) ||
+                            (subject.getCharacterScore().equals("F")) ||
+                            ((int) (subject.getScore4() * 100) < 100) && (int) (subject.getScore4() * 100) >= 0) {
+                        subject.setScore10(-1.0);
+                        subject.setCharacterScore("");
+                        subject.setScore4(-1.0);
+                        JOptionPane.showMessageDialog(dialog,
+                                "Điểm này có vẻ chưa đủ qua môn.\nThooi, bao giờ qua thì cập nhật điểm nhé", "Smile",
+                                JOptionPane.INFORMATION_MESSAGE);
                     }
                     updateContent();
                 }
