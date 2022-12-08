@@ -275,7 +275,7 @@ public class DialogUpdateSubject {
                         subject.setCharacterScore("");
                         subject.setScore4(-1.0);
                         JOptionPane.showMessageDialog(dialog,
-                                "Điểm này có vẻ chưa đủ qua môn.\nThooi, bao giờ qua thì cập nhật điểm nhé", "Smile",
+                                "Điểm này có vẻ chưa đủ qua môn.\nThôi, bao giờ qua môn thì cập nhật điểm nhé", "Smile",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
                     updateContent();

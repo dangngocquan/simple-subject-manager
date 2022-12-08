@@ -7,19 +7,17 @@ import code.objects.Subject;
 import java.awt.Graphics;
 import java.awt.Font;
 
-public class PanelSubject2 extends JPanel {
+public class PanelSubject3 extends JPanel {
         // Properties
         private JPanel mainPanel;
         private PanelString panelOrder;
         private PanelString panelCode;
         private PanelString panelName;
         private PanelString panelCredit;
-        private PanelString panelScore10;
-        private PanelString panelCharacterScore;
-        private PanelString panelScore4;
+        private PanelString panelStatus;
 
         // Constructor
-        public PanelSubject2(int x, int y, Subject subject, int width, Font font, int index) {
+        public PanelSubject3(int x, int y, Subject subject, int width, Font font, int index) {
                 // Create defaulr font
                 if (font == null) {
                         font = new Font(Setting.FONT_NAME_01,
@@ -33,29 +31,33 @@ public class PanelSubject2 extends JPanel {
                 panelCode = new PanelString(panelOrder.getWidth(), 0, subject.getCode(), width / 24 * 2, font,
                                 PanelString.TOP_LEFT, 15);
                 panelName = new PanelString(panelCode.getX() + panelCode.getWidth(), 0, subject.getName(),
-                                width / 24 * 9, font,
+                                width / 24 * 12, font,
                                 PanelString.TOP_LEFT, 15);
                 panelCredit = new PanelString(panelName.getX() + panelName.getWidth(), 0,
                                 subject.getNumberCredits() + "",
-                                width / 24 * 2, font,
-                                PanelString.TOP_LEFT, 0);
-                panelScore10 = new PanelString(panelCredit.getX() + panelCredit.getWidth(), 0,
-                                subject.getStringScore10(),
                                 width / 24 * 3, font,
                                 PanelString.TOP_LEFT, 0);
-                panelCharacterScore = new PanelString(panelScore10.getX() + panelScore10.getWidth(), 0,
-                                subject.getCharacterScore(),
-                                width / 24 * 3, font,
-                                PanelString.TOP_LEFT, 0);
-                panelScore4 = new PanelString(panelCharacterScore.getX() + panelCharacterScore.getWidth(), 0,
-                                subject.getStringScore4(),
+                panelStatus = new PanelString(panelCredit.getX() + panelCredit.getWidth(), 0,
+                                subject.getStringStatus(),
                                 width - panelOrder.getWidth() - panelCode.getWidth() - panelName.getWidth()
-                                                - panelCredit.getWidth() - panelScore10.getWidth()
-                                                - panelCharacterScore.getWidth(),
+                                                - panelCredit.getWidth(),
                                 font, PanelString.TOP_LEFT, 0);
+                if (subject.getState() == Subject.COMPLETED) {
+                        panelStatus = new PanelString(panelCredit.getX() + panelCredit.getWidth(), 0,
+                                        subject.getStringStatus(),
+                                        width - panelOrder.getWidth() - panelCode.getWidth() - panelName.getWidth()
+                                                        - panelCredit.getWidth(),
+                                        font, PanelString.TOP_LEFT, 0, Setting.COLOR_GREEN_02);
+                } else {
+                        panelStatus = new PanelString(panelCredit.getX() + panelCredit.getWidth(), 0,
+                                        subject.getStringStatus(),
+                                        width - panelOrder.getWidth() - panelCode.getWidth() - panelName.getWidth()
+                                                        - panelCredit.getWidth(),
+                                        font, PanelString.TOP_LEFT, 0);
+                }
 
                 // Height of mainPanel
-                int height = panelCharacterScore.getHeight();
+                int height = panelStatus.getHeight();
 
                 // mainPanel
                 mainPanel = new JPanel();
@@ -68,9 +70,7 @@ public class PanelSubject2 extends JPanel {
                 mainPanel.add(panelCode);
                 mainPanel.add(panelName);
                 mainPanel.add(panelCredit);
-                mainPanel.add(panelScore10);
-                mainPanel.add(panelCharacterScore);
-                mainPanel.add(panelScore4);
+                mainPanel.add(panelStatus);
 
                 // Properties of this panel
                 setLayout(null);
@@ -88,9 +88,7 @@ public class PanelSubject2 extends JPanel {
                 panelCode.setBackground(color);
                 panelName.setBackground(color);
                 panelCredit.setBackground(color);
-                panelScore10.setBackground(color);
-                panelCharacterScore.setBackground(color);
-                panelScore4.setBackground(color);
+                panelStatus.setBackground(color);
         }
 
         // Auto called method of JPanel

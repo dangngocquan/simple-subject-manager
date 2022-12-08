@@ -9,6 +9,7 @@ import java.awt.Canvas;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.List;
+import java.awt.Color;
 
 public class PanelString extends JPanel {
     // Constants PanelString's root location
@@ -47,6 +48,91 @@ public class PanelString extends JPanel {
         label.setLayout(null);
         label.setFont(font);
         label.setSize(width, heightRow);
+        Canvas c = new Canvas();
+        FontMetrics f = c.getFontMetrics(font);
+        if (locationText > 0) {
+            label.setBounds(locationText, 0, width, height);
+        } else if (locationText == 0) {
+            label.setBounds((width - f.stringWidth(text)) / 2, 0, width, height);
+        } else {
+            label.setBounds(width - f.stringWidth(text) + locationText, 0, width, height);
+        }
+
+        // Add label to this panel
+        add(label);
+
+        // Set up panel
+        setLayout(null);
+        setSize(width, height);
+        int xPos = 0, yPos = 0;
+        switch (rootLocationType) {
+            case 0:
+                xPos = x;
+                yPos = y;
+                break;
+            case 1:
+                xPos = x - width / 2;
+                yPos = y;
+                break;
+            case 2:
+                xPos = x - width;
+                yPos = y;
+                break;
+            case 3:
+                xPos = x;
+                yPos = y - height / 2;
+                break;
+            case 4:
+                xPos = x - width / 2;
+                yPos = y - height / 2;
+                break;
+            case 5:
+                xPos = x - width;
+                yPos = y - height / 2;
+                break;
+            case 6:
+                xPos = x;
+                yPos = y - height;
+                break;
+            case 7:
+                xPos = x - width / 2;
+                yPos = y - height;
+                break;
+            case 8:
+                xPos = x - width;
+                yPos = y - height;
+                break;
+        }
+        setBounds(xPos, yPos, width, height);
+    }
+
+    // Contructor
+    public PanelString(int x, int y, String text, int width, Font font, int rootLocationType, int locationText,
+            Color textColor) {
+        // Set default font
+        if (font == null) {
+            font = new Font(Setting.FONT_NAME_01,
+                    Setting.FONT_STYLE_01,
+                    Setting.FONT_SIZE_SMALL);
+        }
+
+        // Get height of a row
+        // Create pattern button to get height
+        Button button = new Button("A");
+        button.setFont(font.getFontName(),
+                font.getStyle(),
+                font.getSize());
+        int heightRow = button.getHeight();
+
+        // Height of this panel
+        int height = heightRow;
+
+        // Create label
+        JLabel label = new JLabel(text);
+        label.setLayout(null);
+        label.setFont(font);
+        label.setSize(width, heightRow);
+        label.setForeground(textColor);
         Canvas c = new Canvas();
         FontMetrics f = c.getFontMetrics(font);
         if (locationText > 0) {

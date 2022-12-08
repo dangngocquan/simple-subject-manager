@@ -74,6 +74,9 @@ public class Subject {
     }
 
     public int getState() {
+        if (!this.characterScore.isEmpty()) {
+            setState(Subject.COMPLETED);
+        }
         return this.state;
     }
 
@@ -101,6 +104,20 @@ public class Subject {
             return "";
         }
         return score4 + "";
+    }
+
+    public String getStringStatus() {
+        switch (getState()) {
+            case 0:
+                return "Chưa đăng kí";
+            case 1:
+                return "Dự định đăng kí";
+            case 2:
+                return "Đã đăng kí";
+            case 3:
+                return "Đã hoàn thành";
+        }
+        return "";
     }
 
     public double getScore4() {

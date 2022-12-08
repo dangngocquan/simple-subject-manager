@@ -8,6 +8,7 @@ import code.file_handler.ReadFile;
 import code.objects.Button;
 import code.objects.Plan;
 import code.panel.PanelSubjectList;
+import code.panel.PanelUpdateStatusSubject;
 import code.panel.PanelUpdateSubject;
 
 import java.awt.event.ActionListener;
@@ -28,8 +29,10 @@ public class ScreenPlanView extends JPanel {
     private JPanel contentPanel;
     private PanelSubjectList panelSubjectList;
     private PanelUpdateSubject panelUpdateSubject;
+    private PanelUpdateStatusSubject panelUpdateStatusSubject;
     private String[] buttonTexts = {
-            "Quay lại", "Danh sách môn học", "Cập nhật môn học", "Sơ đồ liên hệ các môn học", "Tính toán GPA"
+            "Quay lại", "Danh sách môn học", "Cập nhật điểm số", "Sơ đồ liên hệ các môn học", "Tính toán GPA",
+            "Cập nhật trạng thái môn"
     };
     private Button[] buttons;
 
@@ -84,13 +87,16 @@ public class ScreenPlanView extends JPanel {
         buttons[0].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 1, Button.TOP_LEFT);
         buttons[1].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 5, Button.TOP_LEFT);
         buttons[2].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 8, Button.TOP_LEFT);
-        buttons[3].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 11, Button.TOP_LEFT);
-        buttons[4].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 14, Button.TOP_LEFT);
+        buttons[5].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 11, Button.TOP_LEFT);
+        buttons[3].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 14, Button.TOP_LEFT);
+        buttons[4].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 17, Button.TOP_LEFT);
 
         // Create panels
         panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(), plan,
                 PanelSubjectList.TOP_LEFT);
         panelUpdateSubject = new PanelUpdateSubject(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
+                plan, indexPlan, PanelUpdateSubject.TOP_LEFT);
+        panelUpdateStatusSubject = new PanelUpdateStatusSubject(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
                 plan, indexPlan, PanelUpdateSubject.TOP_LEFT);
 
         // Add subpanels
@@ -102,14 +108,17 @@ public class ScreenPlanView extends JPanel {
         optionalPanel.add(buttons[2]);
         optionalPanel.add(buttons[3]);
         optionalPanel.add(buttons[4]);
+        optionalPanel.add(buttons[5]);
         viewPanel.add(contentPanel);
         contentPanel.add(panelSubjectList);
         contentPanel.add(panelUpdateSubject);
+        contentPanel.add(panelUpdateStatusSubject);
 
         // Set visible of screens
         mainScreen.setVisible(true);
         panelSubjectList.setVisible(true);
         panelUpdateSubject.setVisible(false);
+        panelUpdateStatusSubject.setVisible(false);
         optionalPanel.setBackground(Setting.COLOR_BLUE_03);
         contentPanel.setBackground(Setting.COLOR_GRAY_03);
     }
@@ -142,11 +151,19 @@ public class ScreenPlanView extends JPanel {
             else if (event.getSource() == buttons[1]) {
                 panelSubjectList.setVisible(true);
                 panelUpdateSubject.setVisible(false);
+                panelUpdateStatusSubject.setVisible(false);
             }
-            // Press at "Update subject" button
+            // Press at "Update score of subjects" button
             else if (event.getSource() == buttons[2]) {
                 panelSubjectList.setVisible(false);
                 panelUpdateSubject.setVisible(true);
+                panelUpdateStatusSubject.setVisible(false);
+            }
+            // Press at "Update status subjects" button
+            else if (event.getSource() == buttons[5]) {
+                panelSubjectList.setVisible(false);
+                panelUpdateSubject.setVisible(false);
+                panelUpdateStatusSubject.setVisible(true);
             }
         }
     }

@@ -30,7 +30,7 @@ public class PanelSubject extends JPanel {
                                 subject.getParentSubjectCodes(), width / 12 * 4, font, PanelString.TOP_LEFT, 15);
                 panelCredit = new PanelString((width - panelParentSubjectCodes.getWidth()) / 8 * 7, 0,
                                 subject.getNumberCredits() + "", (width - panelParentSubjectCodes.getWidth()) / 8,
-                                font, PanelString.TOP_LEFT, 15);
+                                font, PanelString.TOP_LEFT, 0);
 
                 panelName = new PanelString(
                                 (width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()) / 7 * 2,
