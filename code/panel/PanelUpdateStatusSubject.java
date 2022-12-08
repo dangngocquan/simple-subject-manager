@@ -6,7 +6,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import code.Setting;
-import code.dialog.DialogUpdateSubject;
+import code.dialog.DialogUpdateStatusSubject;
 import code.file_handler.WriteFile;
 import code.objects.Button;
 import code.objects.Plan;
@@ -279,10 +279,11 @@ public class PanelUpdateStatusSubject extends JPanel {
         public void mousePressed(MouseEvent e) {
             for (int i = 0; i < panelSubjects.length; i++) {
                 if (e.getSource() == panelSubjects[i]) {
-                    DialogUpdateSubject dialog = new DialogUpdateSubject(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                    DialogUpdateStatusSubject dialog = new DialogUpdateStatusSubject(Setting.WIDTH / 2,
+                            Setting.HEIGHT / 2,
                             Setting.WIDTH / 3 * 2, Setting.HEIGHT / 5 * 4,
-                            DialogUpdateSubject.CENTER_CENTER, "Update subject", (new String[] {}),
-                            plan.getSubjects().get(i), plan.getConversionTable());
+                            DialogUpdateStatusSubject.CENTER_CENTER, "Update subject", (new String[] {}),
+                            plan.getSubjects().get(i));
                     plan.getSubjects().set(i, dialog.getSubject());
                     WriteFile.editSubject(indexPlan, i, plan.getSubjects().get(i));
                 }

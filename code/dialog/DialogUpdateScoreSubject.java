@@ -15,7 +15,7 @@ import code.objects.Subject;
 import code.panel.PanelString;
 import java.awt.Font;
 
-public class DialogUpdateSubject {
+public class DialogUpdateScoreSubject {
     // Constants dialog's root location
     public static final int TOP_LEFT = 0;
     public static final int TOP_CENTER = 1;
@@ -48,7 +48,7 @@ public class DialogUpdateSubject {
     private Button[] buttons;
 
     // Constructor
-    public DialogUpdateSubject(int x, int y, int width, int height, int rootLocationType, String title,
+    public DialogUpdateScoreSubject(int x, int y, int width, int height, int rootLocationType, String title,
             String[] messageLines, Subject subject, ConversionTable conversionTable) {
         this.width = width;
         this.subject = subject;
