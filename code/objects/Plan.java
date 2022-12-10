@@ -102,6 +102,34 @@ public class Plan {
         return ans;
     }
 
+    public int getMaxLevel() {
+        int max1 = 0;
+        for (Subject subject : getSubjects()) {
+            max1 = Math.max(max1, subject.getLevel());
+        }
+        return max1;
+    }
+
+    public int getMaxNumberSubjectInSameLevel() {
+        int max1 = 0;
+        int[] count = new int[getMaxLevel() + 1];
+        for (Subject subject : getSubjects()) {
+            int level = subject.getLevel();
+            count[level] += 1;
+            max1 = Math.max(max1, count[level]);
+        }
+        return max1;
+    }
+
+    public int getIndexOfSubject(Subject subject) {
+        for (int i = 0; i < getSubjects().size(); i++) {
+            if (subject.getCode().equals(getSubjects().get(i).getCode())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     // Setter
     public void setName(String name) {
         this.name = name;

@@ -48,6 +48,18 @@ public class PanelSubject3 extends JPanel {
                                         width - panelOrder.getWidth() - panelCode.getWidth() - panelName.getWidth()
                                                         - panelCredit.getWidth(),
                                         font, PanelString.TOP_LEFT, 0, Setting.COLOR_GREEN_02);
+                } else if (subject.getState() == Subject.REGISTERED ) {
+                        panelStatus = new PanelString(panelCredit.getX() + panelCredit.getWidth(), 0,
+                                        subject.getStringStatus(),
+                                        width - panelOrder.getWidth() - panelCode.getWidth() - panelName.getWidth()
+                                                        - panelCredit.getWidth(),
+                                        font, PanelString.TOP_LEFT, 0, Setting.COLOR_RED_05);
+                } else if (subject.getState() == Subject.GOING_TO_REGISTER ) {
+                        panelStatus = new PanelString(panelCredit.getX() + panelCredit.getWidth(), 0,
+                                        subject.getStringStatus(),
+                                        width - panelOrder.getWidth() - panelCode.getWidth() - panelName.getWidth()
+                                                        - panelCredit.getWidth(),
+                                        font, PanelString.TOP_LEFT, 0, Setting.COLOR_BLUE_04);
                 } else {
                         panelStatus = new PanelString(panelCredit.getX() + panelCredit.getWidth(), 0,
                                         subject.getStringStatus(),

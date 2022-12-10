@@ -147,6 +147,21 @@ public class Subject {
         }
     }
 
+    // Get level
+    public int getLevel() {
+        if (getParentSubjects().size() == 0) {
+            return 0;
+        } else {
+            int max1 = 0;
+            for (Subject[] parentSubjects : getParentSubjects()) {
+                for (Subject parentSubject : parentSubjects) {
+                    max1 = Math.max(max1, parentSubject.getLevel());
+                }
+            }
+            return 1 + max1;
+        }
+    }
+
     // Setter method
     public void setName(String name) {
         this.subjectName = name;
