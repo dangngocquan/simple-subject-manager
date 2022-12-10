@@ -34,6 +34,74 @@ public class Plan {
         return this.indexConversionTable;
     }
 
+    public int getTotalCredits() {
+        int ans = 0;
+        for (Subject subject : getSubjects()) {
+            ans += subject.getNumberCredits();
+        }
+        return ans;
+    }
+
+    public int getNumberSubjectCompleted() {
+        int ans = 0;
+        for (Subject subject : getSubjects()) {
+            if (subject.getState() == Subject.COMPLETED) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    public int getNumberCreditCompleted() {
+        int ans = 0;
+        for (Subject subject : getSubjects()) {
+            if (subject.getState() == Subject.COMPLETED) {
+                ans += subject.getNumberCredits();
+            }
+        }
+        return ans;
+    }
+
+    public int getNumberSubjectGoingToRegister() {
+        int ans = 0;
+        for (Subject subject : getSubjects()) {
+            if (subject.getState() == Subject.GOING_TO_REGISTER) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    public int getNumberCreditGoingToRegister() {
+        int ans = 0;
+        for (Subject subject : getSubjects()) {
+            if (subject.getState() == Subject.GOING_TO_REGISTER) {
+                ans += subject.getNumberCredits();
+            }
+        }
+        return ans;
+    }
+
+    public int getNumberSubjectRegistered() {
+        int ans = 0;
+        for (Subject subject : getSubjects()) {
+            if (subject.getState() == Subject.REGISTERED) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    public int getNumberCreditRegistered() {
+        int ans = 0;
+        for (Subject subject : getSubjects()) {
+            if (subject.getState() == Subject.REGISTERED) {
+                ans += subject.getNumberCredits();
+            }
+        }
+        return ans;
+    }
+
     // Setter
     public void setName(String name) {
         this.name = name;

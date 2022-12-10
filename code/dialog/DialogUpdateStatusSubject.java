@@ -2,9 +2,10 @@ package code.dialog;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import code.Setting;
 import code.objects.Button;
@@ -35,7 +36,10 @@ public class DialogUpdateStatusSubject {
     private JPanel panelSubjectParentCodes = null;
     private PanelString panelSubjectParentCodes1 = null;
     private PanelString panelSubjectParentCodes2 = null;
+    private PanelString panelAdvice = null;
+    private PanelString panelStatus = null;
     private String[] buttonTexts = {
+        "Sửa"
     };
     private Button[] buttons;
 
@@ -126,6 +130,12 @@ public class DialogUpdateStatusSubject {
         panelSubjectParentCodes.setBounds(0, tempHeight, panelSubjectParentCodes.getWidth(),
                 panelSubjectParentCodes.getHeight());
         tempHeight += panelSubjectParentCodes.getHeight() + 5;
+        panelAdvice = new PanelString(0, tempHeight, "Khả năng đăng kí: " + subject.getAdvice(),
+                width, null, PanelString.TOP_LEFT, width / 10);
+        tempHeight += panelAdvice.getHeight() + 5;
+        panelStatus = new PanelString(0, tempHeight, "Trạng thái: " + subject.getStringStatus(),
+                width, null, PanelString.TOP_LEFT, width / 10);
+        tempHeight += panelStatus.getHeight() + 5;
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -140,6 +150,7 @@ public class DialogUpdateStatusSubject {
         }
 
         // Set location for each button
+        buttons[0].setLocation(panelStatus.getX() + width / 3, panelStatus.getY(), Button.TOP_LEFT);
 
         // add panel
         dialog.add(panelTitle);
@@ -149,6 +160,8 @@ public class DialogUpdateStatusSubject {
         dialog.add(panelSubjectParentCodes);
         panelSubjectParentCodes.add(panelSubjectParentCodes1);
         panelSubjectParentCodes.add(panelSubjectParentCodes2);
+        dialog.add(panelAdvice);
+        dialog.add(panelStatus);
 
         // Show dialog
         dialog.setVisible(true);
@@ -157,6 +170,10 @@ public class DialogUpdateStatusSubject {
     public void updateContent() {
         dialog.setVisible(false);
 
+        dialog.remove(panelStatus);
+        panelStatus = new PanelString(0, panelStatus.getY(), "Trạng thái: " + subject.getStringStatus(),
+                width, null, PanelString.TOP_LEFT, width / 10);
+        dialog.add(panelStatus);
         // Show dialog;
         dialog.setVisible(true);
     }
@@ -168,6 +185,24 @@ public class DialogUpdateStatusSubject {
 
     private class ButtonHandler implements ActionListener {
         public void actionPerformed(ActionEvent event) {
+            if (event.getSource() == buttons[0]) {
+                List<String> values = new LinkedList<>();
+                values.add("Chưa đăng kí");
+                values.add("Dự định đăng kí");
+                values.add("Đã đăng kí");
+                
+                DialogList dialog1 = new DialogList(dialog, "Chọn trạng thái môn mà bạn muốn cập nhật", "Edit status",
+                        values.toArray(), values.get(0));
+                String status = dialog1.run();
+                if (status != null) {
+                    for (int i = 0; i < values.size(); i++) {
+                        if (values.get(i).equals(status)) {
+                            subject.setState(i);
+                        }
+                    }
+                    updateContent();
+                }
+            }
         }
     }
 }

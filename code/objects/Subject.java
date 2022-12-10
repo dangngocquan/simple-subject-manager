@@ -124,6 +124,29 @@ public class Subject {
         return this.score4;
     }
 
+    public boolean canRegister() {
+        for (Subject[] parentSubjects : getParentSubjects()) {
+            boolean flag = false;
+            for (Subject parentSubject : parentSubjects) {
+                if (parentSubject.getState() == Subject.COMPLETED) {
+                    flag = true;
+                }
+            }
+            if (flag == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public String getAdvice() {
+        if (canRegister()) {
+            return "Có thể đăng kí. Không có học phần tiên quyết / Đã hoàn thành các học phần tiên quyết.";
+        } else {
+            return "Chưa nên đăng kí. Chưa hoàn thành các học phần tiên quyết.";
+        }
+    }
+
     // Setter method
     public void setName(String name) {
         this.subjectName = name;

@@ -14,7 +14,7 @@ import code.objects.Subject;
 import java.awt.Graphics;
 import java.awt.Color;
 
-public class PanelUpdateSubject extends JPanel {
+public class PanelUpdateScoreSubject extends JPanel {
     // Constants panel's root location
     public static final int TOP_LEFT = 0;
     public static final int TOP_CENTER = 1;
@@ -46,7 +46,7 @@ public class PanelUpdateSubject extends JPanel {
     private int indexPlan;
 
     // Constructor
-    public PanelUpdateSubject(int x, int y, int width, int height, Plan plan, int indexPlan, int rootLocationType) {
+    public PanelUpdateScoreSubject(int x, int y, int width, int height, Plan plan, int indexPlan, int rootLocationType) {
         // Properties, Objects
         this.width = width;
         this.height = height;

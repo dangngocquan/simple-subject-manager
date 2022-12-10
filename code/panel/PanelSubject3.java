@@ -28,14 +28,14 @@ public class PanelSubject3 extends JPanel {
                 // Create panels
                 panelOrder = new PanelString(0, 0, index + "", width / 24 * 2, font,
                                 PanelString.TOP_LEFT, 15);
-                panelCode = new PanelString(panelOrder.getWidth(), 0, subject.getCode(), width / 24 * 2, font,
+                panelCode = new PanelString(panelOrder.getWidth(), 0, subject.getCode(), width / 24 * 3, font,
                                 PanelString.TOP_LEFT, 15);
                 panelName = new PanelString(panelCode.getX() + panelCode.getWidth(), 0, subject.getName(),
                                 width / 24 * 12, font,
                                 PanelString.TOP_LEFT, 15);
                 panelCredit = new PanelString(panelName.getX() + panelName.getWidth(), 0,
                                 subject.getNumberCredits() + "",
-                                width / 24 * 3, font,
+                                width / 48 * 5, font,
                                 PanelString.TOP_LEFT, 0);
                 panelStatus = new PanelString(panelCredit.getX() + panelCredit.getWidth(), 0,
                                 subject.getStringStatus(),
