@@ -93,7 +93,7 @@ public class ReadFile {
         }
         subject.setCharacterScore(characterScore);
         subject.setState(state);
-        subject.setColor(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[0]), Integer.parseInt(rgb[2]));
+        subject.setColor(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
         subject.setScore10(score10);
         subject.setScore4(score4);
 

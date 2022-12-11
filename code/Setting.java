@@ -18,7 +18,7 @@ public class Setting {
         public static int FONT_SIZE_MEDIUM = 24;
         public static int FONT_SIZE_SMALL_2 = 21;
         public static int FONT_SIZE_SMALL = 18;
-        public static int FONT_SIZE_VERY_SMALL = 11;
+        public static int FONT_SIZE_VERY_SMALL = 13;
         public static Color COLOR_NULL = new Color(0, 0, 0, 0);
         public static Color COLOR_BLACK = new Color(0, 0, 0);
         public static Color COLOR_GREEN_01 = new Color(133, 186, 149);

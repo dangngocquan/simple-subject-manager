@@ -88,6 +88,11 @@ public class Subject {
         return this.color;
     }
 
+    public String getStringColor() {
+        return String.format("[%d  %d  %d]", 
+                color.getRed(), color.getGreen(), color.getBlue());   
+    }
+
     public double getScore10() {
         return this.score10;
     }
@@ -193,6 +198,10 @@ public class Subject {
 
     public void setColor(int r, int g, int b) {
         this.color = new Color(r, g, b);
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     public void setScore10(double value) {

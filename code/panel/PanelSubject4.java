@@ -35,7 +35,7 @@ public class PanelSubject4 extends JPanel {
             if (font == null) {
                     font = new Font(Setting.FONT_NAME_01,
                                     Setting.FONT_STYLE_01,
-                                    Setting.FONT_SIZE_SMALL);
+                                    Setting.FONT_SIZE_VERY_SMALL);
             }
 
             // mainPanel
@@ -46,7 +46,7 @@ public class PanelSubject4 extends JPanel {
 
             // sub-panel
             panelCodeSubject = new PanelString(mainPanel.getWidth() / 2, mainPanel.getHeight()/2,
-                        subject.getCode(), mainPanel.getWidth(), font, PanelString.CENTER_CENTER, 0);
+                        subject.getCode(), mainPanel.getWidth()-4, font, PanelString.CENTER_CENTER, 0);
             panelCodeSubject.setBackground(subject.getColor());
 
 
@@ -74,10 +74,9 @@ public class PanelSubject4 extends JPanel {
     }
 
     // Set background Color
-    public void setBackgroundColorPanelSubject(Color color) {
-            mainPanel.setBackground(color);
-            panelCodeSubject.setBackground(color);
-
+    public void setBackgroundColorPanelSubject(Color colorStroke, Color backgroundColor) {
+        mainPanel.setBackground(colorStroke);
+        panelCodeSubject.setBackground(backgroundColor);
     }
 
     // Set root location tyoe

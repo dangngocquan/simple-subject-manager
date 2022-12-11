@@ -121,6 +121,17 @@ public class Plan {
         return max1;
     }
 
+    public int getNumberSubjectLevelX(int level) {
+        int count = 0;
+        for (Subject subject : getSubjects()) {
+            int lvl = subject.getLevel();
+            if (lvl == level) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public int getIndexOfSubject(Subject subject) {
         for (int i = 0; i < getSubjects().size(); i++) {
             if (subject.getCode().equals(getSubjects().get(i).getCode())) {
