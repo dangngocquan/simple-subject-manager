@@ -29,7 +29,7 @@ public class ScreenPlanView extends JPanel {
     private PanelMapRelativeSubjects panelMapRelativeSubjects;
     private String[] buttonTexts = {
             "Quay lại", "Danh sách môn học", "Cập nhật điểm số", "Sơ đồ liên hệ các môn học", "Tính toán GPA",
-            "Cập nhật trạng thái môn"
+            "Cập nhật trạng thái môn", "Tính toán điểm cuối kỳ"
     };
     private Button[] buttons;
 
@@ -86,7 +86,8 @@ public class ScreenPlanView extends JPanel {
         buttons[2].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 8, Button.TOP_LEFT);
         buttons[5].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 11, Button.TOP_LEFT);
         buttons[3].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 14, Button.TOP_LEFT);
-        buttons[4].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 17, Button.TOP_LEFT);
+        buttons[6].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 17, Button.TOP_LEFT);
+        buttons[4].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 20, Button.TOP_LEFT);
 
         // Create panels
         panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(), plan,
@@ -108,6 +109,7 @@ public class ScreenPlanView extends JPanel {
         optionalPanel.add(buttons[3]);
         optionalPanel.add(buttons[4]);
         optionalPanel.add(buttons[5]);
+        optionalPanel.add(buttons[6]);
         viewPanel.add(contentPanel);
         contentPanel.add(panelSubjectList);
         contentPanel.add(panelUpdateScoreSubject);

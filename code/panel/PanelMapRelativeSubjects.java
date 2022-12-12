@@ -76,7 +76,7 @@ public class PanelMapRelativeSubjects extends JPanel {
                                                     level * heightPerSubjectPanel + 15, 
                                                     subject, widthPerSubjectPanel/10*8, heightPerSubjectPanel/3-18, null,
                                                     PanelSubject4.TOP_LEFT);
-            panelSubjects[count].setToolTipText(subject.getName());
+            panelSubjects[count].setToolTipText(String.format("%s - %s", subject.getCode(), subject.getName()));
             panelSubjects[count].setBackgroundColorPanelSubject(COLOR_STROKE_PANEL_SUBJECT_EXITED, subject.getColor());
             panelSubjects[count].addMouseListener(new MouseHandler());
             add(panelSubjects[count]);                                        
@@ -176,11 +176,14 @@ public class PanelMapRelativeSubjects extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(3));
         g2.setColor(COLOR_LINE_EXITED);
-        for (int i = 0; i < lines.size(); i++) {
-            for (Line2D line : lines.get(i)) {
-                g2.draw(line);
+        if (indexSubjectEntering == -1) {
+            for (int i = 0; i < lines.size(); i++) {
+                for (Line2D line : lines.get(i)) {
+                    g2.draw(line);
+                }
             }
         }
+        
         if (indexSubjectEntering > -1) {
             g2.setStroke(new BasicStroke(5));
             g2.setColor(COLOR_LINE_ENTERED);

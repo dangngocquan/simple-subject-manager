@@ -1,6 +1,6 @@
 package code;
 
-public class Laucher {
+public class Launcher {
     public static void main(String[] args) {
         new Application();
     }

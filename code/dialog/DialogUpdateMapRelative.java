@@ -199,6 +199,10 @@ public class DialogUpdateMapRelative {
         panelColor = new PanelString(0, panelColor.getY(), "Trạng thái: " + subject.getStringColor(),
                 width, null, PanelString.TOP_LEFT, width / 10);
         dialog.add(panelColor);
+
+        buttons[0].setLocation(panelColor.getX() + width / 3 + 50, panelColor.getY(), Button.TOP_LEFT);
+        panelColorDemo.setBounds(buttons[0].getX() - panelColorDemo.getWidth() - 20, 0, 
+                    panelColorDemo.getWidth(), panelColorDemo.getHeight());
         panelColorDemo.setBackground(subject.getColor());
         panelColor.add(panelColorDemo);
         // Show dialog;
