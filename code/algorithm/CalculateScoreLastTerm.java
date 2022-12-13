@@ -10,7 +10,8 @@ public class CalculateScoreLastTerm {
                                                                                          // ..., A+
         for (int i = 0; i < minScores.length; i++) {
             double scoreHaving = score1 * coefficient1 + score2 * coefficient2;
-            minScores[i] = (conversionTable.getScore10().get(i + 1) - scoreHaving) / coefficient3;
+            minScores[i] = Math.round((conversionTable.getScore10().get(i + 1) - scoreHaving) / coefficient3 * 100)
+                    / 100.0;
         }
         return minScores;
     }

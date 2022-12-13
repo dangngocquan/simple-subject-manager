@@ -6,6 +6,7 @@ import code.Application;
 import code.Setting;
 import code.objects.Button;
 import code.objects.Plan;
+import code.panel.PanelCalculateScoreLastTerm;
 import code.panel.PanelMapRelativeSubjects;
 import code.panel.PanelSubjectList;
 import code.panel.PanelUpdateStatusSubject;
@@ -27,6 +28,7 @@ public class ScreenPlanView extends JPanel {
     private PanelUpdateScoreSubject panelUpdateScoreSubject;
     private PanelUpdateStatusSubject panelUpdateStatusSubject;
     private PanelMapRelativeSubjects panelMapRelativeSubjects;
+    private PanelCalculateScoreLastTerm panelCalculateScoreLastTerm;
     private String[] buttonTexts = {
             "Quay lại", "Danh sách môn học", "Cập nhật điểm số", "Sơ đồ liên hệ các môn học", "Tính toán GPA",
             "Cập nhật trạng thái môn", "Tính toán điểm cuối kỳ"
@@ -98,6 +100,9 @@ public class ScreenPlanView extends JPanel {
                 plan, indexPlan, PanelUpdateStatusSubject.TOP_LEFT);
         panelMapRelativeSubjects = new PanelMapRelativeSubjects(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
                 plan, indexPlan, PanelMapRelativeSubjects.TOP_LEFT);
+        panelCalculateScoreLastTerm = new PanelCalculateScoreLastTerm(0, 0, contentPanel.getWidth(),
+                contentPanel.getHeight(), null, PanelMapRelativeSubjects.TOP_LEFT, plan.getConversionTable(),
+                applicationFrame);
 
         // Add subpanels
         add(mainScreen);
@@ -115,6 +120,7 @@ public class ScreenPlanView extends JPanel {
         contentPanel.add(panelUpdateScoreSubject);
         contentPanel.add(panelUpdateStatusSubject);
         contentPanel.add(panelMapRelativeSubjects);
+        contentPanel.add(panelCalculateScoreLastTerm);
 
         // Set visible of screens
         mainScreen.setVisible(true);
@@ -156,6 +162,7 @@ public class ScreenPlanView extends JPanel {
                 panelUpdateScoreSubject.setVisible(false);
                 panelUpdateStatusSubject.setVisible(false);
                 panelMapRelativeSubjects.setVisible(false);
+                panelCalculateScoreLastTerm.setVisible(false);
             }
             // Press at "Update score of subjects" button
             else if (event.getSource() == buttons[2]) {
@@ -164,6 +171,7 @@ public class ScreenPlanView extends JPanel {
                 panelUpdateScoreSubject.setVisible(true);
                 panelUpdateStatusSubject.setVisible(false);
                 panelMapRelativeSubjects.setVisible(false);
+                panelCalculateScoreLastTerm.setVisible(false);
             }
             // Press at "Update status subjects" button
             else if (event.getSource() == buttons[5]) {
@@ -172,6 +180,7 @@ public class ScreenPlanView extends JPanel {
                 panelUpdateStatusSubject.updateContentData();
                 panelUpdateStatusSubject.setVisible(true);
                 panelMapRelativeSubjects.setVisible(false);
+                panelCalculateScoreLastTerm.setVisible(false);
             }
             // Press at "Map relative subjects" button
             else if (event.getSource() == buttons[3]) {
@@ -179,6 +188,15 @@ public class ScreenPlanView extends JPanel {
                 panelUpdateScoreSubject.setVisible(false);
                 panelUpdateStatusSubject.setVisible(false);
                 panelMapRelativeSubjects.setVisible(true);
+                panelCalculateScoreLastTerm.setVisible(false);
+            }
+            // Press at "Calculate score last term" button
+            else if (event.getSource() == buttons[6]) {
+                panelSubjectList.setVisible(false);
+                panelUpdateScoreSubject.setVisible(false);
+                panelUpdateStatusSubject.setVisible(false);
+                panelMapRelativeSubjects.setVisible(false);
+                panelCalculateScoreLastTerm.setVisible(true);
             }
         }
     }
