@@ -1,3 +1,3 @@
-# gpa_plan_hus
+# Simple Subjects Manager
 
-# GPA Plan HUS
+# ~
