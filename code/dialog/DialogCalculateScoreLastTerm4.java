@@ -10,7 +10,7 @@ import code.algorithm.CalculateScoreLastTerm;
 import code.objects.ConversionTable;
 import code.panel.PanelString;
 
-public class DialogCalculateScoreLastTerm3 {
+public class DialogCalculateScoreLastTerm4 {
     // Constants dialog's root location
     public static final int TOP_LEFT = 0;
     public static final int TOP_CENTER = 1;
@@ -35,8 +35,9 @@ public class DialogCalculateScoreLastTerm3 {
     PanelString title1, title2, title3;
 
     // Constructor
-    public DialogCalculateScoreLastTerm3(int x, int y, int width, int height, int rootLocationType, String title,
+    public DialogCalculateScoreLastTerm4(int x, int y, int width, int height, int rootLocationType, String title,
             String[] messageLines, double score1, double coefficient1, double score2, double coefficient2,
+            double score3, double coefficient3,
             ConversionTable conversionTable) {
         // Create frame and set propertis of this frame
         JFrame f = new JFrame();
@@ -124,8 +125,8 @@ public class DialogCalculateScoreLastTerm3 {
         panelContent = new JPanel();
         panelContent.setLayout(null);
         int contentHeight = 0;
-        String[] results = CalculateScoreLastTerm.getStringResults(score1, coefficient1, score2, coefficient2,
-                conversionTable);
+        String[] results = CalculateScoreLastTerm.getStringResults(score1, coefficient1, score2, coefficient2, score3,
+                coefficient3, conversionTable);
         for (int i = results.length - 1; i >= 0; i--) {
             JPanel panel = new JPanel();
             panel.setLayout(null);

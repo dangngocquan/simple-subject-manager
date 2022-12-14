@@ -92,16 +92,16 @@ public class ScreenPlanView extends JPanel {
         buttons[4].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 20, Button.TOP_LEFT);
 
         // Create panels
-        panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(), plan,
+        panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(), this.plan,
                 PanelSubjectList.TOP_LEFT);
         panelUpdateScoreSubject = new PanelUpdateScoreSubject(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
-                plan, indexPlan, PanelUpdateScoreSubject.TOP_LEFT);
+                this.plan, indexPlan, PanelUpdateScoreSubject.TOP_LEFT);
         panelUpdateStatusSubject = new PanelUpdateStatusSubject(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
                 plan, indexPlan, PanelUpdateStatusSubject.TOP_LEFT);
         panelMapRelativeSubjects = new PanelMapRelativeSubjects(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
                 plan, indexPlan, PanelMapRelativeSubjects.TOP_LEFT);
         panelCalculateScoreLastTerm = new PanelCalculateScoreLastTerm(0, 0, contentPanel.getWidth(),
-                contentPanel.getHeight(), null, PanelMapRelativeSubjects.TOP_LEFT, plan.getConversionTable(),
+                contentPanel.getHeight(), null, PanelMapRelativeSubjects.TOP_LEFT, this.plan.getConversionTable(),
                 applicationFrame);
 
         // Add subpanels

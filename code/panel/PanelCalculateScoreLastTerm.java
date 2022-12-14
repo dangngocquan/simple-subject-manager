@@ -2,21 +2,10 @@ package code.panel;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
 import code.Setting;
-import code.dialog.DialogUpdateMapRelative;
-import code.file_handler.WriteFile;
 import code.objects.ConversionTable;
-import code.objects.Plan;
-import code.objects.Subject;
-import java.awt.geom.Line2D;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Color;
-import java.awt.BasicStroke;
 import java.awt.Font;
 
 public class PanelCalculateScoreLastTerm extends JPanel {
@@ -43,6 +32,7 @@ public class PanelCalculateScoreLastTerm extends JPanel {
     private int xPos, yPos, rootLocationType; // location of top-left point
     private JFrame applicationFrame;
     private PanelCalculateLastTerm3 panelCalculateLastTerm3;
+    private PanelCalculateLastTerm4 panelCalculateLastTerm4;
 
     // Constructor
     public PanelCalculateScoreLastTerm(int x, int y, int width, int height, Font font,
@@ -59,10 +49,14 @@ public class PanelCalculateScoreLastTerm extends JPanel {
 
         // panels
         panelCalculateLastTerm3 = new PanelCalculateLastTerm3(0, 0, width, height / 5 * 2, font,
-                conversionTable, applicationFrame);
+                conversionTable, this.applicationFrame);
+        panelCalculateLastTerm4 = new PanelCalculateLastTerm4(0, panelCalculateLastTerm3.getHeight(), width,
+                height - panelCalculateLastTerm3.getHeight(), font,
+                conversionTable, this.applicationFrame);
 
         // add panel
         add(panelCalculateLastTerm3);
+        add(panelCalculateLastTerm4);
 
     }
 
@@ -124,31 +118,5 @@ public class PanelCalculateScoreLastTerm extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-    }
-
-    private class MouseHandler implements MouseListener {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
     }
 }
