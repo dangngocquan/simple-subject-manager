@@ -30,10 +30,13 @@ public class ScreenPlanView extends JPanel {
     private PanelMapRelativeSubjects panelMapRelativeSubjects;
     private PanelCalculateScoreLastTerm panelCalculateScoreLastTerm;
     private String[] buttonTexts = {
-            "Quay lại", "Danh sách môn học", "Cập nhật điểm số", "Sơ đồ liên hệ các môn học", "Tính toán GPA",
+            "Quay lại", "Danh sách môn học", "Cập nhật điểm số", "Sơ đồ liên hệ các môn học",
+            "Sắp xếp lịch học tạm thời của 1 học kỳ",
             "Cập nhật trạng thái môn", "Tính toán điểm cuối kỳ"
     };
     private Button[] buttons;
+    private int indexButtonEntering = 1;
+    private JPanel panelButtonEnetering;
 
     // Constructor
     public ScreenPlanView(int width, int height, ScreenExistingPlans parentScreen, Application frame, int indexPlan,
@@ -83,13 +86,13 @@ public class ScreenPlanView extends JPanel {
         }
 
         // Set location for each button
-        buttons[0].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 1, Button.TOP_LEFT);
-        buttons[1].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 5, Button.TOP_LEFT);
-        buttons[2].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 8, Button.TOP_LEFT);
-        buttons[5].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 11, Button.TOP_LEFT);
-        buttons[3].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 14, Button.TOP_LEFT);
-        buttons[6].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 17, Button.TOP_LEFT);
-        buttons[4].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 24 * 20, Button.TOP_LEFT);
+        buttons[0].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 1, Button.TOP_LEFT);
+        buttons[1].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 5, Button.TOP_LEFT);
+        buttons[2].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 8, Button.TOP_LEFT);
+        buttons[5].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 11, Button.TOP_LEFT);
+        buttons[3].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 14, Button.TOP_LEFT);
+        buttons[6].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 17, Button.TOP_LEFT);
+        buttons[4].setLocation(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 20, Button.TOP_LEFT);
 
         // Create panels
         panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(), this.plan,
@@ -104,6 +107,12 @@ public class ScreenPlanView extends JPanel {
                 contentPanel.getHeight(), null, PanelMapRelativeSubjects.TOP_LEFT, this.plan.getConversionTable(),
                 applicationFrame);
 
+        panelButtonEnetering = new JPanel();
+        panelButtonEnetering.setLayout(null);
+        panelButtonEnetering.setSize(optionalPanel.getWidth(), optionalPanel.getHeight() / 27 * 3);
+        panelButtonEnetering.setBackground(contentPanel.getBackground());
+        setIndexButtonEntering(1);
+
         // Add subpanels
         add(mainScreen);
         mainScreen.add(optionalPanel);
@@ -115,6 +124,7 @@ public class ScreenPlanView extends JPanel {
         optionalPanel.add(buttons[4]);
         optionalPanel.add(buttons[5]);
         optionalPanel.add(buttons[6]);
+        optionalPanel.add(panelButtonEnetering);
         viewPanel.add(contentPanel);
         contentPanel.add(panelSubjectList);
         contentPanel.add(panelUpdateScoreSubject);
@@ -143,6 +153,19 @@ public class ScreenPlanView extends JPanel {
         return this.parentScreen;
     }
 
+    // Setter
+    public void setIndexButtonEntering(int index) {
+        this.indexButtonEntering = index;
+        optionalPanel.remove(panelButtonEnetering);
+        panelButtonEnetering.setBounds(0,
+                buttons[index].getY()
+                        - (optionalPanel.getHeight() / 27 * 3 - buttons[this.indexButtonEntering].getHeight()) / 2,
+                panelButtonEnetering.getWidth(),
+                panelButtonEnetering.getHeight());
+        optionalPanel.add(panelButtonEnetering);
+        optionalPanel.repaint();
+    }
+
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -158,6 +181,7 @@ public class ScreenPlanView extends JPanel {
             }
             // Press at "List subject" button
             else if (event.getSource() == buttons[1]) {
+                setIndexButtonEntering(1);
                 panelSubjectList.setVisible(true);
                 panelUpdateScoreSubject.setVisible(false);
                 panelUpdateStatusSubject.setVisible(false);
@@ -166,6 +190,7 @@ public class ScreenPlanView extends JPanel {
             }
             // Press at "Update score of subjects" button
             else if (event.getSource() == buttons[2]) {
+                setIndexButtonEntering(2);
                 panelSubjectList.setVisible(false);
                 panelUpdateScoreSubject.updateContentData();
                 panelUpdateScoreSubject.setVisible(true);
@@ -175,6 +200,7 @@ public class ScreenPlanView extends JPanel {
             }
             // Press at "Update status subjects" button
             else if (event.getSource() == buttons[5]) {
+                setIndexButtonEntering(5);
                 panelSubjectList.setVisible(false);
                 panelUpdateScoreSubject.setVisible(false);
                 panelUpdateStatusSubject.updateContentData();
@@ -184,6 +210,7 @@ public class ScreenPlanView extends JPanel {
             }
             // Press at "Map relative subjects" button
             else if (event.getSource() == buttons[3]) {
+                setIndexButtonEntering(3);
                 panelSubjectList.setVisible(false);
                 panelUpdateScoreSubject.setVisible(false);
                 panelUpdateStatusSubject.setVisible(false);
@@ -192,6 +219,7 @@ public class ScreenPlanView extends JPanel {
             }
             // Press at "Calculate score last term" button
             else if (event.getSource() == buttons[6]) {
+                setIndexButtonEntering(6);
                 panelSubjectList.setVisible(false);
                 panelUpdateScoreSubject.setVisible(false);
                 panelUpdateStatusSubject.setVisible(false);

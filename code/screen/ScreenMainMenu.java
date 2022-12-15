@@ -6,6 +6,7 @@ import code.Setting;
 import code.file_handler.ReadFile;
 import code.objects.Account;
 import code.objects.Button;
+import code.objects.Button2;
 import code.panel.PanelString;
 import java.awt.Graphics;
 import java.awt.event.ActionListener;
@@ -68,6 +69,10 @@ public class ScreenMainMenu extends JPanel {
         for (Button button : buttons) {
             mainScreen.add(button);
         }
+
+        // Test button2
+        Button2 buttonTest = new Button2(100, 400, "Thử nghiệm nút bấm");
+        mainScreen.add(buttonTest);
 
         // Add screens to this screen
         add(mainScreen);

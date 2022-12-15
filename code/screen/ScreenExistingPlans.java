@@ -77,8 +77,6 @@ public class ScreenExistingPlans extends JPanel {
 
         // Set visible of screens
         mainScreen.setVisible(true);
-        scrollPanel.setBackground(Setting.COLOR_GREEN_03);
-
     }
 
     // Getter
@@ -117,11 +115,16 @@ public class ScreenExistingPlans extends JPanel {
             scrollPanel.add(tempButton);
             buttonPlans[i] = tempButton;
             buttonPlans[i].addActionListener(new ButtonHandler());
-            heightScroll += tempButton.getHeight() + 33;
+            heightScroll += tempButton.getHeight() + 120;
         }
         scrollPanel.setLayout(null);
-        scrollPanel.setSize(contentPanel.getWidth(), Math.max(heightScroll, contentPanel.getHeight()));
-        scrollPanel.setBounds(0, -cursorScroll, scrollPanel.getWidth(), scrollPanel.getHeight());
+        scrollPanel.setSize(contentPanel.getWidth(), heightScroll);
+        if (scrollPanel.getHeight() > contentPanel.getHeight()) {
+            scrollPanel.setBounds(0, -cursorScroll, scrollPanel.getWidth(), scrollPanel.getHeight());
+        } else {
+            scrollPanel.setBounds(0, (contentPanel.getHeight() - scrollPanel.getHeight()) / 2, scrollPanel.getWidth(),
+                    scrollPanel.getHeight());
+        }
 
         screenPlanViews = new ScreenPlanView[plans.size()];
         for (int i = 0; i < plans.size(); i++) {
@@ -134,7 +137,9 @@ public class ScreenExistingPlans extends JPanel {
 
     // Update contentPanel
     public void updateContentShowing() {
-        scrollPanel.setBounds(0, -cursorScroll, scrollPanel.getWidth(), scrollPanel.getHeight());
+        if (scrollPanel.getHeight() > contentPanel.getHeight()) {
+            scrollPanel.setBounds(0, -cursorScroll, scrollPanel.getWidth(), scrollPanel.getHeight());
+        }
     }
 
     // get CursorScroll

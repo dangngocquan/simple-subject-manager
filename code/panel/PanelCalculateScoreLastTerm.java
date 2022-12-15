@@ -20,12 +20,15 @@ public class PanelCalculateScoreLastTerm extends JPanel {
     public static final int BOTTOM_CENTER = 7;
     public static final int BOTTOM_RIGHT = 8;
 
+    public static final int STROKE_WIDTH = 3;
+
     public static final Color COLOR_SUBJECT_ENTERED = Setting.COLOR_VIOLET_03;
     public static final Color COLOR_SUBJECT_EXITED_1 = Setting.COLOR_GRAY_05;
     public static final Color COLOR_LINE_ENTERED = Setting.COLOR_BLUE_02;
     public static final Color COLOR_LINE_EXITED = Setting.COLOR_BLACK;
     public static final Color COLOR_STROKE_PANEL_SUBJECT_EXITED = Setting.COLOR_BLACK;
     public static final Color COLOR_STROKE_PANEL_SUBJECT_ENTERED = COLOR_LINE_ENTERED;
+    public static final Color COLOR_STROKE = Setting.COLOR_BLACK;
 
     // Properties
     private int width, height; // size of this panel
@@ -45,13 +48,15 @@ public class PanelCalculateScoreLastTerm extends JPanel {
         setLayout(null);
         setSize(width, height);
         setLocation(x, y, rootLocationType);
-        setBackground(COLOR_LINE_ENTERED);
+        setBackground(COLOR_STROKE);
 
         // panels
-        panelCalculateLastTerm3 = new PanelCalculateLastTerm3(0, 0, width, height / 5 * 2, font,
-                conversionTable, this.applicationFrame);
-        panelCalculateLastTerm4 = new PanelCalculateLastTerm4(0, panelCalculateLastTerm3.getHeight(), width,
-                height - panelCalculateLastTerm3.getHeight(), font,
+        panelCalculateLastTerm3 = new PanelCalculateLastTerm3(STROKE_WIDTH, 0, width - STROKE_WIDTH * 2, height / 5 * 2,
+                font, conversionTable, this.applicationFrame);
+        panelCalculateLastTerm4 = new PanelCalculateLastTerm4(STROKE_WIDTH,
+                panelCalculateLastTerm3.getHeight() + STROKE_WIDTH,
+                width - STROKE_WIDTH * 2,
+                height - panelCalculateLastTerm3.getHeight() - STROKE_WIDTH, font,
                 conversionTable, this.applicationFrame);
 
         // add panel

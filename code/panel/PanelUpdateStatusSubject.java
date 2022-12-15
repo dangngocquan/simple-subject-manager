@@ -26,6 +26,8 @@ public class PanelUpdateStatusSubject extends JPanel {
     public static final int BOTTOM_CENTER = 7;
     public static final int BOTTOM_RIGHT = 8;
 
+    public static final int STROKE_WIDTH = 3;
+
     public static final Color COLOR_SUBJECT_1 = Setting.COLOR_GRAY_05;
     public static final Color COLOR_SUBJECT_2 = Setting.COLOR_GRAY_04;
 
@@ -33,6 +35,7 @@ public class PanelUpdateStatusSubject extends JPanel {
     public static final Color COLOR_SUBJECT_EXITED_1 = Setting.COLOR_GRAY_05;
     public static final Color COLOR_SUBJECT_EXITED_2 = Setting.COLOR_GRAY_04;
     public static final Color COLOR_SUBJECT_PRESSED = Setting.COLOR_GREEN_03;
+    public static final Color COLOR_STROKE = Setting.COLOR_BLACK;
 
     // Properties
     private int width, height; // size of this panel
@@ -40,7 +43,7 @@ public class PanelUpdateStatusSubject extends JPanel {
     private Plan plan; // data plan
     private JPanel headerPanel; // contains title
     private JPanel contentPanel; // a part of scrollPanel wil be shown here
-    private JPanel summaryPanel; // 
+    private JPanel summaryPanel; //
     private JPanel scrollPanel; // Contains all information of plan
     private int cursorScroll = 0; // to define where the contentPanel in scrolllPanel
     private PanelSubject3[] panelSubjects = null;
@@ -63,18 +66,20 @@ public class PanelUpdateStatusSubject extends JPanel {
         // Create panels
         headerPanel = new JPanel();
         headerPanel.setLayout(null);
-        headerPanel.setSize(width / 16 * 11, height / 10);
-        headerPanel.setBounds(0, 0, headerPanel.getWidth(), headerPanel.getHeight());
+        headerPanel.setSize(width / 16 * 11 - STROKE_WIDTH * 2, height / 10 - 2 * STROKE_WIDTH);
+        headerPanel.setBounds(STROKE_WIDTH, STROKE_WIDTH, headerPanel.getWidth(), headerPanel.getHeight());
 
         contentPanel = new JPanel();
         contentPanel.setLayout(null);
-        contentPanel.setSize(headerPanel.getWidth(), height - headerPanel.getHeight());
-        contentPanel.setBounds(0, headerPanel.getHeight(), contentPanel.getWidth(), contentPanel.getHeight());
+        contentPanel.setSize(headerPanel.getWidth(), height - headerPanel.getHeight() - 2 * STROKE_WIDTH);
+        contentPanel.setBounds(STROKE_WIDTH, headerPanel.getHeight() + 2 * STROKE_WIDTH, contentPanel.getWidth(),
+                contentPanel.getHeight());
 
         summaryPanel = new JPanel();
         summaryPanel.setLayout(null);
-        summaryPanel.setSize(width - headerPanel.getWidth(), height);
-        summaryPanel.setBounds(headerPanel.getWidth(), 0, summaryPanel.getWidth(), summaryPanel.getHeight());
+        summaryPanel.setSize(width - headerPanel.getWidth() - 2 * STROKE_WIDTH, height);
+        summaryPanel.setBounds(headerPanel.getWidth() + 2 * STROKE_WIDTH, 0, summaryPanel.getWidth(),
+                summaryPanel.getHeight());
 
         // Create titles for headerPanel
         Button titleOrder = new Button("STT");
@@ -144,35 +149,37 @@ public class PanelUpdateStatusSubject extends JPanel {
         // Create content for summary panel
         panelInfors = new PanelString[8];
         int tempHeight = headerPanel.getHeight() * 2;
-        panelInfors[0] = new PanelString(5, tempHeight, "Tổng số môn học: " + plan.getSubjects().size(), 
+        panelInfors[0] = new PanelString(5, tempHeight, "Tổng số môn học: " + plan.getSubjects().size(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[0].getHeight() + 15;
-        panelInfors[1] = new PanelString(5, tempHeight, "Tổng số tín chỉ: " + plan.getTotalCredits(), 
+        panelInfors[1] = new PanelString(5, tempHeight, "Tổng số tín chỉ: " + plan.getTotalCredits(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[1].getHeight() + 15;
-        panelInfors[2] = new PanelString(5, tempHeight, "Số môn học đã hoàn thành: " + plan.getNumberSubjectCompleted(), 
+        panelInfors[2] = new PanelString(5, tempHeight, "Số môn học đã hoàn thành: " + plan.getNumberSubjectCompleted(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[2].getHeight() + 15;
-        panelInfors[3] = new PanelString(5, tempHeight, "Số tín chỉ đã hoàn thành: " + plan.getNumberCreditCompleted(), 
+        panelInfors[3] = new PanelString(5, tempHeight, "Số tín chỉ đã hoàn thành: " + plan.getNumberCreditCompleted(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[3].getHeight() + 15;
-        panelInfors[4] = new PanelString(5, tempHeight, "Số môn học đã đăng kí: " + plan.getNumberSubjectRegistered(), 
+        panelInfors[4] = new PanelString(5, tempHeight, "Số môn học đã đăng kí: " + plan.getNumberSubjectRegistered(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[4].getHeight() + 15;
-        panelInfors[5] = new PanelString(5, tempHeight, "Số tín chỉ đã đăng kí: " + plan.getNumberCreditRegistered(), 
+        panelInfors[5] = new PanelString(5, tempHeight, "Số tín chỉ đã đăng kí: " + plan.getNumberCreditRegistered(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[5].getHeight() + 15;
-        panelInfors[6] = new PanelString(5, tempHeight, "Số môn học dự tính đăng kí: " + plan.getNumberSubjectGoingToRegister(), 
+        panelInfors[6] = new PanelString(5, tempHeight,
+                "Số môn học dự tính đăng kí: " + plan.getNumberSubjectGoingToRegister(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[6].getHeight() + 15;
-        panelInfors[7] = new PanelString(5, tempHeight, "Số tín chỉ dự tính đăng kí: " + plan.getNumberCreditGoingToRegister(), 
+        panelInfors[7] = new PanelString(5, tempHeight,
+                "Số tín chỉ dự tính đăng kí: " + plan.getNumberCreditGoingToRegister(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[7].getHeight() + 15;
-
 
         summaryPanel.setBackground(Setting.COLOR_GREEN_03);
 
         // Add sub panels to this panel
+        setBackground(COLOR_STROKE);
         add(headerPanel);
         add(contentPanel);
         add(summaryPanel);
@@ -232,28 +239,30 @@ public class PanelUpdateStatusSubject extends JPanel {
         // Update summary panel
         summaryPanel.removeAll();
         int tempHeight = headerPanel.getHeight() * 2;
-        panelInfors[0] = new PanelString(5, tempHeight, "Tổng số môn học: " + plan.getSubjects().size(), 
+        panelInfors[0] = new PanelString(5, tempHeight, "Tổng số môn học: " + plan.getSubjects().size(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[0].getHeight() + 15;
-        panelInfors[1] = new PanelString(5, tempHeight, "Tổng số tín chỉ: " + plan.getTotalCredits(), 
+        panelInfors[1] = new PanelString(5, tempHeight, "Tổng số tín chỉ: " + plan.getTotalCredits(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[1].getHeight() + 15;
-        panelInfors[2] = new PanelString(5, tempHeight, "Số môn học đã hoàn thành: " + plan.getNumberSubjectCompleted(), 
+        panelInfors[2] = new PanelString(5, tempHeight, "Số môn học đã hoàn thành: " + plan.getNumberSubjectCompleted(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[2].getHeight() + 15;
-        panelInfors[3] = new PanelString(5, tempHeight, "Số tín chỉ đã hoàn thành: " + plan.getNumberCreditCompleted(), 
+        panelInfors[3] = new PanelString(5, tempHeight, "Số tín chỉ đã hoàn thành: " + plan.getNumberCreditCompleted(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[3].getHeight() + 15;
-        panelInfors[4] = new PanelString(5, tempHeight, "Số môn học đã đăng kí: " + plan.getNumberSubjectRegistered(), 
+        panelInfors[4] = new PanelString(5, tempHeight, "Số môn học đã đăng kí: " + plan.getNumberSubjectRegistered(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[4].getHeight() + 15;
-        panelInfors[5] = new PanelString(5, tempHeight, "Số tín chỉ đã đăng kí: " + plan.getNumberCreditRegistered(), 
+        panelInfors[5] = new PanelString(5, tempHeight, "Số tín chỉ đã đăng kí: " + plan.getNumberCreditRegistered(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[5].getHeight() + 15;
-        panelInfors[6] = new PanelString(5, tempHeight, "Số môn học dự tính đăng kí: " + plan.getNumberSubjectGoingToRegister(), 
+        panelInfors[6] = new PanelString(5, tempHeight,
+                "Số môn học dự tính đăng kí: " + plan.getNumberSubjectGoingToRegister(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[6].getHeight() + 15;
-        panelInfors[7] = new PanelString(5, tempHeight, "Số tín chỉ dự tính đăng kí: " + plan.getNumberCreditGoingToRegister(), 
+        panelInfors[7] = new PanelString(5, tempHeight,
+                "Số tín chỉ dự tính đăng kí: " + plan.getNumberCreditGoingToRegister(),
                 summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
         tempHeight += panelInfors[7].getHeight() + 15;
 
@@ -367,13 +376,13 @@ public class PanelUpdateStatusSubject extends JPanel {
                 if (e.getSource() == panelSubjects[i]) {
                     if (plan.getSubjects().get(i).getState() != Subject.COMPLETED) {
                         DialogUpdateStatusSubject dialog = new DialogUpdateStatusSubject(Setting.WIDTH / 2,
-                            Setting.HEIGHT / 2,
-                            Setting.WIDTH / 3 * 2, Setting.HEIGHT / 5 * 4,
-                            DialogUpdateStatusSubject.CENTER_CENTER, "Update status subject", (new String[] {}),
-                            plan.getSubjects().get(i));
+                                Setting.HEIGHT / 2,
+                                Setting.WIDTH / 3 * 2, Setting.HEIGHT / 5 * 4,
+                                DialogUpdateStatusSubject.CENTER_CENTER, "Update status subject", (new String[] {}),
+                                plan.getSubjects().get(i));
                         plan.getSubjects().set(i, dialog.getSubject());
                         WriteFile.editSubject(indexPlan, i, plan.getSubjects().get(i));
-                    }   
+                    }
                 }
             }
             updateContentData();

@@ -26,6 +26,8 @@ public class PanelUpdateScoreSubject extends JPanel {
     public static final int BOTTOM_CENTER = 7;
     public static final int BOTTOM_RIGHT = 8;
 
+    public static final int STROKE_WIDTH = 3;
+
     public static final Color COLOR_SUBJECT_1 = Setting.COLOR_GRAY_05;
     public static final Color COLOR_SUBJECT_2 = Setting.COLOR_GRAY_04;
 
@@ -33,6 +35,7 @@ public class PanelUpdateScoreSubject extends JPanel {
     public static final Color COLOR_SUBJECT_EXITED_1 = Setting.COLOR_GRAY_05;
     public static final Color COLOR_SUBJECT_EXITED_2 = Setting.COLOR_GRAY_04;
     public static final Color COLOR_SUBJECT_PRESSED = Setting.COLOR_GREEN_03;
+    public static final Color COLOR_STROKE = Setting.COLOR_BLACK;
 
     // Properties
     private int width, height; // size of this panel
@@ -46,7 +49,8 @@ public class PanelUpdateScoreSubject extends JPanel {
     private int indexPlan;
 
     // Constructor
-    public PanelUpdateScoreSubject(int x, int y, int width, int height, Plan plan, int indexPlan, int rootLocationType) {
+    public PanelUpdateScoreSubject(int x, int y, int width, int height, Plan plan, int indexPlan,
+            int rootLocationType) {
         // Properties, Objects
         this.width = width;
         this.height = height;
@@ -60,13 +64,15 @@ public class PanelUpdateScoreSubject extends JPanel {
         // Create panels
         headerPanel = new JPanel();
         headerPanel.setLayout(null);
-        headerPanel.setSize(width, height / 10);
-        headerPanel.setBounds(0, 0, headerPanel.getWidth(), headerPanel.getHeight());
+        headerPanel.setSize(width - STROKE_WIDTH * 2, height / 10 - 2 * STROKE_WIDTH);
+        headerPanel.setBounds(STROKE_WIDTH, STROKE_WIDTH, headerPanel.getWidth(),
+                headerPanel.getHeight());
 
         contentPanel = new JPanel();
         contentPanel.setLayout(null);
-        contentPanel.setSize(width, height - headerPanel.getHeight());
-        contentPanel.setBounds(0, headerPanel.getHeight(), contentPanel.getWidth(), contentPanel.getHeight());
+        contentPanel.setSize(headerPanel.getWidth(), height - headerPanel.getHeight() - 2 * STROKE_WIDTH);
+        contentPanel.setBounds(STROKE_WIDTH, headerPanel.getHeight() + 2 * STROKE_WIDTH, contentPanel.getWidth(),
+                contentPanel.getHeight());
 
         // Create titles for headerPanel
         Button titleOrder = new Button("STT    ");
@@ -147,6 +153,7 @@ public class PanelUpdateScoreSubject extends JPanel {
         updateContentShowing();
 
         // Add sub panels to this panel
+        setBackground(COLOR_STROKE);
         add(headerPanel);
         add(contentPanel);
         headerPanel.add(titleOrder);
