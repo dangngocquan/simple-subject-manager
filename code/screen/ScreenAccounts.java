@@ -2,12 +2,11 @@ package code.screen;
 
 import javax.swing.JPanel;
 import code.Application;
-import code.Setting;
 import code.file_handler.ReadFile;
 import code.objects.Button;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class ScreenAccounts extends JPanel {
     // Properties, Objects and Screens
@@ -44,17 +43,15 @@ public class ScreenAccounts extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(
-                    Setting.FONT_NAME_01,
-                    Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_MEDIUM);
-            buttons[count].addActionListener(new ButtonHandler());
+            buttons[count].setFontText(Button.SERIF_BOLD_28);
+            buttons[count].setCorrectSizeButton();
+            buttons[count].addMouseListener(new MouseHandler());
         }
 
         // Set location for each button
-        buttons[0].setLocation(width / 2, height / 12 * 3, Button.TOP_CENTER);
-        buttons[1].setLocation(width / 2, height / 12 * 5, Button.TOP_CENTER);
-        buttons[2].setLocation(width / 2, height / 12 * 7, Button.TOP_CENTER);
+        buttons[0].setLocationButton(width / 2, height / 12 * 3, Button.TOP_CENTER);
+        buttons[1].setLocationButton(width / 2, height / 12 * 5, Button.TOP_CENTER);
+        buttons[2].setLocationButton(width / 2, height / 12 * 7, Button.TOP_CENTER);
 
         // Add buttons to mainScreen
         for (Button button : buttons) {
@@ -107,9 +104,14 @@ public class ScreenAccounts extends JPanel {
         super.paintComponent(g);
     }
 
-    // Handler buttons
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             // Press at "Existing Accounts" in mainScreen
             if (event.getSource() == buttons[0]) {
                 screenExistingAccounts.setVisible(true);
@@ -128,6 +130,19 @@ public class ScreenAccounts extends JPanel {
                 getParentScreen().updateDescriptionPanel();
                 getParentScreen().getScreenAccounts().setVisible(false);
             }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
         }
     }
 }

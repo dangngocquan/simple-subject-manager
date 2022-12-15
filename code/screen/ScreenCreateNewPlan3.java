@@ -11,8 +11,8 @@ import code.objects.Plan;
 import code.objects.Subject;
 import code.panel.PanelString;
 import code.text_field.TextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.awt.Graphics;
 
@@ -50,11 +50,9 @@ public class ScreenCreateNewPlan3 extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(
-                    Setting.FONT_NAME_01,
-                    Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_MEDIUM);
-            buttons[count].addActionListener(new ButtonHandler());
+            buttons[count].setFontText(Button.SERIF_BOLD_28);
+            buttons[count].setCorrectSizeButton();
+            buttons[count].addMouseListener(new MouseHandler());
         }
 
         // Create text fields
@@ -72,8 +70,8 @@ public class ScreenCreateNewPlan3 extends JPanel {
         tempHeight += fieldName.getHeight() + 40;
 
         // Set location for each button
-        buttons[0].setLocation(width / 4, tempHeight, Button.TOP_CENTER);
-        buttons[1].setLocation(width / 4 * 3, tempHeight, Button.TOP_CENTER);
+        buttons[0].setLocationButton(width / 4, tempHeight, Button.TOP_CENTER);
+        buttons[1].setLocationButton(width / 4 * 3, tempHeight, Button.TOP_CENTER);
 
         // Add buttons to mainScreen
         for (Button button : buttons) {
@@ -132,9 +130,14 @@ public class ScreenCreateNewPlan3 extends JPanel {
         super.paintComponent(g);
     }
 
-    // Handler buttons
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             // Press at "Create" in mainScreen
             if (event.getSource() == buttons[1]) {
                 if (fieldName.getText().isEmpty() ||
@@ -165,6 +168,19 @@ public class ScreenCreateNewPlan3 extends JPanel {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenCreateNewPlan3().setVisible(false);
             }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
         }
     }
 

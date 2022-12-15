@@ -13,6 +13,7 @@ import code.objects.Plan;
 import code.objects.Subject;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Font;
 
 public class PanelUpdateScoreSubject extends JPanel {
     // Constants panel's root location
@@ -75,54 +76,61 @@ public class PanelUpdateScoreSubject extends JPanel {
                 contentPanel.getHeight());
 
         // Create titles for headerPanel
-        Button titleOrder = new Button("STT    ");
-        titleOrder.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleOrder.setBorderPainted(false);
-        titleOrder.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight(), false);
+        Button titleOrder = new Button("STT");
+        titleOrder.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleOrder.setEnable(false);
+        titleOrder.setLocationText(0, 0);
+        titleOrder.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight());
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
-        Button titleCode = new Button("Mã    ");
-        titleCode.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleCode.setBorderPainted(false);
-        titleCode.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight(), false);
+        Button titleCode = new Button("Mã");
+        titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCode.setEnable(false);
+        titleCode.setLocationText(10, 0);
+        titleCode.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight());
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
-        Button titleName = new Button(
-                "Tên môn học                                             ");
-        titleName.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleName.setBorderPainted(false);
-        titleName.setSizeButton(headerPanel.getWidth() / 24 * 9, headerPanel.getHeight(), false);
+        Button titleName = new Button("Tên môn học");
+        titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleName.setEnable(false);
+        titleName.setLocationText(10, 0);
+        titleName.setSizeButton(headerPanel.getWidth() / 24 * 9, headerPanel.getHeight());
         titleName.setBounds(titleCode.getX() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
 
         Button titleCredits = new Button("Số tín ");
-        titleCredits.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleCredits.setBorderPainted(false);
-        titleCredits.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight(), false);
+        titleCredits.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCredits.setEnable(false);
+        titleCredits.setLocationText(0, 0);
+        titleCredits.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight());
         titleCredits.setBounds(titleName.getX() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
 
         Button titleScore10 = new Button("Điểm hệ 10");
-        titleScore10.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleScore10.setBorderPainted(false);
-        titleScore10.setSizeButton(headerPanel.getWidth() / 24 * 3, headerPanel.getHeight(), false);
+        titleScore10.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleScore10.setEnable(false);
+        titleScore10.setLocationText(0, 0);
+        titleScore10.setSizeButton(headerPanel.getWidth() / 24 * 3, headerPanel.getHeight());
         titleScore10.setBounds(titleCredits.getX() + titleCredits.getWidth(), 0,
                 titleScore10.getWidth(), titleScore10.getHeight());
 
         Button titleCharacterScore = new Button("Điểm chữ");
-        titleCharacterScore.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleCharacterScore.setBorderPainted(false);
-        titleCharacterScore.setSizeButton(headerPanel.getWidth() / 24 * 3, headerPanel.getHeight(), false);
+        titleCharacterScore
+                .setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCharacterScore.setEnable(false);
+        titleCharacterScore.setLocationText(0, 0);
+        titleCharacterScore.setSizeButton(headerPanel.getWidth() / 24 * 3, headerPanel.getHeight());
         titleCharacterScore.setBounds(titleScore10.getX() + titleScore10.getWidth(), 0,
                 titleCharacterScore.getWidth(), titleCharacterScore.getHeight());
 
         Button titleScore4 = new Button("Điểm hệ 4");
-        titleScore4.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleScore4.setBorderPainted(false);
+        titleScore4.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleScore4.setEnable(false);
+        titleScore4.setLocationText(0, 0);
         titleScore4.setSizeButton(
                 headerPanel.getWidth() - titleOrder.getWidth() - titleCode.getWidth() - titleName.getWidth()
                         - titleCredits.getWidth() - titleScore10.getWidth() - titleCharacterScore.getWidth(),
-                headerPanel.getHeight(), false);
+                headerPanel.getHeight());
         titleScore4.setBounds(titleCharacterScore.getX() + titleCharacterScore.getWidth(), 0,
                 titleScore4.getWidth(), titleScore4.getHeight());
 

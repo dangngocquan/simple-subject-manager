@@ -12,8 +12,8 @@ import code.objects.Account;
 import code.objects.Button;
 import code.panel.PanelAccount;
 import code.panel.PanelAccountList;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import java.awt.Graphics;
 
 public class ScreenExistingAccounts extends JPanel {
@@ -82,21 +82,20 @@ public class ScreenExistingAccounts extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(
-                    Setting.FONT_NAME_01,
-                    Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_SMALL);
-            buttons[count].addActionListener(new ButtonHandler());
+            buttons[count].setFontText(Button.SERIF_BOLD_28);
+            buttons[count].setCorrectSizeButton();
+            buttons[count].addMouseListener(new MouseHandler());
         }
 
         // Set location of buttons
-        buttons[0].setLocation(panelButton1.getWidth() / 2, panelButton1.getHeight() / 2, Button.CENTER_CENTER);
+        buttons[0].setLocationButton(panelButton1.getWidth() / 2, panelButton1.getHeight() / 2, Button.CENTER_CENTER);
         panelButton1.add(buttons[0]);
-        buttons[1].setLocation(panelButton2.getWidth() / 2, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
+        buttons[1].setLocationButton(panelButton2.getWidth() / 2, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
         panelButton2.add(buttons[1]);
-        buttons[2].setLocation(panelButton2.getWidth() / 4 * 3, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
+        buttons[2].setLocationButton(panelButton2.getWidth() / 4 * 3, panelButton2.getHeight() / 2,
+                Button.CENTER_CENTER);
         panelButton2.add(buttons[2]);
-        buttons[3].setLocation(panelButton2.getWidth() / 4, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
+        buttons[3].setLocationButton(panelButton2.getWidth() / 4, panelButton2.getHeight() / 2, Button.CENTER_CENTER);
         panelButton2.add(buttons[3]);
 
         // add panels
@@ -158,9 +157,14 @@ public class ScreenExistingAccounts extends JPanel {
         super.paintComponent(g);
     }
 
-    // Handler when press at button
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             // Press "Back" button on "panelButton1"
             if (event.getSource() == getButtons()[0]) {
                 getParentScreen().getMainScreen().setVisible(true);
@@ -216,6 +220,19 @@ public class ScreenExistingAccounts extends JPanel {
                     updatePanelAccountInfor(accountShowing);
                 }
             }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
         }
     }
 }

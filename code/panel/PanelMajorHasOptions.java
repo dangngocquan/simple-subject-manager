@@ -2,12 +2,10 @@ package code.panel;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.event.MouseWheelEvent;
-
 import code.Application;
 import code.Setting;
 import code.objects.Button;
@@ -82,38 +80,36 @@ public class PanelMajorHasOptions extends JPanel {
         contentPanel.setBounds(0, headerPanel.getHeight(), contentPanel.getWidth(), contentPanel.getHeight());
 
         // Create titles for headerPanel
-        Button titleOrder = new Button("STT        ");
-        titleOrder.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleOrder.setBorderPainted(false);
-        titleOrder.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight(), false);
+        Button titleOrder = new Button("STT");
+        titleOrder.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleOrder.setEnable(false);
+        titleOrder.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
-        Button titleCode = new Button("Mã          ");
-        titleCode.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleCode.setBorderPainted(false);
-        titleCode.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight(), false);
+        Button titleCode = new Button("Mã");
+        titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCode.setEnable(false);
+        titleCode.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
-        Button titleName = new Button(
-                "Tên môn học                                                                            ");
-        titleName.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleName.setBorderPainted(false);
-        titleName.setSizeButton(headerPanel.getWidth() / 12 * 5, headerPanel.getHeight(), false);
+        Button titleName = new Button("Tên môn học");
+        titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleName.setEnable(false);
+        titleName.setSizeButton(headerPanel.getWidth() / 12 * 5, headerPanel.getHeight());
         titleName.setBounds(titleOrder.getWidth() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
 
-        Button titleCredits = new Button("Số tín     ");
-        titleCredits.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleCredits.setBorderPainted(false);
-        titleCredits.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight(), false);
+        Button titleCredits = new Button("Số tín");
+        titleCredits.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCredits.setEnable(false);
+        titleCredits.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCredits.setBounds(titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
 
-        Button titleParentCodes = new Button(
-                "Mã học phần tiên quyết                                                                ");
-        titleParentCodes.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM);
-        titleParentCodes.setBorderPainted(false);
-        titleParentCodes.setSizeButton(headerPanel.getWidth() / 12 * 4, headerPanel.getHeight(), false);
+        Button titleParentCodes = new Button("Mã học phần tiên quyết");
+        titleParentCodes.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleParentCodes.setEnable(false);
+        titleParentCodes.setSizeButton(headerPanel.getWidth() / 12 * 4, headerPanel.getHeight());
         titleParentCodes.setBounds(
                 titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth() + titleCredits.getWidth(), 0,
                 headerPanel.getWidth() - titleCode.getWidth() - titleName.getWidth() - titleCredits.getWidth(),

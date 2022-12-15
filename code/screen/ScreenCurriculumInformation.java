@@ -13,8 +13,8 @@ import code.objects.Major;
 import code.objects.School;
 import code.panel.PanelMajor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.Graphics;
 
 public class ScreenCurriculumInformation extends JPanel {
@@ -93,26 +93,35 @@ public class ScreenCurriculumInformation extends JPanel {
                 buttons = new Button[buttonTexts.length];
                 for (int count = 0; count < buttonTexts.length; count++) {
                         buttons[count] = new Button(buttonTexts[count]);
-                        buttons[count].setFont(
-                                        Setting.FONT_NAME_01,
-                                        Setting.FONT_STYLE_01,
-                                        Setting.FONT_SIZE_SMALL);
-                        buttons[count].addActionListener(new ButtonHandler());
+                        buttons[count].setFontText(Button.SERIF_BOLD_28);
+                        buttons[count].setCorrectSizeButton();
+                        buttons[count].addMouseListener(new MouseHandler());
                 }
+
+                buttons[2].setEnabled(false);
+                buttons[3].setEnabled(false);
+                buttons[4].setEnabled(false);
+
+                buttons[2].setLocationText(0, 0);
+                ;
+                buttons[3].setLocationText(0, 0);
+                ;
+                buttons[4].setLocationText(0, 0);
+                ;
 
                 // Update current curriculum
                 updateCurriculum();
 
                 // Set location for each button
-                buttons[0].setLocation(headPanel1.getWidth() / 2, headPanel1.getHeight() / 2,
+                buttons[0].setLocationButton(headPanel1.getWidth() / 2, headPanel1.getHeight() / 2,
                                 Button.CENTER_CENTER);
-                buttons[1].setLocation(headPanel3.getWidth() / 2, headPanel3.getHeight() / 2,
+                buttons[1].setLocationButton(headPanel3.getWidth() / 2, headPanel3.getHeight() / 2,
                                 Button.CENTER_CENTER);
-                buttons[2].setLocation(headPanel2.getWidth() / 10, headPanel2.getHeight() / 4,
+                buttons[2].setLocationButton(headPanel2.getWidth() / 10, headPanel2.getHeight() / 4,
                                 Button.CENTER_LEFT);
-                buttons[3].setLocation(headPanel2.getWidth() / 10, headPanel2.getHeight() / 4 * 2,
+                buttons[3].setLocationButton(headPanel2.getWidth() / 10, headPanel2.getHeight() / 4 * 2,
                                 Button.CENTER_LEFT);
-                buttons[4].setLocation(headPanel2.getWidth() / 10, headPanel2.getHeight() / 4 * 3,
+                buttons[4].setLocationButton(headPanel2.getWidth() / 10, headPanel2.getHeight() / 4 * 3,
                                 Button.CENTER_LEFT);
 
                 // Add sub panels and buttons to "mainScreen"
@@ -144,15 +153,12 @@ public class ScreenCurriculumInformation extends JPanel {
 
         // Update curriculum, school name, department name and major name
         public void updateCurriculum() {
-                buttons[2].setText("Trường: " + school.getName(), Setting.FONT_SIZE_VERY_SMALL, true);
-                buttons[3].setText("Khoa: " + department.getName(), Setting.FONT_SIZE_VERY_SMALL, true);
-                buttons[4].setText("Ngành: " + major.getName(), Setting.FONT_SIZE_VERY_SMALL, true);
-                buttons[2].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight(), true);
-                buttons[3].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight(), true);
-                buttons[4].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight(), true);
-                buttons[2].setEnabled(false);
-                buttons[3].setEnabled(false);
-                buttons[4].setEnabled(false);
+                buttons[2].setText("Trường: " + school.getName());
+                buttons[3].setText("Khoa: " + department.getName());
+                buttons[4].setText("Ngành: " + major.getName());
+                buttons[2].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight());
+                buttons[3].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight());
+                buttons[4].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight());
                 bodyPanel0.removeAll();
                 bodyPanel0.add(new PanelMajor(0, 0, bodyPanel0.getWidth(), bodyPanel0.getHeight(),
                                 major, PanelMajor.TOP_LEFT));
@@ -184,9 +190,14 @@ public class ScreenCurriculumInformation extends JPanel {
                 super.paintComponent(g);
         }
 
-        // Handler buttons
-        private class ButtonHandler implements ActionListener {
-                public void actionPerformed(ActionEvent event) {
+        private class MouseHandler implements MouseListener {
+
+                @Override
+                public void mouseClicked(MouseEvent event) {
+                }
+
+                @Override
+                public void mousePressed(MouseEvent event) {
                         // Press at "Back" of headPanel1 of headPanel of mainScreen
                         if (event.getSource() == buttons[0]) {
                                 getParentScreen().getMainScreen().setVisible(true);
@@ -235,6 +246,19 @@ public class ScreenCurriculumInformation extends JPanel {
                                 }
                                 updateCurriculum();
                         }
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent event) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent event) {
+                }
+
+                @Override
+                public void mouseExited(MouseEvent event) {
                 }
         }
 }

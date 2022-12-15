@@ -4,10 +4,10 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 import java.util.List;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import code.Setting;
 import code.objects.Button;
 import code.objects.ConversionTable;
@@ -149,18 +149,19 @@ public class DialogUpdateScoreSubject {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(
+            buttons[count].setFont(new Font(
                     Setting.FONT_NAME_01,
                     Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_SMALL);
-            buttons[count].addActionListener(new ButtonHandler());
+                    Setting.FONT_SIZE_SMALL));
+            buttons[count].addMouseListener(new MouseHandler());
             dialog.add(buttons[count]);
         }
 
         // Set location for each button
-        buttons[0].setLocation(panelScore10.getX() + width / 4, panelScore10.getY(), Button.TOP_LEFT);
-        buttons[1].setLocation(panelCharacterScore.getX() + width / 4, panelCharacterScore.getY(), Button.TOP_LEFT);
-        buttons[2].setLocation(panelScore4.getX() + width / 4, panelScore4.getY(), Button.TOP_LEFT);
+        buttons[0].setLocationButton(panelScore10.getX() + width / 4, panelScore10.getY(), Button.TOP_LEFT);
+        buttons[1].setLocationButton(panelCharacterScore.getX() + width / 4, panelCharacterScore.getY(),
+                Button.TOP_LEFT);
+        buttons[2].setLocationButton(panelScore4.getX() + width / 4, panelScore4.getY(), Button.TOP_LEFT);
 
         // add panel
         dialog.add(panelTitle);
@@ -202,8 +203,14 @@ public class DialogUpdateScoreSubject {
         return this.subject;
     }
 
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             if (event.getSource() == buttons[0]) {
                 List<String> values = new LinkedList<>();
                 for (int i = 0; i <= 1000; i++) {
@@ -281,6 +288,21 @@ public class DialogUpdateScoreSubject {
                     updateContent();
                 }
             }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
+
         }
     }
 }

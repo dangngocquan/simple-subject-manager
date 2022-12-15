@@ -1,21 +1,21 @@
 package code.objects;
 
-import javax.swing.JButton;
+import javax.swing.JPanel;
 
-// import code.Setting;
+import code.Setting;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Font;
+import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Canvas;
 import java.awt.FontMetrics;
-import java.awt.Color;
+import java.awt.RenderingHints;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
-public class Button extends JButton {
-    // Constants Font style of button's text
-    public static final int BOLD = Font.BOLD;
-    public static final int ITALIC = Font.ITALIC;
-    public static final int BOLD_ITALIC = Font.BOLD + Font.ITALIC;
-    public static final int PLAIN = Font.PLAIN;
-
+public class Button extends JPanel {
     // Constants button's root location
     public static final int TOP_LEFT = 0;
     public static final int TOP_CENTER = 1;
@@ -27,129 +27,172 @@ public class Button extends JButton {
     public static final int BOTTOM_CENTER = 7;
     public static final int BOTTOM_RIGHT = 8;
 
-    // Properties of Button
+    // Constant font
+    public static final Font SERIF_BOLD_18 = new Font("Serif", Font.BOLD, 18);
+    public static final Font SERIF_BOLD_21 = new Font("Serif", Font.BOLD, 21);
+    public static final Font SERIF_BOLD_24 = new Font("Serif", Font.BOLD, 24);
+    public static final Font SERIF_BOLD_28 = new Font("Serif", Font.BOLD, 28);
+    public static final Font SERIF_BOLD_36 = new Font("Serif", Font.BOLD, 36);
+
+    // Constant color
+    public static final Color STROKE_COLOR_BLACK = Setting.COLOR_BLACK;
+    public static final Color TEXT_COLOR_BLACK = Setting.COLOR_BLACK;
+    public static final Color BACKGROUND_COLOR_BLUE = Setting.COLOR_BLUE_01;
+    public static final Color BACKGROUND_COLOR_RED = Setting.COLOR_RED_05;
+    public static final Color BACKGROUND_COLOR_GREEN = Setting.COLOR_GREEN_01;
+
+    // Constant stroke width
+    public static final int STROKE_WIDTH_0 = 0;
+    public static final int STROKE_WIDTH_1 = 1;
+    public static final int STROKE_WIDTH_2 = 2;
+    public static final int STROKE_WIDTH_3 = 3;
+
+    // Properties
+    private boolean enable = true;
+    // properties of button (size, location, button color, stroke width, stroke
+    // color)
     private int width, height;
-    private String fontName;
-    private int fontStyle, fontSize;
     private int rootLocationType = 0;
     private int xPos = 0, yPos = 0;
-    private boolean isDependOnText = true;
+    private int strokeWidth = 0;
+    private Color strokeColor = STROKE_COLOR_BLACK;
+    private Color[][] backgroundColor = {
+            new Color[] { BACKGROUND_COLOR_RED, BACKGROUND_COLOR_BLUE },
+            new Color[] { BACKGROUND_COLOR_BLUE, BACKGROUND_COLOR_RED }
+    };
+    private int[][] gradientPoint1 = {
+            new int[] { 0, 0 },
+            new int[] { 0, 0 }
+    };
+    private int[][] gradientPoint2 = {
+            new int[] { 0, 1 },
+            new int[] { 0, 1 }
+    };
 
-    // Constructor
+    // properties of text
+    private String text = "";
+    private int[] sizeText = null;
+    private Font font = SERIF_BOLD_24;
+    private int xText = 0;
+    private int yText = 0;
+    private Color textColor;
+
     public Button(String text) {
-        setText(text);
-        setFocusPainted(false);
+        setLayout(null);
+        // create text
+        this.text = text;
+        // Create default font of text
+        this.font = SERIF_BOLD_24;
+        // set size of text
+        setDefaultSizeText();
+        // Create default size of button
+        setSizeButton(sizeText[0] / 5 * 7, sizeText[1] / 5 * 7);
+        // Set default location of button
+        setLocationButton(0, 0, TOP_LEFT);
+        // Set default location of text in button
+        setLocationText(0, 0); // CENTER_CENTER
+        // Set default Stroke width
+        setStrokeWidth(STROKE_WIDTH_1);
+        // Set default stroke color
+        this.strokeColor = STROKE_COLOR_BLACK;
+        // Set default text color
+        this.textColor = TEXT_COLOR_BLACK;
+        // Set default gradient color background
+        setGradientBackground(
+                new int[][] {
+                        new int[] { 0, 0 },
+                        new int[] { 0, 0 }
+                },
+                new int[][] {
+                        new int[] { 0, 1 },
+                        new int[] { 0, 1 }
+                },
+                new Color[][] {
+                        new Color[] { BACKGROUND_COLOR_RED, BACKGROUND_COLOR_BLUE },
+                        new Color[] { BACKGROUND_COLOR_BLUE, BACKGROUND_COLOR_RED }
+                });
+        // Add mouse handle
+        addMouseListener(new MouseHandler());
+
     }
 
-    // Getter
-    public boolean isButtonDependOnText() {
-        return this.isDependOnText;
+    // Set enable
+    public void setEnable(boolean flag) {
+        this.enable = flag;
     }
 
-    public int getButtonWidth() {
-        return this.width;
-    }
-
-    public int getButtonHeight() {
-        return this.height;
-    }
-
-    public String getFontName() {
-        return this.fontName;
-    }
-
-    public int getFontStyle() {
-        return this.fontStyle;
-    }
-
-    public int getFontSize() {
-        return this.fontSize;
-    }
-
-    public int getXPosition() {
-        return this.xPos;
-    }
-
-    public int getYPosition() {
-        return this.yPos;
-    }
-
-    public int getRootLocationType() {
-        return this.rootLocationType;
-    }
-
-    // Setter
-    // Set font for button's text
-    public void setFont(String fontName, int fontStyle, int fontSize) {
-        this.fontName = fontName;
-        this.fontStyle = fontStyle;
-        this.fontSize = fontSize;
-        Font font = new Font(fontName, fontStyle, fontSize);
-        setFont(font);
+    // Get basic width and height of text with a input font
+    public int[] getSizeText(String text, Font font) {
         Canvas c = new Canvas();
         FontMetrics fontMetrics = c.getFontMetrics(font);
-        this.width = fontMetrics.stringWidth(getText()) + fontMetrics.stringWidth("ABCDEF");
-        this.height = fontMetrics.getHeight() + fontMetrics.stringWidth("ABC") / 2;
-        setSize(this.width, this.height);
-        setFont(new Font(fontName, fontStyle, fontSize));
+        int w = fontMetrics.stringWidth(text);
+        int h = fontMetrics.getHeight();
+        int descent = fontMetrics.getDescent();
+        return (new int[] { w, h, descent });
     }
 
-    // Set text
-    public void setText(String text, boolean sizeDependOnText) {
-        if (sizeDependOnText) {
-            setText(text);
-            Font font = new Font(fontName, fontStyle, fontSize);
-            Canvas c = new Canvas();
-            FontMetrics fontMetrics = c.getFontMetrics(font);
-            this.width = fontMetrics.stringWidth(getText()) + fontMetrics.stringWidth("ABCDEF");
-            this.height = fontMetrics.getHeight() + fontMetrics.stringWidth("ABC") / 2;
-            setSize(this.width, this.height);
-        } else {
-            setText(text);
-        }
+    // set basic width and height of text with a input font
+    public void setDefaultSizeText() {
+        this.sizeText = getSizeText(this.text, this.font);
     }
 
-    // Set text and size
-    public void setText(String text, int fontSize1, boolean sizeDependOnText) {
-        if (sizeDependOnText) {
-            setText(text);
-            Font font = new Font(this.fontName, this.fontStyle, fontSize1);
-            Canvas c = new Canvas();
-            FontMetrics fontMetrics = c.getFontMetrics(font);
-            this.width = fontMetrics.stringWidth(getText()) + fontMetrics.stringWidth("ABCDEF");
-            this.height = fontMetrics.getHeight() + fontMetrics.stringWidth("ABC") / 2;
-            setSize(this.width, this.height);
-        } else {
-            setFont(fontName, fontStyle, fontSize1);
-            setText(text, sizeDependOnText);
-        }
-    }
-
-    // Button size depend on text
-    public void setSizeDependOnText(boolean flag) {
-        this.isDependOnText = flag;
-    }
-
-    // Set size of button when button not depend on text
-    public void setSizeButton(int width, int height, boolean sizeDependOnText) {
+    // Set size of button
+    public void setSizeButton(int width, int height) {
         this.width = width;
         this.height = height;
         setSize(this.width, this.height);
-        if (sizeDependOnText) {
-            setText(getText());
-        }
-
+        repaint();
     }
 
-    // Set color for button's text
-    public void setTextColor(int r, int g, int b) {
-        setForeground(new Color(r, g, b));
+    // Set size button with current text
+    public void setCorrectSizeButton() {
+        this.width = this.sizeText[0] / 5 * 7;
+        this.height = this.sizeText[1] / 5 * 7;
+        setSize(this.width, this.height);
+        setLocationText(xText, yText);
+        repaint();
+    }
+
+    // Set text
+    public void setText(String text) {
+        this.text = text;
+        setDefaultSizeText();
+        setLocationText(xText, yText);
+        repaint();
+    }
+
+    // Set font of text
+    public void setFontText(Font font) {
+        this.font = font;
+        setDefaultSizeText();
+        setLocationText(xText, yText);
+        repaint();
+    }
+
+    // Set stroke width
+    public void setStrokeWidth(int strokeWidth) {
+        this.strokeWidth = strokeWidth;
+        repaint();
+    }
+
+    // Set stroke color
+    public void setStrokeColor(Color color) {
+        this.strokeColor = color;
+        repaint();
+    }
+
+    // Set gradient color of background
+    public void setGradientBackground(int[][] point1s, int[][] point2s, Color[][] colors) {
+        this.backgroundColor = colors;
+        this.gradientPoint1 = point1s;
+        this.gradientPoint2 = point2s;
+        repaint();
     }
 
     // Set location and root location type
-    public void setLocation(int x, int y, int rootLocationType) {
+    public void setLocationButton(int x, int y, int rootLocationType) {
         this.rootLocationType = rootLocationType;
-        switch (rootLocationType) {
+        switch (this.rootLocationType) {
             case 0:
                 xPos = x;
                 yPos = y;
@@ -188,5 +231,99 @@ public class Button extends JButton {
                 break;
         }
         setBounds(xPos, yPos, width, height);
+        repaint();
+    }
+
+    // Set location of text in button
+    public void setLocationText(int x, int y) {
+        this.xText = x;
+        this.yText = y;
+        repaint();
+    }
+
+    // Auto called method of JPanel
+    public void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+
+        // Draw stroke
+        g2.setColor(this.strokeColor);
+        g2.fillRect(0, 0, this.width, this.height);
+
+        // Draw background of button
+        int heightPerRow = this.height / this.backgroundColor.length;
+        for (int i = 0; i < this.backgroundColor.length; i++) {
+            GradientPaint gradientPaint = new GradientPaint(
+                    this.gradientPoint1[i][0], this.gradientPoint1[i][1] * heightPerRow, this.backgroundColor[i][0],
+                    this.gradientPoint2[i][0], this.gradientPoint2[i][1] * heightPerRow, this.backgroundColor[i][1]);
+            g2.setPaint(gradientPaint);
+            if (i == 0 && i == this.backgroundColor.length - 1) {
+                g2.fillRect(this.strokeWidth, this.strokeWidth,
+                        this.width - 2 * this.strokeWidth, this.height - 2 * this.strokeWidth);
+            } else if (i == 0) {
+                g2.fillRect(this.strokeWidth, this.strokeWidth,
+                        this.width - 2 * this.strokeWidth, heightPerRow - this.strokeWidth);
+            } else if (i == this.backgroundColor.length - 1) {
+                g2.fillRect(this.strokeWidth, 0,
+                        this.width - 2 * this.strokeWidth, this.height - heightPerRow * i -
+                                this.strokeWidth);
+            } else {
+                g2.fillRect(this.strokeWidth, 0,
+                        this.width - 2 * this.strokeWidth, heightPerRow);
+            }
+            g2.translate(0, heightPerRow);
+        }
+        g2.translate(0, -heightPerRow * this.backgroundColor.length);
+
+        // Draw text
+        g2.setColor(this.textColor);
+        g2.setFont(this.font);
+        int tempX = 0, tempY = 0;
+        if (this.xText == 0) {
+            tempX = (this.width - sizeText[0]) / 2;
+        } else if (this.xText > 0) {
+            tempX = this.xText;
+        } else {
+            tempX = this.width - (sizeText[0] + (-this.xText));
+        }
+
+        if (this.yText == 0) {
+            tempY = (this.height - sizeText[1]) / 2 + (sizeText[1] - sizeText[2]);
+        } else if (this.yText > 0) {
+            tempY = this.yText + (sizeText[1] - sizeText[2]);
+        } else {
+            tempY = this.height - (sizeText[1] + (-this.yText)) + (sizeText[1] - sizeText[2]);
+        }
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2.drawString(this.text, tempX, tempY);
+    }
+
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            if (enable) {
+                setStrokeWidth(STROKE_WIDTH_2);
+            }
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            setStrokeWidth(STROKE_WIDTH_1);
+        }
     }
 }

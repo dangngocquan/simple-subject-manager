@@ -3,10 +3,10 @@ package code.dialog;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 import java.util.List;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import code.Setting;
 import code.objects.Button;
 import code.objects.Subject;
@@ -39,7 +39,7 @@ public class DialogUpdateStatusSubject {
     private PanelString panelAdvice = null;
     private PanelString panelStatus = null;
     private String[] buttonTexts = {
-        "Sửa"
+            "Sửa"
     };
     private Button[] buttons;
 
@@ -141,16 +141,16 @@ public class DialogUpdateStatusSubject {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(
+            buttons[count].setFont(new Font(
                     Setting.FONT_NAME_01,
                     Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_SMALL);
-            buttons[count].addActionListener(new ButtonHandler());
+                    Setting.FONT_SIZE_SMALL));
+            buttons[count].addMouseListener(new MouseHandler());
             dialog.add(buttons[count]);
         }
 
         // Set location for each button
-        buttons[0].setLocation(panelStatus.getX() + width / 3, panelStatus.getY(), Button.TOP_LEFT);
+        buttons[0].setLocationButton(panelStatus.getX() + width / 3, panelStatus.getY(), Button.TOP_LEFT);
 
         // add panel
         dialog.add(panelTitle);
@@ -183,14 +183,20 @@ public class DialogUpdateStatusSubject {
         return this.subject;
     }
 
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             if (event.getSource() == buttons[0]) {
                 List<String> values = new LinkedList<>();
                 values.add("Chưa đăng kí");
                 values.add("Dự định đăng kí");
                 values.add("Đã đăng kí");
-                
+
                 DialogList dialog1 = new DialogList(dialog, "Chọn trạng thái môn mà bạn muốn cập nhật", "Edit status",
                         values.toArray(), values.get(0));
                 String status = dialog1.run();
@@ -203,6 +209,21 @@ public class DialogUpdateStatusSubject {
                     updateContent();
                 }
             }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
+
         }
     }
 }

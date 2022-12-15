@@ -2,15 +2,13 @@ package code.screen;
 
 import javax.swing.JPanel;
 import code.Application;
-import code.Setting;
 import code.file_handler.ReadFile;
 import code.objects.Account;
 import code.objects.Button;
-import code.objects.Button2;
 import code.panel.PanelString;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 public class ScreenMainMenu extends JPanel {
     // Propertie, Objects and Screens
@@ -53,26 +51,20 @@ public class ScreenMainMenu extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(
-                    Setting.FONT_NAME_01,
-                    Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_MEDIUM);
-            buttons[count].addActionListener(new ButtonHandler());
+            buttons[count].setFontText(Button.SERIF_BOLD_28);
+            buttons[count].setCorrectSizeButton();
+            buttons[count].addMouseListener(new MouseHandler());
         }
 
         // Set location for each button
-        buttons[0].setLocation(width / 2, height / 12 * 3, Button.TOP_CENTER);
-        buttons[1].setLocation(width / 2, height / 12 * 5, Button.TOP_CENTER);
-        buttons[2].setLocation(width / 2, height / 12 * 7, Button.TOP_CENTER);
+        buttons[0].setLocationButton(width / 2, height / 12 * 3, Button.TOP_CENTER);
+        buttons[1].setLocationButton(width / 2, height / 12 * 5, Button.TOP_CENTER);
+        buttons[2].setLocationButton(width / 2, height / 12 * 7, Button.TOP_CENTER);
 
         // Add buttons to mainScreen
         for (Button button : buttons) {
             mainScreen.add(button);
         }
-
-        // Test button2
-        Button2 buttonTest = new Button2(100, 400, "Thử nghiệm nút bấm");
-        mainScreen.add(buttonTest);
 
         // Add screens to this screen
         add(mainScreen);
@@ -137,9 +129,14 @@ public class ScreenMainMenu extends JPanel {
         super.paintComponent(g);
     }
 
-    // Handler when press at button
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             // Press "Plans" button on "screenMainMenu" screen
             if (event.getSource() == getButtons()[0]) {
                 getScreenPlans().setVisible(true);
@@ -155,6 +152,19 @@ public class ScreenMainMenu extends JPanel {
                 getScreenInformation().setVisible(true);
                 getMainScreen().setVisible(false);
             }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
         }
     }
 

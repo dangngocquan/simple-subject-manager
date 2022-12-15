@@ -10,8 +10,8 @@ import code.dialog.DialogCalculateScoreLastTerm4;
 import code.objects.Button;
 import code.objects.ConversionTable;
 import code.text_field.TextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.Graphics;
 import java.awt.Font;
 
@@ -88,8 +88,9 @@ public class PanelCalculateLastTerm4 extends JPanel {
 
                 buttonSubmit = new Button("Tính toán");
                 buttonSubmit.setSizeButton(width / 10,
-                                panelScore3.getY() + panelScore3.getHeight() - panelScore1.getY(), true);
-                buttonSubmit.setLocation(textFieldCoefficient1.getX() + textFieldCoefficient1.getWidth() + width / 5,
+                                panelScore3.getY() + panelScore3.getHeight() - panelScore1.getY());
+                buttonSubmit.setLocationButton(
+                                textFieldCoefficient1.getX() + textFieldCoefficient1.getWidth() + width / 5,
                                 panelScore1.getY(),
                                 Button.TOP_LEFT);
                 buttonSubmit.setFont(font);
@@ -115,7 +116,7 @@ public class PanelCalculateLastTerm4 extends JPanel {
                 mainPanel.add(textFieldCoefficient2);
                 mainPanel.add(textFieldCoefficient3);
                 mainPanel.add(buttonSubmit);
-                buttonSubmit.addActionListener(new ButtonHandler());
+                buttonSubmit.addMouseListener(new MouseHandler());
 
                 // Properties of this panel
                 setLayout(null);
@@ -220,8 +221,14 @@ public class PanelCalculateLastTerm4 extends JPanel {
                 return true;
         }
 
-        private class ButtonHandler implements ActionListener {
-                public void actionPerformed(ActionEvent event) {
+        private class MouseHandler implements MouseListener {
+
+                @Override
+                public void mouseClicked(MouseEvent event) {
+                }
+
+                @Override
+                public void mousePressed(MouseEvent event) {
                         if (event.getSource() == buttonSubmit) {
                                 if (isValidInput()) {
                                         new DialogCalculateScoreLastTerm4(Setting.WIDTH / 2,
@@ -237,6 +244,19 @@ public class PanelCalculateLastTerm4 extends JPanel {
                                                         conversionTable);
                                 }
                         }
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent event) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent event) {
+                }
+
+                @Override
+                public void mouseExited(MouseEvent event) {
                 }
         }
 }

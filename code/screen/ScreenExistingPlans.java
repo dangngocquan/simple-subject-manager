@@ -3,12 +3,11 @@ package code.screen;
 import javax.swing.JPanel;
 
 import code.Application;
-import code.Setting;
 import code.file_handler.ReadFile;
 import code.objects.Button;
 import code.objects.Plan;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import java.awt.Graphics;
 import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
@@ -55,15 +54,12 @@ public class ScreenExistingPlans extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(
-                    Setting.FONT_NAME_01,
-                    Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_MEDIUM);
-            buttons[count].addActionListener(new ButtonHandler());
+            buttons[count].setFontText(Button.SERIF_BOLD_28);
+            buttons[count].setCorrectSizeButton();
+            buttons[count].addMouseListener(new MouseHandler());
         }
-
         // Set location for each button
-        buttons[0].setLocation(width / 2, height / 12 * 11, Button.TOP_CENTER);
+        buttons[0].setLocationButton(width / 2, height / 12 * 11, Button.TOP_CENTER);
 
         // Create button for plans and screen of each plan
         updateButton();
@@ -107,14 +103,10 @@ public class ScreenExistingPlans extends JPanel {
         int heightScroll = 0;
         for (int i = 0; i < plans.size(); i++) {
             Button tempButton = new Button(plans.get(i).getName());
-            tempButton.setFont(
-                    Setting.FONT_NAME_01,
-                    Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_MEDIUM);
-            tempButton.setLocation(contentPanel.getWidth() / 2, heightScroll, Button.TOP_CENTER);
+            tempButton.setLocationButton(contentPanel.getWidth() / 2, heightScroll, Button.TOP_CENTER);
             scrollPanel.add(tempButton);
             buttonPlans[i] = tempButton;
-            buttonPlans[i].addActionListener(new ButtonHandler());
+            buttonPlans[i].addMouseListener(new MouseHandler());
             heightScroll += tempButton.getHeight() + 120;
         }
         scrollPanel.setLayout(null);
@@ -165,9 +157,21 @@ public class ScreenExistingPlans extends JPanel {
         super.paintComponent(g);
     }
 
-    // Handler buttons in mainScreen
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    private class MouseWheelHandler implements MouseWheelListener {
+        public void mouseWheelMoved(MouseWheelEvent event) {
+            setCurscorScroll(getCursorScroll() + event.getWheelRotation() * 20);
+            updateContentShowing();
+        }
+    }
+
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             // Press at "Back" button
             if (event.getSource() == buttons[0]) {
                 getParentScreen().getMainScreen().setVisible(true);
@@ -184,12 +188,18 @@ public class ScreenExistingPlans extends JPanel {
                 }
             }
         }
-    }
 
-    private class MouseWheelHandler implements MouseWheelListener {
-        public void mouseWheelMoved(MouseWheelEvent event) {
-            setCurscorScroll(getCursorScroll() + event.getWheelRotation() * 20);
-            updateContentShowing();
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
         }
     }
 }

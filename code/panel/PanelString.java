@@ -35,9 +35,7 @@ public class PanelString extends JPanel {
         // Get height of a row
         // Create pattern button to get height
         Button button = new Button("A");
-        button.setFont(font.getFontName(),
-                font.getStyle(),
-                font.getSize());
+        button.setFontText(font);
         int heightRow = button.getHeight();
 
         // Height of this panel
@@ -119,9 +117,7 @@ public class PanelString extends JPanel {
         // Get height of a row
         // Create pattern button to get height
         Button button = new Button("A");
-        button.setFont(font.getFontName(),
-                font.getStyle(),
-                font.getSize());
+        button.setFont(font);
         int heightRow = button.getHeight();
 
         // Height of this panel
@@ -202,9 +198,7 @@ public class PanelString extends JPanel {
         // Get height of a row
         // Create pattern button to get height
         Button button = new Button("A");
-        button.setFont(font.getFontName(),
-                font.getStyle(),
-                font.getSize());
+        button.setFont(font);
         int heightRow = button.getHeight();
 
         // Height of this panel
@@ -292,9 +286,7 @@ public class PanelString extends JPanel {
         // Get height of a row
         // Create pattern button to get height
         Button button = new Button("A");
-        button.setFont(font.getFontName(),
-                font.getStyle(),
-                font.getSize());
+        button.setFont(font);
         int heightRow = button.getHeight();
 
         // Height of this panel
@@ -389,9 +381,7 @@ public class PanelString extends JPanel {
         // Get height of a row
         // Create pattern button to get height
         Button button = new Button("A");
-        button.setFont(font.getFontName(),
-                font.getStyle(),
-                font.getSize());
+        button.setFont(font);
         int heightRow = button.getHeight();
 
         // Height of this panel

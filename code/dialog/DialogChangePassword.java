@@ -3,14 +3,15 @@ package code.dialog;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import code.Setting;
 import code.file_handler.WriteFile;
 import code.objects.Account;
 import code.objects.Button;
 import code.panel.PanelString;
 import code.text_field.TextField;
+import java.awt.Font;
 
 public class DialogChangePassword {
     // Constants dialog's root location
@@ -96,12 +97,12 @@ public class DialogChangePassword {
                 width / 20 * 18, 50, TextField.TOP_CENTER, "Xác nhận mật khẩu mới", 2, 15, 15);
         tempHeight += confirmNewPassword.getHeight() + 10;
         button = new Button("Xác nhận");
-        button.setFont(
+        button.setFont(new Font(
                 Setting.FONT_NAME_01,
                 Setting.FONT_STYLE_01,
-                Setting.FONT_SIZE_SMALL);
-        button.setLocation(width / 2, tempHeight, Button.TOP_CENTER);
-        button.addActionListener(new ButtonHandler());
+                Setting.FONT_SIZE_SMALL));
+        button.setLocationButton(width / 2, tempHeight, Button.TOP_CENTER);
+        button.addMouseListener(new MouseHandler());
         dialog.add(messagePanel);
         dialog.add(oldPassword);
         dialog.add(newPassword);
@@ -112,8 +113,14 @@ public class DialogChangePassword {
         dialog.setVisible(true);
     }
 
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             if (event.getSource() == button) {
                 if (oldPassword.getText().isEmpty() ||
                         (oldPassword.getText().equals(oldPassword.getDefaultText())
@@ -150,6 +157,21 @@ public class DialogChangePassword {
                     dialog.dispose();
                 }
             }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
+
         }
     }
 }

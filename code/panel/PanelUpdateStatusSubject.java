@@ -13,6 +13,7 @@ import code.objects.Plan;
 import code.objects.Subject;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Font;
 
 public class PanelUpdateStatusSubject extends JPanel {
     // Constants panel's root location
@@ -83,40 +84,44 @@ public class PanelUpdateStatusSubject extends JPanel {
 
         // Create titles for headerPanel
         Button titleOrder = new Button("STT");
-        titleOrder.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2);
-        titleOrder.setBorderPainted(false);
-        titleOrder.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight(), false);
+        titleOrder.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+        titleOrder.setEnable(false);
+        titleOrder.setLocationText(0, 0);
+        titleOrder.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight());
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
         Button titleCode = new Button("Mã");
-        titleCode.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2);
-        titleCode.setBorderPainted(false);
-        titleCode.setSizeButton(headerPanel.getWidth() / 24 * 3, headerPanel.getHeight(), false);
+        titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+        titleCode.setEnable(false);
+        titleCode.setLocationText(10, 0);
+        titleCode.setSizeButton(headerPanel.getWidth() / 24 * 3, headerPanel.getHeight());
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
-        Button titleName = new Button(
-                "Tên môn học                                             ");
-        titleName.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2);
-        titleName.setBorderPainted(false);
-        titleName.setSizeButton(headerPanel.getWidth() / 24 * 12, headerPanel.getHeight(), false);
+        Button titleName = new Button("Tên môn học");
+        titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+        titleName.setEnable(false);
+        titleName.setLocationText(10, 0);
+        titleName.setSizeButton(headerPanel.getWidth() / 24 * 12, headerPanel.getHeight());
         titleName.setBounds(titleCode.getX() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
 
         Button titleCredits = new Button("Số tín");
-        titleCredits.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2);
-        titleCredits.setBorderPainted(false);
+        titleCredits.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+        titleCredits.setEnable(false);
+        titleCredits.setLocationText(0, 0);
         titleCredits.setSizeButton(headerPanel.getWidth() / 48 * 5,
-                headerPanel.getHeight(), false);
+                headerPanel.getHeight());
         titleCredits.setBounds(titleName.getX() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
 
         Button titleStatus = new Button("Trạng thái");
-        titleStatus.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2);
-        titleStatus.setBorderPainted(false);
+        titleStatus.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+        titleStatus.setEnable(false);
+        titleStatus.setLocationText(0, 0);
         titleStatus.setSizeButton(
                 headerPanel.getWidth() - titleOrder.getWidth() - titleCode.getWidth() - titleName.getWidth()
                         - titleCredits.getWidth(),
-                headerPanel.getHeight(), false);
+                headerPanel.getHeight());
         titleStatus.setBounds(titleCredits.getX() + titleCredits.getWidth(), 0,
                 titleStatus.getWidth(), titleStatus.getHeight());
 

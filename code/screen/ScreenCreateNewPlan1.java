@@ -12,8 +12,8 @@ import code.objects.Department;
 import code.objects.Major;
 import code.objects.School;
 import code.panel.PanelString;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 
 public class ScreenCreateNewPlan1 extends JPanel {
     // Properties, Objects and Screens
@@ -68,30 +68,36 @@ public class ScreenCreateNewPlan1 extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(
-                    Setting.FONT_NAME_01,
-                    Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_MEDIUM);
-            buttons[count].addActionListener(new ButtonHandler());
+            buttons[count].setFontText(Button.SERIF_BOLD_28);
+            buttons[count].setCorrectSizeButton();
+            buttons[count].addMouseListener(new MouseHandler());
         }
 
         // Change size of some button
-        buttons[5].setSizeButton(optionPanel.getWidth(), buttons[1].getHeight() * 2, true);
-        buttons[6].setSizeButton(optionPanel.getWidth(), buttons[1].getHeight() * 2, true);
-        buttons[7].setSizeButton(optionPanel.getWidth(), buttons[1].getHeight() * 2, true);
+        buttons[5].setSizeButton(optionPanel.getWidth(), buttons[1].getHeight() * 2);
+        buttons[6].setSizeButton(optionPanel.getWidth(), buttons[1].getHeight() * 2);
+        buttons[7].setSizeButton(optionPanel.getWidth(), buttons[1].getHeight() * 2);
+
+        buttons[2].setLocationText(0, 0);
+        buttons[3].setLocationText(0, 0);
+        buttons[4].setLocationText(0, 0);
+
+        buttons[2].setEnable(false);
+        buttons[3].setEnable(false);
+        buttons[4].setEnable(false);
 
         // Update content
         updateContentPanel();
 
         // Set location for each button
-        buttons[0].setLocation(width / 16, height / 8 * 7, Button.BOTTOM_LEFT);
-        buttons[1].setLocation(width / 16 * 15, height / 8 * 7, Button.BOTTOM_RIGHT);
-        buttons[2].setLocation(0, 0, Button.TOP_LEFT);
-        buttons[3].setLocation(0, contentPanel.getHeight() / 2, Button.CENTER_LEFT);
-        buttons[4].setLocation(0, contentPanel.getHeight(), Button.BOTTOM_LEFT);
-        buttons[5].setLocation(optionPanel.getWidth() / 2, 0, Button.TOP_CENTER);
-        buttons[6].setLocation(optionPanel.getWidth() / 2, optionPanel.getHeight() / 2, Button.CENTER_CENTER);
-        buttons[7].setLocation(optionPanel.getWidth() / 2, optionPanel.getHeight(), Button.BOTTOM_CENTER);
+        buttons[0].setLocationButton(width / 16, height / 8 * 7, Button.BOTTOM_LEFT);
+        buttons[1].setLocationButton(width / 16 * 15, height / 8 * 7, Button.BOTTOM_RIGHT);
+        buttons[2].setLocationButton(0, 0, Button.TOP_LEFT);
+        buttons[3].setLocationButton(0, contentPanel.getHeight() / 2, Button.CENTER_LEFT);
+        buttons[4].setLocationButton(0, contentPanel.getHeight(), Button.BOTTOM_LEFT);
+        buttons[5].setLocationButton(optionPanel.getWidth() / 2, 0, Button.TOP_CENTER);
+        buttons[6].setLocationButton(optionPanel.getWidth() / 2, optionPanel.getHeight() / 2, Button.CENTER_CENTER);
+        buttons[7].setLocationButton(optionPanel.getWidth() / 2, optionPanel.getHeight(), Button.BOTTOM_CENTER);
 
         // Add buttons to mainScreen
         for (Button button : buttons) {
@@ -146,15 +152,12 @@ public class ScreenCreateNewPlan1 extends JPanel {
 
     // Update content panels
     public void updateContentPanel() {
-        buttons[2].setText("Trường: " + school.getName(), Setting.FONT_SIZE_MEDIUM, true);
-        buttons[3].setText("Khoa: " + department.getName(), Setting.FONT_SIZE_MEDIUM, true);
-        buttons[4].setText("Ngành: " + major.getName(), Setting.FONT_SIZE_MEDIUM, true);
-        buttons[2].setSizeButton(contentPanel.getWidth(), buttons[1].getHeight() * 2, true);
-        buttons[3].setSizeButton(contentPanel.getWidth(), buttons[1].getHeight() * 2, true);
-        buttons[4].setSizeButton(contentPanel.getWidth(), buttons[1].getHeight() * 2, true);
-        buttons[2].setEnabled(false);
-        buttons[3].setEnabled(false);
-        buttons[4].setEnabled(false);
+        buttons[2].setText("Trường: " + school.getName());
+        buttons[3].setText("Khoa: " + department.getName());
+        buttons[4].setText("Ngành: " + major.getName());
+        buttons[2].setSizeButton(contentPanel.getWidth(), buttons[1].getHeight() * 2);
+        buttons[3].setSizeButton(contentPanel.getWidth(), buttons[1].getHeight() * 2);
+        buttons[4].setSizeButton(contentPanel.getWidth(), buttons[1].getHeight() * 2);
         repaint();
     }
 
@@ -163,9 +166,14 @@ public class ScreenCreateNewPlan1 extends JPanel {
         super.paintComponent(g);
     }
 
-    // Handler buttons
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             // Press at "Back" in mainScreen
             if (event.getSource() == buttons[0]) {
                 getParentScreen().getMainScreen().setVisible(true);
@@ -227,6 +235,19 @@ public class ScreenCreateNewPlan1 extends JPanel {
                     updateContentPanel();
                 }
             }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
         }
     }
 }

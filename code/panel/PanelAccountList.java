@@ -12,6 +12,7 @@ import code.objects.Account;
 import code.objects.Button;
 import code.screen.ScreenExistingAccounts;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
@@ -58,23 +59,26 @@ public class PanelAccountList extends JPanel {
 
         // Titles of headerPanel
         Button titleOrderNumber = new Button("STT");
-        titleOrderNumber.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL);
-        titleOrderNumber.setBorderPainted(false);
-        titleOrderNumber.setSizeButton(headerPanel.getWidth() / 8, headerPanel.getHeight(), false);
+        titleOrderNumber.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
+        titleOrderNumber.setLocationText(0, 0);
+        titleOrderNumber.setEnable(false);
+        titleOrderNumber.setSizeButton(headerPanel.getWidth() / 8, headerPanel.getHeight());
         titleOrderNumber.setBounds(0, 0, titleOrderNumber.getWidth(), titleOrderNumber.getHeight());
 
-        Button titleName = new Button("Tên tài khoản                         ");
-        titleName.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL);
-        titleName.setBorderPainted(false);
-        titleName.setSizeButton(headerPanel.getWidth() / 8 * 4, headerPanel.getHeight(), false);
+        Button titleName = new Button("Tên tài khoản");
+        titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
+        titleName.setLocationText(15, 0);
+        titleName.setEnable(false);
+        titleName.setSizeButton(headerPanel.getWidth() / 8 * 4, headerPanel.getHeight());
         titleName.setBounds(titleOrderNumber.getWidth(), 0, titleName.getWidth(), titleName.getHeight());
 
-        Button titleTimeAccountCreated = new Button("Ngày khởi tạo      ");
-        titleTimeAccountCreated.setFont(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL);
-        titleTimeAccountCreated.setBorderPainted(false);
+        Button titleTimeAccountCreated = new Button("Ngày khởi tạo");
+        titleTimeAccountCreated
+                .setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
+        titleTimeAccountCreated.setLocationText(10, 0);
+        titleTimeAccountCreated.setEnable(false);
         titleTimeAccountCreated.setSizeButton(
-                headerPanel.getWidth() - titleOrderNumber.getWidth() - titleName.getWidth(), headerPanel.getHeight(),
-                false);
+                headerPanel.getWidth() - titleOrderNumber.getWidth() - titleName.getWidth(), headerPanel.getHeight());
         titleTimeAccountCreated.setBounds(titleOrderNumber.getWidth() + titleName.getWidth(), 0,
                 titleTimeAccountCreated.getWidth(), titleTimeAccountCreated.getHeight());
 
@@ -115,7 +119,7 @@ public class PanelAccountList extends JPanel {
         int count = 0;
         for (Account account : accountList) {
             PanelString numberOrder = new PanelString(0, 0, (count + 1) + "",
-                    headerPanel.getWidth() / 8, null, PanelString.TOP_LEFT, 10);
+                    headerPanel.getWidth() / 8, null, PanelString.TOP_LEFT, 0);
             PanelString name = new PanelString(numberOrder.getWidth(), 0, account.getName(),
                     headerPanel.getWidth() / 8 * 4, null, PanelString.TOP_LEFT, 10);
             PanelString timeCreated = new PanelString(numberOrder.getWidth() + name.getWidth(), 0,

@@ -12,9 +12,8 @@ import code.objects.Major;
 import code.panel.PanelMajor;
 import code.panel.PanelMajorHasOptions;
 import code.panel.PanelString;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -66,11 +65,9 @@ public class ScreenCreateNewPlan2 extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(
-                    Setting.FONT_NAME_01,
-                    Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_MEDIUM);
-            buttons[count].addActionListener(new ButtonHandler());
+            buttons[count].setFontText(Button.SERIF_BOLD_28);
+            buttons[count].setCorrectSizeButton();
+            buttons[count].addMouseListener(new MouseHandler());
         }
 
         // Create checkbox
@@ -87,8 +84,8 @@ public class ScreenCreateNewPlan2 extends JPanel {
                 panelMajor.getListSubjectSelected());
 
         // Set location for each button
-        buttons[0].setLocation(width / 16, height / 32 * 31, Button.BOTTOM_LEFT);
-        buttons[1].setLocation(width / 16 * 15, height / 32 * 31, Button.BOTTOM_RIGHT);
+        buttons[0].setLocationButton(width / 16, height / 32 * 31, Button.BOTTOM_LEFT);
+        buttons[1].setLocationButton(width / 16 * 15, height / 32 * 31, Button.BOTTOM_RIGHT);
         checkbox.setSize(width / 3, buttons[0].getHeight());
         checkbox.setLocation(width / 24 * 9, buttons[0].getY());
 
@@ -168,9 +165,25 @@ public class ScreenCreateNewPlan2 extends JPanel {
         super.paintComponent(g);
     }
 
-    // Handler buttons
-    private class ButtonHandler implements ActionListener {
-        public void actionPerformed(ActionEvent event) {
+    //
+    private class ItemHandler implements ItemListener {
+        public void itemStateChanged(ItemEvent event) {
+            // Press checkbox "Auto selection"
+            if (event.getSource() == checkbox) {
+                panelMajor.setSelectedCompulsorySubject(checkbox.isSelected());
+                panelMajor.updateBackgroundSelectedPanels();
+            }
+        }
+    }
+
+    private class MouseHandler implements MouseListener {
+
+        @Override
+        public void mouseClicked(MouseEvent event) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
             // Press at "Back" in mainScreen
             if (event.getSource() == buttons[0]) {
                 getParentScreen().getMainScreen().setVisible(true);
@@ -188,16 +201,18 @@ public class ScreenCreateNewPlan2 extends JPanel {
                 }
             }
         }
-    }
 
-    //
-    private class ItemHandler implements ItemListener {
-        public void itemStateChanged(ItemEvent event) {
-            // Press checkbox "Auto selection"
-            if (event.getSource() == checkbox) {
-                panelMajor.setSelectedCompulsorySubject(checkbox.isSelected());
-                panelMajor.updateBackgroundSelectedPanels();
-            }
+        @Override
+        public void mouseReleased(MouseEvent event) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent event) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent event) {
         }
     }
 
