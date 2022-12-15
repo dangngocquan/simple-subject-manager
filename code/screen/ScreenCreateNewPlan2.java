@@ -65,7 +65,7 @@ public class ScreenCreateNewPlan2 extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFontText(Button.SERIF_BOLD_28);
+            buttons[count].setFontText(Button.ARIAL_BOLD_28);
             buttons[count].setCorrectSizeButton();
             buttons[count].addMouseListener(new MouseHandler());
         }

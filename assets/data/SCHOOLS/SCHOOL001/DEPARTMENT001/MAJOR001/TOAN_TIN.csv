@@ -50,7 +50,7 @@ subject,MAT3365,Phương trình đạo hàm riêng,3,MAT2314
 subject,MAT3372,Các thành phần phần mềm,3,MAT2316/MAT2317/MAT2318/MAT2319
 subject,MAT3366,Hệ thống máy tính,3,MAT2316/MAT2317/MAT2318/MAT2319
 subject,MAT3514,Cấu trúc dữ liệu và thuật toán,4,MAT2316/MAT2317/MAT2318/MAT2319
-subject,MAT3504,Thiết kế và đánh giá thuật toán,3,MAT2301/MAT2303/MAT3500/MAT3514
+subject,MAT3504,Thiết kế và đánh giá thuật toán,3,MAT2301;MAT2303;MAT3500;MAT3514
 subject,MAT3507,Cơ sở dữ liệu,4,MAT2316/MAT2317/MAT2318/MAT2319;MAT3500
 subject,MAT3452,Phân tích thống kê nhiều chiều,3,MAT2406
 subject,MAT3525,Thực hành tính toán,2,MAT2404

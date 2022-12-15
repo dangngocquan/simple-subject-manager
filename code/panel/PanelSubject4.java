@@ -27,37 +27,36 @@ public class PanelSubject4 extends JPanel {
 
     // Constructor
     public PanelSubject4(int x, int y, Subject subject, int width, int height, Font font, int rootLocationType) {
-            // Create defaulr font
-            this.width = width;
-            this.height = height;
-            this.rootLocationType = rootLocationType;
-            setLocation(x, y, rootLocationType);
-            if (font == null) {
-                    font = new Font(Setting.FONT_NAME_01,
-                                    Setting.FONT_STYLE_01,
-                                    Setting.FONT_SIZE_VERY_SMALL);
-            }
+        // Create defaulr font
+        this.width = width;
+        this.height = height;
+        this.rootLocationType = rootLocationType;
+        setLocation(x, y, rootLocationType);
+        if (font == null) {
+            font = new Font(Setting.FONT_NAME_01,
+                    Setting.FONT_STYLE_01,
+                    Setting.FONT_SIZE_VERY_SMALL);
+        }
 
-            // mainPanel
-            mainPanel = new JPanel();
-            mainPanel.setLayout(null);
-            mainPanel.setSize(width, height);
-            mainPanel.setBounds(0, 0, mainPanel.getWidth(), mainPanel.getHeight());
+        // mainPanel
+        mainPanel = new JPanel();
+        mainPanel.setLayout(null);
+        mainPanel.setSize(width - 4, height - 4);
+        mainPanel.setBounds(2, 2, mainPanel.getWidth(), mainPanel.getHeight());
 
-            // sub-panel
-            panelCodeSubject = new PanelString(mainPanel.getWidth() / 2, mainPanel.getHeight()/2,
-                        subject.getCode(), mainPanel.getWidth()-4, font, PanelString.CENTER_CENTER, 0);
-            panelCodeSubject.setBackground(subject.getColor());
+        // sub-panel
+        panelCodeSubject = new PanelString(mainPanel.getWidth() / 2, mainPanel.getHeight() / 2,
+                subject.getCode(), mainPanel.getWidth(), font, PanelString.CENTER_CENTER, 0);
+        panelCodeSubject.setBackground(subject.getColor());
 
+        // Properties of this panel
+        setLayout(null);
+        setSize(width, height);
+        setBounds(x, y, getWidth(), getHeight());
 
-            // Properties of this panel
-            setLayout(null);
-            setSize(width, height);
-            setBounds(x, y, getWidth(), getHeight());
-
-            // Add mainPanel to this panel
-            add(mainPanel);
-            mainPanel.add(panelCodeSubject);
+        // Add mainPanel to this panel
+        add(mainPanel);
+        mainPanel.add(panelCodeSubject);
     }
 
     // Get rootLocationType
@@ -66,7 +65,7 @@ public class PanelSubject4 extends JPanel {
     }
 
     public int getCenterX() {
-        return xPos + width/2;
+        return xPos + width / 2;
     }
 
     public int getBottomY() {
@@ -75,6 +74,7 @@ public class PanelSubject4 extends JPanel {
 
     // Set background Color
     public void setBackgroundColorPanelSubject(Color colorStroke, Color backgroundColor) {
+        setBackground(colorStroke);
         mainPanel.setBackground(colorStroke);
         panelCodeSubject.setBackground(backgroundColor);
     }
@@ -125,6 +125,6 @@ public class PanelSubject4 extends JPanel {
 
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
-            super.paintComponent(g);
+        super.paintComponent(g);
     }
 }

@@ -28,18 +28,22 @@ public class Button extends JPanel {
     public static final int BOTTOM_RIGHT = 8;
 
     // Constant font
-    public static final Font SERIF_BOLD_18 = new Font("Serif", Font.BOLD, 18);
-    public static final Font SERIF_BOLD_21 = new Font("Serif", Font.BOLD, 21);
-    public static final Font SERIF_BOLD_24 = new Font("Serif", Font.BOLD, 24);
-    public static final Font SERIF_BOLD_28 = new Font("Serif", Font.BOLD, 28);
-    public static final Font SERIF_BOLD_36 = new Font("Serif", Font.BOLD, 36);
+    public static final Font ARIAL_BOLD_13 = new Font("Arial", Font.BOLD, 13);
+    public static final Font ARIAL_BOLD_18 = new Font("Arial", Font.BOLD, 18);
+    public static final Font ARIAL_BOLD_21 = new Font("Arial", Font.BOLD, 21);
+    public static final Font ARIAL_BOLD_24 = new Font("Arial", Font.BOLD, 24);
+    public static final Font ARIAL_BOLD_28 = new Font("Arial", Font.BOLD, 28);
+    public static final Font ARIAL_BOLD_36 = new Font("Arial", Font.BOLD, 36);
 
     // Constant color
     public static final Color STROKE_COLOR_BLACK = Setting.COLOR_BLACK;
     public static final Color TEXT_COLOR_BLACK = Setting.COLOR_BLACK;
-    public static final Color BACKGROUND_COLOR_BLUE = Setting.COLOR_BLUE_01;
+    public static final Color BACKGROUND_COLOR_BLUE = Setting.COLOR_BLUE_02;
     public static final Color BACKGROUND_COLOR_RED = Setting.COLOR_RED_05;
-    public static final Color BACKGROUND_COLOR_GREEN = Setting.COLOR_GREEN_01;
+    public static final Color BACKGROUND_COLOR_GREEN = Setting.COLOR_GREEN_03;
+    public static final Color BACKGROUND_COLOR_WHITE = Setting.COLOR_WHITE;
+    public static final Color BACKGROUND_COLOR_BLACK = Setting.COLOR_BLACK;
+    public static final Color BACKGROUND_COLOR_GRAY = Setting.COLOR_GRAY_04;
 
     // Constant stroke width
     public static final int STROKE_WIDTH_0 = 0;
@@ -72,7 +76,7 @@ public class Button extends JPanel {
     // properties of text
     private String text = "";
     private int[] sizeText = null;
-    private Font font = SERIF_BOLD_24;
+    private Font font = ARIAL_BOLD_24;
     private int xText = 0;
     private int yText = 0;
     private Color textColor;
@@ -82,11 +86,11 @@ public class Button extends JPanel {
         // create text
         this.text = text;
         // Create default font of text
-        this.font = SERIF_BOLD_24;
+        this.font = ARIAL_BOLD_24;
         // set size of text
         setDefaultSizeText();
         // Create default size of button
-        setSizeButton(sizeText[0] / 5 * 7, sizeText[1] / 5 * 7);
+        setSizeButton(sizeText[0] + getSizeText("A", this.font)[0] * 6, sizeText[1] / 4 * 7);
         // Set default location of button
         setLocationButton(0, 0, TOP_LEFT);
         // Set default location of text in button
@@ -108,8 +112,8 @@ public class Button extends JPanel {
                         new int[] { 0, 1 }
                 },
                 new Color[][] {
-                        new Color[] { BACKGROUND_COLOR_RED, BACKGROUND_COLOR_BLUE },
-                        new Color[] { BACKGROUND_COLOR_BLUE, BACKGROUND_COLOR_RED }
+                        new Color[] { BACKGROUND_COLOR_GRAY, BACKGROUND_COLOR_WHITE },
+                        new Color[] { BACKGROUND_COLOR_WHITE, BACKGROUND_COLOR_GRAY }
                 });
         // Add mouse handle
         addMouseListener(new MouseHandler());
@@ -146,8 +150,8 @@ public class Button extends JPanel {
 
     // Set size button with current text
     public void setCorrectSizeButton() {
-        this.width = this.sizeText[0] / 5 * 7;
-        this.height = this.sizeText[1] / 5 * 7;
+        this.width = this.sizeText[0] + getSizeText("A", this.font)[0] * 6;
+        this.height = this.sizeText[1] / 4 * 7;
         setSize(this.width, this.height);
         setLocationText(xText, yText);
         repaint();
@@ -323,7 +327,9 @@ public class Button extends JPanel {
 
         @Override
         public void mouseExited(MouseEvent e) {
-            setStrokeWidth(STROKE_WIDTH_1);
+            if (enable) {
+                setStrokeWidth(STROKE_WIDTH_1);
+            }
         }
     }
 }

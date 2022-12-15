@@ -83,18 +83,21 @@ public class PanelMajorHasOptions extends JPanel {
         Button titleOrder = new Button("STT");
         titleOrder.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleOrder.setEnable(false);
+        titleOrder.setStrokeWidth(0);
         titleOrder.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
         Button titleCode = new Button("Mã");
         titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleCode.setEnable(false);
+        titleCode.setStrokeWidth(0);
         titleCode.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
         Button titleName = new Button("Tên môn học");
         titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleName.setEnable(false);
+        titleName.setStrokeWidth(0);
         titleName.setSizeButton(headerPanel.getWidth() / 12 * 5, headerPanel.getHeight());
         titleName.setBounds(titleOrder.getWidth() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
@@ -102,6 +105,7 @@ public class PanelMajorHasOptions extends JPanel {
         Button titleCredits = new Button("Số tín");
         titleCredits.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleCredits.setEnable(false);
+        titleCredits.setStrokeWidth(0);
         titleCredits.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCredits.setBounds(titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
@@ -109,6 +113,7 @@ public class PanelMajorHasOptions extends JPanel {
         Button titleParentCodes = new Button("Mã học phần tiên quyết");
         titleParentCodes.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleParentCodes.setEnable(false);
+        titleParentCodes.setStrokeWidth(0);
         titleParentCodes.setSizeButton(headerPanel.getWidth() / 12 * 4, headerPanel.getHeight());
         titleParentCodes.setBounds(
                 titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth() + titleCredits.getWidth(), 0,

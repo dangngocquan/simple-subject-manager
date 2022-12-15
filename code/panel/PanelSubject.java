@@ -50,7 +50,7 @@ public class PanelSubject extends JPanel {
                                 width - panelParentSubjectCodes.getWidth() - panelCredit.getWidth()
                                                 - panelName.getWidth() - panelCode.getWidth(),
                                 font,
-                                PanelString.TOP_LEFT, 15);
+                                PanelString.TOP_LEFT, 0);
 
                 // Height of mainPanel
                 int height = panelParentSubjectCodes.getHeight();

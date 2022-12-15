@@ -68,20 +68,23 @@ public class PanelMajor extends JPanel {
         titleOrder.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleOrder.setEnable(false);
         titleOrder.setLocationText(0, 0);
+        titleOrder.setStrokeWidth(0);
         titleOrder.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
         Button titleCode = new Button("Mã");
         titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleCode.setEnable(false);
-        titleCode.setLocationText(10, 0);
+        titleCode.setLocationText(15, 0);
+        titleCode.setStrokeWidth(0);
         titleCode.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
         Button titleName = new Button("Tên môn học");
         titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleName.setEnable(false);
-        titleName.setLocationText(10, 0);
+        titleName.setLocationText(15, 0);
+        titleName.setStrokeWidth(0);
         titleName.setSizeButton(headerPanel.getWidth() / 12 * 5, headerPanel.getHeight());
         titleName.setBounds(titleOrder.getWidth() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
@@ -90,6 +93,7 @@ public class PanelMajor extends JPanel {
         titleCredits.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleCredits.setEnable(false);
         titleCredits.setLocationText(0, 0);
+        titleCredits.setStrokeWidth(0);
         titleCredits.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCredits.setBounds(titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
@@ -97,8 +101,11 @@ public class PanelMajor extends JPanel {
         Button titleParentCodes = new Button("Mã học phần tiên quyết");
         titleParentCodes.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleParentCodes.setEnable(false);
-        titleParentCodes.setLocationText(10, 0);
-        titleParentCodes.setSizeButton(headerPanel.getWidth() / 12 * 4, headerPanel.getHeight());
+        titleParentCodes.setLocationText(15, 0);
+        titleParentCodes.setStrokeWidth(0);
+        titleParentCodes.setSizeButton(
+                width - titleOrder.getWidth() - titleCode.getWidth() - titleName.getWidth() - titleCredits.getWidth(),
+                headerPanel.getHeight());
         titleParentCodes.setBounds(
                 titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth() + titleCredits.getWidth(), 0,
                 headerPanel.getWidth() - titleCode.getWidth() - titleName.getWidth() - titleCredits.getWidth(),

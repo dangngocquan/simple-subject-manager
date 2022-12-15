@@ -52,7 +52,7 @@ public class ScreenCurriculumInformation extends JPanel {
                 // Create sub panels of "mainScreen"
                 headPanel = new JPanel();
                 headPanel.setLayout(null);
-                headPanel.setSize(width, height / 8);
+                headPanel.setSize(width, height / 7);
                 headPanel.setBounds(0, 0, headPanel.getWidth(), headPanel.getHeight());
 
                 bodyPanel = new JPanel();
@@ -93,21 +93,30 @@ public class ScreenCurriculumInformation extends JPanel {
                 buttons = new Button[buttonTexts.length];
                 for (int count = 0; count < buttonTexts.length; count++) {
                         buttons[count] = new Button(buttonTexts[count]);
-                        buttons[count].setFontText(Button.SERIF_BOLD_28);
+                        buttons[count].setFontText(Button.ARIAL_BOLD_28);
                         buttons[count].setCorrectSizeButton();
                         buttons[count].addMouseListener(new MouseHandler());
                 }
 
-                buttons[2].setEnabled(false);
-                buttons[3].setEnabled(false);
-                buttons[4].setEnabled(false);
+                buttons[2].setEnable(false);
+                buttons[3].setEnable(false);
+                buttons[4].setEnable(false);
+
+                buttons[2].setStrokeWidth(0);
+                buttons[3].setStrokeWidth(0);
+                buttons[4].setStrokeWidth(0);
+
+                buttons[2].setFontText(Button.ARIAL_BOLD_18);
+                buttons[3].setFontText(Button.ARIAL_BOLD_18);
+                buttons[4].setFontText(Button.ARIAL_BOLD_18);
 
                 buttons[2].setLocationText(0, 0);
-                ;
                 buttons[3].setLocationText(0, 0);
-                ;
                 buttons[4].setLocationText(0, 0);
-                ;
+
+                buttons[2].setSizeButton(buttons[2].getWidth(), buttons[2].getHeight() / 2);
+                buttons[3].setSizeButton(buttons[3].getWidth(), buttons[3].getHeight() / 2);
+                buttons[4].setSizeButton(buttons[4].getWidth(), buttons[4].getHeight() / 2);
 
                 // Update current curriculum
                 updateCurriculum();
