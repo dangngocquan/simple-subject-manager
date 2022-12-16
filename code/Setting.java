@@ -162,5 +162,6 @@ public class Setting {
         // ImageIcon
         public static final ImageIcon LOGO = new ImageIcon("assets/icon/logo.png");
         public static final ImageIcon ARROW_DOWN = new ImageIcon("assets/icon/arrow_down.png");
+        public static final ImageIcon SETTING = new ImageIcon("assets/icon/setting.png");
 
 }

@@ -3,6 +3,7 @@ package code.screen;
 import javax.swing.JPanel;
 
 import code.Application;
+import code.Setting;
 import code.file_handler.ReadFile;
 import code.objects.Button;
 import code.objects.Plan;
@@ -25,6 +26,7 @@ public class ScreenExistingPlans extends JPanel {
     };
     private Button[] buttons;
     private Button[] buttonPlans;
+    private Button[] buttonPlansSetting;
     private ScreenPlanView[] screenPlanViews;
 
     // Constructor
@@ -100,14 +102,25 @@ public class ScreenExistingPlans extends JPanel {
         }
 
         buttonPlans = new Button[plans.size()];
+        buttonPlansSetting = new Button[plans.size()];
         int heightScroll = 0;
         for (int i = 0; i < plans.size(); i++) {
+            // Create button with name of plan
             Button tempButton = new Button(plans.get(i).getName());
             tempButton.setLocationButton(contentPanel.getWidth() / 2, heightScroll, Button.TOP_CENTER);
             scrollPanel.add(tempButton);
             buttonPlans[i] = tempButton;
             buttonPlans[i].addMouseListener(new MouseHandler());
             heightScroll += tempButton.getHeight() + 120;
+
+            Button buttonSetting = new Button("");
+            buttonSetting.setLocationButton(tempButton.getX() + tempButton.getWidth() + 30, tempButton.getY(),
+                    Button.TOP_LEFT);
+            buttonSetting.setSizeButton(tempButton.getHeight(), tempButton.getHeight());
+            buttonSetting.setStrokeWidth(0);
+            buttonSetting.setBackgroundImage(Setting.SETTING);
+            scrollPanel.add(buttonSetting);
+            buttonPlansSetting[i] = buttonSetting;
         }
         scrollPanel.setLayout(null);
         scrollPanel.setSize(contentPanel.getWidth(), heightScroll);
