@@ -41,12 +41,13 @@ public class PanelMapRelativeSubjects extends JPanel {
     private Plan plan; // data plan
     private PanelSubject4[] panelSubjects = null;
     private int indexPlan;
-    private ArrayList<LinkedList<Line2D>> lines= null;
+    private ArrayList<LinkedList<Line2D>> lines = null;
     private ArrayList<LinkedList<Integer>> indexes = null; // Save index of parent-subjects of each subject
     private int indexSubjectEntering = -1;
 
     // Constructor
-    public PanelMapRelativeSubjects(int x, int y, int width, int height, Plan plan, int indexPlan, int rootLocationType) {
+    public PanelMapRelativeSubjects(int x, int y, int width, int height, Plan plan, int indexPlan,
+            int rootLocationType) {
         // Properties, Objects
         this.width = width;
         this.height = height;
@@ -68,20 +69,21 @@ public class PanelMapRelativeSubjects extends JPanel {
         int count = 0;
         int[] tempLocation = new int[maxRow];
         for (int level = 0; level < maxRow; level++) {
-            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelX(level))/2;
+            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelX(level)) / 2;
         }
         for (Subject subject : plan.getSubjects()) {
             int level = subject.getLevel();
-            panelSubjects[count] = new PanelSubject4(tempLocation[level] * widthPerSubjectPanel + 15 + (level % 2)*widthPerSubjectPanel/2, 
-                                                    level * heightPerSubjectPanel + 15, 
-                                                    subject, widthPerSubjectPanel/10*8, heightPerSubjectPanel/3-18, null,
-                                                    PanelSubject4.TOP_LEFT);
+            panelSubjects[count] = new PanelSubject4(
+                    tempLocation[level] * widthPerSubjectPanel + 15 + (level % 2) * widthPerSubjectPanel / 2,
+                    level * heightPerSubjectPanel + 15,
+                    subject, widthPerSubjectPanel / 10 * 8, heightPerSubjectPanel / 3 - 18, null,
+                    PanelSubject4.TOP_LEFT);
             panelSubjects[count].setToolTipText(String.format("%s - %s", subject.getCode(), subject.getName()));
             panelSubjects[count].setBackgroundColorPanelSubject(COLOR_STROKE_PANEL_SUBJECT_EXITED, subject.getColor());
             panelSubjects[count].addMouseListener(new MouseHandler());
-            add(panelSubjects[count]);                                        
+            add(panelSubjects[count]);
             count++;
-            tempLocation[level]++;   
+            tempLocation[level]++;
         }
 
         // Create and draw lines
@@ -96,19 +98,18 @@ public class PanelMapRelativeSubjects extends JPanel {
             for (Subject parentSubject : subject.getParentSubjectsByList()) {
                 int j = plan.getIndexOfSubject(parentSubject);
                 Line2D line = new Line2D.Float(panelSubjects[j].getCenterX(), panelSubjects[j].getBottomY(),
-                                                panelSubjects[i].getCenterX(), panelSubjects[i].getY());
+                        panelSubjects[i].getCenterX(), panelSubjects[i].getY());
                 lines.get(i).add(line);
                 lines.get(j).add(line);
                 indexes.get(i).add(j);
-                indexes.get(j).add(i);                         
+                indexes.get(j).add(i);
             }
         }
     }
 
-
     // Update content data
     public void updateContent() {
-       
+
     }
 
     // Get rootLocationType
@@ -183,14 +184,14 @@ public class PanelMapRelativeSubjects extends JPanel {
                 }
             }
         }
-        
+
         if (indexSubjectEntering > -1) {
             g2.setStroke(new BasicStroke(5));
             g2.setColor(COLOR_LINE_ENTERED);
             for (Line2D line : lines.get(indexSubjectEntering)) {
                 g2.draw(line);
             }
-        }  
+        }
     }
 
     private class MouseHandler implements MouseListener {
@@ -204,7 +205,7 @@ public class PanelMapRelativeSubjects extends JPanel {
                 if (e.getSource() == panelSubjects[i]) {
                     DialogUpdateMapRelative dialog = new DialogUpdateMapRelative(Setting.WIDTH / 2,
                             Setting.HEIGHT / 2,
-                            Setting.WIDTH / 3 * 2, Setting.HEIGHT / 5 * 4,
+                            Setting.WIDTH / 3 * 2, Setting.HEIGHT / 7 * 6,
                             DialogUpdateMapRelative.CENTER_CENTER, "Update subject", (new String[] {}),
                             plan.getSubjects().get(i));
                     plan.getSubjects().set(i, dialog.getSubject());
@@ -225,12 +226,12 @@ public class PanelMapRelativeSubjects extends JPanel {
                 if (e.getSource() == panelSubjects[count]) {
                     setIndexSubjectPanelEntering(count);
                     panelSubjects[count].setBackgroundColorPanelSubject(
-                        COLOR_STROKE_PANEL_SUBJECT_ENTERED,
-                        COLOR_SUBJECT_ENTERED);
+                            COLOR_STROKE_PANEL_SUBJECT_ENTERED,
+                            COLOR_SUBJECT_ENTERED);
                     for (int indexParentSubject : indexes.get(indexSubjectEntering)) {
                         panelSubjects[indexParentSubject].setBackgroundColorPanelSubject(
-                            COLOR_STROKE_PANEL_SUBJECT_ENTERED, 
-                            plan.getSubjects().get(indexParentSubject).getColor());
+                                COLOR_STROKE_PANEL_SUBJECT_ENTERED,
+                                plan.getSubjects().get(indexParentSubject).getColor());
                     }
                 }
             }
@@ -243,12 +244,12 @@ public class PanelMapRelativeSubjects extends JPanel {
             for (int count = 0; count < panelSubjects.length; count++) {
                 if (e.getSource() == panelSubjects[count]) {
                     panelSubjects[count].setBackgroundColorPanelSubject(
-                        COLOR_STROKE_PANEL_SUBJECT_EXITED,
-                        plan.getSubjects().get(count).getColor());
+                            COLOR_STROKE_PANEL_SUBJECT_EXITED,
+                            plan.getSubjects().get(count).getColor());
                     for (int indexParentSubject : indexes.get(count)) {
                         panelSubjects[indexParentSubject].setBackgroundColorPanelSubject(
-                            COLOR_STROKE_PANEL_SUBJECT_EXITED, 
-                            plan.getSubjects().get(indexParentSubject).getColor());
+                                COLOR_STROKE_PANEL_SUBJECT_EXITED,
+                                plan.getSubjects().get(indexParentSubject).getColor());
                     }
                 }
             }

@@ -81,6 +81,8 @@ public class PanelUpdateScoreSubject extends JPanel {
         titleOrder.setEnable(false);
         titleOrder.setLocationText(0, 0);
         titleOrder.setStrokeWidth(0);
+        titleOrder.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleOrder.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight());
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
@@ -89,6 +91,8 @@ public class PanelUpdateScoreSubject extends JPanel {
         titleCode.setEnable(false);
         titleCode.setLocationText(15, 0);
         titleCode.setStrokeWidth(0);
+        titleCode.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleCode.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight());
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
@@ -97,6 +101,8 @@ public class PanelUpdateScoreSubject extends JPanel {
         titleName.setEnable(false);
         titleName.setLocationText(15, 0);
         titleName.setStrokeWidth(0);
+        titleName.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleName.setSizeButton(headerPanel.getWidth() / 24 * 9, headerPanel.getHeight());
         titleName.setBounds(titleCode.getX() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
@@ -106,6 +112,8 @@ public class PanelUpdateScoreSubject extends JPanel {
         titleCredits.setEnable(false);
         titleCredits.setLocationText(0, 0);
         titleCredits.setStrokeWidth(0);
+        titleCredits.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleCredits.setSizeButton(headerPanel.getWidth() / 24 * 2, headerPanel.getHeight());
         titleCredits.setBounds(titleName.getX() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
@@ -115,6 +123,8 @@ public class PanelUpdateScoreSubject extends JPanel {
         titleScore10.setEnable(false);
         titleScore10.setLocationText(0, 0);
         titleScore10.setStrokeWidth(0);
+        titleScore10.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleScore10.setSizeButton(headerPanel.getWidth() / 24 * 3, headerPanel.getHeight());
         titleScore10.setBounds(titleCredits.getX() + titleCredits.getWidth(), 0,
                 titleScore10.getWidth(), titleScore10.getHeight());
@@ -125,6 +135,8 @@ public class PanelUpdateScoreSubject extends JPanel {
         titleCharacterScore.setEnable(false);
         titleCharacterScore.setLocationText(0, 0);
         titleCharacterScore.setStrokeWidth(0);
+        titleCharacterScore.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleCharacterScore.setSizeButton(headerPanel.getWidth() / 24 * 3, headerPanel.getHeight());
         titleCharacterScore.setBounds(titleScore10.getX() + titleScore10.getWidth(), 0,
                 titleCharacterScore.getWidth(), titleCharacterScore.getHeight());
@@ -134,6 +146,8 @@ public class PanelUpdateScoreSubject extends JPanel {
         titleScore4.setEnable(false);
         titleScore4.setLocationText(0, 0);
         titleScore4.setStrokeWidth(0);
+        titleScore4.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleScore4.setSizeButton(
                 headerPanel.getWidth() - titleOrder.getWidth() - titleCode.getWidth() - titleName.getWidth()
                         - titleCredits.getWidth() - titleScore10.getWidth() - titleCharacterScore.getWidth(),

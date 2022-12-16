@@ -163,7 +163,7 @@ public class DialogUpdateMapRelative {
                 }
 
                 // Set location for each button
-                buttons[0].setLocationButton(panelColor.getX() + width / 3 + 50, panelColor.getY(), Button.TOP_LEFT);
+                buttons[0].setLocationButton(panelColor.getX() + width / 3 + 100, panelColor.getY(), Button.TOP_LEFT);
 
                 // panel color demo
                 panelColorDemo = new JPanel();

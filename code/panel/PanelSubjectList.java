@@ -70,6 +70,8 @@ public class PanelSubjectList extends JPanel {
         titleOrder.setEnable(false);
         titleOrder.setLocationText(0, 0);
         titleOrder.setStrokeWidth(0);
+        titleOrder.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleOrder.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
@@ -78,6 +80,8 @@ public class PanelSubjectList extends JPanel {
         titleCode.setEnable(false);
         titleCode.setLocationText(15, 0);
         titleCode.setStrokeWidth(0);
+        titleCode.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleCode.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
@@ -86,6 +90,8 @@ public class PanelSubjectList extends JPanel {
         titleName.setEnable(false);
         titleName.setLocationText(15, 0);
         titleName.setStrokeWidth(0);
+        titleName.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleName.setSizeButton(headerPanel.getWidth() / 12 * 5, headerPanel.getHeight());
         titleName.setBounds(titleOrder.getWidth() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
@@ -95,6 +101,8 @@ public class PanelSubjectList extends JPanel {
         titleCredits.setEnable(false);
         titleCredits.setLocationText(0, 0);
         titleCredits.setStrokeWidth(0);
+        titleCredits.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleCredits.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCredits.setBounds(titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
@@ -104,6 +112,8 @@ public class PanelSubjectList extends JPanel {
         titleParentCodes.setEnable(false);
         titleParentCodes.setLocationText(15, 0);
         titleParentCodes.setStrokeWidth(0);
+        titleParentCodes.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleParentCodes.setSizeButton(
                 headerPanel.getWidth() - titleOrder.getWidth() - titleCode.getWidth() - titleName.getWidth()
                         - titleCredits.getWidth(),

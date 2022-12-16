@@ -62,6 +62,7 @@ public class PanelAccountList extends JPanel {
         titleOrderNumber.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
         titleOrderNumber.setLocationText(0, 0);
         titleOrderNumber.setEnable(false);
+        titleOrderNumber.setStrokeWidth(0);
         titleOrderNumber.setSizeButton(headerPanel.getWidth() / 8, headerPanel.getHeight());
         titleOrderNumber.setBounds(0, 0, titleOrderNumber.getWidth(), titleOrderNumber.getHeight());
 
@@ -69,6 +70,7 @@ public class PanelAccountList extends JPanel {
         titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
         titleName.setLocationText(15, 0);
         titleName.setEnable(false);
+        titleName.setStrokeWidth(0);
         titleName.setSizeButton(headerPanel.getWidth() / 8 * 4, headerPanel.getHeight());
         titleName.setBounds(titleOrderNumber.getWidth(), 0, titleName.getWidth(), titleName.getHeight());
 
@@ -77,6 +79,7 @@ public class PanelAccountList extends JPanel {
                 .setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
         titleTimeAccountCreated.setLocationText(10, 0);
         titleTimeAccountCreated.setEnable(false);
+        titleTimeAccountCreated.setStrokeWidth(0);
         titleTimeAccountCreated.setSizeButton(
                 headerPanel.getWidth() - titleOrderNumber.getWidth() - titleName.getWidth(), headerPanel.getHeight());
         titleTimeAccountCreated.setBounds(titleOrderNumber.getWidth() + titleName.getWidth(), 0,

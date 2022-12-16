@@ -68,7 +68,7 @@ public class ScreenCreateNewPlan1 extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFontText(Button.ARIAL_BOLD_28);
+            buttons[count].setFontText(Button.ARIAL_BOLD_24);
             buttons[count].setCorrectSizeButton();
             buttons[count].addMouseListener(new MouseHandler());
         }
@@ -82,9 +82,21 @@ public class ScreenCreateNewPlan1 extends JPanel {
         buttons[3].setLocationText(0, 0);
         buttons[4].setLocationText(0, 0);
 
+        // Button can't focus
         buttons[2].setEnable(false);
         buttons[3].setEnable(false);
         buttons[4].setEnable(false);
+
+        // Change gradient color
+        buttons[2].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_3, Setting.GRADIENT_POINTS2_3,
+                Setting.GRADIENT_COLORS_3);
+        ;
+        buttons[3].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_3, Setting.GRADIENT_POINTS2_3,
+                Setting.GRADIENT_COLORS_3);
+        ;
+        buttons[4].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_3, Setting.GRADIENT_POINTS2_3,
+                Setting.GRADIENT_COLORS_3);
+        ;
 
         // Update content
         updateContentPanel();

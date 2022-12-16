@@ -84,6 +84,8 @@ public class PanelMajorHasOptions extends JPanel {
         titleOrder.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleOrder.setEnable(false);
         titleOrder.setStrokeWidth(0);
+        titleOrder.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleOrder.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
@@ -91,6 +93,8 @@ public class PanelMajorHasOptions extends JPanel {
         titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleCode.setEnable(false);
         titleCode.setStrokeWidth(0);
+        titleCode.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleCode.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
@@ -98,6 +102,8 @@ public class PanelMajorHasOptions extends JPanel {
         titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleName.setEnable(false);
         titleName.setStrokeWidth(0);
+        titleName.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleName.setSizeButton(headerPanel.getWidth() / 12 * 5, headerPanel.getHeight());
         titleName.setBounds(titleOrder.getWidth() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
@@ -106,6 +112,8 @@ public class PanelMajorHasOptions extends JPanel {
         titleCredits.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleCredits.setEnable(false);
         titleCredits.setStrokeWidth(0);
+        titleCredits.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
         titleCredits.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
         titleCredits.setBounds(titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
@@ -114,11 +122,14 @@ public class PanelMajorHasOptions extends JPanel {
         titleParentCodes.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
         titleParentCodes.setEnable(false);
         titleParentCodes.setStrokeWidth(0);
-        titleParentCodes.setSizeButton(headerPanel.getWidth() / 12 * 4, headerPanel.getHeight());
+        titleParentCodes.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
+                Setting.GRADIENT_COLORS_4);
+        titleParentCodes.setSizeButton(
+                headerPanel.getWidth() - titleCode.getWidth() - titleName.getWidth() - titleCredits.getWidth(),
+                headerPanel.getHeight());
         titleParentCodes.setBounds(
                 titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth() + titleCredits.getWidth(), 0,
-                headerPanel.getWidth() - titleCode.getWidth() - titleName.getWidth() - titleCredits.getWidth(),
-                titleParentCodes.getHeight());
+                titleParentCodes.getWidth(), titleParentCodes.getHeight());
         // Create scrollPanel
         scrollPanel = new JPanel();
         int heightScroll = 0;
@@ -130,6 +141,8 @@ public class PanelMajorHasOptions extends JPanel {
             PanelString knowledgeNamePanel = new PanelString(0, heightScroll, knowledgePart.getName(), width, null,
                     PanelString.TOP_LEFT, 0);
             knowledgeNamePanel.setBackground(COLOR_BACKGROUND_KNOWLEDGE_NAME);
+            knowledgeNamePanel.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_6, Setting.GRADIENT_POINTS2_6,
+                    Setting.GRADIENT_COLORS_6);
             scrollPanel.add(knowledgeNamePanel);
             heightScroll += knowledgeNamePanel.getHeight();
             // FINISH Create panel for knowledge name

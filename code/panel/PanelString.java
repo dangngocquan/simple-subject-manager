@@ -8,8 +8,10 @@ import code.objects.Button;
 import java.awt.Canvas;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.List;
 import java.awt.Color;
+import java.awt.GradientPaint;
 
 public class PanelString extends JPanel {
     // Constants PanelString's root location
@@ -22,6 +24,12 @@ public class PanelString extends JPanel {
     public static final int BOTTOM_LEFT = 6;
     public static final int BOTTOM_CENTER = 7;
     public static final int BOTTOM_RIGHT = 8;
+
+    // properties
+    private int width, height;
+    private Color[][] gradientBackgroundColor = null;
+    private double[][] gradientPoint1 = null;
+    private double[][] gradientPoint2 = null;
 
     // Contructor
     public PanelString(int x, int y, String text, int width, Font font, int rootLocationType, int locationText) {
@@ -102,6 +110,8 @@ public class PanelString extends JPanel {
                 break;
         }
         setBounds(xPos, yPos, width, height);
+        this.width = width;
+        this.height = height;
     }
 
     // Contructor
@@ -185,6 +195,8 @@ public class PanelString extends JPanel {
                 break;
         }
         setBounds(xPos, yPos, width, height);
+        this.width = width;
+        this.height = height;
     }
 
     public PanelString(int x, int y, List<String[]> textsList, int width, Font font, int rootLocationType) {
@@ -272,6 +284,8 @@ public class PanelString extends JPanel {
                 break;
         }
         setBounds(xPos, yPos, width, height);
+        this.width = width;
+        this.height = height;
     }
 
     public PanelString(int x, int y, List<String[]> textsList, int width, Font font, int rootLocationType,
@@ -368,6 +382,8 @@ public class PanelString extends JPanel {
                 break;
         }
         setBounds(xPos, yPos, width, height);
+        this.width = width;
+        this.height = height;
     }
 
     public PanelString(int x, int y, String[] texts, int width, Font font, int rootLocationType, int locationText) {
@@ -455,11 +471,45 @@ public class PanelString extends JPanel {
                 break;
         }
         setBounds(xPos, yPos, width, height);
+        this.width = width;
+        this.height = height;
+    }
 
+    // set gradient background color
+    public void setGradientBackgroundColor(double[][] points1, double[][] points2, Color[][] colors) {
+        this.gradientPoint1 = points1;
+        this.gradientPoint2 = points2;
+        this.gradientBackgroundColor = colors;
+        repaint();
+    }
+
+    // Remove gradient background color
+    public void removeGradientBackgroundColor() {
+        this.gradientBackgroundColor = null;
+        this.gradientPoint1 = null;
+        this.gradientPoint2 = null;
+        repaint();
     }
 
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        if (this.gradientBackgroundColor != null) {
+            // Draw background of button
+            int heightPerRow = this.height / this.gradientBackgroundColor.length;
+            for (int i = 0; i < this.gradientBackgroundColor.length; i++) {
+                GradientPaint gradientPaint = new GradientPaint(
+                        (int) this.gradientPoint1[i][0] * width, (int) this.gradientPoint1[i][1] * heightPerRow,
+                        this.gradientBackgroundColor[i][0],
+                        (int) this.gradientPoint2[i][0] * width, (int) this.gradientPoint2[i][1] * heightPerRow,
+                        this.gradientBackgroundColor[i][1]);
+                g2.setPaint(gradientPaint);
+
+                g2.fillRect(0, 0, this.width, heightPerRow);
+                g2.translate(0, heightPerRow);
+            }
+            g2.translate(0, -heightPerRow * this.gradientBackgroundColor.length);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package code.objects;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import code.Setting;
@@ -60,18 +61,16 @@ public class Button extends JPanel {
     private int xPos = 0, yPos = 0;
     private int strokeWidth = 0;
     private Color strokeColor = STROKE_COLOR_BLACK;
-    private Color[][] backgroundColor = {
-            new Color[] { BACKGROUND_COLOR_RED, BACKGROUND_COLOR_BLUE },
-            new Color[] { BACKGROUND_COLOR_BLUE, BACKGROUND_COLOR_RED }
-    };
-    private int[][] gradientPoint1 = {
-            new int[] { 0, 0 },
-            new int[] { 0, 0 }
-    };
-    private int[][] gradientPoint2 = {
-            new int[] { 0, 1 },
-            new int[] { 0, 1 }
-    };
+    private Color[][] gradientBackgroundColor = null;
+    private double[][] gradientPoint1 = null;
+    private double[][] gradientPoint2 = null;
+    private Color[][] gradientBackgroundColorEntered = null;
+    private double[][] gradientPoint1Entered = null;
+    private double[][] gradientPoint2Entered = null;
+    private Color[][] gradientBackgroundColorExited = null;
+    private double[][] gradientPoint1Exited = null;
+    private double[][] gradientPoint2Exited = null;
+    private ImageIcon backgroundImage = null;
 
     // properties of text
     private String text = "";
@@ -102,19 +101,20 @@ public class Button extends JPanel {
         // Set default text color
         this.textColor = TEXT_COLOR_BLACK;
         // Set default gradient color background
-        setGradientBackground(
-                new int[][] {
-                        new int[] { 0, 0 },
-                        new int[] { 0, 0 }
-                },
-                new int[][] {
-                        new int[] { 0, 1 },
-                        new int[] { 0, 1 }
-                },
-                new Color[][] {
-                        new Color[] { BACKGROUND_COLOR_GRAY, BACKGROUND_COLOR_WHITE },
-                        new Color[] { BACKGROUND_COLOR_WHITE, BACKGROUND_COLOR_GRAY }
-                });
+        setGradientBackgroundColor(
+                Setting.GRADIENT_POINTS1_2,
+                Setting.GRADIENT_POINTS2_2,
+                Setting.GRADIENT_COLORS_2);
+        // Set default gradient color background
+        setGradientBackgroundColorEntered(
+                Setting.GRADIENT_POINTS1_9,
+                Setting.GRADIENT_POINTS2_9,
+                Setting.GRADIENT_COLORS_9);
+        // Set default gradient color background
+        setGradientBackgroundColorExited(
+                Setting.GRADIENT_POINTS1_2,
+                Setting.GRADIENT_POINTS2_2,
+                Setting.GRADIENT_COLORS_2);
         // Add mouse handle
         addMouseListener(new MouseHandler());
 
@@ -185,11 +185,37 @@ public class Button extends JPanel {
         repaint();
     }
 
-    // Set gradient color of background
-    public void setGradientBackground(int[][] point1s, int[][] point2s, Color[][] colors) {
-        this.backgroundColor = colors;
+    // Set current gradient color of background
+    public void setGradientBackgroundColor(double[][] point1s, double[][] point2s, Color[][] colors) {
+        this.gradientBackgroundColor = colors;
         this.gradientPoint1 = point1s;
         this.gradientPoint2 = point2s;
+        repaint();
+    }
+
+    // Set gradient color of background when entered
+    public void setGradientBackgroundColorEntered(double[][] point1s, double[][] point2s, Color[][] colors) {
+        this.gradientBackgroundColorEntered = colors;
+        this.gradientPoint1Entered = point1s;
+        this.gradientPoint2Entered = point2s;
+    }
+
+    // Set gradient color of background when exited
+    public void setGradientBackgroundColorExited(double[][] point1s, double[][] point2s, Color[][] colors) {
+        this.gradientBackgroundColorExited = colors;
+        this.gradientPoint1Exited = point1s;
+        this.gradientPoint2Exited = point2s;
+    }
+
+    // Set background image
+    public void setBackgroundImage(ImageIcon image) {
+        this.backgroundImage = image;
+        repaint();
+    }
+
+    // Remove background image
+    public void removeBackgroundImage() {
+        this.backgroundImage = null;
         repaint();
     }
 
@@ -254,19 +280,21 @@ public class Button extends JPanel {
         g2.fillRect(0, 0, this.width, this.height);
 
         // Draw background of button
-        int heightPerRow = this.height / this.backgroundColor.length;
-        for (int i = 0; i < this.backgroundColor.length; i++) {
+        int heightPerRow = this.height / this.gradientBackgroundColor.length;
+        for (int i = 0; i < this.gradientBackgroundColor.length; i++) {
             GradientPaint gradientPaint = new GradientPaint(
-                    this.gradientPoint1[i][0], this.gradientPoint1[i][1] * heightPerRow, this.backgroundColor[i][0],
-                    this.gradientPoint2[i][0], this.gradientPoint2[i][1] * heightPerRow, this.backgroundColor[i][1]);
+                    (int) this.gradientPoint1[i][0] * width, (int) this.gradientPoint1[i][1] * heightPerRow,
+                    this.gradientBackgroundColor[i][0],
+                    (int) this.gradientPoint2[i][0] * width, (int) this.gradientPoint2[i][1] * heightPerRow,
+                    this.gradientBackgroundColor[i][1]);
             g2.setPaint(gradientPaint);
-            if (i == 0 && i == this.backgroundColor.length - 1) {
+            if (i == 0 && i == this.gradientBackgroundColor.length - 1) {
                 g2.fillRect(this.strokeWidth, this.strokeWidth,
                         this.width - 2 * this.strokeWidth, this.height - 2 * this.strokeWidth);
             } else if (i == 0) {
                 g2.fillRect(this.strokeWidth, this.strokeWidth,
                         this.width - 2 * this.strokeWidth, heightPerRow - this.strokeWidth);
-            } else if (i == this.backgroundColor.length - 1) {
+            } else if (i == this.gradientBackgroundColor.length - 1) {
                 g2.fillRect(this.strokeWidth, 0,
                         this.width - 2 * this.strokeWidth, this.height - heightPerRow * i -
                                 this.strokeWidth);
@@ -276,7 +304,12 @@ public class Button extends JPanel {
             }
             g2.translate(0, heightPerRow);
         }
-        g2.translate(0, -heightPerRow * this.backgroundColor.length);
+        g2.translate(0, -heightPerRow * this.gradientBackgroundColor.length);
+
+        // draw background image (if have)
+        if (this.backgroundImage != null) {
+            g2.drawImage(this.backgroundImage.getImage(), 0, 0, this.width, this.height, null);
+        }
 
         // Draw text
         g2.setColor(this.textColor);
@@ -321,14 +354,18 @@ public class Button extends JPanel {
         @Override
         public void mouseEntered(MouseEvent e) {
             if (enable) {
-                setStrokeWidth(STROKE_WIDTH_2);
+                setStrokeWidth(strokeWidth + 1);
+                setGradientBackgroundColor(gradientPoint1Entered, gradientPoint2Entered,
+                        gradientBackgroundColorEntered);
             }
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
             if (enable) {
-                setStrokeWidth(STROKE_WIDTH_1);
+                setStrokeWidth(strokeWidth - 1);
+                setGradientBackgroundColor(gradientPoint1Exited, gradientPoint2Exited,
+                        gradientBackgroundColorExited);
             }
         }
     }

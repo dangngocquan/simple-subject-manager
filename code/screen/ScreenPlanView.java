@@ -12,7 +12,10 @@ import code.panel.PanelUpdateStatusSubject;
 import code.panel.PanelUpdateScoreSubject;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GradientPaint;
 
 public class ScreenPlanView extends JPanel {
         // Properties
@@ -30,7 +33,7 @@ public class ScreenPlanView extends JPanel {
         private PanelCalculateScoreLastTerm panelCalculateScoreLastTerm;
         private String[] buttonTexts = {
                         "Quay lại", "Danh sách môn học", "Cập nhật điểm số", "Sơ đồ liên hệ các môn học",
-                        "Sắp xếp lịch học tạm thời của 1 học kỳ",
+                        "Lịch học khả thi",
                         "Cập nhật trạng thái môn", "Tính toán điểm cuối kỳ"
         };
         private Button[] buttons;
@@ -55,7 +58,32 @@ public class ScreenPlanView extends JPanel {
                 mainScreen.setSize(width, height);
                 mainScreen.setBounds(0, 0, width, height);
 
-                optionalPanel = new JPanel();
+                optionalPanel = new JPanel() {
+                        protected void paintComponent(Graphics g) {
+                                super.paintComponent(g);
+                                Graphics2D g2 = (Graphics2D) g;
+                                Color[][] gradientBackgroundColor = Setting.GRADIENT_COLORS_7;
+                                double[][] gradientPoint1 = Setting.GRADIENT_POINTS1_7;
+                                double[][] gradientPoint2 = Setting.GRADIENT_POINTS2_7;
+
+                                // Draw background of button
+                                int heightPerRow = getHeight() / gradientBackgroundColor.length;
+                                for (int i = 0; i < gradientBackgroundColor.length; i++) {
+                                        GradientPaint gradientPaint = new GradientPaint(
+                                                        (int) gradientPoint1[i][0] * width,
+                                                        (int) gradientPoint1[i][1] * heightPerRow,
+                                                        gradientBackgroundColor[i][0],
+                                                        (int) gradientPoint2[i][0] * width,
+                                                        (int) gradientPoint2[i][1] * heightPerRow,
+                                                        gradientBackgroundColor[i][1]);
+                                        g2.setPaint(gradientPaint);
+                                        g2.fillRect(0, 0, getWidth(), heightPerRow);
+                                        g2.translate(0, heightPerRow);
+                                }
+                                g2.translate(0, -heightPerRow * gradientBackgroundColor.length);
+
+                        }
+                };
                 optionalPanel.setLayout(null);
                 optionalPanel.setSize(width / 4, height);
                 optionalPanel.setBounds(0, 0, optionalPanel.getWidth(), optionalPanel.getHeight());

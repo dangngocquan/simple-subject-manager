@@ -65,7 +65,7 @@ public class ScreenCreateNewPlan2 extends JPanel {
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
             buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFontText(Button.ARIAL_BOLD_28);
+            buttons[count].setFontText(Button.ARIAL_BOLD_24);
             buttons[count].setCorrectSizeButton();
             buttons[count].addMouseListener(new MouseHandler());
         }
@@ -86,6 +86,7 @@ public class ScreenCreateNewPlan2 extends JPanel {
         // Set location for each button
         buttons[0].setLocationButton(width / 16, height / 32 * 31, Button.BOTTOM_LEFT);
         buttons[1].setLocationButton(width / 16 * 15, height / 32 * 31, Button.BOTTOM_RIGHT);
+        checkbox.setFont(Button.ARIAL_BOLD_21);
         checkbox.setSize(width / 3, buttons[0].getHeight());
         checkbox.setLocation(width / 24 * 9, buttons[0].getY());
 

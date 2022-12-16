@@ -19,7 +19,7 @@ public class Application extends JFrame {
         // Constructor
         public Application() {
                 // Set properties
-                super("HUS");
+                super("Simple Subjects Manager");
                 UIManager.put("OptionPane.messageFont", new Font(Setting.FONT_NAME_01,
                                 Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL));
                 UIManager.put("OptionPane.buttonFont", new Font(Setting.FONT_NAME_01,
@@ -31,7 +31,7 @@ public class Application extends JFrame {
                 setAlwaysOnTop(false);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setLayout(null);
-                ImageIcon icon = new ImageIcon("assets/icon/logo.png");
+                ImageIcon icon = Setting.LOGO;
                 setIconImage(icon.getImage());
                 new Data();
 
