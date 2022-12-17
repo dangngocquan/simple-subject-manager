@@ -8,8 +8,9 @@ import code.Setting;
 import code.file_handler.WriteFile;
 import code.objects.Account;
 import code.objects.Button;
+import code.objects.TextField;
 import code.panel.PanelString;
-import code.text_field.TextField;
+
 import java.awt.Font;
 
 public class DialogChangePassword {

@@ -9,7 +9,8 @@ import code.dialog.DialogCalculateScoreLastTerm4;
 import code.dialog.DialogMessage;
 import code.objects.Button;
 import code.objects.ConversionTable;
-import code.text_field.TextField;
+import code.objects.TextField;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Graphics;

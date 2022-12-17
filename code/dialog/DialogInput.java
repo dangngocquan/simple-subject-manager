@@ -7,8 +7,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import code.Setting;
 import code.objects.Button;
+import code.objects.TextField;
 import code.panel.PanelString;
-import code.text_field.TextField;
 
 import java.awt.Font;
 

@@ -1,4 +1,4 @@
-package code.text_field;
+package code.objects;
 
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
