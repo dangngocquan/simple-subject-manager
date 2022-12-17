@@ -4,8 +4,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseListener;
-import java.util.LinkedList;
-import java.util.List;
 import java.awt.event.MouseEvent;
 import code.Setting;
 import code.objects.Button;
@@ -194,17 +192,20 @@ public class DialogUpdateStatusSubject {
         @Override
         public void mousePressed(MouseEvent event) {
             if (event.getSource() == buttons[0]) {
-                List<String> values = new LinkedList<>();
-                values.add("Chưa đăng kí");
-                values.add("Dự định đăng kí");
-                values.add("Đã đăng kí");
+                String[] values = {
+                        "Chưa đăng kí",
+                        "Dự định đăng kí",
+                        "Đã đăng kí"
+                };
 
-                DialogList dialog1 = new DialogList(dialog, "Chọn trạng thái môn mà bạn muốn cập nhật", "Edit status",
-                        values.toArray(), values.get(0));
-                String status = dialog1.run();
+                DialogList dialog1 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                        Setting.WIDTH / 3, Setting.HEIGHT / 3, DialogList.CENTER_CENTER,
+                        "Edit status", new String[] { "Chọn trạng thái môn mà bạn muốn cập nhật" },
+                        values);
+                String status = dialog1.getText();
                 if (status != null) {
-                    for (int i = 0; i < values.size(); i++) {
-                        if (values.get(i).equals(status)) {
+                    for (int i = 0; i < values.length; i++) {
+                        if (values[i].equals(status)) {
                             subject.setState(i);
                         }
                     }

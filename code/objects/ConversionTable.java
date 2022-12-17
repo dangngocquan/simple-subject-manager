@@ -37,8 +37,24 @@ public class ConversionTable {
         return lst;
     }
 
+    public String[] getArrayStringScore4() {
+        String[] arr = new String[this.score4.size()];
+        for (int i = 0; i < characterScore.size(); i++) {
+            arr[i] = score4.get(i) + "";
+        }
+        return arr;
+    }
+
     public List<String> getCharacterScore() {
         return this.characterScore;
+    }
+
+    public String[] getArrayCharacterScore() {
+        String[] arr = new String[this.characterScore.size()];
+        for (int i = 0; i < characterScore.size(); i++) {
+            arr[i] = characterScore.get(i);
+        }
+        return arr;
     }
 
     public String convert10ToAlpha(double score10) {

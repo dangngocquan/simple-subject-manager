@@ -2,9 +2,7 @@ package code.objects;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
 import code.Setting;
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Font;
@@ -73,6 +71,8 @@ public class Button extends JPanel {
     private ImageIcon backgroundImage = null;
     private ImageIcon backgroundIcon = null;
     private Color backgroundColor = null;
+    private Color backgroundColorEntered = null;
+    private Color backgroundColorExited = null;
 
     // properties of text
     private String text = "";
@@ -99,9 +99,9 @@ public class Button extends JPanel {
         // Set default Stroke width
         setStrokeWidth(STROKE_WIDTH_1);
         // Set default stroke color
-        this.strokeColor = STROKE_COLOR_BLACK;
+        setStrokeColor(STROKE_COLOR_BLACK);
         // Set default text color
-        this.textColor = TEXT_COLOR_BLACK;
+        setTextColor(Setting.COLOR_BLACK);
         // Set default gradient color background
         setGradientBackgroundColor(
                 Setting.GRADIENT_POINTS1_2,
@@ -125,6 +125,12 @@ public class Button extends JPanel {
     // Set enable
     public void setEnable(boolean flag) {
         this.enable = flag;
+    }
+
+    // Set text Color
+    public void setTextColor(Color color) {
+        this.textColor = color;
+        repaint();
     }
 
     // Get basic width and height of text with a input font
@@ -160,7 +166,7 @@ public class Button extends JPanel {
     }
 
     // Set text
-    public void setText(String text) {
+    public void setTextButton(String text) {
         this.text = text;
         setDefaultSizeText();
         setLocationText(xText, yText);
@@ -173,6 +179,16 @@ public class Button extends JPanel {
         setDefaultSizeText();
         setLocationText(xText, yText);
         repaint();
+    }
+
+    // Get font of text
+    public Font getFontText() {
+        return this.font;
+    }
+
+    // Get text
+    public String getTextButton() {
+        return this.text;
     }
 
     // Set stroke width
@@ -190,6 +206,18 @@ public class Button extends JPanel {
     // Set background color
     public void setBackgroundColorButton(Color color) {
         this.backgroundColor = color;
+        repaint();
+    }
+
+    // Set background color entered
+    public void setBackgroundColorEnteredButton(Color color) {
+        this.backgroundColorEntered = color;
+        repaint();
+    }
+
+    // Set background color exited
+    public void setBackgroundColorExitedButton(Color color) {
+        this.backgroundColorExited = color;
         repaint();
     }
 
@@ -394,8 +422,14 @@ public class Button extends JPanel {
         public void mouseEntered(MouseEvent e) {
             if (enable) {
                 setStrokeWidth(strokeWidth + 1);
-                setGradientBackgroundColor(gradientPoint1Entered, gradientPoint2Entered,
-                        gradientBackgroundColorEntered);
+                if (gradientBackgroundColorEntered != null) {
+                    setGradientBackgroundColor(gradientPoint1Entered, gradientPoint2Entered,
+                            gradientBackgroundColorEntered);
+                }
+                if (backgroundColorEntered != null) {
+                    setBackgroundColorButton(backgroundColorEntered);
+                }
+
             }
         }
 
@@ -403,8 +437,14 @@ public class Button extends JPanel {
         public void mouseExited(MouseEvent e) {
             if (enable) {
                 setStrokeWidth(strokeWidth - 1);
-                setGradientBackgroundColor(gradientPoint1Exited, gradientPoint2Exited,
-                        gradientBackgroundColorExited);
+                if (gradientBackgroundColorExited != null) {
+                    setGradientBackgroundColor(gradientPoint1Exited, gradientPoint2Exited,
+                            gradientBackgroundColorExited);
+                }
+                if (backgroundColorExited != null) {
+                    setBackgroundColorButton(backgroundColorExited);
+                }
+
             }
         }
     }

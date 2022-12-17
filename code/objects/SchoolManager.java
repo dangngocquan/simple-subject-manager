@@ -25,6 +25,14 @@ public class SchoolManager {
         return names;
     }
 
+    public String[] getArraySchoolNames() {
+        String[] names = new String[this.schools.size()];
+        for (int i = 0; i < names.length; i++) {
+            names[i] = this.schools.get(i).getName();
+        }
+        return names;
+    }
+
     // Setter
     public void addSchool(School school) {
         this.schools.add(school);

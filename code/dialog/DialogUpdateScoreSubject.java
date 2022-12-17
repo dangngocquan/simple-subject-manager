@@ -277,11 +277,11 @@ public class DialogUpdateScoreSubject {
                         }
                         // Edit character point
                         else if (event.getSource() == buttons[1]) {
-                                DialogList dialog1 = new DialogList(dialog, "Chọn điểm mà bạn muốn cập nhật",
-                                                "Edit score",
-                                                conversionTable.getCharacterScore().toArray(),
-                                                conversionTable.getCharacterScore().get(0));
-                                String score = dialog1.run();
+                                DialogList dialog1 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                Setting.WIDTH / 3, Setting.HEIGHT / 2, DialogList.CENTER_CENTER,
+                                                "Edit score", new String[] { "Chọn điểm mà bạn muốn cập nhật" },
+                                                conversionTable.getArrayCharacterScore());
+                                String score = dialog1.getText();
                                 if (score != null) {
                                         subject.setCharacterScore(score);
                                         if (!conversionTable.convert10ToAlpha(subject.getScore10()).equals(score)) {
@@ -311,11 +311,11 @@ public class DialogUpdateScoreSubject {
                         }
                         // Edit point 4
                         else if (event.getSource() == buttons[2]) {
-                                DialogList dialog1 = new DialogList(dialog, "Chọn điểm mà bạn muốn cập nhật",
-                                                "Edit score",
-                                                conversionTable.getStringScore4().toArray(),
-                                                conversionTable.getStringScore4().get(0));
-                                String score = dialog1.run();
+                                DialogList dialog1 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                Setting.WIDTH / 3, Setting.HEIGHT / 2, DialogList.CENTER_CENTER,
+                                                "Edit score", new String[] { "Chọn điểm mà bạn muốn cập nhật" },
+                                                conversionTable.getArrayStringScore4());
+                                String score = dialog1.getText();
                                 if (score != null) {
                                         Double score4 = Double.parseDouble(score);
                                         subject.setScore4(score4);

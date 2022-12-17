@@ -31,6 +31,14 @@ public class Department {
         return names;
     }
 
+    public String[] getArrayMajorNames() {
+        String[] names = new String[this.majors.size()];
+        for (int i = 0; i < names.length; i++) {
+            names[i] = this.majors.get(i).getName();
+        }
+        return names;
+    }
+
     // Setter
     public void setName(String name) {
         this.name = name;

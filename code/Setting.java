@@ -158,10 +158,24 @@ public class Setting {
                         new double[] { 0, 1 },
                         new double[] { 2, 0 }
         };
+        // Combo 10 // Use for panel
+        public static final Color[][] GRADIENT_COLORS_10 = {
+                        new Color[] { COLOR_WHITE, COLOR_GRAY_06 },
+                        new Color[] { COLOR_GRAY_06, COLOR_GREEN_03 }
+        };
+        public static final double[][] GRADIENT_POINTS1_10 = {
+                        new double[] { 0, 0 },
+                        new double[] { 0, 0 }
+        };
+        public static final double[][] GRADIENT_POINTS2_10 = {
+                        new double[] { 0, 1 },
+                        new double[] { 0, 1 }
+        };
 
         // ImageIcon
         public static final ImageIcon LOGO = new ImageIcon("assets/icon/logo.png");
         public static final ImageIcon ARROW_DOWN = new ImageIcon("assets/icon/arrow_down.png");
+        public static final ImageIcon ARROW_UP = new ImageIcon("assets/icon/arrow_up.png");
         public static final ImageIcon SETTING = new ImageIcon("assets/icon/setting.png");
         public static final ImageIcon EDIT = new ImageIcon("assets/icon/edit.png");
         public static final ImageIcon REMOVE = new ImageIcon("assets/icon/remove.png");

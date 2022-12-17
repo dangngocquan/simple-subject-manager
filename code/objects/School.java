@@ -31,6 +31,14 @@ public class School {
         return names;
     }
 
+    public String[] getArrayDepartmentNames() {
+        String[] names = new String[this.departments.size()];
+        for (int i = 0; i < names.length; i++) {
+            names[i] = this.departments.get(i).getName();
+        }
+        return names;
+    }
+
     // Setter
     public void setName(String name) {
         this.name = name;

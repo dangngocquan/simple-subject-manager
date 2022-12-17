@@ -1,6 +1,5 @@
 package code.screen;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
@@ -170,9 +169,9 @@ public class ScreenCurriculumInformation extends JPanel {
 
         // Update curriculum, school name, department name and major name
         public void updateCurriculum() {
-                buttons[2].setText("Trường: " + school.getName());
-                buttons[3].setText("Khoa: " + department.getName());
-                buttons[4].setText("Ngành: " + major.getName());
+                buttons[2].setTextButton("Trường: " + school.getName());
+                buttons[3].setTextButton("Khoa: " + department.getName());
+                buttons[4].setTextButton("Ngành: " + major.getName());
                 buttons[2].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight());
                 buttons[3].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight());
                 buttons[4].setSizeButton(headPanel2.getWidth() / 10 * 8, buttons[2].getHeight());
@@ -223,10 +222,11 @@ public class ScreenCurriculumInformation extends JPanel {
                         // Press at "Change" of headPanel3 of headPanel of mainScreen
                         else if (event.getSource() == buttons[1]) {
                                 // Dialog for user to choose School
-                                DialogList dialog1 = new DialogList((JFrame) applicationFrame, "Chọn trường đại học",
-                                                "Chọn trường đại học", Data.SCHOOLS.getSchoolNames().toArray(),
-                                                Data.SCHOOLS.getSchoolNames().get(0));
-                                String schoolName = dialog1.run();
+                                DialogList dialog1 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                Setting.WIDTH / 3, Setting.HEIGHT / 2, DialogList.CENTER_CENTER,
+                                                "", new String[] { "Chọn trường đại học" },
+                                                Data.SCHOOLS.getArraySchoolNames());
+                                String schoolName = dialog1.getText();
                                 if (schoolName == null || schoolName.isEmpty()) {
 
                                 } else {
@@ -235,12 +235,11 @@ public class ScreenCurriculumInformation extends JPanel {
                                         major = department.getMajors().get(0);
 
                                         // Dialog for user to choose Department
-                                        DialogList dialog2 = new DialogList((JFrame) applicationFrame,
-                                                        "Chọn khoa của trường " + school.getName(),
-                                                        "Chọn khoa của trường " + school.getName(),
-                                                        school.getDepartmentNames().toArray(),
-                                                        school.getDepartmentNames().get(0));
-                                        String departmentName = dialog2.run();
+                                        DialogList dialog2 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                        Setting.WIDTH / 3, Setting.HEIGHT / 2, DialogList.CENTER_CENTER,
+                                                        "", new String[] { "Chọn khoa của trường " + school.getName() },
+                                                        school.getArrayDepartmentNames());
+                                        String departmentName = dialog2.getText();
                                         if (departmentName == null || departmentName.isEmpty()) {
 
                                         } else {
@@ -248,12 +247,15 @@ public class ScreenCurriculumInformation extends JPanel {
                                                 major = department.getMajors().get(0);
 
                                                 // Dialog for user to choose Major
-                                                DialogList dialog3 = new DialogList(applicationFrame,
-                                                                "Chọn ngành của khoa " + department.getName(),
-                                                                "Chọn ngành của khoa " + department.getName(),
-                                                                department.getMajorNames().toArray(),
-                                                                department.getMajorNames().get(0));
-                                                String majorName = dialog3.run();
+                                                DialogList dialog3 = new DialogList(Setting.WIDTH / 2,
+                                                                Setting.HEIGHT / 2,
+                                                                Setting.WIDTH / 3, Setting.HEIGHT / 2,
+                                                                DialogList.CENTER_CENTER,
+                                                                "",
+                                                                new String[] { "Chọn ngành của khoa "
+                                                                                + department.getName() },
+                                                                department.getArrayMajorNames());
+                                                String majorName = dialog3.getText();
                                                 if (majorName == null || majorName.isEmpty()) {
 
                                                 } else {
