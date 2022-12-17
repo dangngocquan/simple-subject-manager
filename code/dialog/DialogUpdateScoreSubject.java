@@ -2,7 +2,6 @@ package code.dialog;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.event.MouseListener;
 import java.util.LinkedList;
@@ -43,7 +42,7 @@ public class DialogUpdateScoreSubject {
     private PanelString panelCharacterScore = null;
     private PanelString panelScore4 = null;
     private String[] buttonTexts = {
-            "Sửa", "Sửa", "Sửa"
+            "", "", ""
     };
     private Button[] buttons;
 
@@ -153,6 +152,8 @@ public class DialogUpdateScoreSubject {
                     Setting.FONT_NAME_01,
                     Setting.FONT_STYLE_01,
                     Setting.FONT_SIZE_SMALL));
+            buttons[count].setSizeButton(buttons[count].getHeight(), buttons[count].getHeight());
+            buttons[count].setBackgroundIcon(Setting.EDIT);
             buttons[count].addMouseListener(new MouseHandler());
             dialog.add(buttons[count]);
         }
@@ -230,9 +231,12 @@ public class DialogUpdateScoreSubject {
                         subject.setScore10(-1.0);
                         subject.setCharacterScore("");
                         subject.setScore4(-1.0);
-                        JOptionPane.showMessageDialog(dialog,
-                                "Điểm này có vẻ chưa đủ qua môn.\nThooi, bao giờ qua thì cập nhật điểm nhé", "Smile",
-                                JOptionPane.INFORMATION_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                DialogMessage.CENTER_CENTER,
+                                "Smile",
+                                new String[] { "Điểm này không đủ qua môn.",
+                                        "Thôi, bao giờ qua môn thì cập nhật điểm nhé." },
+                                Setting.INFORMATION);
                     }
                     updateContent();
                 }
@@ -256,9 +260,12 @@ public class DialogUpdateScoreSubject {
                         subject.setScore10(-1.0);
                         subject.setCharacterScore("");
                         subject.setScore4(-1.0);
-                        JOptionPane.showMessageDialog(dialog,
-                                "Điểm này có vẻ chưa đủ qua môn.\nThooi, bao giờ qua thì cập nhật điểm nhé", "Smile",
-                                JOptionPane.INFORMATION_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                DialogMessage.CENTER_CENTER,
+                                "Smile",
+                                new String[] { "Điểm này không đủ qua môn.",
+                                        "Thôi, bao giờ qua môn thì cập nhật điểm nhé." },
+                                Setting.WARNING);
                     }
                     updateContent();
                 }
@@ -281,9 +288,11 @@ public class DialogUpdateScoreSubject {
                         subject.setScore10(-1.0);
                         subject.setCharacterScore("");
                         subject.setScore4(-1.0);
-                        JOptionPane.showMessageDialog(dialog,
-                                "Điểm này có vẻ chưa đủ qua môn.\nThôi, bao giờ qua môn thì cập nhật điểm nhé", "Smile",
-                                JOptionPane.INFORMATION_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                DialogMessage.CENTER_CENTER,
+                                "Information", new String[] { "Điểm này không đủ qua môn.",
+                                        "Thôi, bao giờ qua môn thì cập nhật điểm nhé." },
+                                Setting.INFORMATION);
                     }
                     updateContent();
                 }

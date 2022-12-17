@@ -1,10 +1,10 @@
 package code.screen;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Font;
 import code.Application;
 import code.Setting;
+import code.dialog.DialogMessage;
 import code.file_handler.ReadFile;
 import code.file_handler.WriteFile;
 import code.objects.Account;
@@ -130,33 +130,34 @@ public class ScreenCreateNewAccount extends JPanel {
                 if (fieldName.getText().isEmpty() ||
                         (fieldName.getText().equals(fieldName.getDefaultText())
                                 && fieldName.getForeground() == Setting.COLOR_GRAY_03)) {
-                    JOptionPane.showMessageDialog(applicationFrame, "Bạn chưa nhập Họ và tên",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Bạn chưa nhập Họ và tên." }, Setting.WARNING);
                 } else if (fieldUsername.getText().isEmpty() ||
                         (fieldUsername.getText().equals(fieldUsername.getDefaultText())
                                 && fieldUsername.getForeground() == Setting.COLOR_GRAY_03)) {
-                    JOptionPane.showMessageDialog(applicationFrame, "Bạn chưa nhập Tên đăng nhập",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Bạn chưa nhập Tên đăng nhập." }, Setting.WARNING);
                 } else if (ReadFile.isExistingUsername(fieldUsername.getText())) {
-                    JOptionPane.showMessageDialog(applicationFrame, "Tên đăng nhập đã được sử dụng",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Tên đăng nhập đã được sử dụng." }, Setting.WARNING);
                 } else if (fieldPassword.getText().isEmpty() ||
                         (fieldPassword.getText().equals(fieldPassword.getDefaultText())
                                 && fieldPassword.getForeground() == Setting.COLOR_GRAY_03)) {
-                    JOptionPane.showMessageDialog(applicationFrame, "Bạn chưa thiết lập mật khẩu",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Bạn chưa thiết lập mật khẩu." }, Setting.WARNING);
                 } else {
                     WriteFile.createNewAccount(new Account(
                             fieldName.getText(), fieldUsername.getText(), fieldPassword.getText()));
                     WriteFile.writeStringToFile(ReadFile.PATH_DATA_TEMP_1, fieldUsername.getText(), false);
-                    JOptionPane.showMessageDialog(applicationFrame,
-                            "Tạo tài khoản thành công.\nTài khoản hiện tại đang sử dụng: " + fieldName.getText(),
-                            "Create account successed",
-                            JOptionPane.INFORMATION_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Tạo tài khoản thành công.",
+                                    "Tài khoản hiện đang sử dụng: " + fieldName.getText() },
+                            Setting.WARNING);
                     // Set default text
                     fieldName.setText("Họ và tên");
                     fieldName.setForeground(Setting.COLOR_GRAY_03);

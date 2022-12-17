@@ -300,4 +300,88 @@ public class WriteFile {
         }
     }
 
+    // Create new copy of plan for current account
+    public static void createCopyPlan(Plan plan, String name) {
+        // Create folder for plan
+        String path = ReadFile.getPathCurrentAccount();
+        int count = Integer.parseInt(ReadFile.getStringFromFile(path + "/count.txt"));
+        String namePlanFolder = String.format("plan%03d", count);
+        writeStringToFile(path + "/count.txt", (count + 1) + "", false);
+        String path1 = path + "/" + namePlanFolder;
+
+        File file = new File(path1);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        // Create file information.txt in folder plan
+        String path2 = path1 + "/informations.txt";
+        File file2 = new File(path2);
+        if (!file2.exists()) {
+            try {
+                file2.createNewFile();
+            } catch (Exception e) {
+
+            }
+        }
+        // Write data for information.txt
+        writeStringToFile(path2, name + "\n" + plan.getIndexConversionTable(), false);
+
+        // Create files for each subject in plan
+        List<Subject> subjects = plan.getSubjects();
+        for (int i = 0; i < subjects.size(); i++) {
+            // Create file for subject
+            String tempPath = path1 + String.format("/subject%03d.txt", i);
+            File tempFile = new File(tempPath);
+            if (!tempFile.exists()) {
+                try {
+                    tempFile.createNewFile();
+                } catch (Exception e) {
+
+                }
+            }
+            // Write data
+            createNewSubject(tempPath, subjects.get(i));
+        }
+    }
+
+    // Rename plan
+    public static void renamePlan(Plan plan, int indexPlan, String name) {
+        String path = ReadFile.getPathCurrentAccount();
+        File file = new File(path);
+        int count = 0;
+        for (String nameFolder : file.list()) {
+            String path1 = path + "/" + nameFolder;
+            File tempFile = new File(path1);
+            if (tempFile.isDirectory()) {
+                if (count == indexPlan) {
+                    String path2 = path1 + "/" + "informations.txt";
+                    writeStringToFile(path2, name + "\n" + plan.getIndexConversionTable(), false);
+                } else {
+                    count++;
+                }
+            }
+        }
+    }
+
+    // Remove plan
+    public static void removePlan(int indexPlan) {
+        String path = ReadFile.getPathCurrentAccount();
+        File file = new File(path);
+        int count = 0;
+        File removeFile = null;
+        for (String nameFolder : file.list()) {
+            String path1 = path + "/" + nameFolder;
+            File tempFile = new File(path1);
+            if (tempFile.isDirectory()) {
+                if (count == indexPlan) {
+                    removeFile = tempFile;
+                } else {
+                    count++;
+                }
+            }
+        }
+        removeFolder(removeFile);
+    }
+
 }

@@ -1,12 +1,12 @@
 package code.panel;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import code.Setting;
 import code.dialog.DialogCalculateScoreLastTerm3;
 import code.dialog.DialogCalculateScoreLastTerm4;
+import code.dialog.DialogMessage;
 import code.objects.Button;
 import code.objects.ConversionTable;
 import code.text_field.TextField;
@@ -17,7 +17,6 @@ import java.awt.Font;
 
 public class PanelCalculateLastTerm4 extends JPanel {
         // Properties
-        private JFrame applicationFrame;
         private ConversionTable conversionTable;
         private JPanel mainPanel;
         private PanelString panelTitle;
@@ -31,7 +30,6 @@ public class PanelCalculateLastTerm4 extends JPanel {
         // Constructor
         public PanelCalculateLastTerm4(int x, int y, int width, int height, Font font, ConversionTable convertionTable,
                         JFrame applicationFrame) {
-                this.applicationFrame = applicationFrame;
                 this.conversionTable = convertionTable;
                 // Create defaulr font
                 if (font == null) {
@@ -142,80 +140,87 @@ public class PanelCalculateLastTerm4 extends JPanel {
         public boolean isValidInput() {
                 if (!textFieldScore1.getText().matches("[0-9]{1,}")
                                 && !textFieldScore1.getText().matches("[0-9]{1,}\\.[0-9]{1,}")) {
-                        JOptionPane.showMessageDialog(applicationFrame, "Điểm thứ nhất không hợp lệ",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Điểm thứ nhất không hợp lệ." }, Setting.WARNING);
                         return false;
                 } else if (Double.parseDouble(textFieldScore1.getText()) > 10) {
-                        JOptionPane.showMessageDialog(applicationFrame, "Điểm thứ nhất đang lớn hơn 10, hư cấu",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Điểm thứ nhất đang lớn hơn 10." },
+                                        Setting.WARNING);
                         return false;
                 } else if (!textFieldScore2.getText().matches("[0-9]{1,}")
                                 && !textFieldScore2.getText().matches("[0-9]{1,}\\.[0-9]{1,}")) {
-                        JOptionPane.showMessageDialog(applicationFrame, "Điểm thứ hai không hợp lệ",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Điểm thứ hai không hợp lệ." }, Setting.WARNING);
                         return false;
                 } else if (Double.parseDouble(textFieldScore2.getText()) > 10) {
-                        JOptionPane.showMessageDialog(applicationFrame, "Điểm thứ hai đang lớn hơn 10, hư cấu",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Điểm thứ hai đang lớn hơn 10." },
+                                        Setting.WARNING);
                         return false;
                 } else if (!textFieldScore3.getText().matches("[0-9]{1,}")
                                 && !textFieldScore3.getText().matches("[0-9]{1,}\\.[0-9]{1,}")) {
-                        JOptionPane.showMessageDialog(applicationFrame, "Điểm thứ ba không hợp lệ",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Điểm thứ ba không hợp lệ." }, Setting.WARNING);
                         return false;
                 } else if (Double.parseDouble(textFieldScore3.getText()) > 10) {
-                        JOptionPane.showMessageDialog(applicationFrame, "Điểm thứ ba đang lớn hơn 10, hư cấu",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Điểm thứ ba đang lớn hơn 10." },
+                                        Setting.WARNING);
                         return false;
                 } else if (!textFieldCoefficient1.getText().matches("[0-9]{1,}")
                                 && !textFieldCoefficient1.getText().matches("[0-9]{1,}\\.[0-9]{1,}")) {
-                        JOptionPane.showMessageDialog(applicationFrame, "Hệ số của điểm thứ nhất không hợp lệ",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Hệ số của điểm thứ nhất không hợp lệ." },
+                                        Setting.WARNING);
                         return false;
                 } else if (Double.parseDouble(textFieldCoefficient1.getText()) > 100) {
-                        JOptionPane.showMessageDialog(applicationFrame,
-                                        "Hệ số của điểm thứ nhất đang lớn hơn 100%, hư cấu",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Hệ số của điểm thứ nhất đang lớn hơn 100%." },
+                                        Setting.WARNING);
                         return false;
                 } else if (!textFieldCoefficient2.getText().matches("[0-9]{1,}")
                                 && !textFieldCoefficient2.getText().matches("[0-9]{1,}\\.[0-9]{1,}")) {
-                        JOptionPane.showMessageDialog(applicationFrame, "Hệ số của điểm thứ hai không hợp lệ",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Hệ số của điểm thứ hai không hợp lệ." },
+                                        Setting.WARNING);
                         return false;
                 } else if (Double.parseDouble(textFieldCoefficient2.getText()) > 100) {
-                        JOptionPane.showMessageDialog(applicationFrame,
-                                        "Hệ số của điểm thứ hai đang lớn hơn 100%, hư cấu",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Hệ số của điểm thứ hai đang lớn hơn 100%." },
+                                        Setting.WARNING);
                         return false;
                 } else if (!textFieldCoefficient3.getText().matches("[0-9]{1,}")
                                 && !textFieldCoefficient3.getText().matches("[0-9]{1,}\\.[0-9]{1,}")) {
-                        JOptionPane.showMessageDialog(applicationFrame, "Hệ số của điểm thứ ba không hợp lệ",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Hệ số của điểm thứ ba không hợp lệ." },
+                                        Setting.WARNING);
                         return false;
                 } else if (Double.parseDouble(textFieldCoefficient3.getText()) > 100) {
-                        JOptionPane.showMessageDialog(applicationFrame,
-                                        "Hệ số của điểm thứ ba đang lớn hơn 100%, hư cấu",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information", new String[] { "Hệ số của điểm thứ ba đang lớn hơn 100%." },
+                                        Setting.WARNING);
                         return false;
                 } else if (Double.parseDouble(textFieldCoefficient1.getText())
                                 + Double.parseDouble(textFieldCoefficient2.getText())
                                 + Double.parseDouble(textFieldCoefficient3.getText()) >= 100) {
-                        JOptionPane.showMessageDialog(applicationFrame,
-                                        "Tổng hệ số của điểm thứ nhất, thứ hai và thứ ba đang không hợp lý (> 100%)",
-                                        "Invalid input",
-                                        JOptionPane.WARNING_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 2, Setting.HEIGHT / 3,
+                                        DialogMessage.CENTER_CENTER,
+                                        "Information",
+                                        new String[] { "Tổng hệ số của điểm thứ nhất, thứ hai và thứ ba đang không hợp lý (>= 100%)." },
+                                        Setting.WARNING);
                         return false;
                 }
                 return true;

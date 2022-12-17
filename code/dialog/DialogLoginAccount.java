@@ -2,7 +2,6 @@ package code.dialog;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import code.Setting;
@@ -86,14 +85,14 @@ public class DialogLoginAccount {
         // Create objects in this panel (String, button, ...)
         int tempHeight = 30;
         PanelString messagePanel = new PanelString(width / 20 - 15, tempHeight, messageLines, width / 10 * 9, null,
-                PanelString.TOP_LEFT, width / 20);
-        tempHeight += messagePanel.getHeight() + 10;
+                PanelString.TOP_LEFT, 0);
+        tempHeight += messagePanel.getHeight() + 20;
         fieldUsername = new TextField(width / 2, tempHeight,
                 width / 20 * 18, 50, TextField.TOP_CENTER, "Tên đăng nhập", 2, 15, 15);
         tempHeight += fieldUsername.getHeight() + 10;
         fieldPassword = new TextField(width / 2, tempHeight,
                 width / 20 * 18, 50, TextField.TOP_CENTER, "Mật khẩu", 2, 15, 15);
-        tempHeight += fieldPassword.getHeight() + 10;
+        tempHeight += fieldPassword.getHeight() + 20;
         button = new Button("Đăng nhập");
         button.setFont(new Font(
                 Setting.FONT_NAME_01,
@@ -101,10 +100,14 @@ public class DialogLoginAccount {
                 Setting.FONT_SIZE_SMALL));
         button.setLocationButton(width / 2, tempHeight, Button.TOP_CENTER);
         button.addMouseListener(new MouseHandler());
+        tempHeight += button.getHeight() + 100;
+
         dialog.add(messagePanel);
         dialog.add(fieldUsername);
         dialog.add(fieldPassword);
         dialog.add(button);
+
+        dialog.setSize(width, Math.min(height, tempHeight));
 
         // Show dialog
         dialog.setVisible(true);
@@ -122,35 +125,35 @@ public class DialogLoginAccount {
                 if (fieldUsername.getText().isEmpty() ||
                         (fieldUsername.getText().equals(fieldUsername.getDefaultText())
                                 && fieldUsername.getForeground() == Setting.COLOR_GRAY_03)) {
-                    JOptionPane.showMessageDialog(dialog, "Bạn chưa nhập Tên đăng nhập.",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Bạn chưa nhập Tên đăng nhập" }, Setting.WARNING);
                 } else if (!ReadFile.isExistingUsername(fieldUsername.getText())) {
-                    System.out.println();
-                    JOptionPane.showMessageDialog(dialog, "Tên đăng nhập không tồn tại.",
-                            "Invalid username",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Tên đăng nhập không tồn tại" }, Setting.WARNING);
                 } else if (fieldPassword.getText().isEmpty() ||
                         (fieldPassword.getText().equals(fieldPassword.getDefaultText())
                                 && fieldPassword.getForeground() == Setting.COLOR_GRAY_03)) {
-                    JOptionPane.showMessageDialog(dialog, "Bạn chưa nhập mật khẩu.",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Bạn chưa nhập mật khẩu" }, Setting.WARNING);
                 } else if (!fieldPassword.getText()
                         .equals(ReadFile.findAccountByUsername(fieldUsername.getText()).getPassword())) {
-                    JOptionPane.showMessageDialog(dialog, "Mật khẩu không chính xác.",
-                            "Incorrect password",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Mật khẩu không chính xác" }, Setting.WARNING);
                 } else if (avoidAccount != null && avoidAccount.getUsername().equals(fieldUsername.getText())) {
-                    JOptionPane.showMessageDialog(dialog,
-                            "Đây là tài khoản bạn đang muốn xóa.\nVì vậy, bạn không thể đăng nhập tài khoản này.",
-                            "Invalid account",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Đây là tài khoản bạn đang muốn xóa.",
+                                    "Bạn không thể đăng nhập tài khoản này" },
+                            Setting.WARNING);
                 } else {
                     WriteFile.writeStringToFile(ReadFile.PATH_DATA_TEMP_1, fieldUsername.getText(), false);
-                    JOptionPane.showMessageDialog(dialog, "Đăng nhập tài khoản thành công.",
-                            "Login account successed",
-                            JOptionPane.INFORMATION_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Đăng nhập tài khoản thành công" }, Setting.INFORMATION);
                     dialog.dispose();
                 }
             }

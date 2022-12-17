@@ -163,5 +163,11 @@ public class Setting {
         public static final ImageIcon LOGO = new ImageIcon("assets/icon/logo.png");
         public static final ImageIcon ARROW_DOWN = new ImageIcon("assets/icon/arrow_down.png");
         public static final ImageIcon SETTING = new ImageIcon("assets/icon/setting.png");
+        public static final ImageIcon EDIT = new ImageIcon("assets/icon/edit.png");
+        public static final ImageIcon REMOVE = new ImageIcon("assets/icon/remove.png");
+        public static final ImageIcon COPY = new ImageIcon("assets/icon/copy.png");
+        public static final ImageIcon CHANGE = new ImageIcon("assets/icon/change.png");
+        public static final ImageIcon INFORMATION = new ImageIcon("assets/icon/information.png");
+        public static final ImageIcon WARNING = new ImageIcon("assets/icon/warning.png");
 
 }

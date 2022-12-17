@@ -39,7 +39,7 @@ public class DialogUpdateStatusSubject {
     private PanelString panelAdvice = null;
     private PanelString panelStatus = null;
     private String[] buttonTexts = {
-            "Sửa"
+            ""
     };
     private Button[] buttons;
 
@@ -145,6 +145,8 @@ public class DialogUpdateStatusSubject {
                     Setting.FONT_NAME_01,
                     Setting.FONT_STYLE_01,
                     Setting.FONT_SIZE_SMALL));
+            buttons[count].setSizeButton(buttons[count].getHeight(), buttons[count].getHeight());
+            buttons[count].setBackgroundIcon(Setting.EDIT);
             buttons[count].addMouseListener(new MouseHandler());
             dialog.add(buttons[count]);
         }

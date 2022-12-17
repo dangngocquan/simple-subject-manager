@@ -71,6 +71,8 @@ public class Button extends JPanel {
     private double[][] gradientPoint1Exited = null;
     private double[][] gradientPoint2Exited = null;
     private ImageIcon backgroundImage = null;
+    private ImageIcon backgroundIcon = null;
+    private Color backgroundColor = null;
 
     // properties of text
     private String text = "";
@@ -185,6 +187,12 @@ public class Button extends JPanel {
         repaint();
     }
 
+    // Set background color
+    public void setBackgroundColorButton(Color color) {
+        this.backgroundColor = color;
+        repaint();
+    }
+
     // Set current gradient color of background
     public void setGradientBackgroundColor(double[][] point1s, double[][] point2s, Color[][] colors) {
         this.gradientBackgroundColor = colors;
@@ -207,6 +215,12 @@ public class Button extends JPanel {
         this.gradientPoint2Exited = point2s;
     }
 
+    // Set background icon
+    public void setBackgroundIcon(ImageIcon icon) {
+        this.backgroundIcon = icon;
+        repaint();
+    }
+
     // Set background image
     public void setBackgroundImage(ImageIcon image) {
         this.backgroundImage = image;
@@ -216,6 +230,12 @@ public class Button extends JPanel {
     // Remove background image
     public void removeBackgroundImage() {
         this.backgroundImage = null;
+        repaint();
+    }
+
+    // Remove background icon
+    public void removeBackgroundIcon() {
+        this.backgroundIcon = null;
         repaint();
     }
 
@@ -280,35 +300,54 @@ public class Button extends JPanel {
         g2.fillRect(0, 0, this.width, this.height);
 
         // Draw background of button
-        int heightPerRow = this.height / this.gradientBackgroundColor.length;
-        for (int i = 0; i < this.gradientBackgroundColor.length; i++) {
-            GradientPaint gradientPaint = new GradientPaint(
-                    (int) this.gradientPoint1[i][0] * width, (int) this.gradientPoint1[i][1] * heightPerRow,
-                    this.gradientBackgroundColor[i][0],
-                    (int) this.gradientPoint2[i][0] * width, (int) this.gradientPoint2[i][1] * heightPerRow,
-                    this.gradientBackgroundColor[i][1]);
-            g2.setPaint(gradientPaint);
-            if (i == 0 && i == this.gradientBackgroundColor.length - 1) {
-                g2.fillRect(this.strokeWidth, this.strokeWidth,
-                        this.width - 2 * this.strokeWidth, this.height - 2 * this.strokeWidth);
-            } else if (i == 0) {
-                g2.fillRect(this.strokeWidth, this.strokeWidth,
-                        this.width - 2 * this.strokeWidth, heightPerRow - this.strokeWidth);
-            } else if (i == this.gradientBackgroundColor.length - 1) {
-                g2.fillRect(this.strokeWidth, 0,
-                        this.width - 2 * this.strokeWidth, this.height - heightPerRow * i -
-                                this.strokeWidth);
-            } else {
-                g2.fillRect(this.strokeWidth, 0,
-                        this.width - 2 * this.strokeWidth, heightPerRow);
+        if (gradientBackgroundColor != null) {
+            int heightPerRow = this.height / this.gradientBackgroundColor.length;
+            for (int i = 0; i < this.gradientBackgroundColor.length; i++) {
+                GradientPaint gradientPaint = new GradientPaint(
+                        (int) this.gradientPoint1[i][0] * width, (int) this.gradientPoint1[i][1] * heightPerRow,
+                        this.gradientBackgroundColor[i][0],
+                        (int) this.gradientPoint2[i][0] * width, (int) this.gradientPoint2[i][1] * heightPerRow,
+                        this.gradientBackgroundColor[i][1]);
+                g2.setPaint(gradientPaint);
+                if (i == 0 && i == this.gradientBackgroundColor.length - 1) {
+                    g2.fillRect(this.strokeWidth, this.strokeWidth,
+                            this.width - 2 * this.strokeWidth, this.height - 2 * this.strokeWidth);
+                } else if (i == 0) {
+                    g2.fillRect(this.strokeWidth, this.strokeWidth,
+                            this.width - 2 * this.strokeWidth, heightPerRow - this.strokeWidth);
+                } else if (i == this.gradientBackgroundColor.length - 1) {
+                    g2.fillRect(this.strokeWidth, 0,
+                            this.width - 2 * this.strokeWidth, this.height - heightPerRow * i -
+                                    this.strokeWidth);
+                } else {
+                    g2.fillRect(this.strokeWidth, 0,
+                            this.width - 2 * this.strokeWidth, heightPerRow);
+                }
+                g2.translate(0, heightPerRow);
             }
-            g2.translate(0, heightPerRow);
+            g2.translate(0, -heightPerRow * this.gradientBackgroundColor.length);
         }
-        g2.translate(0, -heightPerRow * this.gradientBackgroundColor.length);
+
+        // Background color
+        if (backgroundColor != null) {
+            g2.setColor(backgroundColor);
+            g2.fillRect(strokeWidth, strokeWidth, width - strokeWidth * 2, height - strokeWidth * 2);
+        }
 
         // draw background image (if have)
         if (this.backgroundImage != null) {
+            g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
             g2.drawImage(this.backgroundImage.getImage(), 0, 0, this.width, this.height, null);
+        }
+        // draw background icon (if have)
+        if (this.backgroundIcon != null) {
+            int tempWidth = this.width / 4 * 3;
+            int tempHeight = this.height / 4 * 3;
+            g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2.drawImage(this.backgroundIcon.getImage(), (this.width - tempWidth) / 2, (this.height - tempHeight) / 2,
+                    tempWidth, tempHeight, null);
         }
 
         // Draw text

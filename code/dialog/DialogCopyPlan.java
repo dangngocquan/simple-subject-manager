@@ -3,17 +3,18 @@ package code.dialog;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import java.awt.event.MouseListener;
+import java.util.List;
 import java.awt.event.MouseEvent;
 import code.Setting;
 import code.file_handler.ReadFile;
 import code.file_handler.WriteFile;
-import code.objects.Account;
 import code.objects.Button;
+import code.objects.Plan;
 import code.panel.PanelString;
 import code.text_field.TextField;
 import java.awt.Font;
 
-public class DialogCreateNewAccount {
+public class DialogCopyPlan {
     // Constants dialog's root location
     public static final int TOP_LEFT = 0;
     public static final int TOP_CENTER = 1;
@@ -26,14 +27,16 @@ public class DialogCreateNewAccount {
     public static final int BOTTOM_RIGHT = 8;
 
     // Properties
-    private TextField fieldName = null, fieldUsername = null, fieldPassword = null;
+    private TextField fieldName = null;
     private Button button = null;
     JDialog dialog = null;
+    private int indexPlan;
 
     // Constructor
-    public DialogCreateNewAccount(int x, int y, int width, int height, int rootLocationType, String title,
-            String[] messageLines) {
+    public DialogCopyPlan(int x, int y, int width, int height, int rootLocationType, String title,
+            String[] messageLines, int indexPlan) {
         // Create frame and set propertis of this frame
+        this.indexPlan = indexPlan;
         JFrame f = new JFrame();
         dialog = new JDialog(f, title, true);
         dialog.setLayout(null);
@@ -86,30 +89,19 @@ public class DialogCreateNewAccount {
                 PanelString.TOP_LEFT, 0);
         tempHeight += messagePanel.getHeight() + 10;
         fieldName = new TextField(width / 2, tempHeight,
-                width / 20 * 18, 50, TextField.TOP_CENTER, "Họ và tên", 2, 15, 15);
+                width / 5 * 3, 50, TextField.TOP_CENTER, "Tên của bản sao kế hoạch", 2, 15, 15);
         tempHeight += fieldName.getHeight() + 10;
-        fieldUsername = new TextField(width / 2, tempHeight,
-                width / 20 * 18, 50, TextField.TOP_CENTER, "Tên đăng nhập", 2, 15, 15);
-        tempHeight += fieldUsername.getHeight() + 10;
-        fieldPassword = new TextField(width / 2, tempHeight,
-                width / 20 * 18, 50, TextField.TOP_CENTER, "Mật khẩu", 2, 15, 15);
-        tempHeight += fieldPassword.getHeight() + 10;
-        button = new Button("Tạo");
+
+        button = new Button("Tạo bản sao");
         button.setFont(new Font(
                 Setting.FONT_NAME_01,
                 Setting.FONT_STYLE_01,
                 Setting.FONT_SIZE_SMALL));
         button.setLocationButton(width / 2, tempHeight, Button.TOP_CENTER);
         button.addMouseListener(new MouseHandler());
-        tempHeight += button.getHeight() + 100;
-
         dialog.add(messagePanel);
         dialog.add(fieldName);
-        dialog.add(fieldUsername);
-        dialog.add(fieldPassword);
         dialog.add(button);
-
-        dialog.setSize(width, Math.min(height, tempHeight));
 
         // Show dialog
         dialog.setVisible(true);
@@ -129,30 +121,14 @@ public class DialogCreateNewAccount {
                                 && fieldName.getForeground() == Setting.COLOR_GRAY_03)) {
                     new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
                             DialogMessage.CENTER_CENTER,
-                            "Information", new String[] { "Bạn chưa nhập Họ và tên" }, Setting.WARNING);
-                } else if (fieldUsername.getText().isEmpty() ||
-                        (fieldUsername.getText().equals(fieldUsername.getDefaultText())
-                                && fieldUsername.getForeground() == Setting.COLOR_GRAY_03)) {
-                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
-                            DialogMessage.CENTER_CENTER,
-                            "Information", new String[] { "Bạn chưa nhập Tên đăng nhập" }, Setting.WARNING);
-                } else if (ReadFile.isExistingUsername(fieldUsername.getText())) {
-                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
-                            DialogMessage.CENTER_CENTER,
-                            "Information", new String[] { "Tên đăng nhập đã tồn tại" }, Setting.WARNING);
-                } else if (fieldPassword.getText().isEmpty() ||
-                        (fieldPassword.getText().equals(fieldPassword.getDefaultText())
-                                && fieldPassword.getForeground() == Setting.COLOR_GRAY_03)) {
-                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
-                            DialogMessage.CENTER_CENTER,
-                            "Information", new String[] { "Bạn chưa thiết lập mật khẩu" }, Setting.WARNING);
+                            "Information", new String[] { "Bạn chưa nhập tên cho bản sao của kế hoạch này" },
+                            Setting.WARNING);
                 } else {
-                    WriteFile.createNewAccount(new Account(
-                            fieldName.getText(), fieldUsername.getText(), fieldPassword.getText()));
-                    WriteFile.writeStringToFile(ReadFile.PATH_DATA_TEMP_1, fieldUsername.getText(), false);
+                    List<Plan> plans = ReadFile.getCurrentAccount().getPlans();
+                    WriteFile.createCopyPlan(plans.get(indexPlan), fieldName.getText());
                     new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
                             DialogMessage.CENTER_CENTER,
-                            "Information", new String[] { "Tạo tài khoản thành công" }, Setting.INFORMATION);
+                            "Information", new String[] { "Tạo bản sao kế hoạch thành công" }, Setting.INFORMATION);
                     dialog.dispose();
                 }
             }

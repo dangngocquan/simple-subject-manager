@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 
 import code.Application;
 import code.Setting;
+import code.dialog.DialogCopyPlan;
+import code.dialog.DialogRemovePlan;
+import code.dialog.DialogRenamePlan;
 import code.file_handler.ReadFile;
 import code.objects.Button;
 import code.objects.Plan;
@@ -26,7 +29,9 @@ public class ScreenExistingPlans extends JPanel {
     };
     private Button[] buttons;
     private Button[] buttonPlans;
-    private Button[] buttonPlansSetting;
+    private Button[] buttonPlansEdit;
+    private Button[] buttonPlansCopy;
+    private Button[] buttonPlansRemove;
     private ScreenPlanView[] screenPlanViews;
 
     // Constructor
@@ -102,7 +107,9 @@ public class ScreenExistingPlans extends JPanel {
         }
 
         buttonPlans = new Button[plans.size()];
-        buttonPlansSetting = new Button[plans.size()];
+        buttonPlansEdit = new Button[plans.size()];
+        buttonPlansCopy = new Button[plans.size()];
+        buttonPlansRemove = new Button[plans.size()];
         int heightScroll = 0;
         for (int i = 0; i < plans.size(); i++) {
             // Create button with name of plan
@@ -113,14 +120,35 @@ public class ScreenExistingPlans extends JPanel {
             buttonPlans[i].addMouseListener(new MouseHandler());
             heightScroll += tempButton.getHeight() + 120;
 
-            Button buttonSetting = new Button("");
-            buttonSetting.setLocationButton(tempButton.getX() + tempButton.getWidth() + 30, tempButton.getY(),
+            Button buttonEdit = new Button("");
+            buttonEdit.setLocationButton(tempButton.getX() + tempButton.getWidth() + 30, tempButton.getY(),
                     Button.TOP_LEFT);
-            buttonSetting.setSizeButton(tempButton.getHeight(), tempButton.getHeight());
-            buttonSetting.setStrokeWidth(0);
-            buttonSetting.setBackgroundImage(Setting.SETTING);
-            scrollPanel.add(buttonSetting);
-            buttonPlansSetting[i] = buttonSetting;
+            buttonEdit.setSizeButton(tempButton.getHeight(), tempButton.getHeight());
+            buttonEdit.setBackgroundIcon(Setting.EDIT);
+            buttonEdit.setToolTipText("Sửa tên kế hoạch này");
+            scrollPanel.add(buttonEdit);
+            buttonPlansEdit[i] = buttonEdit;
+            buttonPlansEdit[i].addMouseListener(new MouseHandler());
+
+            Button buttonCopy = new Button("");
+            buttonCopy.setLocationButton(buttonEdit.getX() + buttonEdit.getWidth() + 15, tempButton.getY(),
+                    Button.TOP_LEFT);
+            buttonCopy.setSizeButton(tempButton.getHeight(), tempButton.getHeight());
+            buttonCopy.setBackgroundIcon(Setting.COPY);
+            buttonCopy.setToolTipText("Tạo bản sao của kế hoạch này");
+            scrollPanel.add(buttonCopy);
+            buttonPlansCopy[i] = buttonCopy;
+            buttonPlansCopy[i].addMouseListener(new MouseHandler());
+
+            Button buttonRemove = new Button("");
+            buttonRemove.setLocationButton(buttonCopy.getX() + buttonCopy.getWidth() + 15, tempButton.getY(),
+                    Button.TOP_LEFT);
+            buttonRemove.setSizeButton(tempButton.getHeight(), tempButton.getHeight());
+            buttonRemove.setBackgroundIcon(Setting.REMOVE);
+            buttonRemove.setToolTipText("Xóa kế hoạch này");
+            scrollPanel.add(buttonRemove);
+            buttonPlansRemove[i] = buttonRemove;
+            buttonPlansRemove[i].addMouseListener(new MouseHandler());
         }
         scrollPanel.setLayout(null);
         scrollPanel.setSize(contentPanel.getWidth(), heightScroll);
@@ -197,6 +225,24 @@ public class ScreenExistingPlans extends JPanel {
                     if (event.getSource() == buttonPlans[i]) {
                         getMainScreen().setVisible(false);
                         getScreenPlanViews()[i].setVisible(true);
+                    } else if (event.getSource() == buttonPlansEdit[i]) {
+                        new DialogRenamePlan(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3,
+                                Setting.HEIGHT / 3, DialogRenamePlan.CENTER_CENTER, "Rename plan",
+                                new String[] { "Nhập tên mới cho kế hoạch này:" }, i);
+                        updateButton();
+                        repaint();
+                    } else if (event.getSource() == buttonPlansCopy[i]) {
+                        new DialogCopyPlan(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3,
+                                Setting.HEIGHT / 3, DialogCopyPlan.CENTER_CENTER, "Copy plan",
+                                new String[] { "Nhập tên cho bản sao của kế hoạch này:" }, i);
+                        updateButton();
+                        repaint();
+                    } else if (event.getSource() == buttonPlansRemove[i]) {
+                        new DialogRemovePlan(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3,
+                                Setting.HEIGHT / 3, DialogCopyPlan.CENTER_CENTER, "Remove plan",
+                                new String[] { "Bạn có chắc chắn muốn xóa kế hoạch này không?" }, i);
+                        updateButton();
+                        repaint();
                     }
                 }
             }

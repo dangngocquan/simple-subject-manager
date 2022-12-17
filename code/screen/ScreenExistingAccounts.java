@@ -1,11 +1,12 @@
 package code.screen;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
 import code.dialog.DialogChangePassword;
+import code.dialog.DialogInput;
 import code.dialog.DialogLoginAccount;
+import code.dialog.DialogMessage;
 import code.file_handler.ReadFile;
 import code.file_handler.WriteFile;
 import code.objects.Account;
@@ -172,19 +173,23 @@ public class ScreenExistingAccounts extends JPanel {
             }
             // Press "Use" button on "panelbutton2"
             else if (event.getSource() == getButtons()[1]) {
-                String passwordInput = JOptionPane.showInputDialog(panelAccountInfor,
-                        "Bạn cần nhập mật khẩu của tài khoản này", "Login", JOptionPane.QUESTION_MESSAGE);
+                DialogInput inputs = new DialogInput(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 2,
+                        Setting.HEIGHT / 3,
+                        DialogInput.CENTER_CENTER, "Get password",
+                        new String[] { "Bạn cần nhập mật khẩu của tài khoản này" }, Setting.INFORMATION,
+                        new String[] { "Mật khẩu" });
+                String passwordInput = inputs.getInputString()[0];
                 if (passwordInput != null) {
                     if (passwordInput.equals(accountShowing.getPassword())) {
                         WriteFile.writeStringToFile(ReadFile.PATH_DATA_TEMP_1, accountShowing.getUsername(), false);
-                        JOptionPane.showMessageDialog(panelAccountInfor, "Đặng nhập tài khoản thành công",
-                                "Notification",
-                                JOptionPane.INFORMATION_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                DialogMessage.CENTER_CENTER,
+                                "Information", new String[] { "Đăng nhập tài khoản thành công." }, Setting.INFORMATION);
                         updatePanelAccountInfor(accountShowing);
                     } else {
-                        JOptionPane.showMessageDialog(panelAccountInfor, "Mật khẩu không chính xác",
-                                "Notification",
-                                JOptionPane.INFORMATION_MESSAGE);
+                        new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                DialogMessage.CENTER_CENTER,
+                                "Information", new String[] { "Mật khẩu không chính xác." }, Setting.WARNING);
                     }
                 }
 
@@ -208,12 +213,13 @@ public class ScreenExistingAccounts extends JPanel {
                         "Login account", messageLines, accountShowing);
                 if (!accountShowing.getUsername().equals(ReadFile.getCurrentAccount().getUsername())) {
                     WriteFile.removeAccount(accountShowing);
-                    JOptionPane.showMessageDialog(panelAccountInfor,
-                            String.format(
-                                    "Tài khoản \"%s\" đã được xóa thành công.\nHiện tại bạn đang ở tài khoản \"%s\".",
-                                    accountShowing.getName(), ReadFile.getCurrentAccount().getName()),
-                            "Notification",
-                            JOptionPane.INFORMATION_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] {
+                                    String.format("Tài khoản \"%s\" đã được xóa thành công.", accountShowing.getName()),
+                                    String.format("Hiện tại bạn đang ở tài khoản \"%s\".",
+                                            ReadFile.getCurrentAccount().getName()) },
+                            Setting.INFORMATION);
                     accountShowing = ReadFile.getCurrentAccount();
                     updateDataListAccount();
                     updatePanelListAccount();

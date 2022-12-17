@@ -1,10 +1,10 @@
 package code.screen;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Font;
 import code.Application;
 import code.Setting;
+import code.dialog.DialogMessage;
 import code.file_handler.WriteFile;
 import code.objects.Button;
 import code.objects.Plan;
@@ -143,15 +143,16 @@ public class ScreenCreateNewPlan3 extends JPanel {
                 if (fieldName.getText().isEmpty() ||
                         (fieldName.getText().equals(fieldName.getDefaultText())
                                 && fieldName.getForeground() == Setting.COLOR_GRAY_03)) {
-                    JOptionPane.showMessageDialog(applicationFrame, "Bạn chưa nhập Họ và tên",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Bạn chưa nhập Họ và tên" }, Setting.WARNING);
                 } else {
                     Plan plan = new Plan(fieldName.getText(), subjects, indexConversionTable);
                     WriteFile.createNewPlan(plan);
-                    JOptionPane.showMessageDialog(applicationFrame, "Tạo kế hoạch thành công",
-                            "Create plan successed",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Tạo kế hoạch thành công" }, Setting.INFORMATION);
+                    ;
                     // return screen create new plan 2
                     getParentScreen().getScreenCreateNewPlan3().setVisible(false);
                     getParentScreen().getMainScreen().setVisible(true);

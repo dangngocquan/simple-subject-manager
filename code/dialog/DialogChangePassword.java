@@ -2,7 +2,6 @@ package code.dialog;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import code.Setting;
@@ -103,11 +102,15 @@ public class DialogChangePassword {
                 Setting.FONT_SIZE_SMALL));
         button.setLocationButton(width / 2, tempHeight, Button.TOP_CENTER);
         button.addMouseListener(new MouseHandler());
+        tempHeight += button.getHeight() + 100;
+
         dialog.add(messagePanel);
         dialog.add(oldPassword);
         dialog.add(newPassword);
         dialog.add(confirmNewPassword);
         dialog.add(button);
+
+        dialog.setSize(width, Math.min(height, tempHeight));
 
         // Show dialog
         dialog.setVisible(true);
@@ -125,35 +128,35 @@ public class DialogChangePassword {
                 if (oldPassword.getText().isEmpty() ||
                         (oldPassword.getText().equals(oldPassword.getDefaultText())
                                 && oldPassword.getForeground() == Setting.COLOR_GRAY_03)) {
-                    JOptionPane.showMessageDialog(dialog, "Bạn chưa nhập mật khẩu hiện tại",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Bạn chưa nhập mật khẩu hiện tại" }, Setting.WARNING);
                 } else if (!oldPassword.getText().equals(account.getPassword())) {
-                    JOptionPane.showMessageDialog(dialog, "Mật khẩu hiện tại không chính xác",
-                            "Incorrect pasword",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Mật khẩu hiện tại không chính xác" }, Setting.WARNING);
                 } else if (newPassword.getText().isEmpty() ||
                         (newPassword.getText().equals(newPassword.getDefaultText())
                                 && newPassword.getForeground() == Setting.COLOR_GRAY_03)) {
-                    JOptionPane.showMessageDialog(dialog, "Bạn chưa nhập mật khẩu mới",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Bạn chưa nhập mật khẩu mới" }, Setting.WARNING);
                 } else if (confirmNewPassword.getText().isEmpty() ||
                         (confirmNewPassword.getText().equals(confirmNewPassword.getDefaultText())
                                 && confirmNewPassword.getForeground() == Setting.COLOR_GRAY_03)) {
-                    JOptionPane.showMessageDialog(dialog, "Bạn chưa xác nhận mật khẩu mới",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Bạn chưa xác nhận mật khẩu mới" }, Setting.WARNING);
                 } else if (!newPassword.getText().equals(confirmNewPassword.getText())) {
-                    JOptionPane.showMessageDialog(dialog, "Mật khẩu không khớp",
-                            "Invalid input",
-                            JOptionPane.WARNING_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Mật khẩu không khớp" }, Setting.WARNING);
                 } else {
                     Account newAcccount = new Account("", "", confirmNewPassword.getText());
                     WriteFile.changeInformationAccount(account, newAcccount, "password");
-                    JOptionPane.showMessageDialog(dialog, "Thay đổi mật khẩu thành công",
-                            "Change password successed",
-                            JOptionPane.INFORMATION_MESSAGE);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER,
+                            "Information", new String[] { "Thay đổi mật khẩu thành công" }, Setting.INFORMATION);
                     dialog.dispose();
                 }
             }

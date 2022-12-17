@@ -19,7 +19,7 @@ public class ScreenCreateNewPlan1 extends JPanel {
     // Properties, Objects and Screens
     private Application applicationFrame;
     private String[] buttonTexts = {
-            "Quay lại", "Tiếp theo", "", "", "", "Thay đổi", "Thay đổi", "Thay đổi"
+            "Quay lại", "Tiếp theo", "", "", "", "", "", ""
     };
     private Button[] buttons;
     private ScreenPlans parentScreen;
@@ -74,10 +74,16 @@ public class ScreenCreateNewPlan1 extends JPanel {
         }
 
         // Change size of some button
-        buttons[5].setSizeButton(optionPanel.getWidth(), buttons[1].getHeight() * 2);
-        buttons[6].setSizeButton(optionPanel.getWidth(), buttons[1].getHeight() * 2);
-        buttons[7].setSizeButton(optionPanel.getWidth(), buttons[1].getHeight() * 2);
+        buttons[5].setSizeButton(buttons[1].getHeight() * 2, buttons[1].getHeight() * 2);
+        buttons[6].setSizeButton(buttons[1].getHeight() * 2, buttons[1].getHeight() * 2);
+        buttons[7].setSizeButton(buttons[1].getHeight() * 2, buttons[1].getHeight() * 2);
 
+        // Set icon of some button
+        buttons[5].setBackgroundIcon(Setting.CHANGE);
+        buttons[6].setBackgroundIcon(Setting.CHANGE);
+        buttons[7].setBackgroundIcon(Setting.CHANGE);
+
+        // Set text location of some button
         buttons[2].setLocationText(0, 0);
         buttons[3].setLocationText(0, 0);
         buttons[4].setLocationText(0, 0);

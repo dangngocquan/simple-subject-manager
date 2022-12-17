@@ -2,7 +2,6 @@ package code.dialog;
 
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
-
 import java.awt.Component;
 
 public class DialogList {

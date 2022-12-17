@@ -2,7 +2,6 @@ package code.screen;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import code.Application;
 import code.Setting;
 import code.curriculum.Data;
@@ -12,7 +11,6 @@ import code.objects.Department;
 import code.objects.Major;
 import code.objects.School;
 import code.panel.PanelMajor;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Graphics;
