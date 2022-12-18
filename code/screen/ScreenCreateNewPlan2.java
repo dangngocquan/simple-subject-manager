@@ -141,6 +141,11 @@ public class ScreenCreateNewPlan2 extends JPanel {
         return this.indexConversionTable;
     }
 
+    // Get checkBox
+    public JCheckBox getCheckBox() {
+        return this.checkbox;
+    }
+
     // Update content panels
     public void updateContentPanel() {
         contentPanel.removeAll();

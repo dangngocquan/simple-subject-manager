@@ -46,6 +46,7 @@ public class PanelMapRelativeSubjects extends JPanel {
     private ArrayList<LinkedList<Line2D>> lines = null;
     private ArrayList<LinkedList<Integer>> indexes = null; // Save index of parent-subjects of each subject
     private int indexSubjectEntering = -1;
+    private Color tempColorLineEntered = COLOR_LINE_ENTERED;
 
     // Constructor
     public PanelMapRelativeSubjects(int x, int y, int width, int height, Plan plan, int indexPlan,
@@ -84,7 +85,7 @@ public class PanelMapRelativeSubjects extends JPanel {
             panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
                     Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
             panelSubjects[count].setLocationButton(
-                    tempLocation[level] * widthPerSubjectPanel + 15 + (level % 2) * widthPerSubjectPanel / 2,
+                    tempLocation[level] * widthPerSubjectPanel + 15 + ((level / 2) % 2) * widthPerSubjectPanel / 2,
                     level * heightPerSubjectPanel + 15, Button.TOP_LEFT);
             panelSubjects[count].setBackgroundColorButton(subject.getColor());
             panelSubjects[count].setBackgroundColorExitedButton(subject.getColor());
@@ -143,7 +144,7 @@ public class PanelMapRelativeSubjects extends JPanel {
             panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
                     Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
             panelSubjects[count].setLocationButton(
-                    tempLocation[level] * widthPerSubjectPanel + 15 + (level % 2) * widthPerSubjectPanel / 2,
+                    tempLocation[level] * widthPerSubjectPanel + 15 + ((level / 2) % 2) * widthPerSubjectPanel / 2,
                     level * heightPerSubjectPanel + 15, Button.TOP_LEFT);
             count++;
             tempLocation[level]++;
@@ -232,7 +233,7 @@ public class PanelMapRelativeSubjects extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(3));
+        g2.setStroke(new BasicStroke(2));
         g2.setColor(COLOR_LINE_EXITED);
         if (indexSubjectEntering == -1) {
             for (int i = 0; i < lines.size(); i++) {
@@ -245,9 +246,11 @@ public class PanelMapRelativeSubjects extends JPanel {
         }
 
         if (indexSubjectEntering > -1) {
-            g2.setStroke(new BasicStroke(5));
-            g2.setColor(COLOR_LINE_ENTERED);
+            g2.setStroke(new BasicStroke(4));
+            g2.setColor(tempColorLineEntered);
             for (Line2D line : lines.get(indexSubjectEntering)) {
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.draw(line);
             }
         }
@@ -289,9 +292,13 @@ public class PanelMapRelativeSubjects extends JPanel {
             for (int count = 0; count < panelSubjects.length; count++) {
                 if (e.getSource() == panelSubjects[count]) {
                     setIndexSubjectPanelEntering(count);
-                    panelSubjects[count].setStrokeColor(COLOR_STROKE_PANEL_SUBJECT_ENTERED);
+                    tempColorLineEntered = COLOR_LINE_ENTERED;
+                    if (!plan.getSubjects().get(count).getColor().equals(Setting.COLOR_WHITE)) {
+                        tempColorLineEntered = plan.getSubjects().get(count).getColor();
+                    }
+                    panelSubjects[count].setStrokeColor(tempColorLineEntered);
                     for (int indexParentSubject : indexes.get(indexSubjectEntering)) {
-                        panelSubjects[indexParentSubject].setStrokeColor(COLOR_STROKE_PANEL_SUBJECT_ENTERED);
+                        panelSubjects[indexParentSubject].setStrokeColor(tempColorLineEntered);
                     }
                     for (int i = 0; i < panelSubjects.length; i++) {
                         if (!indexes.get(indexSubjectEntering).contains(i) && i != indexSubjectEntering) {
@@ -307,6 +314,7 @@ public class PanelMapRelativeSubjects extends JPanel {
         public void mouseExited(MouseEvent e) {
             for (int count = 0; count < panelSubjects.length; count++) {
                 if (e.getSource() == panelSubjects[count]) {
+                    tempColorLineEntered = COLOR_LINE_ENTERED;
                     for (int i = 0; i < panelSubjects.length; i++) {
                         if (!indexes.get(indexSubjectEntering).contains(i) && i != indexSubjectEntering) {
                             panelSubjects[i].setVisible(true);

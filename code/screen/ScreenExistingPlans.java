@@ -5,9 +5,11 @@ import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
 import code.dialog.DialogCopyPlan;
+import code.dialog.DialogMessage;
 import code.dialog.DialogRemovePlan;
 import code.dialog.DialogRenamePlan;
 import code.file_handler.ReadFile;
+import code.file_handler.WriteFile;
 import code.objects.Button;
 import code.objects.Plan;
 import java.awt.event.MouseListener;
@@ -238,11 +240,22 @@ public class ScreenExistingPlans extends JPanel {
                         updateButton();
                         repaint();
                     } else if (event.getSource() == buttonPlansRemove[i]) {
-                        new DialogRemovePlan(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3,
+                        DialogRemovePlan dialog1 = new DialogRemovePlan(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                Setting.WIDTH / 3,
                                 Setting.HEIGHT / 3, DialogCopyPlan.CENTER_CENTER, "Remove plan",
-                                new String[] { "Bạn có chắc chắn muốn xóa kế hoạch này không?" }, i);
-                        updateButton();
-                        repaint();
+                                new String[] { "Bạn có chắc chắn muốn xóa kế hoạch " + "\"" + plans.get(i).getName()
+                                        + "\" " + "không?" });
+                        if (dialog1.getResult() == true) {
+                            WriteFile.removePlan(i);
+                            new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3,
+                                    Setting.HEIGHT / 3,
+                                    DialogMessage.CENTER_CENTER,
+                                    "Information", new String[] { "Xóa kế hoạch thành công" }, Setting.INFORMATION);
+                            updateButton();
+                            repaint();
+                            break;
+                        }
+
                     }
                 }
             }

@@ -377,9 +377,8 @@ public class WriteFile {
             if (tempFile.isDirectory()) {
                 if (count == indexPlan) {
                     removeFile = tempFile;
-                } else {
-                    count++;
                 }
+                count++;
             }
         }
         removeFolder(removeFile);

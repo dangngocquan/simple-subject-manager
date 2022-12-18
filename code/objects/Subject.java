@@ -168,7 +168,7 @@ public class Subject {
                     max1 = Math.max(max1, parentSubject.getLevel());
                 }
             }
-            return 1 + max1;
+            return 2 + max1;
         }
     }
 

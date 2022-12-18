@@ -204,6 +204,7 @@ public class ScreenCreateNewPlan1 extends JPanel {
             }
             // Press at "Next" in mainScreen
             else if (event.getSource() == buttons[1]) {
+                screenCreateNewPlan2.getCheckBox().setSelected(false);
                 screenCreateNewPlan2.setMajor(major);
                 screenCreateNewPlan2.setIndexConversionTable(Data.getIndexConnversion(school.getName()));
                 screenCreateNewPlan2.setVisible(true);

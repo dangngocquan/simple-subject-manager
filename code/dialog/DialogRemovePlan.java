@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import code.Setting;
-import code.file_handler.WriteFile;
 import code.objects.Button;
 import code.panel.PanelString;
 import java.awt.Font;
@@ -26,13 +25,12 @@ public class DialogRemovePlan {
     private Button buttonYes = null;
     private Button buttonNo = null;
     JDialog dialog = null;
-    private int indexPlan;
+    private boolean result = false;
 
     // Constructor
     public DialogRemovePlan(int x, int y, int width, int height, int rootLocationType, String title,
-            String[] messageLines, int indexPlan) {
+            String[] messageLines) {
         // Create frame and set propertis of this frame
-        this.indexPlan = indexPlan;
         JFrame f = new JFrame();
         dialog = new JDialog(f, title, true);
         dialog.setLayout(null);
@@ -109,6 +107,11 @@ public class DialogRemovePlan {
         dialog.setVisible(true);
     }
 
+    // Get status
+    public boolean getResult() {
+        return this.result;
+    }
+
     private class MouseHandler implements MouseListener {
 
         @Override
@@ -118,14 +121,11 @@ public class DialogRemovePlan {
         @Override
         public void mousePressed(MouseEvent event) {
             if (event.getSource() == buttonNo) {
+                result = false;
                 dialog.dispose();
             } else if (event.getSource() == buttonYes) {
-                WriteFile.removePlan(indexPlan);
+                result = true;
                 dialog.dispose();
-                new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
-                        DialogMessage.CENTER_CENTER,
-                        "Information", new String[] { "Xóa kế hoạch thành công" }, Setting.INFORMATION);
-
             }
         }
 
