@@ -133,6 +133,16 @@ public class Button extends JPanel {
         repaint();
     }
 
+    // Get center X
+    public int getCenterX() {
+        return this.xPos + getWidth() / 2;
+    }
+
+    // Get bottom Y
+    public int getBottomY() {
+        return this.yPos + getHeight();
+    }
+
     // Get basic width and height of text with a input font
     public int[] getSizeText(String text, Font font) {
         Canvas c = new Canvas();

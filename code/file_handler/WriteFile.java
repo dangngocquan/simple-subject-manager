@@ -204,6 +204,7 @@ public class WriteFile {
         String code = subject.getCode();
         String name = subject.getName();
         int credits = subject.getNumberCredits();
+        int semester = subject.getSemester();
 
         String parentSubjectCodes = "";
         for (int count1 = 0; count1 < subject.getParentSubjectCodes().size(); count1++) {
@@ -231,8 +232,8 @@ public class WriteFile {
         double score10 = subject.getScore10();
         double score4 = subject.getScore4();
 
-        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n%s",
-                code, name, credits, parentSubjectCodes, state, characterScore, color, score10, score4);
+        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n%s\n%d",
+                code, name, credits, parentSubjectCodes, state, characterScore, color, score10, score4, semester);
 
         writeStringToFile(path, data, false);
     }

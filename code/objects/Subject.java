@@ -22,6 +22,7 @@ public class Subject {
     private double score10 = -1.0;
     private double score4 = -1.0;
     private Color color = new Color(255, 255, 255);
+    private int semester = 0; // 1, 2, 3, ...
 
     // Constructor
     public Subject(String name, String code, int credits) {
@@ -43,6 +44,10 @@ public class Subject {
 
     public int getNumberCredits() {
         return this.numberCredits;
+    }
+
+    public int getSemester() {
+        return this.semester;
     }
 
     public List<Subject[]> getParentSubjects() {
@@ -89,8 +94,8 @@ public class Subject {
     }
 
     public String getStringColor() {
-        return String.format("[%d  %d  %d]", 
-                color.getRed(), color.getGreen(), color.getBlue());   
+        return String.format("[%d  %d  %d]",
+                color.getRed(), color.getGreen(), color.getBlue());
     }
 
     public double getScore10() {
@@ -174,6 +179,10 @@ public class Subject {
 
     public void setCode(String code) {
         this.subjectCode = code;
+    }
+
+    public void setSemester(int semes) {
+        this.semester = semes;
     }
 
     public void setNumberCredits(int numberCredits) {

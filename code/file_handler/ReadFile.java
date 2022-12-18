@@ -86,6 +86,7 @@ public class ReadFile {
         String[] rgb = data.get(6).split(";");
         double score10 = Double.parseDouble(data.get(7));
         double score4 = Double.parseDouble(data.get(8));
+        int yearStudy = Integer.parseInt(data.get(9));
 
         Subject subject = new Subject(name, code, credits);
         for (String[] parentCode : parentSubjectCodes) {
@@ -96,6 +97,7 @@ public class ReadFile {
         subject.setColor(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
         subject.setScore10(score10);
         subject.setScore4(score4);
+        subject.setSemester(yearStudy);
 
         return subject;
     }
@@ -292,8 +294,10 @@ public class ReadFile {
                     String code = datas[1];
                     String name = datas[2];
                     int credits = Integer.parseInt(datas[3]);
+                    int defaultYearStudy = Integer.parseInt(datas[5]);
                     String[] parentSubjectCodes = datas[4].split(";");
                     Subject subject = new Subject(name, code, credits);
+                    subject.setSemester(defaultYearStudy);
                     // Add parent subject codes for this subject
                     for (String parentSubjectCode : parentSubjectCodes) {
                         subject.addParentSubjectCode(parentSubjectCode.split("/"));
@@ -301,7 +305,9 @@ public class ReadFile {
                     // Add subject to KnowlegePart of Major
                     int lastIndex = major.getKnowledgeParts().size() - 1;
                     if (typeSubject.equals("compulsory")) {
-                        major.getKnowledgeParts().get(lastIndex).addCompulsorySubject(subject);
+                        major.getKnowledgeParts().get(lastIndex).addCompulsorySubject(
+                                subject,
+                                major.getKnowledgeParts().get(lastIndex).getNumberOfCompulsorySubjectsList() - 1);
                     } else if (typeSubject.equals("optional")) {
                         major.getKnowledgeParts().get(lastIndex).addOptionalSubject(
                                 subject,
@@ -315,16 +321,17 @@ public class ReadFile {
                     typeSubject = type;
                     int lastIndex = major.getKnowledgeParts().size() - 1;
                     if (type.equals("compulsory")) {
-                        major.getKnowledgeParts().get(lastIndex).setDescriptionCompulsory(datas[1]);
+                        major.getKnowledgeParts().get(lastIndex).getCompulsorySubjects().add(new LinkedList<Subject>());
+                        major.getKnowledgeParts().get(lastIndex).addDescriptionCompulsory(datas[1]);
                         major.getKnowledgeParts().get(lastIndex)
-                                .setMinCreditsCompulsorySubjects(Integer.parseInt(datas[3]));
+                                .addMinCreditsCompulsorySubjects(Integer.parseInt(datas[3]));
                     } else if (type.equals("mainDesOptional")) {
                         major.getKnowledgeParts().get(lastIndex).setMainDescriptionOptionalSubjects(datas[1]);
                     } else if (type.equals("optional")) {
                         major.getKnowledgeParts().get(lastIndex).getOptionalSubjects().add(new LinkedList<Subject>());
                         major.getKnowledgeParts().get(lastIndex).addDescriptionOptional(datas[1]);
                         major.getKnowledgeParts().get(lastIndex)
-                                .setMinCreditsOptionalSubjects(Integer.parseInt(datas[3]));
+                                .addMinCreditsOptionalSubjects(Integer.parseInt(datas[3]));
                     }
                 }
                 // Go to next line

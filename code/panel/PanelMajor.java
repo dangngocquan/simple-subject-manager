@@ -138,12 +138,15 @@ public class PanelMajor extends JPanel {
             heightScroll += knowledgeNamePanel.getHeight();
             // FINISH Create panel for knowledge name
 
-            // START Create panel for description of Compulsory subjects
-            if (!knowledgePart.getDescriptionCompulsory().isEmpty()) {
-                String str = knowledgePart.getDescriptionCompulsory() + " ("
-                        + knowledgePart.getMinCreditsCompulsorySubjects() + " tín chỉ)";
+            // START Create panel for description Compulsory and subjects Compulsory (there
+            // are many description Compulsory)
+            for (int count = 0; count < knowledgePart.getNumberOfCompulsorySubjectsList(); count++) {
+                // Get String of description
+                String compulsoryDescription = knowledgePart.getDescriptionCompulsory().get(count) + " ("
+                        + knowledgePart.getMinCreditsCompulsorySubjects().get(count) + " tín chỉ)";
+                // START Create panel for description
                 PanelString desCompulsoryPanel = new PanelString(0, heightScroll,
-                        str, width,
+                        compulsoryDescription, width,
                         new Font(Setting.FONT_NAME_01,
                                 Setting.FONT_STYLE_03,
                                 Setting.FONT_SIZE_SMALL),
@@ -151,23 +154,28 @@ public class PanelMajor extends JPanel {
                 desCompulsoryPanel.setBackground(COLOR_BACKGROUND_DESCRIPTION);
                 scrollPanel.add(desCompulsoryPanel);
                 heightScroll += desCompulsoryPanel.getHeight();
-            }
-            // FINISH Create panel for description of Compulsory subjects
+                // FINISH Create panel for description
 
-            // START Create panel for compulsory subjects (if have)
-            for (Subject subject : knowledgePart.getCompulsorySubjects()) {
-                PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, width,
-                        null, countSubjects + 1);
-                if (countSubjects % 2 == 0) {
-                    panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
-                } else {
-                    panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_2);
+                // Get list subjects of this compulsory
+                List<Subject> compulsorySubjectList = knowledgePart.getCompulsorySubjects().get(count);
+                // START Create panel for subjects
+                for (Subject subject : compulsorySubjectList) {
+                    PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, width,
+                            null, countSubjects + 1);
+                    if (countSubjects % 2 == 0) {
+                        panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
+                    } else {
+                        panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_2);
+                    }
+                    countSubjects++;
+                    scrollPanel.add(panelSubject);
+                    heightScroll += panelSubject.getHeight();
                 }
-                countSubjects++;
-                scrollPanel.add(panelSubject);
-                heightScroll += panelSubject.getHeight();
+                // FINISH Create panel for subjects
             }
-            // FINISH Create panel for compulsory subjects (if have)
+            // FINISH Create panel for description Compulsory and subjects Compulsory (there
+            // are
+            // many description Compulsory)
 
             // START Create panel for main description of optional subjects
             if (!knowledgePart.getMainDescriptionOptionalSubjects().isEmpty()) {
@@ -189,7 +197,7 @@ public class PanelMajor extends JPanel {
             for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsList(); count++) {
                 // Get String of description
                 String optionalDescription = knowledgePart.getDescriptionOptionals().get(count) + " ("
-                        + knowledgePart.getMinCreditsOptionalSubjects() + " tín chỉ)";
+                        + knowledgePart.getMinCreditsOptionalSubjects().get(count) + " tín chỉ)";
                 // START Create panel for description
                 PanelString desOptionalPanel = new PanelString(0, heightScroll,
                         optionalDescription, width,

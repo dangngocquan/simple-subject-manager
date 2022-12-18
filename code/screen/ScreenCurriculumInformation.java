@@ -234,28 +234,60 @@ public class ScreenCurriculumInformation extends JPanel {
                                         department = school.getDepartments().get(0);
                                         major = department.getMajors().get(0);
 
+                                        String departmentName = "";
                                         // Dialog for user to choose Department
-                                        DialogList dialog2 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
-                                                        Setting.WIDTH / 3, Setting.HEIGHT / 2, DialogList.CENTER_CENTER,
-                                                        "", new String[] { "Chọn khoa của trường " + school.getName() },
-                                                        school.getArrayDepartmentNames());
-                                        String departmentName = dialog2.getText();
+                                        if (school.getName().equals(Data.SCHOOLS.getArraySchoolNames()[0])) {
+                                                DialogList dialog2 = new DialogList(Setting.WIDTH / 2,
+                                                                Setting.HEIGHT / 2,
+                                                                Setting.WIDTH / 3, Setting.HEIGHT / 2,
+                                                                DialogList.CENTER_CENTER,
+                                                                "",
+                                                                new String[] { "Chọn khoa của trường "
+                                                                                + school.getName() },
+                                                                school.getArrayDepartmentNames());
+                                                departmentName = dialog2.getText();
+                                        } else if (school.getName().equals(Data.SCHOOLS.getArraySchoolNames()[1])) {
+                                                DialogList dialog2 = new DialogList(Setting.WIDTH / 2,
+                                                                Setting.HEIGHT / 2,
+                                                                Setting.WIDTH / 3, Setting.HEIGHT / 2,
+                                                                DialogList.CENTER_CENTER,
+                                                                "",
+                                                                new String[] { "Chọn ngành của " + school.getName() },
+                                                                school.getArrayDepartmentNames());
+                                                departmentName = dialog2.getText();
+                                        }
+
                                         if (departmentName == null || departmentName.isEmpty()) {
 
                                         } else {
                                                 department = Data.getDepartment(departmentName, school);
                                                 major = department.getMajors().get(0);
 
+                                                String majorName = "";
                                                 // Dialog for user to choose Major
-                                                DialogList dialog3 = new DialogList(Setting.WIDTH / 2,
-                                                                Setting.HEIGHT / 2,
-                                                                Setting.WIDTH / 3, Setting.HEIGHT / 2,
-                                                                DialogList.CENTER_CENTER,
-                                                                "",
-                                                                new String[] { "Chọn ngành của khoa "
-                                                                                + department.getName() },
-                                                                department.getArrayMajorNames());
-                                                String majorName = dialog3.getText();
+                                                if (school.getName().equals(Data.SCHOOLS.getArraySchoolNames()[0])) {
+                                                        DialogList dialog3 = new DialogList(Setting.WIDTH / 2,
+                                                                        Setting.HEIGHT / 2,
+                                                                        Setting.WIDTH / 3, Setting.HEIGHT / 2,
+                                                                        DialogList.CENTER_CENTER,
+                                                                        "",
+                                                                        new String[] { "Chọn ngành của khoa "
+                                                                                        + department.getName() },
+                                                                        department.getArrayMajorNames());
+                                                        majorName = dialog3.getText();
+                                                } else if (school.getName()
+                                                                .equals(Data.SCHOOLS.getArraySchoolNames()[1])) {
+                                                        DialogList dialog3 = new DialogList(Setting.WIDTH / 2,
+                                                                        Setting.HEIGHT / 2,
+                                                                        Setting.WIDTH / 3, Setting.HEIGHT / 2,
+                                                                        DialogList.CENTER_CENTER,
+                                                                        "",
+                                                                        new String[] { "Chọn chuyên ngành của ngành "
+                                                                                        + department.getName() },
+                                                                        department.getArrayMajorNames());
+                                                        majorName = dialog3.getText();
+                                                }
+
                                                 if (majorName == null || majorName.isEmpty()) {
 
                                                 } else {

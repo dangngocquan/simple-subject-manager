@@ -110,23 +110,44 @@ public class Plan {
         return max1;
     }
 
-    public int getMaxNumberSubjectInSameLevel() {
+    public int getMaxSemester() {
         int max1 = 0;
-        int[] count = new int[getMaxLevel() + 1];
         for (Subject subject : getSubjects()) {
-            int level = subject.getLevel();
-            count[level] += 1;
-            max1 = Math.max(max1, count[level]);
+            max1 = Math.max(max1, subject.getSemester());
         }
         return max1;
     }
 
-    public int getNumberSubjectLevelX(int level) {
+    public int getMaxNumberSubjectInSameLevelAndSemester() {
+        int max1 = 0;
+        int[] count = new int[Math.max(getMaxLevel(), getMaxSemester()) + 1];
+        for (Subject subject : getSubjects()) {
+            int level = subject.getLevel();
+            int semester = subject.getSemester();
+            if (semester == 0) {
+                count[level] += 1;
+                max1 = Math.max(max1, count[level]);
+            } else {
+                count[semester] += 1;
+                max1 = Math.max(max1, count[semester]);
+            }
+        }
+        return max1;
+    }
+
+    public int getNumberSubjectLevelXOrSemesterX(int levelX) {
         int count = 0;
         for (Subject subject : getSubjects()) {
             int lvl = subject.getLevel();
-            if (lvl == level) {
-                count++;
+            int semester = subject.getSemester();
+            if (semester == 0) {
+                if (lvl == levelX) {
+                    count++;
+                }
+            } else {
+                if (semester == levelX) {
+                    count++;
+                }
             }
         }
         return count;

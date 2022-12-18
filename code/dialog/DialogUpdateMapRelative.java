@@ -45,9 +45,10 @@ public class DialogUpdateMapRelative {
         private PanelString panelCharacterScore = null;
         private PanelString panelScore4 = null;
         private Button panelColor = null;
+        private Button panelSemester = null;
         private JPanel panelColorDemo = null;
         private String[] buttonTexts = {
-                        ""
+                        "", ""
         };
         private Button[] buttons;
 
@@ -164,7 +165,18 @@ public class DialogUpdateMapRelative {
                 panelColor.setBackgroundColorButton(dialog.getBackground());
                 panelColor.setStrokeWidth(0);
                 panelColor.setEnable(false);
-                tempHeight += panelColor.getHeight() + 100;
+                tempHeight += panelColor.getHeight() + 5;
+
+                panelSemester = new Button("Học kỳ: " + subject.getSemester());
+                panelSemester.setFontText(Button.ARIAL_BOLD_18);
+                panelSemester.setCorrectSizeButton();
+                panelSemester.setSizeButton(width / 5, panelSemester.getHeight() / 7 * 8 + 10);
+                panelSemester.setLocationButton(0, tempHeight, Button.TOP_LEFT);
+                panelSemester.setLocationText(width / 10, 0);
+                panelSemester.setBackgroundColorButton(dialog.getBackground());
+                panelSemester.setStrokeWidth(0);
+                panelSemester.setEnable(false);
+                tempHeight += panelSemester.getHeight() + 100;
 
                 // Create buttons
                 buttons = new Button[buttonTexts.length];
@@ -191,6 +203,8 @@ public class DialogUpdateMapRelative {
                 // Set location for each button
                 buttons[0].setLocationButton(panelColorDemo.getX() + panelColorDemo.getWidth() + 20, panelColor.getY(),
                                 Button.TOP_LEFT);
+                buttons[1].setLocationButton(panelSemester.getX() + panelSemester.getWidth() + 20, panelSemester.getY(),
+                                Button.TOP_LEFT);
 
                 panelScroll.setSize(width, tempHeight);
                 panelScroll.setBounds(0, -this.scrollCursor, panelScroll.getWidth(), panelScroll.getHeight());
@@ -208,6 +222,7 @@ public class DialogUpdateMapRelative {
                 panelScroll.add(panelCharacterScore);
                 panelScroll.add(panelScore4);
                 panelScroll.add(panelColor);
+                panelScroll.add(panelSemester);
                 panelScroll.add(panelColorDemo);
 
                 panelScroll.addMouseWheelListener(new MouseWheelHandler());
@@ -220,6 +235,7 @@ public class DialogUpdateMapRelative {
         public void updateContent() {
                 panelColor.setTextButton("Màu sắc: " + subject.getStringColor());
                 panelColorDemo.setBackground(subject.getColor());
+                panelSemester.setTextButton("Học kỳ: " + subject.getSemester());
                 panelScroll.setBounds(panelScroll.getX(), -this.scrollCursor, panelScroll.getWidth(),
                                 panelScroll.getHeight());
         }
@@ -267,6 +283,21 @@ public class DialogUpdateMapRelative {
                                 Color colorInput = JColorChooser.showDialog(dialog, "Choose color", subject.getColor());
                                 if (colorInput != null) {
                                         subject.setColor(colorInput);
+                                        updateContent();
+                                }
+                        } else if (event.getSource() == buttons[1]) {
+                                DialogList dialog1 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                                                DialogList.CENTER_CENTER, "Edit semester", new String[] {
+                                                                "Chọn học kỳ dành cho môn học này.",
+                                                                "(Học kỳ 0 đồng nghĩa với việc không xét học kỳ,",
+                                                                "không ảnh hưởng tới sơ đồ liên hệ môn)"
+                                                },
+                                                new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+                                                                "11", "12", "13", "14" });
+                                String semester = dialog1.getText();
+                                if (semester != null && !semester.isEmpty()) {
+                                        subject.setSemester(Integer.parseInt(semester));
                                         updateContent();
                                 }
                         }

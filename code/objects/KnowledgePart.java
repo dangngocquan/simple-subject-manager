@@ -6,22 +6,22 @@ import java.util.List;
 public class KnowledgePart {
     // Properties
     private String name;
-    private List<Subject> compulsorySubjecs;
+    private List<List<Subject>> compulsorySubjecs;
     private List<List<Subject>> optionalSubjects;
-    private int minCreditsCompulsorySubjects;
-    private int minCreditsOptionalSubjects;
-    private String descriptionCompulsory;
+    private List<Integer> minCreditsCompulsorySubjects;
+    private List<Integer> minCreditsOptionalSubjects;
+    private List<String> descriptionCompulsory;
     private String mainDescriptionOptionalSubjects;
     private List<String> descriptionOptionals;
 
     // Constructor
     public KnowledgePart(String name) {
         this.name = name;
-        this.compulsorySubjecs = new LinkedList<Subject>();
+        this.compulsorySubjecs = new LinkedList<List<Subject>>();
         this.optionalSubjects = new LinkedList<List<Subject>>();
-        this.minCreditsCompulsorySubjects = 0;
-        this.minCreditsOptionalSubjects = 0;
-        this.descriptionCompulsory = "";
+        this.minCreditsCompulsorySubjects = new LinkedList<Integer>();
+        this.minCreditsOptionalSubjects = new LinkedList<Integer>();
+        this.descriptionCompulsory = new LinkedList<String>();
         this.mainDescriptionOptionalSubjects = "";
         this.descriptionOptionals = new LinkedList<String>();
     }
@@ -31,16 +31,26 @@ public class KnowledgePart {
         return this.name;
     }
 
-    public int getMinCreditsCompulsorySubjects() {
+    public List<Integer> getMinCreditsCompulsorySubjects() {
         return this.minCreditsCompulsorySubjects;
     }
 
-    public int getMinCreditsOptionalSubjects() {
+    public List<Integer> getMinCreditsOptionalSubjects() {
         return this.minCreditsOptionalSubjects;
     }
 
-    public List<Subject> getCompulsorySubjects() {
+    public List<List<Subject>> getCompulsorySubjects() {
         return this.compulsorySubjecs;
+    }
+
+    public List<Subject> getCompulsorySubjectsByList() {
+        List<Subject> lst = new LinkedList<Subject>();
+        for (List<Subject> subjects : compulsorySubjecs) {
+            for (Subject subject : subjects) {
+                lst.add(subject);
+            }
+        }
+        return lst;
     }
 
     public List<List<Subject>> getOptionalSubjects() {
@@ -57,7 +67,7 @@ public class KnowledgePart {
         return lst;
     }
 
-    public String getDescriptionCompulsory() {
+    public List<String> getDescriptionCompulsory() {
         return this.descriptionCompulsory;
     }
 
@@ -71,7 +81,7 @@ public class KnowledgePart {
 
     public List<Subject> getSubjects() {
         List<Subject> subjects = new LinkedList<Subject>();
-        for (Subject subject : this.compulsorySubjecs) {
+        for (Subject subject : getCompulsorySubjectsByList()) {
             subjects.add(subject);
         }
         for (Subject subject : getOptionalSubjectsByList()) {
@@ -84,21 +94,29 @@ public class KnowledgePart {
         return this.optionalSubjects.size();
     }
 
+    public int getNumberOfCompulsorySubjectsList() {
+        return this.compulsorySubjecs.size();
+    }
+
     // Setter
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setMinCreditsCompulsorySubjects(int credits) {
-        this.minCreditsCompulsorySubjects = credits;
+    public void addMinCreditsCompulsorySubjects(int credits) {
+        this.minCreditsCompulsorySubjects.add(credits);
     }
 
-    public void setMinCreditsOptionalSubjects(int credits) {
-        this.minCreditsOptionalSubjects = credits;
+    public void addMinCreditsOptionalSubjects(int credits) {
+        this.minCreditsOptionalSubjects.add(credits);
     }
 
-    public void addCompulsorySubject(Subject subject) {
-        this.compulsorySubjecs.add(subject);
+    public void addCompulaorySubjects(List<Subject> subjects) {
+        this.compulsorySubjecs.add(subjects);
+    }
+
+    public void addCompulsorySubject(Subject subject, int indexCompulsory) {
+        this.compulsorySubjecs.get(indexCompulsory).add(subject);
     }
 
     public void addOptionalSubjects(List<Subject> subjects) {
@@ -111,8 +129,8 @@ public class KnowledgePart {
         }
     }
 
-    public void setDescriptionCompulsory(String description) {
-        this.descriptionCompulsory = description;
+    public void addDescriptionCompulsory(String description) {
+        this.descriptionCompulsory.add(description);
     }
 
     public void setMainDescriptionOptionalSubjects(String des) {

@@ -6,8 +6,10 @@ import java.awt.event.MouseEvent;
 import code.Setting;
 import code.dialog.DialogUpdateMapRelative;
 import code.file_handler.WriteFile;
+import code.objects.Button;
 import code.objects.Plan;
 import code.objects.Subject;
+import java.awt.RenderingHints;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -30,7 +32,7 @@ public class PanelMapRelativeSubjects extends JPanel {
 
     public static final Color COLOR_SUBJECT_ENTERED = Setting.COLOR_VIOLET_03;
     public static final Color COLOR_SUBJECT_EXITED_1 = Setting.COLOR_GRAY_05;
-    public static final Color COLOR_LINE_ENTERED = Setting.COLOR_BLUE_02;
+    public static final Color COLOR_LINE_ENTERED = Setting.COLOR_BLUE_03;
     public static final Color COLOR_LINE_EXITED = Setting.COLOR_BLACK;
     public static final Color COLOR_STROKE_PANEL_SUBJECT_EXITED = Setting.COLOR_BLACK;
     public static final Color COLOR_STROKE_PANEL_SUBJECT_ENTERED = COLOR_LINE_ENTERED;
@@ -39,7 +41,7 @@ public class PanelMapRelativeSubjects extends JPanel {
     private int width, height; // size of this panel
     private int xPos, yPos, rootLocationType; // location of top-left point
     private Plan plan; // data plan
-    private PanelSubject4[] panelSubjects = null;
+    private Button[] panelSubjects = null;
     private int indexPlan;
     private ArrayList<LinkedList<Line2D>> lines = null;
     private ArrayList<LinkedList<Integer>> indexes = null; // Save index of parent-subjects of each subject
@@ -59,27 +61,37 @@ public class PanelMapRelativeSubjects extends JPanel {
         setLocation(x, y, rootLocationType);
 
         // Draw panel
-        int maxRow = plan.getMaxLevel() + 1;
-        int maxColumn = plan.getMaxNumberSubjectInSameLevel() + 1;
+        int maxRow = Math.max(plan.getMaxLevel() + 1, plan.getMaxSemester() + 1);
+        int maxColumn = plan.getMaxNumberSubjectInSameLevelAndSemester() + 1;
         int heightPerSubjectPanel = height / maxRow;
         int widthPerSubjectPanel = width / maxColumn;
 
         // Draw panel subjects
-        panelSubjects = new PanelSubject4[plan.getSubjects().size()];
+        panelSubjects = new Button[plan.getSubjects().size()];
         int count = 0;
         int[] tempLocation = new int[maxRow];
-        for (int level = 0; level < maxRow; level++) {
-            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelX(level)) / 2;
+        for (int level = 1; level < maxRow; level++) {
+            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level) - 1) / 2;
         }
         for (Subject subject : plan.getSubjects()) {
             int level = subject.getLevel();
-            panelSubjects[count] = new PanelSubject4(
+            if (subject.getSemester() > 0) {
+                level = subject.getSemester();
+            }
+            panelSubjects[count] = new Button(subject.getCode());
+            panelSubjects[count].setFontText(Button.ARIAL_BOLD_13);
+            panelSubjects[count].setCorrectSizeButton();
+            panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
+                    Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
+            panelSubjects[count].setLocationButton(
                     tempLocation[level] * widthPerSubjectPanel + 15 + (level % 2) * widthPerSubjectPanel / 2,
-                    level * heightPerSubjectPanel + 15,
-                    subject, widthPerSubjectPanel / 10 * 8, heightPerSubjectPanel / 3 - 18, null,
-                    PanelSubject4.TOP_LEFT);
+                    level * heightPerSubjectPanel + 15, Button.TOP_LEFT);
+            panelSubjects[count].setBackgroundColorButton(subject.getColor());
+            panelSubjects[count].setBackgroundColorExitedButton(subject.getColor());
+            panelSubjects[count].setBackgroundColorEnteredButton(COLOR_SUBJECT_ENTERED);
+            panelSubjects[count].setStrokeColor(COLOR_STROKE_PANEL_SUBJECT_EXITED);
+            panelSubjects[count].setStrokeWidth(2);
             panelSubjects[count].setToolTipText(String.format("%s - %s", subject.getCode(), subject.getName()));
-            panelSubjects[count].setBackgroundColorPanelSubject(COLOR_STROKE_PANEL_SUBJECT_EXITED, subject.getColor());
             panelSubjects[count].addMouseListener(new MouseHandler());
             add(panelSubjects[count]);
             count++;
@@ -107,9 +119,54 @@ public class PanelMapRelativeSubjects extends JPanel {
         }
     }
 
-    // Update content data
-    public void updateContent() {
+    // Update all
+    public void updateDataContent() {
+        // Draw panel
+        int maxRow = Math.max(plan.getMaxLevel() + 1, plan.getMaxSemester() + 1);
+        int maxColumn = plan.getMaxNumberSubjectInSameLevelAndSemester() + 1;
+        int heightPerSubjectPanel = height / maxRow;
+        int widthPerSubjectPanel = width / maxColumn;
 
+        // Draw panel subjects
+        int count = 0;
+        int[] tempLocation = new int[maxRow];
+        for (int level = 1; level < maxRow; level++) {
+            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level) - 1) / 2;
+        }
+        for (Subject subject : plan.getSubjects()) {
+            int level = subject.getLevel();
+            if (subject.getSemester() > 0) {
+                level = subject.getSemester();
+            }
+
+            panelSubjects[count].setCorrectSizeButton();
+            panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
+                    Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
+            panelSubjects[count].setLocationButton(
+                    tempLocation[level] * widthPerSubjectPanel + 15 + (level % 2) * widthPerSubjectPanel / 2,
+                    level * heightPerSubjectPanel + 15, Button.TOP_LEFT);
+            count++;
+            tempLocation[level]++;
+        }
+
+        // Create and draw lines
+        lines.clear();
+        for (int i = 0; i < plan.getSubjects().size(); i++) {
+            lines.add(new LinkedList<Line2D>());
+        }
+        for (int i = 0; i < plan.getSubjects().size(); i++) {
+            Subject subject = plan.getSubjects().get(i);
+            for (Subject parentSubject : subject.getParentSubjectsByList()) {
+                int j = plan.getIndexOfSubject(parentSubject);
+                Line2D line = new Line2D.Float(panelSubjects[j].getCenterX(), panelSubjects[j].getBottomY(),
+                        panelSubjects[i].getCenterX(), panelSubjects[i].getY());
+                lines.get(i).add(line);
+                lines.get(j).add(line);
+            }
+        }
+
+        // Repaint map
+        repaint();
     }
 
     // Get rootLocationType
@@ -180,6 +237,8 @@ public class PanelMapRelativeSubjects extends JPanel {
         if (indexSubjectEntering == -1) {
             for (int i = 0; i < lines.size(); i++) {
                 for (Line2D line : lines.get(i)) {
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
                     g2.draw(line);
                 }
             }
@@ -206,13 +265,18 @@ public class PanelMapRelativeSubjects extends JPanel {
                     DialogUpdateMapRelative dialog = new DialogUpdateMapRelative(Setting.WIDTH / 2,
                             Setting.HEIGHT / 2,
                             Setting.WIDTH / 3 * 2, Setting.HEIGHT / 7 * 6,
-                            DialogUpdateMapRelative.CENTER_CENTER, "Update subject", (new String[] {}),
+                            DialogUpdateMapRelative.CENTER_CENTER,
+                            "Update subject " + plan.getSubjects().get(i).getCode() + " - "
+                                    + plan.getSubjects().get(i).getName(),
+                            (new String[] {}),
                             plan.getSubjects().get(i));
                     plan.getSubjects().set(i, dialog.getSubject());
                     WriteFile.editSubject(indexPlan, i, plan.getSubjects().get(i));
+                    panelSubjects[i].setBackgroundColorButton(plan.getSubjects().get(i).getColor());
+                    panelSubjects[i].setBackgroundColorExitedButton(plan.getSubjects().get(i).getColor());
+                    updateDataContent();
                 }
             }
-            updateContent();
         }
 
         @Override
@@ -225,13 +289,14 @@ public class PanelMapRelativeSubjects extends JPanel {
             for (int count = 0; count < panelSubjects.length; count++) {
                 if (e.getSource() == panelSubjects[count]) {
                     setIndexSubjectPanelEntering(count);
-                    panelSubjects[count].setBackgroundColorPanelSubject(
-                            COLOR_STROKE_PANEL_SUBJECT_ENTERED,
-                            COLOR_SUBJECT_ENTERED);
+                    panelSubjects[count].setStrokeColor(COLOR_STROKE_PANEL_SUBJECT_ENTERED);
                     for (int indexParentSubject : indexes.get(indexSubjectEntering)) {
-                        panelSubjects[indexParentSubject].setBackgroundColorPanelSubject(
-                                COLOR_STROKE_PANEL_SUBJECT_ENTERED,
-                                plan.getSubjects().get(indexParentSubject).getColor());
+                        panelSubjects[indexParentSubject].setStrokeColor(COLOR_STROKE_PANEL_SUBJECT_ENTERED);
+                    }
+                    for (int i = 0; i < panelSubjects.length; i++) {
+                        if (!indexes.get(indexSubjectEntering).contains(i) && i != indexSubjectEntering) {
+                            panelSubjects[i].setVisible(false);
+                        }
                     }
                 }
             }
@@ -240,19 +305,20 @@ public class PanelMapRelativeSubjects extends JPanel {
 
         @Override
         public void mouseExited(MouseEvent e) {
-            setIndexSubjectPanelEntering(-1);
             for (int count = 0; count < panelSubjects.length; count++) {
                 if (e.getSource() == panelSubjects[count]) {
-                    panelSubjects[count].setBackgroundColorPanelSubject(
-                            COLOR_STROKE_PANEL_SUBJECT_EXITED,
-                            plan.getSubjects().get(count).getColor());
+                    for (int i = 0; i < panelSubjects.length; i++) {
+                        if (!indexes.get(indexSubjectEntering).contains(i) && i != indexSubjectEntering) {
+                            panelSubjects[i].setVisible(true);
+                        }
+                    }
+                    panelSubjects[count].setStrokeColor(COLOR_STROKE_PANEL_SUBJECT_EXITED);
                     for (int indexParentSubject : indexes.get(count)) {
-                        panelSubjects[indexParentSubject].setBackgroundColorPanelSubject(
-                                COLOR_STROKE_PANEL_SUBJECT_EXITED,
-                                plan.getSubjects().get(indexParentSubject).getColor());
+                        panelSubjects[indexParentSubject].setStrokeColor(COLOR_STROKE_PANEL_SUBJECT_EXITED);
                     }
                 }
             }
+            setIndexSubjectPanelEntering(-1);
             repaint();
         }
     }
