@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
 import code.Setting;
 import code.objects.Button;
 import code.objects.ConversionTable;
@@ -29,6 +31,8 @@ public class DialogUpdateScoreSubject {
         private JDialog dialog = null;
         private Subject subject;
         private ConversionTable conversionTable;
+        private JPanel panelScroll = null;
+        private int scrollCursor = 0;
         private PanelString panelTitle = null;
         private PanelString panelSubjectName = null;
         private PanelString panelSubjectCode = null;
@@ -97,6 +101,10 @@ public class DialogUpdateScoreSubject {
                 }
                 dialog.setBounds(xPos, yPos, width, height);
 
+                // Create panelScroll
+                this.panelScroll = new JPanel();
+                panelScroll.setLayout(null);
+
                 // Create objects in this panel (String, button, ...)
                 int tempHeight = 30;
                 String[] titles = {
@@ -164,7 +172,7 @@ public class DialogUpdateScoreSubject {
                 panelScore4.setBackgroundColorButton(dialog.getBackground());
                 panelScore4.setStrokeWidth(0);
                 panelScore4.setEnable(false);
-                tempHeight += panelScore4.getHeight() + 5;
+                tempHeight += panelScore4.getHeight() + 100;
 
                 // Create buttons
                 buttons = new Button[buttonTexts.length];
@@ -182,7 +190,7 @@ public class DialogUpdateScoreSubject {
                         }
 
                         buttons[count].addMouseListener(new MouseHandler());
-                        dialog.add(buttons[count]);
+                        panelScroll.add(buttons[count]);
                 }
 
                 // Set location for each button
@@ -200,17 +208,23 @@ public class DialogUpdateScoreSubject {
                 buttons[5].setLocationButton(buttons[2].getX() + buttons[2].getWidth() + 20, buttons[2].getY(),
                                 Button.TOP_LEFT);
 
+                panelScroll.setSize(width, tempHeight);
+                panelScroll.setBounds(0, -this.scrollCursor, panelScroll.getWidth(), panelScroll.getHeight());
+
                 // add panel
-                dialog.add(panelTitle);
-                dialog.add(panelSubjectName);
-                dialog.add(panelSubjectCode);
-                dialog.add(panelSubjectCredits);
-                dialog.add(panelSubjectParentCodes);
+                panelScroll.add(panelTitle);
+                panelScroll.add(panelSubjectName);
+                panelScroll.add(panelSubjectCode);
+                panelScroll.add(panelSubjectCredits);
+                panelScroll.add(panelSubjectParentCodes);
                 panelSubjectParentCodes.add(panelSubjectParentCodes1);
                 panelSubjectParentCodes.add(panelSubjectParentCodes2);
-                dialog.add(panelScore10);
-                dialog.add(panelCharacterScore);
-                dialog.add(panelScore4);
+                panelScroll.add(panelScore10);
+                panelScroll.add(panelCharacterScore);
+                panelScroll.add(panelScore4);
+
+                panelScroll.addMouseWheelListener(new MouseWheelHandler());
+                dialog.add(panelScroll);
 
                 // Show dialog
                 dialog.setVisible(true);
@@ -218,13 +232,41 @@ public class DialogUpdateScoreSubject {
 
         public void updateContent() {
                 panelScore10.setTextButton("Điểm hệ 10: " + subject.getStringScore10());
-                panelCharacterScore.setTextButton("Điểm hệ 10: " + subject.getCharacterScore());
-                panelScore4.setTextButton("Điểm hệ 10: " + subject.getStringScore4());
+                panelCharacterScore.setTextButton("Điểm chữ: " + subject.getCharacterScore());
+                panelScore4.setTextButton("Điểm hệ 4: " + subject.getStringScore4());
+                panelScroll.setBounds(panelScroll.getX(), -this.scrollCursor, panelScroll.getWidth(),
+                                panelScroll.getHeight());
+        }
+
+        // Get max of scrollCursor
+        public int getMaxScrollCursor() {
+                return Math.max(0, panelScroll.getHeight() - dialog.getHeight());
+        }
+
+        // Set cursor
+        public void setScrollCursor(int value) {
+                if (value < 0) {
+                        this.scrollCursor = 0;
+                } else if (value > getMaxScrollCursor()) {
+                        this.scrollCursor = getMaxScrollCursor();
+                } else {
+                        this.scrollCursor = value;
+                }
         }
 
         // Get subject
         public Subject getSubject() {
                 return this.subject;
+        }
+
+        private class MouseWheelHandler implements MouseWheelListener {
+                public void mouseWheelMoved(MouseWheelEvent event) {
+                        for (int count = 0; count < 20; count++) {
+                                setScrollCursor(scrollCursor + event.getWheelRotation());
+                        }
+                        updateContent();
+                }
+
         }
 
         private class MouseHandler implements MouseListener {

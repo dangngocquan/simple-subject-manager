@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
 import code.Setting;
 import code.objects.Button;
 import code.objects.Subject;
@@ -27,6 +29,8 @@ public class DialogUpdateStatusSubject {
     private int width;
     private JDialog dialog = null;
     private Subject subject;
+    private JPanel panelScroll = null;
+    private int scrollCursor = 0;
     private PanelString panelTitle = null;
     private PanelString panelSubjectName = null;
     private PanelString panelSubjectCode = null;
@@ -93,6 +97,10 @@ public class DialogUpdateStatusSubject {
         }
         dialog.setBounds(xPos, yPos, width, height);
 
+        // Create panelScroll
+        this.panelScroll = new JPanel();
+        panelScroll.setLayout(null);
+
         // Create objects in this panel (String, button, ...)
         int tempHeight = 30;
         String[] titles = {
@@ -141,7 +149,7 @@ public class DialogUpdateStatusSubject {
         panelStatus.setBackgroundColorButton(dialog.getBackground());
         panelStatus.setStrokeWidth(0);
         panelStatus.setEnable(false);
-        tempHeight += panelStatus.getHeight() + 5;
+        tempHeight += panelStatus.getHeight() + 100;
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -154,23 +162,29 @@ public class DialogUpdateStatusSubject {
             buttons[count].setSizeButton(buttons[count].getHeight(), buttons[count].getHeight());
             buttons[count].setBackgroundIcon(Setting.EDIT);
             buttons[count].addMouseListener(new MouseHandler());
-            dialog.add(buttons[count]);
+            panelScroll.add(buttons[count]);
         }
 
         // Set location for each button
         buttons[0].setLocationButton(panelStatus.getX() + panelStatus.getWidth() + 20, panelStatus.getY(),
                 Button.TOP_LEFT);
 
+        panelScroll.setSize(width, tempHeight);
+        panelScroll.setBounds(0, -this.scrollCursor, panelScroll.getWidth(), panelScroll.getHeight());
+
         // add panel
-        dialog.add(panelTitle);
-        dialog.add(panelSubjectName);
-        dialog.add(panelSubjectCode);
-        dialog.add(panelSubjectCredits);
-        dialog.add(panelSubjectParentCodes);
+        panelScroll.add(panelTitle);
+        panelScroll.add(panelSubjectName);
+        panelScroll.add(panelSubjectCode);
+        panelScroll.add(panelSubjectCredits);
+        panelScroll.add(panelSubjectParentCodes);
         panelSubjectParentCodes.add(panelSubjectParentCodes1);
         panelSubjectParentCodes.add(panelSubjectParentCodes2);
-        dialog.add(panelAdvice);
-        dialog.add(panelStatus);
+        panelScroll.add(panelAdvice);
+        panelScroll.add(panelStatus);
+
+        panelScroll.addMouseWheelListener(new MouseWheelHandler());
+        dialog.add(panelScroll);
 
         // Show dialog
         dialog.setVisible(true);
@@ -178,11 +192,39 @@ public class DialogUpdateStatusSubject {
 
     public void updateContent() {
         panelStatus.setTextButton("Trạng thái: " + subject.getStringStatus());
+        panelScroll.setBounds(panelScroll.getX(), -this.scrollCursor, panelScroll.getWidth(),
+                panelScroll.getHeight());
     }
 
     // Get subject
     public Subject getSubject() {
         return this.subject;
+    }
+
+    // Get max of scrollCursor
+    public int getMaxScrollCursor() {
+        return Math.max(0, panelScroll.getHeight() - dialog.getHeight());
+    }
+
+    // Set cursor
+    public void setScrollCursor(int value) {
+        if (value < 0) {
+            this.scrollCursor = 0;
+        } else if (value > getMaxScrollCursor()) {
+            this.scrollCursor = getMaxScrollCursor();
+        } else {
+            this.scrollCursor = value;
+        }
+    }
+
+    private class MouseWheelHandler implements MouseWheelListener {
+        public void mouseWheelMoved(MouseWheelEvent event) {
+            for (int count = 0; count < 20; count++) {
+                setScrollCursor(scrollCursor + event.getWheelRotation());
+            }
+            updateContent();
+        }
+
     }
 
     private class MouseHandler implements MouseListener {

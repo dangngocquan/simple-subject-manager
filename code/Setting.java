@@ -146,8 +146,8 @@ public class Setting {
         };
         // Combo 9 // Deafault button when entered
         public static final Color[][] GRADIENT_COLORS_9 = {
-                        new Color[] { COLOR_BLUE_02, COLOR_GRAY_06 },
-                        new Color[] { COLOR_GRAY_06, COLOR_BLUE_02 }
+                        new Color[] { COLOR_GREEN_03, COLOR_WHITE },
+                        new Color[] { COLOR_WHITE, COLOR_GREEN_03 }
 
         };
         public static final double[][] GRADIENT_POINTS1_9 = {
