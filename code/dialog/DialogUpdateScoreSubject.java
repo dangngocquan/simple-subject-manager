@@ -36,9 +36,9 @@ public class DialogUpdateScoreSubject {
         private JPanel panelSubjectParentCodes = null;
         private PanelString panelSubjectParentCodes1 = null;
         private PanelString panelSubjectParentCodes2 = null;
-        private PanelString panelScore10 = null;
-        private PanelString panelCharacterScore = null;
-        private PanelString panelScore4 = null;
+        private Button panelScore10 = null;
+        private Button panelCharacterScore = null;
+        private Button panelScore4 = null;
         private String[] buttonTexts = {
                         "", "", "", "", "", ""
         };
@@ -113,7 +113,7 @@ public class DialogUpdateScoreSubject {
                                 width, null, PanelString.TOP_LEFT, width / 10);
                 tempHeight += panelSubjectName.getHeight() + 5;
                 panelSubjectCode = new PanelString(0, tempHeight, "Mã môn học: " + subject.getCode(),
-                                width, null, PanelString.TOP_LEFT, width / 10);
+                                width, null, PanelString.TOP_LEFT, this.width / 10);
                 tempHeight += panelSubjectCode.getHeight() + 5;
                 panelSubjectCredits = new PanelString(0, tempHeight, "Số tín chỉ: " + subject.getNumberCredits(),
                                 width, null, PanelString.TOP_LEFT, width / 10);
@@ -132,14 +132,38 @@ public class DialogUpdateScoreSubject {
                 panelSubjectParentCodes.setBounds(0, tempHeight, panelSubjectParentCodes.getWidth(),
                                 panelSubjectParentCodes.getHeight());
                 tempHeight += panelSubjectParentCodes.getHeight() + 5;
-                panelScore10 = new PanelString(0, tempHeight, "Điểm hệ 10: " + subject.getStringScore10(),
-                                width, null, PanelString.TOP_LEFT, width / 10);
+
+                panelScore10 = new Button("Điểm hệ 10: " + subject.getStringScore10());
+                panelScore10.setFontText(Button.ARIAL_BOLD_18);
+                panelScore10.setCorrectSizeButton();
+                panelScore10.setSizeButton(width / 4, panelScore10.getHeight() / 7 * 8 + 10);
+                panelScore10.setLocationButton(0, tempHeight, Button.TOP_LEFT);
+                panelScore10.setLocationText(width / 10, 0);
+                panelScore10.setBackgroundColorButton(dialog.getBackground());
+                panelScore10.setStrokeWidth(0);
+                panelScore10.setEnable(false);
                 tempHeight += panelScore10.getHeight() + 5;
-                panelCharacterScore = new PanelString(0, tempHeight, "Điểm chữ: " + subject.getCharacterScore(),
-                                width, null, PanelString.TOP_LEFT, width / 10);
+
+                panelCharacterScore = new Button("Điểm chữ: " + subject.getCharacterScore());
+                panelCharacterScore.setFontText(Button.ARIAL_BOLD_18);
+                panelCharacterScore.setCorrectSizeButton();
+                panelCharacterScore.setSizeButton(width / 4, panelCharacterScore.getHeight() / 7 * 8 + 10);
+                panelCharacterScore.setLocationButton(0, tempHeight, Button.TOP_LEFT);
+                panelCharacterScore.setLocationText(width / 10, 0);
+                panelCharacterScore.setBackgroundColorButton(dialog.getBackground());
+                panelCharacterScore.setStrokeWidth(0);
+                panelCharacterScore.setEnable(false);
                 tempHeight += panelCharacterScore.getHeight() + 5;
-                panelScore4 = new PanelString(0, tempHeight, "Điểm hệ 4: " + subject.getStringScore4(),
-                                width, null, PanelString.TOP_LEFT, width / 10);
+
+                panelScore4 = new Button("Điểm hệ 4: " + subject.getStringScore4());
+                panelScore4.setFontText(Button.ARIAL_BOLD_18);
+                panelScore4.setCorrectSizeButton();
+                panelScore4.setSizeButton(width / 4, panelScore4.getHeight() / 7 * 8 + 10);
+                panelScore4.setLocationButton(0, tempHeight, Button.TOP_LEFT);
+                panelScore4.setLocationText(width / 10, 0);
+                panelScore4.setBackgroundColorButton(dialog.getBackground());
+                panelScore4.setStrokeWidth(0);
+                panelScore4.setEnable(false);
                 tempHeight += panelScore4.getHeight() + 5;
 
                 // Create buttons
@@ -162,10 +186,13 @@ public class DialogUpdateScoreSubject {
                 }
 
                 // Set location for each button
-                buttons[0].setLocationButton(panelScore10.getX() + width / 4, panelScore10.getY(), Button.TOP_LEFT);
-                buttons[1].setLocationButton(panelCharacterScore.getX() + width / 4, panelCharacterScore.getY(),
+                buttons[0].setLocationButton(panelScore10.getX() + panelScore10.getWidth() + 20, panelScore10.getY(),
                                 Button.TOP_LEFT);
-                buttons[2].setLocationButton(panelScore4.getX() + width / 4, panelScore4.getY(), Button.TOP_LEFT);
+                buttons[1].setLocationButton(panelCharacterScore.getX() + panelCharacterScore.getWidth() + 20,
+                                panelCharacterScore.getY(),
+                                Button.TOP_LEFT);
+                buttons[2].setLocationButton(panelScore4.getX() + panelScore4.getWidth() + 20, panelScore4.getY(),
+                                Button.TOP_LEFT);
                 buttons[3].setLocationButton(buttons[0].getX() + buttons[0].getWidth() + 20, buttons[0].getY(),
                                 Button.TOP_LEFT);
                 buttons[4].setLocationButton(buttons[1].getX() + buttons[1].getWidth() + 20, buttons[1].getY(),
@@ -190,23 +217,9 @@ public class DialogUpdateScoreSubject {
         }
 
         public void updateContent() {
-                dialog.setVisible(false);
-                dialog.remove(panelScore10);
-                dialog.remove(panelCharacterScore);
-                dialog.remove(panelScore4);
-                panelScore10 = new PanelString(0, panelScore10.getY(), "Điểm hệ 10: " + subject.getStringScore10(),
-                                width, null, PanelString.TOP_LEFT, width / 10);
-                panelCharacterScore = new PanelString(0, panelCharacterScore.getY(),
-                                "Điểm chữ: " + subject.getCharacterScore(),
-                                width, null, PanelString.TOP_LEFT, width / 10);
-                panelScore4 = new PanelString(0, panelScore4.getY(), "Điểm hệ 4: " + subject.getStringScore4(),
-                                width, null, PanelString.TOP_LEFT, width / 10);
-                dialog.add(panelScore10);
-                dialog.add(panelCharacterScore);
-                dialog.add(panelScore4);
-
-                // Show dialog;
-                dialog.setVisible(true);
+                panelScore10.setTextButton("Điểm hệ 10: " + subject.getStringScore10());
+                panelCharacterScore.setTextButton("Điểm hệ 10: " + subject.getCharacterScore());
+                panelScore4.setTextButton("Điểm hệ 10: " + subject.getStringScore4());
         }
 
         // Get subject

@@ -40,7 +40,7 @@ public class DialogUpdateMapRelative {
         private PanelString panelScore10 = null;
         private PanelString panelCharacterScore = null;
         private PanelString panelScore4 = null;
-        private PanelString panelColor = null;
+        private Button panelColor = null;
         private JPanel panelColorDemo = null;
         private String[] buttonTexts = {
                         ""
@@ -146,8 +146,16 @@ public class DialogUpdateMapRelative {
                 panelScore4 = new PanelString(0, tempHeight, "Điểm hệ 4: " + subject.getStringScore4(),
                                 width, null, PanelString.TOP_LEFT, width / 10);
                 tempHeight += panelScore4.getHeight() + 5;
-                panelColor = new PanelString(0, tempHeight, "Màu sắc: " + subject.getStringColor(),
-                                width, null, PanelString.TOP_LEFT, width / 10);
+
+                panelColor = new Button("Màu sắc: " + subject.getStringColor());
+                panelColor.setFontText(Button.ARIAL_BOLD_18);
+                panelColor.setCorrectSizeButton();
+                panelColor.setSizeButton(width / 3, panelColor.getHeight() / 7 * 8 + 10);
+                panelColor.setLocationButton(0, tempHeight, Button.TOP_LEFT);
+                panelColor.setLocationText(width / 10, 0);
+                panelColor.setBackgroundColorButton(dialog.getBackground());
+                panelColor.setStrokeWidth(0);
+                panelColor.setEnable(false);
                 tempHeight += panelColor.getHeight() + 5;
 
                 // Create buttons
@@ -164,16 +172,17 @@ public class DialogUpdateMapRelative {
                         dialog.add(buttons[count]);
                 }
 
-                // Set location for each button
-                buttons[0].setLocationButton(panelColor.getX() + width / 3 + 100, panelColor.getY(), Button.TOP_LEFT);
-
                 // panel color demo
                 panelColorDemo = new JPanel();
                 panelColorDemo.setLayout(null);
-                panelColorDemo.setSize(buttons[0].getWidth(), panelColor.getHeight());
-                panelColorDemo.setBounds(buttons[0].getX() - panelColorDemo.getWidth() - 20, 0,
+                panelColorDemo.setSize(this.width / 10, panelColor.getHeight());
+                panelColorDemo.setBounds(panelColor.getX() + panelColor.getWidth() + 20, panelColor.getY(),
                                 panelColorDemo.getWidth(), panelColorDemo.getHeight());
                 panelColorDemo.setBackground(subject.getColor());
+
+                // Set location for each button
+                buttons[0].setLocationButton(panelColorDemo.getX() + panelColorDemo.getWidth() + 20, panelColor.getY(),
+                                Button.TOP_LEFT);
 
                 // add panel
                 dialog.add(panelTitle);
@@ -188,27 +197,15 @@ public class DialogUpdateMapRelative {
                 dialog.add(panelCharacterScore);
                 dialog.add(panelScore4);
                 dialog.add(panelColor);
-                panelColor.add(panelColorDemo);
+                dialog.add(panelColorDemo);
 
                 // Show dialog
                 dialog.setVisible(true);
         }
 
         public void updateContent() {
-                dialog.setVisible(false);
-
-                dialog.remove(panelColor);
-                panelColor = new PanelString(0, panelColor.getY(), "Trạng thái: " + subject.getStringColor(),
-                                width, null, PanelString.TOP_LEFT, width / 10);
-                dialog.add(panelColor);
-
-                buttons[0].setLocationButton(panelColor.getX() + width / 3 + 100, panelColor.getY(), Button.TOP_LEFT);
-                panelColorDemo.setBounds(buttons[0].getX() - panelColorDemo.getWidth() - 20, 0,
-                                panelColorDemo.getWidth(), panelColorDemo.getHeight());
+                panelColor.setTextButton("Màu sắc: " + subject.getStringColor());
                 panelColorDemo.setBackground(subject.getColor());
-                panelColor.add(panelColorDemo);
-                // Show dialog;
-                dialog.setVisible(true);
         }
 
         // Get subject

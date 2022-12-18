@@ -35,7 +35,7 @@ public class DialogUpdateStatusSubject {
     private PanelString panelSubjectParentCodes1 = null;
     private PanelString panelSubjectParentCodes2 = null;
     private PanelString panelAdvice = null;
-    private PanelString panelStatus = null;
+    private Button panelStatus = null;
     private String[] buttonTexts = {
             ""
     };
@@ -131,8 +131,16 @@ public class DialogUpdateStatusSubject {
         panelAdvice = new PanelString(0, tempHeight, "Khả năng đăng kí: " + subject.getAdvice(),
                 width, null, PanelString.TOP_LEFT, width / 10);
         tempHeight += panelAdvice.getHeight() + 5;
-        panelStatus = new PanelString(0, tempHeight, "Trạng thái: " + subject.getStringStatus(),
-                width, null, PanelString.TOP_LEFT, width / 10);
+
+        panelStatus = new Button("Trạng thái: " + subject.getStringStatus());
+        panelStatus.setFontText(Button.ARIAL_BOLD_18);
+        panelStatus.setCorrectSizeButton();
+        panelStatus.setSizeButton(this.width / 3, panelStatus.getHeight() / 7 * 8 + 10);
+        panelStatus.setLocationButton(0, tempHeight, Button.TOP_LEFT);
+        panelStatus.setLocationText(width / 10, 0);
+        panelStatus.setBackgroundColorButton(dialog.getBackground());
+        panelStatus.setStrokeWidth(0);
+        panelStatus.setEnable(false);
         tempHeight += panelStatus.getHeight() + 5;
 
         // Create buttons
@@ -150,7 +158,8 @@ public class DialogUpdateStatusSubject {
         }
 
         // Set location for each button
-        buttons[0].setLocationButton(panelStatus.getX() + width / 3, panelStatus.getY(), Button.TOP_LEFT);
+        buttons[0].setLocationButton(panelStatus.getX() + panelStatus.getWidth() + 20, panelStatus.getY(),
+                Button.TOP_LEFT);
 
         // add panel
         dialog.add(panelTitle);
@@ -168,14 +177,7 @@ public class DialogUpdateStatusSubject {
     }
 
     public void updateContent() {
-        dialog.setVisible(false);
-
-        dialog.remove(panelStatus);
-        panelStatus = new PanelString(0, panelStatus.getY(), "Trạng thái: " + subject.getStringStatus(),
-                width, null, PanelString.TOP_LEFT, width / 10);
-        dialog.add(panelStatus);
-        // Show dialog;
-        dialog.setVisible(true);
+        panelStatus.setTextButton("Trạng thái: " + subject.getStringStatus());
     }
 
     // Get subject
