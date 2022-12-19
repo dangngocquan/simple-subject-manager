@@ -23,6 +23,8 @@ public class Subject {
     private double score4 = -1.0;
     private Color color = new Color(255, 255, 255);
     private int semester = 0; // 1, 2, 3, ...
+    private int level = -1;
+    private int rowIndexSorted = -1, columnIndexSorted = -1;
 
     // Constructor
     public Subject(String name, String code, int credits) {
@@ -159,7 +161,11 @@ public class Subject {
 
     // Get level
     public int getLevel() {
+        if (this.level > -1) {
+            return this.level;
+        }
         if (getParentSubjects().size() == 0) {
+            this.level = 0;
             return 0;
         } else {
             int max1 = 0;
@@ -168,8 +174,28 @@ public class Subject {
                     max1 = Math.max(max1, parentSubject.getLevel());
                 }
             }
+            this.level = 2 + max1;
             return 2 + max1;
         }
+    }
+
+    public int getRowIndexInMap() {
+        if (this.semester > 0) {
+            return semester;
+        }
+        return getLevel();
+    }
+
+    public int getRowIndexSorted() {
+        return this.rowIndexSorted;
+    }
+
+    public int getColumnIndexSorted() {
+        return this.columnIndexSorted;
+    }
+
+    public boolean hasValidCoordinateInMap() {
+        return (rowIndexSorted > -1 && columnIndexSorted > -1);
     }
 
     // Setter method
@@ -201,6 +227,10 @@ public class Subject {
         this.state = state;
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
     public void setCharacterScore(String score) {
         this.characterScore = score;
     }
@@ -219,5 +249,13 @@ public class Subject {
 
     public void setScore4(double value) {
         this.score4 = value;
+    }
+
+    public void setRowIndexSorted(int row) {
+        this.rowIndexSorted = row;
+    }
+
+    public void setColumnIndexSorted(int column) {
+        this.columnIndexSorted = column;
     }
 }

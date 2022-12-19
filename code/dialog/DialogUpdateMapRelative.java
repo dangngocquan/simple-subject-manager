@@ -286,6 +286,7 @@ public class DialogUpdateMapRelative {
                                         updateContent();
                                 }
                         } else if (event.getSource() == buttons[1]) {
+                                int oldSemester = subject.getSemester();
                                 DialogList dialog1 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
                                                 Setting.WIDTH / 3, Setting.HEIGHT / 3,
                                                 DialogList.CENTER_CENTER, "Edit semester", new String[] {
@@ -298,6 +299,10 @@ public class DialogUpdateMapRelative {
                                 String semester = dialog1.getText();
                                 if (semester != null && !semester.isEmpty()) {
                                         subject.setSemester(Integer.parseInt(semester));
+                                        if (subject.getSemester() != oldSemester) {
+                                                subject.setRowIndexSorted(-1);
+                                                subject.setColumnIndexSorted(-1);
+                                        }
                                         updateContent();
                                 }
                         }

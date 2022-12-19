@@ -32,7 +32,7 @@ public class PanelMapRelativeSubjects extends JPanel {
 
     public static final Color COLOR_SUBJECT_ENTERED = Setting.COLOR_VIOLET_03;
     public static final Color COLOR_SUBJECT_EXITED_1 = Setting.COLOR_GRAY_05;
-    public static final Color COLOR_LINE_ENTERED = Setting.COLOR_BLUE_03;
+    public static final Color COLOR_LINE_ENTERED = Setting.COLOR_BLACK;
     public static final Color COLOR_LINE_EXITED = Setting.COLOR_BLACK;
     public static final Color COLOR_STROKE_PANEL_SUBJECT_EXITED = Setting.COLOR_BLACK;
     public static final Color COLOR_STROKE_PANEL_SUBJECT_ENTERED = COLOR_LINE_ENTERED;
@@ -47,6 +47,7 @@ public class PanelMapRelativeSubjects extends JPanel {
     private ArrayList<LinkedList<Integer>> indexes = null; // Save index of parent-subjects of each subject
     private int indexSubjectEntering = -1;
     private Color tempColorLineEntered = COLOR_LINE_ENTERED;
+    private int[] rows, columns;
 
     // Constructor
     public PanelMapRelativeSubjects(int x, int y, int width, int height, Plan plan, int indexPlan,
@@ -61,6 +62,9 @@ public class PanelMapRelativeSubjects extends JPanel {
         setSize(width, height);
         setLocation(x, y, rootLocationType);
 
+        this.rows = new int[plan.getSubjects().size()];
+        this.columns = new int[plan.getSubjects().size()];
+
         // Draw panel
         int maxRow = Math.max(plan.getMaxLevel() + 1, plan.getMaxSemester() + 1);
         int maxColumn = plan.getMaxNumberSubjectInSameLevelAndSemester() + 1;
@@ -71,22 +75,36 @@ public class PanelMapRelativeSubjects extends JPanel {
         panelSubjects = new Button[plan.getSubjects().size()];
         int count = 0;
         int[] tempLocation = new int[maxRow];
-        for (int level = 1; level < maxRow; level++) {
-            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level) - 1) / 2;
+
+        for (int level = 0; level < maxRow; level++) {
+            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level)) / 2;
+            tempLocation[level] = Math.max(tempLocation[level], 0);
         }
+
+        boolean isValidMap = plan.checkValidMap();
+
         for (Subject subject : plan.getSubjects()) {
-            int level = subject.getLevel();
-            if (subject.getSemester() > 0) {
-                level = subject.getSemester();
+            // Create location of this subject panel in map
+            int row = subject.getRowIndexInMap();
+            int column = tempLocation[row];
+
+            // Only use 'rowIndexSorted' and 'columnIndexSorted' if them valid
+            if (isValidMap) {
+                row = subject.getRowIndexSorted();
+                column = subject.getColumnIndexSorted();
             }
+
+            this.rows[count] = row;
+            this.columns[count] = column;
+
             panelSubjects[count] = new Button(subject.getCode());
             panelSubjects[count].setFontText(Button.ARIAL_BOLD_13);
             panelSubjects[count].setCorrectSizeButton();
             panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
                     Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
             panelSubjects[count].setLocationButton(
-                    tempLocation[level] * widthPerSubjectPanel + 15 + ((level / 2) % 2) * widthPerSubjectPanel / 2,
-                    level * heightPerSubjectPanel + 15, Button.TOP_LEFT);
+                    column * widthPerSubjectPanel + 15 + (row % 4) / 2 * widthPerSubjectPanel / 4,
+                    row * heightPerSubjectPanel + 15, Button.TOP_LEFT);
             panelSubjects[count].setBackgroundColorButton(subject.getColor());
             panelSubjects[count].setBackgroundColorExitedButton(subject.getColor());
             panelSubjects[count].setBackgroundColorEnteredButton(COLOR_SUBJECT_ENTERED);
@@ -96,7 +114,7 @@ public class PanelMapRelativeSubjects extends JPanel {
             panelSubjects[count].addMouseListener(new MouseHandler());
             add(panelSubjects[count]);
             count++;
-            tempLocation[level]++;
+            tempLocation[row]++;
         }
 
         // Create and draw lines
@@ -118,6 +136,8 @@ public class PanelMapRelativeSubjects extends JPanel {
                 indexes.get(j).add(i);
             }
         }
+
+        updateDataContent();
     }
 
     // Update all
@@ -129,25 +149,51 @@ public class PanelMapRelativeSubjects extends JPanel {
         int widthPerSubjectPanel = width / maxColumn;
 
         // Draw panel subjects
+        // First, get default (valid) coordinate for all subject
         int count = 0;
         int[] tempLocation = new int[maxRow];
-        for (int level = 1; level < maxRow; level++) {
-            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level) - 1) / 2;
+        for (int level = 0; level < maxRow; level++) {
+            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level)) / 2;
+            tempLocation[level] = Math.max(tempLocation[level], 0);
         }
+
+        boolean isValidMap = plan.checkValidMap();
+
         for (Subject subject : plan.getSubjects()) {
-            int level = subject.getLevel();
-            if (subject.getSemester() > 0) {
-                level = subject.getSemester();
+            int row = subject.getRowIndexInMap();
+            int column = tempLocation[row];
+
+            if (isValidMap) {
+                row = subject.getRowIndexSorted();
+                column = subject.getColumnIndexSorted();
             }
+
+            // Save this to use for sort map
+            this.rows[count] = row;
+            this.columns[count] = column;
+
+            count++;
+            tempLocation[row]++;
+        }
+
+        // Then, get real (valid) coordinate for all subject, use 'rowIndexSortedInMap'
+        // and 'columnIndexSortedInMap'
+        plan.sortMatrixSubject(this.rows, this.columns, maxRow - 1, maxColumn - 1, indexPlan);
+        count = 0;
+        for (Subject subject : plan.getSubjects()) {
+            int row = subject.getRowIndexSorted();
+            int column = subject.getColumnIndexSorted();
+
+            this.rows[count] = row;
+            this.columns[count] = column;
 
             panelSubjects[count].setCorrectSizeButton();
             panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
                     Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
             panelSubjects[count].setLocationButton(
-                    tempLocation[level] * widthPerSubjectPanel + 15 + ((level / 2) % 2) * widthPerSubjectPanel / 2,
-                    level * heightPerSubjectPanel + 15, Button.TOP_LEFT);
+                    column * widthPerSubjectPanel + 15 + (row % 4) / 2 * widthPerSubjectPanel / 4,
+                    row * heightPerSubjectPanel + 15, Button.TOP_LEFT);
             count++;
-            tempLocation[level]++;
         }
 
         // Create and draw lines
@@ -265,6 +311,7 @@ public class PanelMapRelativeSubjects extends JPanel {
         public void mousePressed(MouseEvent e) {
             for (int i = 0; i < panelSubjects.length; i++) {
                 if (e.getSource() == panelSubjects[i]) {
+                    int oldSemester = plan.getSubjects().get(i).getSemester();
                     DialogUpdateMapRelative dialog = new DialogUpdateMapRelative(Setting.WIDTH / 2,
                             Setting.HEIGHT / 2,
                             Setting.WIDTH / 3 * 2, Setting.HEIGHT / 7 * 6,
@@ -277,7 +324,9 @@ public class PanelMapRelativeSubjects extends JPanel {
                     WriteFile.editSubject(indexPlan, i, plan.getSubjects().get(i));
                     panelSubjects[i].setBackgroundColorButton(plan.getSubjects().get(i).getColor());
                     panelSubjects[i].setBackgroundColorExitedButton(plan.getSubjects().get(i).getColor());
-                    updateDataContent();
+                    if (oldSemester != plan.getSubjects().get(i).getSemester()) {
+                        updateDataContent();
+                    }
                 }
             }
         }

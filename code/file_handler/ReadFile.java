@@ -86,7 +86,10 @@ public class ReadFile {
         String[] rgb = data.get(6).split(";");
         double score10 = Double.parseDouble(data.get(7));
         double score4 = Double.parseDouble(data.get(8));
-        int yearStudy = Integer.parseInt(data.get(9));
+        int semester = Integer.parseInt(data.get(9));
+        int level = Integer.parseInt(data.get(10));
+        int rowIndexSorted = Integer.parseInt(data.get(11));
+        int columnIndexSorted = Integer.parseInt(data.get(12));
 
         Subject subject = new Subject(name, code, credits);
         for (String[] parentCode : parentSubjectCodes) {
@@ -97,7 +100,10 @@ public class ReadFile {
         subject.setColor(Integer.parseInt(rgb[0]), Integer.parseInt(rgb[1]), Integer.parseInt(rgb[2]));
         subject.setScore10(score10);
         subject.setScore4(score4);
-        subject.setSemester(yearStudy);
+        subject.setSemester(semester);
+        subject.setLevel(level);
+        subject.setRowIndexSorted(rowIndexSorted);
+        subject.setColumnIndexSorted(columnIndexSorted);
 
         return subject;
     }

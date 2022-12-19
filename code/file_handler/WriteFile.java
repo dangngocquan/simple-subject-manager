@@ -231,9 +231,13 @@ public class WriteFile {
                 + subject.getColor().getBlue();
         double score10 = subject.getScore10();
         double score4 = subject.getScore4();
+        int level = subject.getLevel();
+        int rowIndexSorted = subject.getRowIndexSorted();
+        int columnIndexSorted = subject.getColumnIndexSorted();
 
-        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n%s\n%d",
-                code, name, credits, parentSubjectCodes, state, characterScore, color, score10, score4, semester);
+        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n%s\n%d\n%d\n%d\n%d",
+                code, name, credits, parentSubjectCodes, state, characterScore, color, score10, score4, semester,
+                level, rowIndexSorted, columnIndexSorted);
 
         writeStringToFile(path, data, false);
     }
