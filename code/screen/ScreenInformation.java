@@ -2,6 +2,7 @@ package code.screen;
 
 import javax.swing.JPanel;
 import code.Application;
+import code.animation.AnimationPanel;
 import code.objects.Button;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -103,11 +104,19 @@ public class ScreenInformation extends JPanel {
             if (event.getSource() == buttons[0]) {
                 getScreenCurriculumInformation().setVisible(true);
                 getMainScreen().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getScreenCurriculumInformation(),
+                        getScreenCurriculumInformation().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press at "Back" in mainScreen
             else if (event.getSource() == buttons[1]) {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenInformation().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                        -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
         }
 

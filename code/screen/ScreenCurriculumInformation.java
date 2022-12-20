@@ -3,6 +3,7 @@ package code.screen;
 import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
+import code.animation.AnimationPanel;
 import code.curriculum.Data;
 import code.dialog.DialogList;
 import code.objects.Button;
@@ -178,6 +179,7 @@ public class ScreenCurriculumInformation extends JPanel {
                 bodyPanel0.removeAll();
                 bodyPanel0.add(new PanelMajor(0, 0, bodyPanel0.getWidth(), bodyPanel0.getHeight(),
                                 major, PanelMajor.TOP_LEFT));
+
                 repaint();
         }
 
@@ -218,6 +220,10 @@ public class ScreenCurriculumInformation extends JPanel {
                         if (event.getSource() == buttons[0]) {
                                 getParentScreen().getMainScreen().setVisible(true);
                                 getParentScreen().getScreenCurriculumInformation().setVisible(false);
+                                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                                                -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                                                300);
+                                animation.start();
                         }
                         // Press at "Change" of headPanel3 of headPanel of mainScreen
                         else if (event.getSource() == buttons[1]) {

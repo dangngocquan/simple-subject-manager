@@ -166,42 +166,79 @@ public class Plan {
     // this subject with above subjects(subject which has index row smaller and that
     // subject has relative with this subjec (has line))
     public int[] getPerfectColumnIndexAndCountConnection(Subject subject, Subject[][] matrixSubject) {
-        double[] totalDistance = new double[matrixSubject[0].length];
+        double[] totalDistanceTop = new double[matrixSubject[0].length];
+        double[] totalDistanceCenter = new double[matrixSubject[0].length];
+        double[] totalDistanceBottom = new double[matrixSubject[0].length];
         int mainRow = subject.getRowIndexInMap();
-        int count = 0;
+        int countTop = 0;
+        int countCenter = 0;
+        int countBottom = 0;
         // Find minIndex and maxIndex
-        for (int row = 0; row < mainRow; row++) {
+        for (int row = 0; row < matrixSubject.length; row++) {
             for (int column = 0; column < matrixSubject[0].length; column++) {
                 // If 2 subject has connection (line)
                 Subject tempSubject = matrixSubject[row][column];
-                if (tempSubject != null
+                if (tempSubject != null && !tempSubject.getCode().equals(subject.getCode())
                         && (subject.getParentSubjectCodesByList().contains(tempSubject.getCode())
                                 || tempSubject.getParentSubjectCodesByList()
                                         .contains(subject.getCode()))) {
-                    for (int index = 0; index < totalDistance.length; index++) {
-                        totalDistance[index] += Math
-                                .sqrt((mainRow - row) * (mainRow - row) + (index - column) * (index - column));
+                    for (int index = 0; index < totalDistanceTop.length; index++) {
+                        if (row < mainRow) {
+                            totalDistanceTop[index] += Math
+                                    .sqrt((mainRow - row) * (mainRow - row) + (index - column) * (index - column));
+                        } else if (row == mainRow) {
+                            totalDistanceCenter[index] += Math
+                                    .sqrt((mainRow - row) * (mainRow - row) + (index - column) * (index - column));
+                        } else if (row > mainRow) {
+                            totalDistanceBottom[index] += Math
+                                    .sqrt((mainRow - row) * (mainRow - row) + (index - column) * (index - column));
+                        }
+
                     }
-                    count++;
+                    if (row < mainRow) {
+                        countTop++;
+                    } else if (row == mainRow) {
+                        countCenter++;
+                    } else if (row > mainRow) {
+                        countBottom++;
+                    }
                 }
             }
         }
 
-        if (count == 0) {
-            return new int[] { -1, 0 };
-        }
-
         // Get perfect index in a row
-        int perfectIndex = 0;
-        double minTotalDistance = 10000000;
-        for (int index = 0; index < totalDistance.length; index++) {
-            if (totalDistance[index] <= minTotalDistance) {
-                minTotalDistance = totalDistance[index];
-                perfectIndex = index;
+        int perfectIndexTop = -1;
+        double minTotalDistanceTop = 10000000;
+        int perfectIndexCenter = -1;
+        double minTotalDistanceCenter = 10000000;
+        int perfectIndexBottom = -1;
+        double minTotalDistanceBottom = 10000000;
+        for (int index = 0; index < totalDistanceTop.length; index++) {
+            if (totalDistanceTop[index] <= minTotalDistanceTop) {
+                minTotalDistanceTop = totalDistanceTop[index];
+                perfectIndexTop = index;
+            }
+            if (totalDistanceCenter[index] <= minTotalDistanceCenter) {
+                minTotalDistanceCenter = totalDistanceCenter[index];
+                perfectIndexCenter = index;
+            }
+            if (totalDistanceBottom[index] <= minTotalDistanceBottom) {
+                minTotalDistanceBottom = totalDistanceBottom[index];
+                perfectIndexBottom = index;
             }
         }
+        if (countBottom == 0) {
+            perfectIndexBottom = -1;
+        }
+        if (countCenter == 0) {
+            perfectIndexCenter = Math.max(-1, perfectIndexBottom);
+        }
+        if (countTop == 0) {
+            perfectIndexTop = Math.max(-1, perfectIndexBottom);
+        }
 
-        return new int[] { perfectIndex, count };
+        return new int[] { perfectIndexTop, countTop, perfectIndexBottom,
+                countBottom, perfectIndexCenter, countCenter };
     }
 
     // A valid map: All subject has valid coordinate in map
@@ -230,13 +267,11 @@ public class Plan {
         // Create data for matrix
         for (int index = 0; index < subjects.size(); index++) {
             matrixSubject[rows[index]][columns[index]] = subjects.get(index);
-            System.out.println(rows[index] + " " + columns[index] + " " + subjects.get(index).getCode());
         }
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
         // Start sort matrix
         for (int row = 0; row <= maxRowIndex; row++) {
-            for (int column = 0; column < maxColumnIndex; column++) {
+            for (int column = 0; column <= maxColumnIndex; column++) {
                 // This is main subject which we are sorting
                 Subject tempSubject = matrixSubject[row][column];
                 if (tempSubject == null) {
@@ -245,24 +280,21 @@ public class Plan {
                 // Get perfect index of column of tempSubject
                 int[] infor = getPerfectColumnIndexAndCountConnection(tempSubject,
                         matrixSubject);
-                int perfectColumn = infor[0];
 
                 int tempColumn = column;
                 int tempRow = row;
 
-                if (tempColumn == perfectColumn) {
-                    continue;
-                }
-
                 // Find index to swap
                 int indexSwap = tempColumn;
-                int abs = 1;
-                while (abs <= Math.abs(perfectColumn - tempColumn)) {
-                    int[] values = { perfectColumn - abs, perfectColumn + abs };
+                int abs = 0;
+                if (infor[0] == -1) {
+                    infor[0] = maxColumnIndex / 2;
+                }
+                while (abs <= Math.abs(infor[0] - tempColumn)) {
+                    int[] values = { infor[0] - abs, infor[0] + abs };
                     for (int tempIndexSwap : values) {
                         // invalid index
-                        if (tempIndexSwap == tempColumn || tempIndexSwap < 0
-                                || tempIndexSwap >= matrixSubject[0].length) {
+                        if (tempIndexSwap < 0 || tempIndexSwap >= matrixSubject[0].length) {
                             continue;
                         }
 
@@ -272,18 +304,46 @@ public class Plan {
                         }
 
                         Subject subjectA = matrixSubject[tempRow][tempIndexSwap];
-                        int columnA = tempIndexSwap;
-                        int perfectColumnA = getPerfectColumnIndexAndCountConnection(subjectA,
-                                matrixSubject)[0];
-                        if (perfectColumnA == -1) { // subject A has 0 connection
-                            indexSwap = tempIndexSwap;
-                            break; // Found tempIndexSwap
+                        int indexColumnA = tempIndexSwap;
+                        int[] inforA = getPerfectColumnIndexAndCountConnection(subjectA, matrixSubject);
+
+                        for (int local = 0; local < 2; local++) { // 0: top, 1: bottom (not check center)
+                            if (inforA[local * 2] == -1) { // If subject A has 0 connection in this local
+                                if (infor[local * 2] == -1) { // If temp subject has 0 connection in this local
+                                    continue; // Check next local
+                                } else {
+                                    indexSwap = tempIndexSwap;
+                                    break; // Found indexSwap
+                                }
+                            } else { // If subject A has > 0 connection in this local
+                                if (infor[local * 2] == -1) { // If temp subject has 0 connection in this local
+                                    break; // Stop check, can't swap temp subject with subject A
+                                } else { // If temp subject has > 0 connection in this local
+                                    // if tempColumn is near perfectLocalA than indexcolumnA
+                                    if (Math.abs(tempColumn - inforA[local * 2]) <= Math
+                                            .abs(indexColumnA - inforA[local * 2])) {
+                                        indexSwap = tempIndexSwap;
+                                        break; // Found indexSwap
+                                    } else {
+                                        // Compare number connection
+                                        if (infor[local * 2 + 1] > inforA[local * 2 + 1]) { // If tempSubject has number
+                                                                                            // connection > subject A
+                                            indexSwap = tempIndexSwap;
+                                            break; // Found indexSwap
+                                        } else if (infor[local * 2 + 1] == inforA[local * 2 + 1]) { // If tempSubject
+                                                                                                    // has number
+                                                                                                    // connection =
+                                                                                                    // subject A
+                                            // Do nothing
+                                        } else { // If tempSubject has number
+                                                 // connection < subject A
+                                            break; // Can't swap tempSubject with subject A
+                                        }
+                                    }
+                                }
+                            }
                         }
-                        if (Math.abs(perfectColumnA - tempColumn) <= Math.abs(perfectColumnA -
-                                columnA)) {
-                            indexSwap = tempIndexSwap;
-                            break; // Found tempIndexSwap
-                        }
+
                     }
 
                     if (indexSwap != tempColumn) {
@@ -293,17 +353,12 @@ public class Plan {
                     abs++;
                 }
 
-                if (indexSwap == tempColumn) {
-                    continue;
-                }
-
                 // swap two subject
                 Subject subjectA = matrixSubject[tempRow][indexSwap];
                 if (subjectA == null) {
                     // Update coordinate in matrix
-                    matrixSubject[tempRow][indexSwap] = tempSubject;
                     matrixSubject[tempRow][tempColumn] = null;
-
+                    matrixSubject[tempRow][indexSwap] = tempSubject;
                 } else {
                     // Update coordinate in matrix
                     matrixSubject[tempRow][tempColumn] = subjectA;
@@ -314,7 +369,7 @@ public class Plan {
 
         // Save new data to file
         for (int row = 0; row <= maxRowIndex; row++) {
-            for (int column = 0; column < maxColumnIndex; column++) {
+            for (int column = 0; column <= maxColumnIndex; column++) {
                 Subject tempSubject = matrixSubject[row][column];
                 if (tempSubject != null) {
                     int indexSubject = getIndexOfSubject(tempSubject);

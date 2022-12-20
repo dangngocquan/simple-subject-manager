@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import code.Application;
 import code.Setting;
+import code.animation.AnimationPanel;
 import code.objects.Button;
 import code.objects.Major;
 import code.panel.PanelMajor;
@@ -195,6 +196,10 @@ public class ScreenCreateNewPlan2 extends JPanel {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenCreateNewPlan2().setVisible(false);
                 checkbox.setSelected(false);
+                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                        -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
 
             }
             // Press at "Next" in mainScreen
@@ -204,6 +209,10 @@ public class ScreenCreateNewPlan2 extends JPanel {
                     getScreenCreateNewPlan3().setIndexConversionTable(indexConversionTable);
                     getScreenCreateNewPlan3().setVisible(true);
                     getMainScreen().setVisible(false);
+                    AnimationPanel animation = new AnimationPanel(getScreenCreateNewPlan3(),
+                            getScreenCreateNewPlan3().getWidth(), 0, 0, 0,
+                            300);
+                    animation.start();
                 }
             }
         }

@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import code.Application;
 import code.Setting;
+import code.animation.AnimationPanel;
 import code.dialog.DialogMessage;
 import code.file_handler.ReadFile;
 import code.file_handler.WriteFile;
@@ -169,12 +170,20 @@ public class ScreenCreateNewAccount extends JPanel {
                     // Return parent screen
                     getParentScreen().getMainScreen().setVisible(true);
                     getParentScreen().getScreenCreateNewAccount().setVisible(false);
+                    AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                            -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                            300);
+                    animation.start();
                 }
             }
             // Press at "Cancer" in mainScreen
             else if (event.getSource() == buttons[1]) {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenCreateNewAccount().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                        -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
         }
 

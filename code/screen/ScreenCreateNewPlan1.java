@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import code.Application;
 import code.Setting;
+import code.animation.AnimationPanel;
 import code.curriculum.Data;
 import code.dialog.DialogList;
 import code.objects.Button;
@@ -201,6 +202,10 @@ public class ScreenCreateNewPlan1 extends JPanel {
             if (event.getSource() == buttons[0]) {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenCreateNewPlan1().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                        -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press at "Next" in mainScreen
             else if (event.getSource() == buttons[1]) {
@@ -209,6 +214,10 @@ public class ScreenCreateNewPlan1 extends JPanel {
                 screenCreateNewPlan2.setIndexConversionTable(Data.getIndexConnversion(school.getName()));
                 screenCreateNewPlan2.setVisible(true);
                 mainScreen.setVisible(false);
+                AnimationPanel animation = new AnimationPanel(screenCreateNewPlan2,
+                        screenCreateNewPlan2.getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press "Change" of School
             else if (event.getSource() == buttons[5]) {

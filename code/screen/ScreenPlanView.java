@@ -3,6 +3,7 @@ package code.screen;
 import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
+import code.animation.AnimationPanel;
 import code.objects.Button;
 import code.objects.Plan;
 import code.panel.PanelCalculateScoreLastTerm;
@@ -175,7 +176,6 @@ public class ScreenPlanView extends JPanel {
                 panelUpdateStatusSubject.setVisible(false);
                 panelMapRelativeSubjects.setVisible(false);
                 optionalPanel.setBackground(Setting.COLOR_BLUE_03);
-                contentPanel.setBackground(Setting.COLOR_GRAY_03);
         }
 
         // Getter
@@ -191,16 +191,16 @@ public class ScreenPlanView extends JPanel {
 
         // Setter
         public void setIndexButtonEntering(int index) {
+                int x1 = panelButtonEnetering.getX();
+                int y1 = panelButtonEnetering.getY();
+                int x2 = 0;
+                int y2 = buttons[index].getY()
+                                - (optionalPanel.getHeight() / 27 * 3 - buttons[this.indexButtonEntering].getHeight())
+                                                / 2;
                 this.indexButtonEntering = index;
-                optionalPanel.remove(panelButtonEnetering);
-                panelButtonEnetering.setBounds(0,
-                                buttons[index].getY()
-                                                - (optionalPanel.getHeight() / 27 * 3
-                                                                - buttons[this.indexButtonEntering].getHeight()) / 2,
-                                panelButtonEnetering.getWidth(),
-                                panelButtonEnetering.getHeight());
-                optionalPanel.add(panelButtonEnetering);
-                optionalPanel.repaint();
+
+                AnimationPanel animation = new AnimationPanel(panelButtonEnetering, x1, y1, x2, y2, 300);
+                animation.start();
         }
 
         // Auto called method of JPanel
@@ -220,6 +220,10 @@ public class ScreenPlanView extends JPanel {
                         if (event.getSource() == buttons[0]) {
                                 getParentScreen().getMainScreen().setVisible(true);
                                 getParentScreen().getScreenPlanViews()[indexPlan].setVisible(false);
+                                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                                                -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                                                300);
+                                animation.start();
                         }
                         // Press at "List subject" button
                         else if (event.getSource() == buttons[1]) {
@@ -229,6 +233,10 @@ public class ScreenPlanView extends JPanel {
                                 panelUpdateStatusSubject.setVisible(false);
                                 panelMapRelativeSubjects.setVisible(false);
                                 panelCalculateScoreLastTerm.setVisible(false);
+                                AnimationPanel animation = new AnimationPanel(panelSubjectList,
+                                                panelSubjectList.getWidth(), 0, 0, 0,
+                                                300);
+                                animation.start();
                         }
                         // Press at "Update score of subjects" button
                         else if (event.getSource() == buttons[2]) {
@@ -239,6 +247,10 @@ public class ScreenPlanView extends JPanel {
                                 panelUpdateStatusSubject.setVisible(false);
                                 panelMapRelativeSubjects.setVisible(false);
                                 panelCalculateScoreLastTerm.setVisible(false);
+                                AnimationPanel animation = new AnimationPanel(panelUpdateScoreSubject,
+                                                panelUpdateScoreSubject.getWidth(), 0, 0, 0,
+                                                300);
+                                animation.start();
                         }
                         // Press at "Update status subjects" button
                         else if (event.getSource() == buttons[5]) {
@@ -249,6 +261,10 @@ public class ScreenPlanView extends JPanel {
                                 panelUpdateStatusSubject.setVisible(true);
                                 panelMapRelativeSubjects.setVisible(false);
                                 panelCalculateScoreLastTerm.setVisible(false);
+                                AnimationPanel animation = new AnimationPanel(panelUpdateStatusSubject,
+                                                panelUpdateStatusSubject.getWidth(), 0, 0, 0,
+                                                300);
+                                animation.start();
                         }
                         // Press at "Map relative subjects" button
                         else if (event.getSource() == buttons[3]) {
@@ -258,6 +274,10 @@ public class ScreenPlanView extends JPanel {
                                 panelUpdateStatusSubject.setVisible(false);
                                 panelMapRelativeSubjects.setVisible(true);
                                 panelCalculateScoreLastTerm.setVisible(false);
+                                AnimationPanel animation = new AnimationPanel(panelMapRelativeSubjects,
+                                                panelMapRelativeSubjects.getWidth(), 0, 0, 0,
+                                                300);
+                                animation.start();
                         }
                         // Press at "Calculate score last term" button
                         else if (event.getSource() == buttons[6]) {
@@ -267,6 +287,10 @@ public class ScreenPlanView extends JPanel {
                                 panelUpdateStatusSubject.setVisible(false);
                                 panelMapRelativeSubjects.setVisible(false);
                                 panelCalculateScoreLastTerm.setVisible(true);
+                                AnimationPanel animation = new AnimationPanel(panelCalculateScoreLastTerm,
+                                                panelCalculateScoreLastTerm.getWidth(), 0, 0, 0,
+                                                300);
+                                animation.start();
                         }
                 }
 

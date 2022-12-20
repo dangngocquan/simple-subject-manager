@@ -2,6 +2,7 @@ package code.screen;
 
 import javax.swing.JPanel;
 import code.Application;
+import code.animation.AnimationPanel;
 import code.file_handler.ReadFile;
 import code.objects.Button;
 import java.awt.Graphics;
@@ -118,17 +119,29 @@ public class ScreenAccounts extends JPanel {
                 screenExistingAccounts.updatePanelListAccount();
                 screenExistingAccounts.updatePanelAccountInfor(ReadFile.getCurrentAccount());
                 getMainScreen().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(screenExistingAccounts,
+                        screenExistingAccounts.getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press at "Create New Account" in mainScreen
             else if (event.getSource() == buttons[1]) {
                 getScreenCreateNewAccount().setVisible(true);
                 getMainScreen().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getScreenCreateNewAccount(),
+                        getScreenCreateNewAccount().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press at "Back" in mainScreen
             else if (event.getSource() == buttons[2]) {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().updateDescriptionPanel();
                 getParentScreen().getScreenAccounts().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                        -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
         }
 

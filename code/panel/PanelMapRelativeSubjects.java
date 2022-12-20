@@ -103,7 +103,8 @@ public class PanelMapRelativeSubjects extends JPanel {
             panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
                     Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
             panelSubjects[count].setLocationButton(
-                    column * widthPerSubjectPanel + 15 + (row % 4) / 2 * widthPerSubjectPanel / 4,
+                    (int) (column * widthPerSubjectPanel
+                            + (row % (maxRow / 2 + 1)) * 1.0 / 2 * widthPerSubjectPanel * 1.0 / maxRow),
                     row * heightPerSubjectPanel + 15, Button.TOP_LEFT);
             panelSubjects[count].setBackgroundColorButton(subject.getColor());
             panelSubjects[count].setBackgroundColorExitedButton(subject.getColor());
@@ -178,7 +179,22 @@ public class PanelMapRelativeSubjects extends JPanel {
 
         // Then, get real (valid) coordinate for all subject, use 'rowIndexSortedInMap'
         // and 'columnIndexSortedInMap'
-        plan.sortMatrixSubject(this.rows, this.columns, maxRow - 1, maxColumn - 1, indexPlan);
+        if (!isValidMap) {
+            for (int turn = 1; turn <= maxColumn - 1; turn++) {
+                plan.sortMatrixSubject(this.rows, this.columns, maxRow - 1, maxColumn - 1,
+                        indexPlan);
+                // Update rows and columns
+                count = 0;
+                for (Subject subject : plan.getSubjects()) {
+                    int row = subject.getRowIndexSorted();
+                    int column = subject.getColumnIndexSorted();
+                    this.rows[count] = row;
+                    this.columns[count] = column;
+                    count++;
+                }
+            }
+        }
+
         count = 0;
         for (Subject subject : plan.getSubjects()) {
             int row = subject.getRowIndexSorted();
@@ -191,7 +207,8 @@ public class PanelMapRelativeSubjects extends JPanel {
             panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
                     Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
             panelSubjects[count].setLocationButton(
-                    column * widthPerSubjectPanel + 15 + (row % 4) / 2 * widthPerSubjectPanel / 4,
+                    (int) (column * widthPerSubjectPanel
+                            + (row % (maxRow / 2 + 1)) * 1.0 / 2 * widthPerSubjectPanel * 1.0 / maxRow),
                     row * heightPerSubjectPanel + 15, Button.TOP_LEFT);
             count++;
         }

@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import code.Application;
 import code.Setting;
+import code.animation.AnimationPanel;
 import code.dialog.DialogCopyPlan;
 import code.dialog.DialogMessage;
 import code.dialog.DialogRemovePlan;
@@ -219,6 +220,10 @@ public class ScreenExistingPlans extends JPanel {
             if (event.getSource() == buttons[0]) {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenExistingPlans().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                        -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press a button plan
             else {
@@ -227,6 +232,10 @@ public class ScreenExistingPlans extends JPanel {
                     if (event.getSource() == buttonPlans[i]) {
                         getMainScreen().setVisible(false);
                         getScreenPlanViews()[i].setVisible(true);
+                        AnimationPanel animation = new AnimationPanel(getScreenPlanViews()[i],
+                                getScreenPlanViews()[i].getWidth(), 0, 0, 0,
+                                300);
+                        animation.start();
                     } else if (event.getSource() == buttonPlansEdit[i]) {
                         new DialogRenamePlan(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3,
                                 Setting.HEIGHT / 3, DialogRenamePlan.CENTER_CENTER, "Rename plan",

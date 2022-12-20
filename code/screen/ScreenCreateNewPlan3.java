@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import code.Application;
 import code.Setting;
+import code.animation.AnimationPanel;
 import code.dialog.DialogMessage;
 import code.file_handler.WriteFile;
 import code.objects.Button;
@@ -163,12 +164,21 @@ public class ScreenCreateNewPlan3 extends JPanel {
                     // return screen plans
                     getParentScreen().getParentScreen().getParentScreen().getScreenCreateNewPlan1().setVisible(false);
                     getParentScreen().getParentScreen().getParentScreen().getMainScreen().setVisible(true);
+                    AnimationPanel animation = new AnimationPanel(
+                            getParentScreen().getParentScreen().getParentScreen().getMainScreen(),
+                            -getParentScreen().getParentScreen().getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                            300);
+                    animation.start();
                 }
             }
             // Press at "Back" in mainScreen
             else if (event.getSource() == buttons[0]) {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenCreateNewPlan3().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                        -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
         }
 

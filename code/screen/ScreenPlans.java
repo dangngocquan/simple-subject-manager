@@ -2,6 +2,7 @@ package code.screen;
 
 import javax.swing.JPanel;
 import code.Application;
+import code.animation.AnimationPanel;
 import code.objects.Button;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -115,16 +116,28 @@ public class ScreenPlans extends JPanel {
                 getScreenExistingPlans().updateButton();
                 getScreenExistingPlans().setVisible(true);
                 getMainScreen().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getScreenExistingPlans(),
+                        getScreenExistingPlans().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press at "Create new plan" button
             else if (event.getSource() == buttons[1]) {
                 getScreenCreateNewPlan1().setVisible(true);
                 getMainScreen().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getScreenCreateNewPlan1(),
+                        getScreenCreateNewPlan1().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press at "Back" button
             else if (event.getSource() == buttons[2]) {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenPlans().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                        -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
         }
 

@@ -2,6 +2,7 @@ package code.screen;
 
 import javax.swing.JPanel;
 import code.Application;
+import code.animation.AnimationPanel;
 import code.file_handler.ReadFile;
 import code.objects.Account;
 import code.objects.Button;
@@ -141,16 +142,28 @@ public class ScreenMainMenu extends JPanel {
             if (event.getSource() == getButtons()[0]) {
                 getScreenPlans().setVisible(true);
                 getMainScreen().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getScreenPlans(),
+                        getScreenPlans().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press "Accounts" button on "screenMainMenu" screen
             else if (event.getSource() == getButtons()[1]) {
                 getScreenAccounts().setVisible(true);
                 getMainScreen().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getScreenAccounts(),
+                        getScreenAccounts().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press "Information" button on "screenMainMenu" screen
             else if (event.getSource() == getButtons()[2]) {
                 getScreenInformation().setVisible(true);
                 getMainScreen().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getScreenInformation(),
+                        getScreenInformation().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
         }
 

@@ -3,6 +3,7 @@ package code.screen;
 import javax.swing.JPanel;
 import code.Application;
 import code.Setting;
+import code.animation.AnimationPanel;
 import code.dialog.DialogChangePassword;
 import code.dialog.DialogInput;
 import code.dialog.DialogLoginAccount;
@@ -170,6 +171,10 @@ public class ScreenExistingAccounts extends JPanel {
             if (event.getSource() == getButtons()[0]) {
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenExistingAccounts().setVisible(false);
+                AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
+                        -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
             }
             // Press "Use" button on "panelbutton2"
             else if (event.getSource() == getButtons()[1]) {
