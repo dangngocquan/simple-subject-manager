@@ -1,5 +1,6 @@
 package code.objects;
 
+import java.util.LinkedList;
 import java.util.List;
 import code.curriculum.Data;
 import code.file_handler.WriteFile;
@@ -245,6 +246,7 @@ public class Plan {
     public boolean checkValidMap() {
         for (Subject subject : this.subjects) {
             if (!subject.hasValidCoordinateInMap()) {
+                System.out.println(subject.getCode() + " " + getIndexOfSubject(subject));
                 for (Subject subject1 : subjects) {
                     subject1.setRowIndexSorted(-1);
                     subject1.setColumnIndexSorted(-1);
@@ -380,6 +382,145 @@ public class Plan {
             }
         }
 
+    }
+
+    // sort map
+    public void sortMap(int[] rows, int[] columns, int indexPlan) {
+        if (subjects.size() == 0) {
+            return;
+        }
+
+        // Create initial matrix subject - this matrix save default data of coordinate,
+        // not changed during this method
+        // subjects in map
+        Subject[][] dataMatrix = new Subject[subjects.size()][subjects.size()];
+        // Fill matrix with initial value null
+        for (int indexRow = 0; indexRow < dataMatrix.length; indexRow++) {
+            for (int indexColumn = 0; indexColumn < dataMatrix[0].length; indexColumn++) {
+                dataMatrix[indexRow][indexColumn] = null;
+            }
+        }
+        // Create data for matrix
+        for (int index = 0; index < subjects.size(); index++) {
+            dataMatrix[rows[index]][columns[index]] = subjects.get(index);
+        }
+
+        // This is matrix subject save coordinate of subjects after sort
+        Subject[][] matrix = new Subject[subjects.size()][subjects.size()];
+        // Matrix status of 'matrix'
+        boolean[][] isEmptyCell = new boolean[subjects.size()][subjects.size()];
+        // Status of subject
+        boolean[] isSorted = new boolean[subjects.size()];
+        // Fill initial value for 'matrix' and 'isEmptyCell'
+        for (int indexRow = 0; indexRow < matrix.length; indexRow++) {
+            for (int indexColumn = 0; indexColumn < matrix[0].length; indexColumn++) {
+                dataMatrix[indexRow][indexColumn] = null;
+                isEmptyCell[indexRow][indexColumn] = false;
+            }
+        }
+        // Fill initial value for 'isSorted'
+        for (int index = 0; index < subjects.size(); index++) {
+            isSorted[index] = false;
+        }
+
+        // Start fill subject for 'matrix'
+        int tempRootColumn = 0;
+        for (int indexRow = 0; indexRow < dataMatrix.length; indexRow++) {
+            for (int indexColumn = 0; indexColumn < dataMatrix[0].length; indexColumn++) {
+                // get subject in current coordinate - 'mainSubject'
+                Subject mainSubject = dataMatrix[indexRow][indexColumn];
+                // If null, check next coordinate
+                if (mainSubject == null) {
+                    continue;
+                }
+
+                if (isSorted[getIndexOfSubject(mainSubject)]) {
+                    continue;
+                }
+
+                // Get subjects has connect with 'mainSubject' and under 'mainSubject' (has
+                // bottom coordinate) and still not be sorted (isSorted == false)
+                List<List<Subject>> subjectsConnection = new LinkedList<List<Subject>>();
+                List<String> parentSubjectCodeOfMainSubject = mainSubject.getParentSubjectCodesByList();
+                int totalConnects = 0;
+                for (int r = 0; r < subjects.size(); r++) {
+                    List<Subject> connectSubjectsInRow = new LinkedList<Subject>();
+                    subjectsConnection.add(connectSubjectsInRow);
+                    if (r <= indexRow) {
+                        continue;
+                    }
+                    // Check subject in current row
+                    for (int c = 0; c < subjects.size(); c++) {
+                        // Get subject in current coordinate
+                        Subject tempSubject = dataMatrix[r][c];
+                        // If null, check next column
+                        if (tempSubject == null) {
+                            continue;
+                        }
+
+                        // Check connection of 'tempSubject' with 'mainSubject'
+                        if (!isSorted[getIndexOfSubject(tempSubject)]
+                                && (tempSubject.getParentSubjectCodesByList().contains(mainSubject.getCode())
+                                        || parentSubjectCodeOfMainSubject.contains(tempSubject.getCode()))) {
+                            connectSubjectsInRow.add(tempSubject);
+                            totalConnects++;
+                        }
+                    }
+                }
+
+                // create coordinate for subjects
+                // coordiante for 'mainSubject'
+                int colMainSubject = tempRootColumn + totalConnects / 2;
+                matrix[indexRow][colMainSubject] = mainSubject;
+                isSorted[getIndexOfSubject(mainSubject)] = true;
+                if (totalConnects == 0) {
+                    tempRootColumn++;
+                    continue;
+                }
+                // coordinate for each subject in 'subjectsConnection'
+                int[] arrIndexColumn = new int[totalConnects];
+                for (int i = 0; i < totalConnects; i++) {
+                    if (i % 2 == 0) {
+                        arrIndexColumn[i] = i / 2;
+                    } else {
+                        arrIndexColumn[i] = totalConnects - 1 - i / 2;
+                    }
+                }
+                int tempCount = 0;
+                for (int r = 0; r < subjectsConnection.size(); r++) {
+                    for (int index = 0; index < subjectsConnection.get(r).size(); index++) {
+                        Subject subject = subjectsConnection.get(r).get(index);
+                        matrix[r][tempRootColumn + arrIndexColumn[tempCount]] = subject;
+                        isSorted[getIndexOfSubject(subject)] = true;
+                        tempCount++;
+                    }
+                }
+
+                // Update tempRootColumn
+                tempRootColumn += totalConnects;
+            }
+        }
+
+        // Save new data to file
+        int count = 0;
+        for (int indexRow = 0; indexRow < subjects.size(); indexRow++) {
+            String line = "";
+            for (int indexColumn = 0; indexColumn < subjects.size(); indexColumn++) {
+                Subject subject = matrix[indexRow][indexColumn];
+                String str = "null";
+                if (subject != null) {
+                    int indexSubject = getIndexOfSubject(subject);
+                    subject.setRowIndexSorted(indexRow);
+                    subject.setColumnIndexSorted(indexColumn);
+                    WriteFile.editSubject(indexPlan, indexSubject, subject);
+                    str = subject.getCode();
+                    count++;
+                }
+                line += String.format("%10s", str);
+            }
+            System.out.println(line);
+        }
+        System.out.println(count);
     }
 
     // Setter

@@ -180,19 +180,20 @@ public class PanelMapRelativeSubjects extends JPanel {
         // Then, get real (valid) coordinate for all subject, use 'rowIndexSortedInMap'
         // and 'columnIndexSortedInMap'
         if (!isValidMap) {
-            for (int turn = 1; turn <= maxColumn - 1; turn++) {
-                plan.sortMatrixSubject(this.rows, this.columns, maxRow - 1, maxColumn - 1,
-                        indexPlan);
-                // Update rows and columns
-                count = 0;
-                for (Subject subject : plan.getSubjects()) {
-                    int row = subject.getRowIndexSorted();
-                    int column = subject.getColumnIndexSorted();
-                    this.rows[count] = row;
-                    this.columns[count] = column;
-                    count++;
-                }
-            }
+            // for (int turn = 1; turn <= maxColumn - 1; turn++) {
+            // plan.sortMatrixSubject(this.rows, this.columns, maxRow - 1, maxColumn - 1,
+            // indexPlan);
+            // // Update rows and columns
+            // count = 0;
+            // for (Subject subject : plan.getSubjects()) {
+            // int row = subject.getRowIndexSorted();
+            // int column = subject.getColumnIndexSorted();
+            // this.rows[count] = row;
+            // this.columns[count] = column;
+            // count++;
+            // }
+            // }
+            plan.sortMap(rows, columns, indexPlan);
         }
 
         count = 0;
