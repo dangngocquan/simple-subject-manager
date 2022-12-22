@@ -1,0 +1,130 @@
+﻿Type,Code,Name,Credits,Parents,YearStudy
+knowledge,Khối kiến thức chung,;,;,;,0
+compulsory,Các học phần bắt buộc,;,21,;,0
+subject,PHI1006,Triết học Mác - Lênin,3,;,0
+subject,PEC1008,Kinh tế chính trị Mác - Lênin,2,PHI1006,0
+subject,PHI1002,Chủ nghĩa xã hội khoa học,2,;,0
+subject,HIS1001,Lịch sử Đảng Cộng sản Việt Nam,2,;,0
+subject,POL1001,Tư tưởng Hồ Chí Minh,2,;,0
+subject,FLF1107,Tiếng Anh B1,5,;,0
+subject,FLF1108,Tiếng ANh B2,5,;,0
+knowledge,Khối kiến thức theo lĩnh vực,;,;,;,0
+compulsory,Các học phần bắt buộc,;,2,;,0
+subject,INM1000,Tin học cơ sở,2,;,0
+optional,Các học phần tự chọn,;,5,;,0
+subject,HIS1056,Cơ sở văn hóa Việt Nam,3,;,0
+subject,GEO1050,Khoa học trái đất và sự sống,3,;,0
+subject,THL1057,Nhà nước và pháp luật đại cương,2,;,0
+subject,MAT1060,Nhập môn phân tích dữ liệu,2,;,0
+subject,PHY1070,Nhập môn Internet kết nối vạn vật,2,;,0
+subject,PHY1020,Nhập môn Robotics,3,;,0
+knowledge,Khối kiến thức theo khối ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,26,;,0
+subject,MAT1090,Đại số tuyến tính,3,;,0
+subject,MAT1091,Giải tích 1,3,;,0
+subject,MAT1192,Giải tích 2,2,MAT1091,0
+subject,MAT1101,Xác suất thống kê,3,MAT1091,0
+subject,PHY1100,Cơ - Nhiệt,3,MAT1091,0
+subject,PHY1103,Điện - Quang,3,MAT1091,0
+subject,CHE1080,Hóa học đại cương,3,;,0
+subject,CHE1081,Hóa học hữu cơ,3,CHE1080,0
+subject,CHE1057,Hóa học phân tích,3,CHE1080,0
+optional,Các học phần tự chọn,;,2,;,0
+subject,CHE1069,Thực tập Hóa học đại cương,2,;,0
+subject,PHY1104,Thực hành Vật lý đại cương,2,PHY1100;PHY1103,0
+knowledge,Khối kiến thức theo nhóm ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,32,;,0
+subject,BIO2127,Phương pháp luận trong nghiên cứu khoa học sự sống (*),3,;,0
+subject,BIO2045E,Tiếng Anh chuyên ngành Sinh học,2,;,0
+subject,BIO3178,SInh học tế bào (*),3,PHY1103;CHE1081,0
+subject,BIO2400E,Hóa sinh học (*),3,CHE1080,0
+subject,BIO1053E,Di truyền học (*),3,BIO2401;BIO2400E,0
+subject,BIO2402E,Sinh học phân tử (*),3,BIO2805,0
+subject,BIO2403E,Vi sinh vật học (*),3,BIO1053E,0
+subject,BIO2218,Thống kê sinh học,3,MAT1192;MAT1101,0
+subject,BIO2215E,Miễn dịch học phân tử,3,BIO2403E,0
+subject,BIO3356,Thực vật ứng dụng (***),2,BIO2805,0
+subject,BIO3441,Động vật không xương sống và ứng dụng,2,BIO2805,0
+subject,BIO3355,Sinh học ứng dụng và bảo tồn Động vật có xương sống,2,BIO2805,0
+optional,Các học phần tự chọn,;,12,;,0
+subject,BIO3177,Năng lượng sinh học,2,BIO2400E,0
+subject,BIO3000,Cơ sở sinh thái học,2,BIO3441;BIO3355,0
+subject,BIO3700,Vi rút học cơ sở,2,BIO2402E;BIO2215E,0
+subject,BIO2803,Dấu chuẩn di truyền và nhận dạng cá thể,2,BIO2800;BIO2402E;BIO1053E,0
+subject,BIO3442,Kỹ thuật di chuyền,2,BIO2400E,0
+subject,BIO2804,Cơ sở sinh lý học ví sinh vật (*),2,BIO2403E,0
+subject,BIO2805,Mô học (*),2,BIO3178,0
+subject,BIO2800,Sinh học phát triển (*),3,BIO3178,0
+subject,BIO2222,Proteomic và sinh học cấu trúc,3,BIO2402E;BIO2400E,0
+subject,BIO3701,Sinh học tiến hóa (*),3,BIO1053E;BIO3000,0
+subject,BIO3100,Seminar khoa học (***),2,BIO2400E,0
+knowledge,Khối kiến thức ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,28,;,0
+subject,BIO3702,Quá trình và thiết bị công nghệ (***),3,BIO2402E;BIO2403E,0
+subject,BIO3801,Lý thuyết sinh,3,PHY1103;CHE1080;BIO3178,0
+subject,BIO3302E,Nhập môn công nghệ sinh học,3,BIO2402;BIO2403E,0
+subject,BIO3802E,Ví sinh vật học ứng dụng (***),3,BIO2403E,0
+subject,BIO3444,Sinh học tổng hợp (***),3,BIO2400E,0
+subject,BIO3182,Tin sinh học (*),3,BIO2400E;BIO2402E,0
+subject,BIO3803E,Sinh học chức năng thực vật (*),3,BIO3178,0
+subject,BIO2420E,Sinh lý học người và động vật (*),3,BIO2400E;BIO2402E;BIO3801,0
+subject,BIO2516,Sinh học Nano (***),2,BIO3178,0
+subject,BIO2514,Thực tập thực tế (***),2,BIO3801;BIO3302E,0
+mainDesOptional,Các học phần tự chọn (Theo một trong các định hướng sau),;,;,;,0
+optional,Các học phần chuyên sâu về di truyền học và kỹ thuật gen,;,9,;,0
+subject,BIO3314,Di truyền học vi sinh vật,3,BIO2403E,0
+subject,BIO3309,Công nghê protein-enzym,3,BIO2400E,0
+subject,BIO3328,Di truyền học quần thể,3,BIO1053E,0
+subject,BIO3311,Di truyền học ung thư,3,BIO1053E,0
+subject,BIO3804,Công nghệ sinh học dược phẩm,3,BIO1053E,0
+subject,BIO3805,Sinh vật biến đổi gen và ứng dụng (***),3,BIO1053E,0
+optional,Các học phần chuyên sâu về Vi sinh vật học và công nghệ lên men,;,9,;,0
+subject,BIO3313,Vi sinh vật học và xử lý môi trường,3,BIO2403E,0
+subject,BIO3438,Các nguyên lý cải biến di truyền di sinh vật,3,BIO2403E;BIO1053E,0
+subject,BIO3315,Công nghệ sinh học vacxin,3,BIO2402E;BIO2403E,0
+subject,BIO3316,Vi sinh vật học thực phẩm,3,BIO2403E,0
+subject,BIO3439,Cơ sở công nghệ lên men,3,BIO2402E;BIO2403E,0
+optional,Các học phần chuyên sâu về Hóa sinh học và công nghệ protein-enzym,;,9,;,0
+subject,BIO3344,Hóa sinh học chế biến thực vật,3,BIO2400E;BIO2403E,0
+subject,BIO3309,Công nghệ protein-enzym,3,BIO2400E,0
+subject,BIO3320,Công nghệ mô và tế bào thực vật,3,BIO2402E;BIO3803E,0
+subject,BIO3210,Hóa sinh học các hợp chất có hoạt tính sinh học,3,BIO2403E,0
+optional,Các học phần chuyên sâu về Công nghệ tế bào,;,9,;,0
+subject,BIO3320,Công nghệ mô và tế bào thực vật,3,BIO2402E;BIO3803E,0
+subject,BIO3806,Công nghệ vi tảo (***),3,BIO3347,0
+subject,BIO3807,Độc học (***),3,BIO2400E;BIO2218;BIO2420E,0
+subject,BIO3808,Công nghệ sinh học động vật,3,BIO2402E,0
+subject,BIO3326,Công nghệ tế bào gốc,3,BIO2402E;BIO1053E,0
+subject,BIO3703,Sinh học khối u,3,BIO2402E;BIO1053E,0
+subject,BIO3437,Bệnh học miễn dịch và trị liệu,3,BIO2402E;BIO2215E,0
+optional,Các học phần chuyên sâu về Sinh y,;,9,;,0
+subject,BIO3329,Cơ sở phân tử của bệnh,3,BIO2403E,0
+subject,BIO3330,Vi sinh vật y học,3,BIO2403E,0
+subject,BIO3331,Động vật y học,3,BIO3354,0
+subject,BIO3703,Sinh học khối u,3,BIO2402E;BIO1053E,0
+subject,BIO3332,Đại cương di truyền ngoại gen,3,BIO2402E;BIO2403E,0
+subject,BIO3249,Cơ sở sinh học thần kinh,3,BIO2400E; BIO2420E,0
+subject,BIO3220,Nội tiết học cơ sở,3,BIO2420E,0
+subject,BIO3222,Sinh học phân tử người,3,BIO2403E;BIO2420E,0
+subject,BIO3437,Bệnh học miễn dịch và trị liệu,3,BIO2402E;BIO2215E,0
+optional,Các học phần chuyên sâu về Đa dạng sinh học và sinh học bảo tồn,;,9,;,0
+subject,BIO3445,Thực vật có ích,3,BIO3347,0
+subject,BIO3348,Nấm - Sinh học và ứng dụng (***),3,BIO3347,0
+subject,BIO3349,Công nghệ sinh học trong bảo tồn thực vật (***),3,BIO3347,0
+subject,BIO3228,Côn trùng học đại cương,3,BIO3341,0
+subject,BIO3241,Thủy sinh học đại cương,3,BIO3341,0
+subject,BIO3810,Động vật không xương sống y học,3,BIO3341,0
+subject,BIO3811,Địa lý sinh vật,3,BIO3355,0
+subject,BIO3452,Phương pháp nghiên cứu cá,3,BIO3355,0
+subject,BIO3231,Sinh học và sinh thái học động vật có xương sống,3,BIO3355,0
+subject,BIO3704,Thực nghiệm sinh thái học,3,BIO3000,0
+subject,BIO3705,Môi trường và phát triển bền vững,3,BIO3234,0
+subject,BIO3234,Sinh thái học môi trường,3,BIO3347;BIO3341,0
+knowledge,Khóa luận tốt nghiệp hoặc Các học phần thay thế,;,;,;,0
+mainDesOptional,Chọn Khóa luận tốt nghiệp hoặc Các học phần thay thế,;,;,;,0
+optional,Khóa luận tốt nghiệp,;,9,;,0
+subject,BIO4079,Khóa luận tốt nghiệp (**),9,;,0
+optional,Các học phần thay thế,;,9,;,0
+subject,BIO3706,Tế bào và cơ thể,3,BIO3178,0
+subject,BIO3707,Cá thể và quần thể,3,BIO3178,0
+subject,BIO3252,Sinh học người,3,BIO2402E,0

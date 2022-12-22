@@ -347,17 +347,17 @@ public class ReadFile {
             // Add relative between subject
             for (Subject subject : major.getSubjects()) {
                 for (String[] parentSubjectCodes : subject.getParentSubjectCodes()) {
-                    Subject[] parentSubjects = new Subject[parentSubjectCodes.length];
-                    int count = 0;
+                    List<Subject> parentSubjectsList = new LinkedList<>();
                     for (String parentSubjectCode : parentSubjectCodes) {
                         for (Subject checkingSubject : major.getSubjects()) {
                             if (parentSubjectCode.equals(checkingSubject.getCode())) {
-                                if (count < parentSubjectCodes.length) {
-                                    parentSubjects[count] = checkingSubject;
-                                    count++;
-                                }
+                                parentSubjectsList.add(checkingSubject);
                             }
                         }
+                    }
+                    Subject[] parentSubjects = new Subject[parentSubjectsList.size()];
+                    for (int index = 0; index < parentSubjectsList.size(); index++) {
+                        parentSubjects[index] = parentSubjectsList.get(index);
                     }
                     subject.addParentSubject(parentSubjects);
                 }

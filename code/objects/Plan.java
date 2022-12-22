@@ -632,6 +632,8 @@ public class Plan {
         // sort part 2 to better
         // create matrix status
         int[][] matrixStatus = new int[getMaxIndexRowSorted() + 1][getMaxIndexColumnSorted() + 1];
+        // int[][] matrixCount = new int[getMaxIndexRowSorted() +
+        // 1][getMaxIndexColumnSorted() + 1];
         Subject[][] matrixSubject = new Subject[matrixStatus.length][matrixStatus[0].length];
         for (Subject subject : subjects) {
             int indexRowStart = subject.getRowIndexSorted();
@@ -644,11 +646,23 @@ public class Plan {
                 int r2 = Math.max(indexRowStart, indexRowEnd);
                 int c1 = Math.min(indexColumnStart, indexColumnEnd);
                 int c2 = Math.max(indexColumnStart, indexColumnEnd);
-                for (int indexRow = r1; indexRow <= r2; indexRow++) {
+                if (r1 == r2) {
                     for (int indexColumn = c1; indexColumn <= c2; indexColumn++) {
-                        matrixStatus[indexRow][indexColumn] = 1;
+                        matrixStatus[r1][indexColumn] = 1;
+                    }
+                } else if (r1 + 1 == r2) {
+                    matrixStatus[r1][c1] = 1;
+                    matrixStatus[r2][c2] = 1;
+                } else {
+                    matrixStatus[r1][c1] = 1;
+                    matrixStatus[r2][c2] = 1;
+                    for (int indexRow = r1 + 1; indexRow <= r2 - 1; indexRow++) {
+                        for (int indexColumn = c1; indexColumn <= c2; indexColumn++) {
+                            matrixStatus[indexRow][indexColumn] = 1;
+                        }
                     }
                 }
+
             }
             if (subject.getParentSubjectsByList().size() == 0) {
                 matrixStatus[indexRowStart][indexColumnStart] = 1;
@@ -656,12 +670,14 @@ public class Plan {
         }
 
         // Start sort part 2
+
         for (int indexRow = 0; indexRow < matrixStatus.length; indexRow++) {
             int midIndexColumn = matrixStatus[indexRow].length / 2;
             for (int indexColumn = midIndexColumn; indexColumn >= 0; indexColumn--) {
-                if (matrixStatus[indexRow][indexColumn] == 1) {
-                    Subject subject = matrixSubject[indexRow][indexColumn];
-                    if (subject == null) {
+                Subject subject = matrixSubject[indexRow][indexColumn];
+                if (subject != null && rootNode.contains(subject)) {
+                    NodeInMap node = getNodeBySubject(existingNodes, subject);
+                    if (node == null || node.getChildNodes().size() > 0) {
                         continue;
                     }
                     int indexColumnPerfect = indexColumn;
@@ -674,19 +690,20 @@ public class Plan {
                     subject.setColumnIndexSorted(indexColumnPerfect);
                     matrixSubject[indexRow][indexColumn] = null;
                     matrixSubject[indexRow][indexColumnPerfect] = subject;
-                    matrixStatus[indexRow][indexColumnPerfect] = 1;
                     matrixStatus[indexRow][indexColumn] = 0;
+                    matrixStatus[indexRow][indexColumnPerfect] = 1;
                 }
             }
 
             for (int indexColumn = midIndexColumn + 1; indexColumn < matrixStatus[indexRow].length; indexColumn++) {
-                if (matrixStatus[indexRow][indexColumn] == 1) {
-                    Subject subject = matrixSubject[indexRow][indexColumn];
-                    if (subject == null) {
+                Subject subject = matrixSubject[indexRow][indexColumn];
+                if (subject != null && rootNode.contains(subject)) {
+                    NodeInMap node = getNodeBySubject(existingNodes, subject);
+                    if (node == null || node.getChildNodes().size() > 0) {
                         continue;
                     }
                     int indexColumnPerfect = indexColumn;
-                    for (int index = midIndexColumn + 1; index < matrixStatus[indexRow].length; index++) {
+                    for (int index = midIndexColumn + 1; index <= indexColumn; index++) {
                         if (matrixStatus[indexRow][index] == 0) {
                             indexColumnPerfect = index;
                             break;
@@ -695,11 +712,50 @@ public class Plan {
                     subject.setColumnIndexSorted(indexColumnPerfect);
                     matrixSubject[indexRow][indexColumn] = null;
                     matrixSubject[indexRow][indexColumnPerfect] = subject;
-                    matrixStatus[indexRow][indexColumnPerfect] = 1;
                     matrixStatus[indexRow][indexColumn] = 0;
+                    matrixStatus[indexRow][indexColumnPerfect] = 1;
                 }
             }
         }
+
+        // // Remove column full null
+        List<Integer> listIndexColumn = new LinkedList<>();
+        for (int indexColumn = 0; indexColumn < matrixSubject[0].length; indexColumn++) {
+            boolean isFullNullColumn = true;
+            for (int indexRow = 0; indexRow < matrixSubject.length; indexRow++) {
+                if (matrixSubject[indexRow][indexColumn] != null) {
+                    isFullNullColumn = false;
+                }
+
+            }
+            if (isFullNullColumn) {
+                listIndexColumn.add(0, indexColumn);
+            }
+        }
+
+        for (int indexColumnNull : listIndexColumn) {
+            for (int indexColumn = indexColumnNull + 1; indexColumn < matrixSubject[0].length; indexColumn++) {
+                for (int indexRow = 0; indexRow < matrixSubject.length; indexRow++) {
+                    Subject subject = matrixSubject[indexRow][indexColumn];
+                    if (subject != null) {
+                        subject.setColumnIndexSorted(indexColumn - 1);
+                    }
+                    matrixSubject[indexRow][indexColumn - 1] = subject;
+                    matrixSubject[indexRow][indexColumn] = null;
+                }
+            }
+        }
+
+        // for (Subject subject : subjects) {
+        // matrixCount[subject.getRowIndexSorted()][subject.getColumnIndexSorted()]++;
+        // }
+
+        // for (int i = 0; i < matrixCount.length; i++) {
+        // for (int j = 0; j < matrixCount[0].length; j++) {
+        // System.out.print((matrixCount[i][j]) + " ");
+        // }
+        // System.out.println();
+        // }
 
         // Save new data to file
         for (int indexSubject = 0; indexSubject < subjects.size(); indexSubject++) {
@@ -708,13 +764,16 @@ public class Plan {
             subject.setColumnIndexSorted(subject.getColumnIndexSorted());
             WriteFile.editSubject(indexPlan, indexSubject, subject);
         }
+    }
 
-        for (int i = 0; i < matrixStatus.length; i++) {
-            for (int j = 0; j < matrixStatus[0].length; j++) {
-                System.out.print(matrixStatus[i][j] + " ");
+    // Found node by subejct
+    public NodeInMap getNodeBySubject(List<NodeInMap> nodes, Subject subject) {
+        for (NodeInMap node : nodes) {
+            if (node.getRootSubject().getCode().equals(subject.getCode())) {
+                return node;
             }
-            System.out.println();
         }
+        return null;
     }
 
     // Setter

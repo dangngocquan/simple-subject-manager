@@ -124,6 +124,15 @@ public class NodeInMap {
         this.indexInParentNode = index;
     }
 
+    public boolean contains(Subject childSubject) {
+        for (NodeInMap node : childNodes) {
+            if (node.getRootSubject().getCode().equals(childSubject.getCode())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addChildNode(NodeInMap node) {
         // get root of map
         NodeInMap root = this;

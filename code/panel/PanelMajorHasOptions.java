@@ -356,13 +356,22 @@ public class PanelMajorHasOptions extends JPanel {
         return Math.max(0, this.scrollPanel.getHeight() - this.contentPanel.getHeight());
     }
 
-    // Get list subjects selecting
+    // Get list subjects selecting and has unique codes
     public List<Subject> getListSubjectSelected() {
         List<Subject> ans = new LinkedList<Subject>();
         List<Subject> subjects = major.getSubjects();
         for (int count = 0; count < subjects.size(); count++) {
             if (isSelectedSubject[count]) {
-                ans.add(subjects.get(count));
+                boolean isExistedInList = false;
+                // CHeck if this subject is existed in 'ans'
+                for (Subject subject : ans) {
+                    if (subject.getCode().equals(subjects.get(count).getCode())) {
+                        isExistedInList = true;
+                    }
+                }
+                if (!isExistedInList) {
+                    ans.add(subjects.get(count));
+                }
             }
         }
         return ans;
