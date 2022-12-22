@@ -3,6 +3,8 @@ package code.panel;
 import javax.swing.JPanel;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.event.MouseWheelEvent;
 import code.Setting;
 import code.dialog.DialogUpdateMapRelative;
 import code.file_handler.WriteFile;
@@ -17,6 +19,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.BasicStroke;
+import java.awt.event.MouseAdapter;
 
 public class PanelMapRelativeSubjects extends JPanel {
     // Constants panel's root location
@@ -38,10 +41,13 @@ public class PanelMapRelativeSubjects extends JPanel {
     public static final Color COLOR_STROKE_PANEL_SUBJECT_ENTERED = COLOR_LINE_ENTERED;
 
     // Properties
-    private int width, height; // size of this panel
+    private int widthContent, heightContent; // size of this panel showing
+    private int width, height; // real size
     private int xPos, yPos, rootLocationType; // location of top-left point
     private Plan plan; // data plan
     private Button[] panelSubjects = null;
+    private int xCursor = 0, yCursor = 0;
+    private int tempX, tempY;
     private int indexPlan;
     private ArrayList<LinkedList<Line2D>> lines = null;
     private ArrayList<LinkedList<Integer>> indexes = null; // Save index of parent-subjects of each subject
@@ -50,62 +56,77 @@ public class PanelMapRelativeSubjects extends JPanel {
     private int[] rows, columns;
 
     // Constructor
-    public PanelMapRelativeSubjects(int x, int y, int width, int height, Plan plan, int indexPlan,
+    public PanelMapRelativeSubjects(int x, int y, int widthContent, int heightContent, Plan plan, int indexPlan,
             int rootLocationType) {
         // Properties, Objects
-        this.width = width;
-        this.height = height;
+        this.widthContent = widthContent;
+        this.heightContent = heightContent;
         this.plan = plan;
         this.indexPlan = indexPlan;
         this.rootLocationType = rootLocationType;
         setLayout(null);
-        setSize(width, height);
-        setLocation(x, y, rootLocationType);
 
         this.rows = new int[plan.getSubjects().size()];
         this.columns = new int[plan.getSubjects().size()];
 
-        // Draw panel
-        int maxRow = Math.max(plan.getMaxLevel() + 1, plan.getMaxSemester() + 1);
-        int maxColumn = plan.getMaxNumberSubjectInSameLevelAndSemester() + 1;
-        int heightPerSubjectPanel = height / maxRow;
-        int widthPerSubjectPanel = width / maxColumn;
-
-        // Draw panel subjects
-        panelSubjects = new Button[plan.getSubjects().size()];
-        int count = 0;
-        int[] tempLocation = new int[maxRow];
-
-        for (int level = 0; level < maxRow; level++) {
-            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level)) / 2;
-            tempLocation[level] = Math.max(tempLocation[level], 0);
-        }
-
+        // Check valid map
         boolean isValidMap = plan.checkValidMap();
 
-        for (Subject subject : plan.getSubjects()) {
-            // Create location of this subject panel in map
-            int row = subject.getRowIndexInMap();
-            int column = tempLocation[row];
+        // if invalid, create default coordinate, then sort
+        if (!isValidMap) {
+            // Create default coordiante
+            int maxRow = Math.max(plan.getMaxLevel() + 1, plan.getMaxSemester() + 1);
+            int maxColumn = plan.getMaxNumberSubjectInSameLevelAndSemester() + 1;
 
-            // Only use 'rowIndexSorted' and 'columnIndexSorted' if them valid
-            if (isValidMap) {
-                row = subject.getRowIndexSorted();
-                column = subject.getColumnIndexSorted();
+            int count = 0;
+            int[] tempLocation = new int[maxRow];
+
+            for (int level = 0; level < maxRow; level++) {
+                tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level)) / 2;
+                tempLocation[level] = Math.max(tempLocation[level], 0);
             }
 
-            this.rows[count] = row;
-            this.columns[count] = column;
+            for (Subject subject : plan.getSubjects()) {
+                // Create location of this subject panel in map
+                int row = subject.getRowIndexInMap();
+                int column = tempLocation[row];
+
+                this.rows[count] = row;
+                this.columns[count] = column;
+
+                count++;
+                tempLocation[row]++;
+            }
+
+            // Create good coordinate by use 'sortMap' method
+            this.plan.sortMap3(rows, columns, indexPlan);
+        }
+
+        // Draw panel subjects
+        int maxRow = plan.getMaxIndexRowSorted() + 1;
+        int maxColumn = plan.getMaxIndexColumnSorted() + 1;
+        this.width = (int) (widthContent * 1.0 / 12 * maxColumn);
+        this.height = (int) (heightContent * 1.0 / 5 * maxRow);
+        int heightPerSubjectPanel = this.height / maxRow;
+        int widthPerSubjectPanel = this.width / maxColumn;
+        setSize(this.width, this.height);
+        setBounds(-xCursor, -yCursor, getWidth(), getHeight());
+
+        panelSubjects = new Button[plan.getSubjects().size()];
+        int count = 0;
+        for (Subject subject : plan.getSubjects()) {
+            // Get coordinate of subject
+            int row = subject.getRowIndexSorted();
+            int column = subject.getColumnIndexSorted();
 
             panelSubjects[count] = new Button(subject.getCode());
             panelSubjects[count].setFontText(Button.ARIAL_BOLD_13);
             panelSubjects[count].setCorrectSizeButton();
-            panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
-                    Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
+            panelSubjects[count].setSizeButton((int) (widthPerSubjectPanel * 1.0 / 10 * 7),
+                    (int) (heightPerSubjectPanel * 1.0 / 3));
             panelSubjects[count].setLocationButton(
-                    (int) (column * widthPerSubjectPanel
-                            + (row % (maxRow / 2 + 1)) * 1.0 / 2 * widthPerSubjectPanel * 1.0 / maxRow),
-                    row * heightPerSubjectPanel + 15, Button.TOP_LEFT);
+                    column * widthPerSubjectPanel + (int) (widthPerSubjectPanel * 1.0 / 2),
+                    row * heightPerSubjectPanel + (int) (heightPerSubjectPanel * 1.0 / 2), Button.CENTER_CENTER);
             panelSubjects[count].setBackgroundColorButton(subject.getColor());
             panelSubjects[count].setBackgroundColorExitedButton(subject.getColor());
             panelSubjects[count].setBackgroundColorEnteredButton(COLOR_SUBJECT_ENTERED);
@@ -115,7 +136,6 @@ public class PanelMapRelativeSubjects extends JPanel {
             panelSubjects[count].addMouseListener(new MouseHandler());
             add(panelSubjects[count]);
             count++;
-            tempLocation[row]++;
         }
 
         // Create and draw lines
@@ -138,79 +158,59 @@ public class PanelMapRelativeSubjects extends JPanel {
             }
         }
 
-        updateDataContent();
+        addMouseListener(new MouseAdapterHandler());
+        addMouseMotionListener(new MouseAdapterHandler());
+        addMouseWheelListener(new MouseWheelHandler());
     }
 
     // Update all
     public void updateDataContent() {
-        // Draw panel
+        // Create default coordiante
         int maxRow = Math.max(plan.getMaxLevel() + 1, plan.getMaxSemester() + 1);
         int maxColumn = plan.getMaxNumberSubjectInSameLevelAndSemester() + 1;
-        int heightPerSubjectPanel = height / maxRow;
-        int widthPerSubjectPanel = width / maxColumn;
+        if (!plan.checkValidMap()) {
+            int count = 0;
+            int[] tempLocation = new int[maxRow];
 
-        // Draw panel subjects
-        // First, get default (valid) coordinate for all subject
-        int count = 0;
-        int[] tempLocation = new int[maxRow];
-        for (int level = 0; level < maxRow; level++) {
-            tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level)) / 2;
-            tempLocation[level] = Math.max(tempLocation[level], 0);
-        }
-
-        boolean isValidMap = plan.checkValidMap();
-
-        for (Subject subject : plan.getSubjects()) {
-            int row = subject.getRowIndexInMap();
-            int column = tempLocation[row];
-
-            if (isValidMap) {
-                row = subject.getRowIndexSorted();
-                column = subject.getColumnIndexSorted();
+            for (int level = 0; level < maxRow; level++) {
+                tempLocation[level] = (maxColumn - plan.getNumberSubjectLevelXOrSemesterX(level)) / 2;
+                tempLocation[level] = Math.max(tempLocation[level], 0);
             }
 
-            // Save this to use for sort map
-            this.rows[count] = row;
-            this.columns[count] = column;
+            for (Subject subject : plan.getSubjects()) {
+                // Create location of this subject panel in map
+                int row = subject.getRowIndexInMap();
+                int column = tempLocation[row];
 
-            count++;
-            tempLocation[row]++;
+                this.rows[count] = row;
+                this.columns[count] = column;
+
+                count++;
+                tempLocation[row]++;
+            }
+
+            // Create good coordinate by use 'sortMap' method
+            this.plan.sortMap3(rows, columns, indexPlan);
         }
 
-        // Then, get real (valid) coordinate for all subject, use 'rowIndexSortedInMap'
-        // and 'columnIndexSortedInMap'
-        if (!isValidMap) {
-            // for (int turn = 1; turn <= maxColumn - 1; turn++) {
-            // plan.sortMatrixSubject(this.rows, this.columns, maxRow - 1, maxColumn - 1,
-            // indexPlan);
-            // // Update rows and columns
-            // count = 0;
-            // for (Subject subject : plan.getSubjects()) {
-            // int row = subject.getRowIndexSorted();
-            // int column = subject.getColumnIndexSorted();
-            // this.rows[count] = row;
-            // this.columns[count] = column;
-            // count++;
-            // }
-            // }
-            plan.sortMap(rows, columns, indexPlan);
-        }
+        // Draw panel subjects
+        maxRow = plan.getMaxIndexRowSorted() + 1;
+        maxColumn = plan.getMaxIndexColumnSorted() + 1;
+        int heightPerSubjectPanel = this.height / maxRow;
+        int widthPerSubjectPanel = this.width / maxColumn;
+        setSize(this.width, this.height);
+        setBounds(-xCursor, -yCursor, getWidth(), getHeight());
 
-        count = 0;
+        int count = 0;
         for (Subject subject : plan.getSubjects()) {
+            // Get coordinate of subject
             int row = subject.getRowIndexSorted();
             int column = subject.getColumnIndexSorted();
-
-            this.rows[count] = row;
-            this.columns[count] = column;
-
-            panelSubjects[count].setCorrectSizeButton();
-            panelSubjects[count].setSizeButton(widthPerSubjectPanel / 10 * 8,
-                    Math.max(heightPerSubjectPanel / 3, panelSubjects[count].getHeight()));
+            panelSubjects[count].setSizeButton((int) (widthPerSubjectPanel * 1.0 / 10 * 7),
+                    (int) (heightPerSubjectPanel * 1.0 / 3));
             panelSubjects[count].setLocationButton(
-                    (int) (column * widthPerSubjectPanel
-                            + (row % (maxRow / 2 + 1)) * 1.0 / 2 * widthPerSubjectPanel * 1.0 / maxRow),
-                    row * heightPerSubjectPanel + 15, Button.TOP_LEFT);
+                    column * widthPerSubjectPanel + (int) (widthPerSubjectPanel * 1.0 / 2),
+                    row * heightPerSubjectPanel + (int) (heightPerSubjectPanel * 1.0 / 2), Button.CENTER_CENTER);
             count++;
         }
 
@@ -234,9 +234,34 @@ public class PanelMapRelativeSubjects extends JPanel {
         repaint();
     }
 
+    // Update content showing
+    public void updateContentShowing() {
+        setBounds(-xCursor, -yCursor, getWidth(), getHeight());
+    }
+
     // Get rootLocationType
     public int getRootLocationType() {
         return this.rootLocationType;
+    }
+
+    // Set width
+    public void setRealWidth(int width) {
+        if (width < this.widthContent) {
+            this.width = this.widthContent;
+        } else {
+            this.width = width;
+        }
+        setSize(this.width, getHeight());
+    }
+
+    // Set height
+    public void setRealHeight(int height) {
+        if (height < this.heightContent) {
+            this.height = this.heightContent;
+        } else {
+            this.height = height;
+        }
+        setSize(getWidth(), this.height);
     }
 
     // Set index subject entering
@@ -258,39 +283,77 @@ public class PanelMapRelativeSubjects extends JPanel {
                 yPos = y;
                 break;
             case 1:
-                xPos = x - width / 2;
+                xPos = x - widthContent / 2;
                 yPos = y;
                 break;
             case 2:
-                xPos = x - width;
+                xPos = x - widthContent;
                 yPos = y;
                 break;
             case 3:
                 xPos = x;
-                yPos = y - height / 2;
+                yPos = y - heightContent / 2;
                 break;
             case 4:
-                xPos = x - width / 2;
-                yPos = y - height / 2;
+                xPos = x - widthContent / 2;
+                yPos = y - heightContent / 2;
                 break;
             case 5:
-                xPos = x - width;
-                yPos = y - height / 2;
+                xPos = x - widthContent;
+                yPos = y - heightContent / 2;
                 break;
             case 6:
                 xPos = x;
-                yPos = y - height;
+                yPos = y - heightContent;
                 break;
             case 7:
-                xPos = x - width / 2;
-                yPos = y - height;
+                xPos = x - widthContent / 2;
+                yPos = y - heightContent;
                 break;
             case 8:
-                xPos = x - width;
-                yPos = y - height;
+                xPos = x - widthContent;
+                yPos = y - heightContent;
                 break;
         }
-        setBounds(xPos, yPos, width, height);
+        setBounds(xPos, yPos, widthContent, heightContent);
+    }
+
+    // Get xCursor
+    public int getXCursor() {
+        return this.xCursor;
+    }
+
+    // Get yCursor
+    public int getYCursor() {
+        return this.yCursor;
+    }
+
+    // Set xCursor
+    public void setXCursor(int x) {
+        if (getWidth() - widthContent < 0) {
+            this.xCursor = 0;
+            return;
+        }
+        this.xCursor = x;
+        if (xCursor < 0) {
+            this.xCursor = 0;
+        } else if (xCursor > getWidth() - widthContent) {
+            this.xCursor = getWidth() - widthContent;
+        }
+    }
+
+    // Set yCursor
+    public void setYCursor(int y) {
+        if (getHeight() - heightContent < 0) {
+            this.yCursor = 0;
+            return;
+        }
+        this.yCursor = y;
+        if (y < 0) {
+            this.yCursor = 0;
+        } else if (yCursor > getHeight() - heightContent) {
+            this.yCursor = getHeight() - heightContent;
+        }
     }
 
     // Auto called method of JPanel
@@ -318,6 +381,75 @@ public class PanelMapRelativeSubjects extends JPanel {
                 g2.draw(line);
             }
         }
+
+        g2.setStroke(new BasicStroke(4));
+        g2.setColor(Setting.COLOR_BLACK);
+        g2.drawRect(3, 3, getWidth() - 8, getHeight() - 8);
+    }
+
+    private class MouseAdapterHandler extends MouseAdapter {
+        public void mouseDragged(MouseEvent e) {
+            int modifiedX = e.getX() - tempX;
+            int modifiedY = e.getY() - tempY;
+            setXCursor(xCursor - modifiedX);
+            setYCursor(yCursor - modifiedY);
+            updateContentShowing();
+        }
+
+        public void mousePressed(MouseEvent e) {
+            tempX = e.getX();
+            tempY = e.getY();
+        }
+
+        public void mouseReleased(MouseEvent e) {
+        }
+    }
+
+    private class MouseWheelHandler implements MouseWheelListener {
+        public void mouseWheelMoved(MouseWheelEvent event) {
+            if (event.isControlDown()) {
+                double distanceLeft = event.getY() - yCursor;
+                double fraction = (event.getY()) * 1.0 / height;
+                int newHeight = height + event.getWheelRotation() * 200;
+                double newYCursor = fraction * newHeight - distanceLeft;
+                setRealHeight(newHeight);
+                setYCursor((int) newYCursor);
+                setBounds(-xCursor, -yCursor, getWidth(), getHeight());
+                updateDataContent();
+                repaint();
+            } else if (event.isAltDown()) {
+                double distanceLeft = event.getX() - xCursor;
+                double fraction = (event.getX()) * 1.0 / width;
+                int newWidth = width + event.getWheelRotation() * 200;
+                double newXCursor = fraction * newWidth - distanceLeft;
+                setRealWidth(newWidth);
+                setXCursor((int) newXCursor);
+                setBounds(-xCursor, -yCursor, getWidth(), getHeight());
+                updateDataContent();
+                repaint();
+            } else {
+                double distanceLeftX = event.getX() - xCursor;
+                double fractionX = (event.getX()) * 1.0 / width;
+                int newWidth = (int) (width * Math.pow(1.1, event.getWheelRotation()));
+                double newXCursor = fractionX * newWidth - distanceLeftX;
+                setRealWidth(newWidth);
+                setXCursor((int) newXCursor);
+
+                double distanceLeftY = event.getY() - yCursor;
+                double fractionY = (event.getY()) * 1.0 / height;
+                int newHeight = (int) (height * Math.pow(1.1, event.getWheelRotation()));
+                double newYCursor = fractionY * newHeight - distanceLeftY;
+                setRealHeight(newHeight);
+                setYCursor((int) newYCursor);
+
+                setBounds(-xCursor, -yCursor, getWidth(), getHeight());
+                updateDataContent();
+                repaint();
+
+            }
+
+        }
+
     }
 
     private class MouseHandler implements MouseListener {
