@@ -240,7 +240,26 @@ public class PanelCalculateLastTerm4 extends JPanel {
                                         new DialogCalculateScoreLastTerm4(Setting.WIDTH / 2,
                                                         Setting.HEIGHT / 2, Setting.WIDTH / 5 * 4,
                                                         Setting.HEIGHT / 5 * 4,
-                                                        DialogCalculateScoreLastTerm3.CENTER_CENTER, "Result", null,
+                                                        DialogCalculateScoreLastTerm3.CENTER_CENTER, "Result",
+                                                        new String[] {
+                                                                        String.format("%-30s:%10s", "Điểm thứ nhất ("
+                                                                                        + textFieldCoefficient1
+                                                                                                        .getText()
+                                                                                        + "%)",
+                                                                                        textFieldScore1.getText()),
+                                                                        String.format("%-30s :%10s", "Điểm thứ hai ("
+                                                                                        + textFieldCoefficient2
+                                                                                                        .getText()
+                                                                                        + "%)",
+                                                                                        textFieldScore2
+                                                                                                        .getText()),
+                                                                        String.format("%-30s :%10s", "Điểm thứ ba ("
+                                                                                        + textFieldCoefficient3
+                                                                                                        .getText()
+                                                                                        + "%)",
+                                                                                        textFieldScore3.getText())
+
+                                                        },
                                                         Double.parseDouble(textFieldScore1.getText()),
                                                         Double.parseDouble(textFieldCoefficient1.getText()) / 100.0,
                                                         Double.parseDouble(textFieldScore2.getText()),

@@ -93,7 +93,11 @@ public class DialogCalculateScoreLastTerm3 {
                         Setting.FONT_SIZE_MEDIUM),
                 PanelString.CENTER_CENTER, 0);
 
-        int tempHeight = height / 4;
+        int tempHeight = height / 6;
+
+        PanelString panelMessage = new PanelString(width / 2, tempHeight, messageLines, width, null,
+                PanelString.TOP_CENTER, width / 10);
+        tempHeight += panelMessage.getHeight() + 10;
 
         // Panel header
         panelHeader = new JPanel();
@@ -175,6 +179,7 @@ public class DialogCalculateScoreLastTerm3 {
         dialog.add(panelHeader);
         dialog.add(panelContent);
         dialog.add(title0);
+        dialog.add(panelMessage);
 
         // Show dialog
         dialog.setVisible(true);

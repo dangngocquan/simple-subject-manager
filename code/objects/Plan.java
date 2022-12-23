@@ -3,7 +3,6 @@ package code.objects;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
 import code.curriculum.Data;
 import code.file_handler.WriteFile;
 
@@ -194,6 +193,21 @@ public class Plan {
         return -1;
     }
 
+    // A valid map: All subject has valid coordinate in map
+    public boolean checkValidMap() {
+        for (Subject subject : this.subjects) {
+            if (!subject.hasValidCoordinateInMap()) {
+                // System.out.println(subject.getCode() + " " + getIndexOfSubject(subject));
+                for (Subject subject1 : subjects) {
+                    subject1.setRowIndexSorted(-1);
+                    subject1.setColumnIndexSorted(-1);
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
     // // Get perfect index of column for this subject, and get number of connect of
     // // this subject with above subjects(subject which has index row smaller and
     // that
@@ -278,21 +292,7 @@ public class Plan {
     // countBottom, perfectIndexCenter, countCenter };
     // }
 
-    // A valid map: All subject has valid coordinate in map
-    public boolean checkValidMap() {
-        for (Subject subject : this.subjects) {
-            if (!subject.hasValidCoordinateInMap()) {
-                // System.out.println(subject.getCode() + " " + getIndexOfSubject(subject));
-                for (Subject subject1 : subjects) {
-                    subject1.setRowIndexSorted(-1);
-                    subject1.setColumnIndexSorted(-1);
-                }
-                return false;
-            }
-        }
-        return true;
-    }
-
+    // SORT MAP ALGORITHM 1
     // public void sortMap1(int[] rows, int[] columns, int maxRowIndex, int
     // maxColumnIndex, int indexPlan) {
     // // Create matrix subject
@@ -427,7 +427,7 @@ public class Plan {
 
     // }
 
-    // // sort map way 2
+    // // SORT MAP ALGORITHM 2
     // public void sortMap(int[] rows, int[] columns, int indexPlan) {
     // if (subjects.size() == 0) {
     // return;
@@ -576,223 +576,233 @@ public class Plan {
     // // System.out.println(count);
     // }
 
-    // sort map way 3
-    public void sortMap3(int[] rows, int[] columns, int indexPlan) {
-        if (subjects.size() == 0) {
-            return;
-        }
+    // // SORT MAP ALGORITHM 3
+    // public void sortMap3(int[] rows, int[] columns, int indexPlan) {
+    // if (subjects.size() == 0) {
+    // return;
+    // }
 
-        // Create initial matrix subject - this matrix save default data of coordinate,
-        // not changed during this method
-        // subjects in map
-        Subject[][] dataMatrix = new Subject[subjects.size()][subjects.size()];
-        // Fill matrix with initial value null
-        for (int indexRow = 0; indexRow < dataMatrix.length; indexRow++) {
-            for (int indexColumn = 0; indexColumn < dataMatrix[0].length; indexColumn++) {
-                dataMatrix[indexRow][indexColumn] = null;
-            }
-        }
-        // Create data for matrix
-        for (int index = 0; index < subjects.size(); index++) {
-            dataMatrix[rows[index]][columns[index]] = subjects.get(index);
-        }
+    // // Create initial matrix subject - this matrix save default data of
+    // coordinate,
+    // // not changed during this method
+    // // subjects in map
+    // Subject[][] dataMatrix = new Subject[subjects.size()][subjects.size()];
+    // // Fill matrix with initial value null
+    // for (int indexRow = 0; indexRow < dataMatrix.length; indexRow++) {
+    // for (int indexColumn = 0; indexColumn < dataMatrix[0].length; indexColumn++)
+    // {
+    // dataMatrix[indexRow][indexColumn] = null;
+    // }
+    // }
+    // // Create data for matrix
+    // for (int index = 0; index < subjects.size(); index++) {
+    // dataMatrix[rows[index]][columns[index]] = subjects.get(index);
+    // }
 
-        // Start fill subject for 'matrix'
-        NodeInMap rootNode = new NodeInMap(null, -1, 0);
-        List<NodeInMap> existingNodes = new LinkedList<NodeInMap>();
-        // Create childNodes for 'rootNode' (is all subjects in the first row (this row
-        // not null))
+    // // Start fill subject for 'matrix'
+    // NodeInMap rootNode = new NodeInMap(null, -1, 0);
+    // List<NodeInMap> existingNodes = new LinkedList<NodeInMap>();
+    // // Create childNodes for 'rootNode' (is all subjects in the first row (this
+    // row
+    // // not null))
 
-        for (int indexRow = 0; indexRow < dataMatrix.length; indexRow++) {
-            for (int indexColumn = 0; indexColumn < dataMatrix[0].length; indexColumn++) {
-                // get subject in current coordinate - 'mainSubject'
-                Subject mainSubject = dataMatrix[indexRow][indexColumn];
-                // If null, check next coordinate
-                if (mainSubject == null) {
-                    continue;
-                }
+    // for (int indexRow = 0; indexRow < dataMatrix.length; indexRow++) {
+    // for (int indexColumn = 0; indexColumn < dataMatrix[0].length; indexColumn++)
+    // {
+    // // get subject in current coordinate - 'mainSubject'
+    // Subject mainSubject = dataMatrix[indexRow][indexColumn];
+    // // If null, check next coordinate
+    // if (mainSubject == null) {
+    // continue;
+    // }
 
-                // Create for 'mainSubject'
-                NodeInMap mainNode = new NodeInMap(mainSubject, indexRow, indexColumn);
+    // // Create for 'mainSubject'
+    // NodeInMap mainNode = new NodeInMap(mainSubject, indexRow, indexColumn);
 
-                // Check if this node has connection with any node existing
-                boolean hasConnection = false;
+    // // Check if this node has connection with any node existing
+    // boolean hasConnection = false;
 
-                for (NodeInMap node : existingNodes) {
-                    if (node.hasConnection(mainNode)) {
-                        hasConnection = true;
-                        node.addChildNode(mainNode);
-                        mainNode.setParentNode(node);
-                        break;
-                    }
-                }
+    // for (NodeInMap node : existingNodes) {
+    // if (node.hasConnection(mainNode)) {
+    // hasConnection = true;
+    // node.addChildNode(mainNode);
+    // mainNode.setParentNode(node);
+    // break;
+    // }
+    // }
 
-                if (!hasConnection) {
-                    rootNode.addChildNode(mainNode);
-                    mainNode.setParentNode(rootNode);
-                }
+    // if (!hasConnection) {
+    // rootNode.addChildNode(mainNode);
+    // mainNode.setParentNode(rootNode);
+    // }
 
-                existingNodes.add(mainNode);
-            }
-        }
+    // existingNodes.add(mainNode);
+    // }
+    // }
 
-        // Save new data
-        for (NodeInMap node : existingNodes) {
-            Subject subject = node.getRootSubject();
-            subject.setRowIndexSorted(node.getIndexRow());
-            subject.setColumnIndexSorted(node.getIndexColumn());
-        }
+    // // Save new data
+    // for (NodeInMap node : existingNodes) {
+    // Subject subject = node.getRootSubject();
+    // subject.setRowIndexSorted(node.getIndexRow());
+    // subject.setColumnIndexSorted(node.getIndexColumn());
+    // }
 
-        // sort part 2 to better
-        // create matrix status
-        int[][] matrixStatus = new int[getMaxIndexRowSorted() + 1][getMaxIndexColumnSorted() + 1];
-        // int[][] matrixCount = new int[getMaxIndexRowSorted() +
-        // 1][getMaxIndexColumnSorted() + 1];
-        Subject[][] matrixSubject = new Subject[matrixStatus.length][matrixStatus[0].length];
-        for (Subject subject : subjects) {
-            int indexRowStart = subject.getRowIndexSorted();
-            int indexColumnStart = subject.getColumnIndexSorted();
-            matrixSubject[indexRowStart][indexColumnStart] = subject;
-            for (Subject parentSubject : subject.getParentSubjectsByList()) {
-                int indexRowEnd = parentSubject.getRowIndexSorted();
-                int indexColumnEnd = parentSubject.getColumnIndexSorted();
-                int r1 = Math.min(indexRowStart, indexRowEnd);
-                int r2 = Math.max(indexRowStart, indexRowEnd);
-                int c1 = Math.min(indexColumnStart, indexColumnEnd);
-                int c2 = Math.max(indexColumnStart, indexColumnEnd);
-                if (r1 == r2) {
-                    for (int indexColumn = c1; indexColumn <= c2; indexColumn++) {
-                        matrixStatus[r1][indexColumn] = 1;
-                    }
-                } else if (r1 + 1 == r2) {
-                    matrixStatus[r1][c1] = 1;
-                    matrixStatus[r2][c2] = 1;
-                } else {
-                    matrixStatus[r1][c1] = 1;
-                    matrixStatus[r2][c2] = 1;
-                    for (int indexRow = r1 + 1; indexRow <= r2 - 1; indexRow++) {
-                        for (int indexColumn = c1; indexColumn <= c2; indexColumn++) {
-                            matrixStatus[indexRow][indexColumn] = 1;
-                        }
-                    }
-                }
+    // // sort part 2 to better
+    // // create matrix status
+    // int[][] matrixStatus = new int[getMaxIndexRowSorted() +
+    // 1][getMaxIndexColumnSorted() + 1];
+    // // int[][] matrixCount = new int[getMaxIndexRowSorted() +
+    // // 1][getMaxIndexColumnSorted() + 1];
+    // Subject[][] matrixSubject = new
+    // Subject[matrixStatus.length][matrixStatus[0].length];
+    // for (Subject subject : subjects) {
+    // int indexRowStart = subject.getRowIndexSorted();
+    // int indexColumnStart = subject.getColumnIndexSorted();
+    // matrixSubject[indexRowStart][indexColumnStart] = subject;
+    // for (Subject parentSubject : subject.getParentSubjectsByList()) {
+    // int indexRowEnd = parentSubject.getRowIndexSorted();
+    // int indexColumnEnd = parentSubject.getColumnIndexSorted();
+    // int r1 = Math.min(indexRowStart, indexRowEnd);
+    // int r2 = Math.max(indexRowStart, indexRowEnd);
+    // int c1 = Math.min(indexColumnStart, indexColumnEnd);
+    // int c2 = Math.max(indexColumnStart, indexColumnEnd);
+    // if (r1 == r2) {
+    // for (int indexColumn = c1; indexColumn <= c2; indexColumn++) {
+    // matrixStatus[r1][indexColumn] = 1;
+    // }
+    // } else if (r1 + 1 == r2) {
+    // matrixStatus[r1][c1] = 1;
+    // matrixStatus[r2][c2] = 1;
+    // } else {
+    // matrixStatus[r1][c1] = 1;
+    // matrixStatus[r2][c2] = 1;
+    // for (int indexRow = r1 + 1; indexRow <= r2 - 1; indexRow++) {
+    // for (int indexColumn = c1; indexColumn <= c2; indexColumn++) {
+    // matrixStatus[indexRow][indexColumn] = 1;
+    // }
+    // }
+    // }
 
-            }
-            if (subject.getParentSubjectsByList().size() == 0) {
-                matrixStatus[indexRowStart][indexColumnStart] = 1;
-            }
-        }
+    // }
+    // if (subject.getParentSubjectsByList().size() == 0) {
+    // matrixStatus[indexRowStart][indexColumnStart] = 1;
+    // }
+    // }
 
-        // Start sort part 2
+    // // Start sort part 2
 
-        for (int indexRow = 0; indexRow < matrixStatus.length; indexRow++) {
-            int midIndexColumn = matrixStatus[indexRow].length / 2;
-            for (int indexColumn = midIndexColumn; indexColumn >= 0; indexColumn--) {
-                Subject subject = matrixSubject[indexRow][indexColumn];
-                if (subject != null && rootNode.contains(subject)) {
-                    NodeInMap node = getNodeBySubject(existingNodes, subject);
-                    if (node == null || node.getChildNodes().size() > 0) {
-                        continue;
-                    }
-                    int indexColumnPerfect = indexColumn;
-                    for (int index = midIndexColumn; index >= indexColumn; index--) {
-                        if (matrixStatus[indexRow][index] == 0) {
-                            indexColumnPerfect = index;
-                            break;
-                        }
-                    }
-                    subject.setColumnIndexSorted(indexColumnPerfect);
-                    matrixSubject[indexRow][indexColumn] = null;
-                    matrixSubject[indexRow][indexColumnPerfect] = subject;
-                    matrixStatus[indexRow][indexColumn] = 0;
-                    matrixStatus[indexRow][indexColumnPerfect] = 1;
-                }
-            }
+    // for (int indexRow = 0; indexRow < matrixStatus.length; indexRow++) {
+    // int midIndexColumn = matrixStatus[indexRow].length / 2;
+    // for (int indexColumn = midIndexColumn; indexColumn >= 0; indexColumn--) {
+    // Subject subject = matrixSubject[indexRow][indexColumn];
+    // if (subject != null && rootNode.contains(subject)) {
+    // NodeInMap node = getNodeBySubject(existingNodes, subject);
+    // if (node == null || node.getChildNodes().size() > 0) {
+    // continue;
+    // }
+    // int indexColumnPerfect = indexColumn;
+    // for (int index = midIndexColumn; index >= indexColumn; index--) {
+    // if (matrixStatus[indexRow][index] == 0) {
+    // indexColumnPerfect = index;
+    // break;
+    // }
+    // }
+    // subject.setColumnIndexSorted(indexColumnPerfect);
+    // matrixSubject[indexRow][indexColumn] = null;
+    // matrixSubject[indexRow][indexColumnPerfect] = subject;
+    // matrixStatus[indexRow][indexColumn] = 0;
+    // matrixStatus[indexRow][indexColumnPerfect] = 1;
+    // }
+    // }
 
-            for (int indexColumn = midIndexColumn + 1; indexColumn < matrixStatus[indexRow].length; indexColumn++) {
-                Subject subject = matrixSubject[indexRow][indexColumn];
-                if (subject != null && rootNode.contains(subject)) {
-                    NodeInMap node = getNodeBySubject(existingNodes, subject);
-                    if (node == null || node.getChildNodes().size() > 0) {
-                        continue;
-                    }
-                    int indexColumnPerfect = indexColumn;
-                    for (int index = midIndexColumn + 1; index <= indexColumn; index++) {
-                        if (matrixStatus[indexRow][index] == 0) {
-                            indexColumnPerfect = index;
-                            break;
-                        }
-                    }
-                    subject.setColumnIndexSorted(indexColumnPerfect);
-                    matrixSubject[indexRow][indexColumn] = null;
-                    matrixSubject[indexRow][indexColumnPerfect] = subject;
-                    matrixStatus[indexRow][indexColumn] = 0;
-                    matrixStatus[indexRow][indexColumnPerfect] = 1;
-                }
-            }
-        }
+    // for (int indexColumn = midIndexColumn + 1; indexColumn <
+    // matrixStatus[indexRow].length; indexColumn++) {
+    // Subject subject = matrixSubject[indexRow][indexColumn];
+    // if (subject != null && rootNode.contains(subject)) {
+    // NodeInMap node = getNodeBySubject(existingNodes, subject);
+    // if (node == null || node.getChildNodes().size() > 0) {
+    // continue;
+    // }
+    // int indexColumnPerfect = indexColumn;
+    // for (int index = midIndexColumn + 1; index <= indexColumn; index++) {
+    // if (matrixStatus[indexRow][index] == 0) {
+    // indexColumnPerfect = index;
+    // break;
+    // }
+    // }
+    // subject.setColumnIndexSorted(indexColumnPerfect);
+    // matrixSubject[indexRow][indexColumn] = null;
+    // matrixSubject[indexRow][indexColumnPerfect] = subject;
+    // matrixStatus[indexRow][indexColumn] = 0;
+    // matrixStatus[indexRow][indexColumnPerfect] = 1;
+    // }
+    // }
+    // }
 
-        // // Remove column full null
-        List<Integer> listIndexColumn = new LinkedList<>();
-        for (int indexColumn = 0; indexColumn < matrixSubject[0].length; indexColumn++) {
-            boolean isFullNullColumn = true;
-            for (int indexRow = 0; indexRow < matrixSubject.length; indexRow++) {
-                if (matrixSubject[indexRow][indexColumn] != null) {
-                    isFullNullColumn = false;
-                }
+    // // // Remove column full null
+    // List<Integer> listIndexColumn = new LinkedList<>();
+    // for (int indexColumn = 0; indexColumn < matrixSubject[0].length;
+    // indexColumn++) {
+    // boolean isFullNullColumn = true;
+    // for (int indexRow = 0; indexRow < matrixSubject.length; indexRow++) {
+    // if (matrixSubject[indexRow][indexColumn] != null) {
+    // isFullNullColumn = false;
+    // }
 
-            }
-            if (isFullNullColumn) {
-                listIndexColumn.add(0, indexColumn);
-            }
-        }
+    // }
+    // if (isFullNullColumn) {
+    // listIndexColumn.add(0, indexColumn);
+    // }
+    // }
 
-        for (int indexColumnNull : listIndexColumn) {
-            for (int indexColumn = indexColumnNull + 1; indexColumn < matrixSubject[0].length; indexColumn++) {
-                for (int indexRow = 0; indexRow < matrixSubject.length; indexRow++) {
-                    Subject subject = matrixSubject[indexRow][indexColumn];
-                    if (subject != null) {
-                        subject.setColumnIndexSorted(indexColumn - 1);
-                    }
-                    matrixSubject[indexRow][indexColumn - 1] = subject;
-                    matrixSubject[indexRow][indexColumn] = null;
-                }
-            }
-        }
+    // for (int indexColumnNull : listIndexColumn) {
+    // for (int indexColumn = indexColumnNull + 1; indexColumn <
+    // matrixSubject[0].length; indexColumn++) {
+    // for (int indexRow = 0; indexRow < matrixSubject.length; indexRow++) {
+    // Subject subject = matrixSubject[indexRow][indexColumn];
+    // if (subject != null) {
+    // subject.setColumnIndexSorted(indexColumn - 1);
+    // }
+    // matrixSubject[indexRow][indexColumn - 1] = subject;
+    // matrixSubject[indexRow][indexColumn] = null;
+    // }
+    // }
+    // }
 
-        // for (Subject subject : subjects) {
-        // matrixCount[subject.getRowIndexSorted()][subject.getColumnIndexSorted()]++;
-        // }
+    // // for (Subject subject : subjects) {
+    // //
+    // matrixCount[subject.getRowIndexSorted()][subject.getColumnIndexSorted()]++;
+    // // }
 
-        // for (int i = 0; i < matrixCount.length; i++) {
-        // for (int j = 0; j < matrixCount[0].length; j++) {
-        // System.out.print((matrixCount[i][j]) + " ");
-        // }
-        // System.out.println();
-        // }
+    // // for (int i = 0; i < matrixCount.length; i++) {
+    // // for (int j = 0; j < matrixCount[0].length; j++) {
+    // // System.out.print((matrixCount[i][j]) + " ");
+    // // }
+    // // System.out.println();
+    // // }
 
-        // Save new data to file
-        for (int indexSubject = 0; indexSubject < subjects.size(); indexSubject++) {
-            Subject subject = subjects.get(indexSubject);
-            subject.setRowIndexSorted(subject.getRowIndexSorted());
-            subject.setColumnIndexSorted(subject.getColumnIndexSorted());
-            WriteFile.editSubject(indexPlan, indexSubject, subject);
-        }
-    }
+    // // Save new data to file
+    // for (int indexSubject = 0; indexSubject < subjects.size(); indexSubject++) {
+    // Subject subject = subjects.get(indexSubject);
+    // subject.setRowIndexSorted(subject.getRowIndexSorted());
+    // subject.setColumnIndexSorted(subject.getColumnIndexSorted());
+    // WriteFile.editSubject(indexPlan, indexSubject, subject);
+    // }
+    // }
 
-    // Found node by subejct
-    public NodeInMap getNodeBySubject(List<NodeInMap> nodes, Subject subject) {
-        for (NodeInMap node : nodes) {
-            if (node.getRootSubject().getCode().equals(subject.getCode())) {
-                return node;
-            }
-        }
-        return null;
-    }
+    // // Found node by subejct
+    // public NodeInMap getNodeBySubject(List<NodeInMap> nodes, Subject subject) {
+    // for (NodeInMap node : nodes) {
+    // if (node.getRootSubject().getCode().equals(subject.getCode())) {
+    // return node;
+    // }
+    // }
+    // return null;
+    // }
 
-    // Sort way 4
+    // SORT MAP ALGORITHM 4
     public void sortMap4(int[] rows, int[] columns, int indexPlan) {
-        List<List<Subject>> groupSubjects = new LinkedList<List<Subject>>();
+        List<GroupSubject> groupSubjects = new LinkedList<GroupSubject>();
 
         // Status of subjects
         boolean[] isGrouped = new boolean[subjects.size()];
@@ -806,8 +816,8 @@ public class Plan {
             if (isGrouped[index]) {
                 continue;
             }
-            List<Subject> group = new LinkedList<>();
-            group.add(subjects.get(index));
+            GroupSubject group = new GroupSubject();
+            group.addSubject(subjects.get(index));
             queue.add(subjects.get(index));
             isGrouped[index] = true;
             while (queue.size() > 0) {
@@ -816,13 +826,91 @@ public class Plan {
                 for (Subject nearSubject : nearSubjects) {
                     int indexOfNearSubject = getIndexOfSubject(nearSubject);
                     if (!isGrouped[indexOfNearSubject]) {
-                        group.add(nearSubject);
+                        group.addSubject(nearSubject);
                         queue.add(nearSubject);
                         isGrouped[indexOfNearSubject] = true;
                     }
                 }
             }
             groupSubjects.add(group);
+        }
+
+        // SORT PART 1
+        // sort each group and add to temp map
+        List<Integer> listNumberColumn = new LinkedList<>();
+        int tempIndexColumn = 0;
+        for (GroupSubject group : groupSubjects) {
+            group.setRoot(0, tempIndexColumn);
+            tempIndexColumn += group.getMaxNumberColumn();
+            listNumberColumn.add(group.getMaxNumberColumn());
+        }
+
+        // SORT PART 2 to better
+        // Sort groups by size (max number column of each group)
+        for (int turn = 0; turn < groupSubjects.size(); turn++) {
+            for (int indexGroup = 0; indexGroup < groupSubjects.size() - 1; indexGroup++) {
+                GroupSubject group1 = groupSubjects.get(indexGroup);
+                GroupSubject group2 = groupSubjects.get(indexGroup + 1);
+                int numberColumn1 = listNumberColumn.get(indexGroup);
+                int numberColumn2 = listNumberColumn.get(indexGroup + 1);
+                if (numberColumn1 < numberColumn2) {
+                    groupSubjects.set(indexGroup, group2);
+                    groupSubjects.set(indexGroup + 1, group1);
+                    listNumberColumn.set(indexGroup, numberColumn2);
+                    listNumberColumn.set(indexGroup + 1, numberColumn1);
+                }
+            }
+        }
+
+        // Start fill groups in new empty map
+        List<GroupSubject> groups = new LinkedList<>();
+        int[][] status = getMatrixStatus(groups);
+        // Add each existing group to 'groups'
+        for (GroupSubject group : groupSubjects) {
+            boolean flag = false;
+            int indexColumnRoot = 0;
+            while (flag == false) {
+                flag = true;
+                group.setRoot(0, indexColumnRoot);
+                groups.add(group);
+                status = getMatrixStatus(groups);
+                for (int i = 0; i < status.length; i++) {
+                    for (int j = 0; j < status[0].length; j++) {
+                        if (status[i][j] > 1) {
+                            flag = false;
+                            groups.remove(group);
+                            indexColumnRoot++;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // for (int i = 0; i < status.length; i++) {
+            // for (int j = 0; j < status[0].length; j++) {
+            // System.out.print((status[i][j]) + " ");
+            // }
+            // System.out.println();
+            // }
+            // System.out.println(groups.size() +
+            // "======================================================");
+        }
+
+        // Print test
+        status = getMatrixStatus(groups);
+        for (int i = 0; i < status.length; i++) {
+            for (int j = 0; j < status[0].length; j++) {
+                System.out.print((status[i][j]) + " ");
+            }
+            System.out.println();
+        }
+
+        // Save new data to file
+        for (int indexSubject = 0; indexSubject < subjects.size(); indexSubject++) {
+            Subject subject = subjects.get(indexSubject);
+            subject.setRowIndexSorted(subject.getRowIndexSorted());
+            subject.setColumnIndexSorted(subject.getColumnIndexSorted());
+            WriteFile.editSubject(indexPlan, indexSubject, subject);
         }
     }
 
@@ -836,6 +924,71 @@ public class Plan {
             }
         }
         return listSubjects;
+    }
+
+    // Get matrix status
+    public int[][] getMatrixStatus(List<GroupSubject> listGroup) {
+        int[][] matrix = new int[getMaxIndexRowSorted() + 1][getMaxIndexColumnSorted() + 1];
+        for (GroupSubject group : listGroup) {
+            List<Integer> listIndexRowNotNull = group.getIndexRowNotNull();
+            List<Integer[]> minAndMaxIndexColumnEachRow = group.getMinAndMaxIndexColumnEachRow();
+            int tempIndexRow = listIndexRowNotNull.get(0);
+            int tempMinIndexColumn = minAndMaxIndexColumnEachRow.get(0)[0];
+            int tempMaxIndexColumn = minAndMaxIndexColumnEachRow.get(0)[1];
+            if (listIndexRowNotNull.size() == 1) {
+                // Fill 'true' value in one row
+                for (int indexColumn = tempMinIndexColumn; indexColumn <= tempMaxIndexColumn; indexColumn++) {
+                    matrix[tempIndexRow][indexColumn]++;
+                }
+            } else if (listIndexRowNotNull.size() == 2) {
+                // fill 'true' value in first row
+                for (int indexColumn = tempMinIndexColumn; indexColumn <= tempMaxIndexColumn; indexColumn++) {
+                    matrix[tempIndexRow][indexColumn]++;
+                }
+                // Fill 'true' value in row which beetwen first row and second row
+                tempMinIndexColumn = Math.min(minAndMaxIndexColumnEachRow.get(0)[0],
+                        minAndMaxIndexColumnEachRow.get(1)[0]);
+                tempMaxIndexColumn = Math.max(minAndMaxIndexColumnEachRow.get(0)[1],
+                        minAndMaxIndexColumnEachRow.get(1)[1]);
+                for (int indexRow = listIndexRowNotNull.get(0) + 1; indexRow < listIndexRowNotNull.get(1); indexRow++) {
+                    for (int indexColumn = tempMinIndexColumn; indexColumn <= tempMaxIndexColumn; indexColumn++) {
+                        matrix[indexRow][indexColumn]++;
+                    }
+                }
+                // Fill 'true' value in second row
+                tempIndexRow = listIndexRowNotNull.get(1);
+                tempMinIndexColumn = minAndMaxIndexColumnEachRow.get(1)[0];
+                tempMaxIndexColumn = minAndMaxIndexColumnEachRow.get(1)[1];
+                for (int indexColumn = tempMinIndexColumn; indexColumn <= tempMaxIndexColumn; indexColumn++) {
+                    matrix[tempIndexRow][indexColumn]++;
+                }
+            } else {
+                // Each row from min index row to (max index row - 1)
+                for (int indexRow = listIndexRowNotNull.get(0); indexRow < listIndexRowNotNull
+                        .get(listIndexRowNotNull.size() - 1); indexRow++) {
+                    // find tempMinIndexCOlumn and tempMaxIndexColumn
+                    int indexInList = listIndexRowNotNull.indexOf(indexRow);
+                    if (indexInList != -1) {
+                        tempMinIndexColumn = Math.min(tempMinIndexColumn,
+                                minAndMaxIndexColumnEachRow.get(indexInList)[0]);
+                        tempMaxIndexColumn = Math.max(tempMaxIndexColumn,
+                                minAndMaxIndexColumnEachRow.get(indexInList)[1]);
+                    }
+                    // Fill 'true' value
+                    for (int indexColumn = tempMinIndexColumn; indexColumn <= tempMaxIndexColumn; indexColumn++) {
+                        matrix[indexRow][indexColumn]++;
+                    }
+                }
+                // last row (max index row in 'listIndexRowNotNull')
+                int lastIndex = listIndexRowNotNull.size() - 1;
+                tempMinIndexColumn = minAndMaxIndexColumnEachRow.get(lastIndex)[0];
+                tempMaxIndexColumn = minAndMaxIndexColumnEachRow.get(lastIndex)[1];
+                for (int indexColumn = tempMinIndexColumn; indexColumn <= tempMaxIndexColumn; indexColumn++) {
+                    matrix[listIndexRowNotNull.get(lastIndex)][indexColumn]++;
+                }
+            }
+        }
+        return matrix;
     }
 
     // Setter

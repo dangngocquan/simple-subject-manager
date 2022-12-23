@@ -193,7 +193,15 @@ public class PanelCalculateLastTerm3 extends JPanel {
                                         new DialogCalculateScoreLastTerm3(Setting.WIDTH / 2,
                                                         Setting.HEIGHT / 2, Setting.WIDTH / 5 * 4,
                                                         Setting.HEIGHT / 5 * 4,
-                                                        DialogCalculateScoreLastTerm3.CENTER_CENTER, "Result", null,
+                                                        DialogCalculateScoreLastTerm3.CENTER_CENTER, "Result",
+                                                        new String[] {
+                                                                        String.format("%-30s:%10s", "Điểm thứ nhất ("
+                                                                                        + textField3.getText() + "%)",
+                                                                                        textField1.getText()),
+                                                                        String.format("%-30s :%10s", "Điểm thứ hai ("
+                                                                                        + textField4.getText() + "%)",
+                                                                                        textField2.getText())
+                                                        },
                                                         Double.parseDouble(textField1.getText()),
                                                         Double.parseDouble(textField3.getText()) / 100.0,
                                                         Double.parseDouble(textField2.getText()),

@@ -88,13 +88,17 @@ public class DialogCalculateScoreLastTerm4 {
         dialog.setBounds(xPos, yPos, width, height);
 
         // Title
-        title0 = new PanelString(width / 2, height / 8, "Kết quả tính toán", width,
+        title0 = new PanelString(width / 2, height / 10, "Kết quả tính toán", width,
                 new Font(Setting.FONT_NAME_01,
                         Setting.FONT_STYLE_01,
                         Setting.FONT_SIZE_MEDIUM),
                 PanelString.CENTER_CENTER, 0);
 
-        int tempHeight = height / 4;
+        int tempHeight = height / 8;
+
+        PanelString panelMessage = new PanelString(width / 2, tempHeight, messageLines, width, null,
+                PanelString.TOP_CENTER, width / 10);
+        tempHeight += panelMessage.getHeight() + 10;
 
         // Panel header
         panelHeader = new JPanel();
@@ -176,6 +180,7 @@ public class DialogCalculateScoreLastTerm4 {
         dialog.add(panelHeader);
         dialog.add(panelContent);
         dialog.add(title0);
+        dialog.add(panelMessage);
 
         // Show dialog
         dialog.setVisible(true);

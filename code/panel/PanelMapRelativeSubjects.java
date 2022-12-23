@@ -95,19 +95,22 @@ public class PanelMapRelativeSubjects extends JPanel {
                 this.rows[count] = row;
                 this.columns[count] = column;
 
+                subject.setRowIndexSorted(row);
+                subject.setColumnIndexSorted(column);
+
                 count++;
                 tempLocation[row]++;
             }
 
             // Create good coordinate by use 'sortMap' method
-            this.plan.sortMap3(rows, columns, indexPlan);
+            this.plan.sortMap4(rows, columns, indexPlan);
         }
 
         // Draw panel subjects
         int maxRow = plan.getMaxIndexRowSorted() + 1;
         int maxColumn = plan.getMaxIndexColumnSorted() + 1;
-        this.width = (int) (widthContent * 1.0 / 12 * maxColumn);
-        this.height = (int) (heightContent * 1.0 / 5 * maxRow);
+        this.width = Math.max((int) (widthContent * 1.0 / 12 * maxColumn), widthContent);
+        this.height = Math.max((int) (heightContent * 1.0 / 8 * maxRow), heightContent);
         int heightPerSubjectPanel = this.height / maxRow;
         int widthPerSubjectPanel = this.width / maxColumn;
         setSize(this.width, this.height);
@@ -201,12 +204,15 @@ public class PanelMapRelativeSubjects extends JPanel {
                 this.rows[count] = row;
                 this.columns[count] = column;
 
+                subject.setRowIndexSorted(row);
+                subject.setColumnIndexSorted(column);
+
                 count++;
                 tempLocation[row]++;
             }
 
             // Create good coordinate by use 'sortMap' method
-            this.plan.sortMap3(rows, columns, indexPlan);
+            this.plan.sortMap4(rows, columns, indexPlan);
         }
 
         // Draw panel subjects
@@ -451,7 +457,7 @@ public class PanelMapRelativeSubjects extends JPanel {
                 setBounds(-xCursor, -yCursor, getWidth(), getHeight());
                 updateDataContent();
                 repaint();
-            } else if (event.isAltDown()) {
+            } else if (event.isShiftDown()) {
                 double distanceLeft = event.getX() - xCursor;
                 double fraction = (event.getX()) * 1.0 / width;
                 int newWidth = width + event.getWheelRotation() * 200;
