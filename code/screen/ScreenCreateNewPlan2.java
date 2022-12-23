@@ -32,6 +32,7 @@ public class ScreenCreateNewPlan2 extends JPanel {
     private Major major;
     private PanelMajorHasOptions panelMajor;
     private int indexConversionTable = 0;
+    private String schoolName = "", departmentName = "", majorName = "";
 
     // Constructor
     public ScreenCreateNewPlan2(int width, int height, ScreenCreateNewPlan1 parentScreen, Application frame,
@@ -117,6 +118,18 @@ public class ScreenCreateNewPlan2 extends JPanel {
         return this.applicationFrame;
     }
 
+    public String getSchoolName() {
+        return this.schoolName;
+    }
+
+    public String getDepartmentName() {
+        return this.departmentName;
+    }
+
+    public String getMajorName() {
+        return this.majorName;
+    }
+
     // Get buttons in mainScreen
     public Button[] getButtons() {
         return this.buttons;
@@ -167,6 +180,18 @@ public class ScreenCreateNewPlan2 extends JPanel {
         updateContentPanel();
     }
 
+    public void setSchoolName(String name) {
+        this.schoolName = name;
+    }
+
+    public void setDepartmentName(String name) {
+        this.departmentName = name;
+    }
+
+    public void setMajorName(String name) {
+        this.majorName = name;
+    }
+
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -207,6 +232,9 @@ public class ScreenCreateNewPlan2 extends JPanel {
                 if (panelMajor.isValidPlan()) {
                     getScreenCreateNewPlan3().setListSubjectSelected(panelMajor.getListSubjectSelected());
                     getScreenCreateNewPlan3().setIndexConversionTable(indexConversionTable);
+                    getScreenCreateNewPlan3().setSchoolName(schoolName);
+                    getScreenCreateNewPlan3().setDepartmentName(departmentName);
+                    getScreenCreateNewPlan3().setMajorName(majorName);
                     getScreenCreateNewPlan3().setVisible(true);
                     getMainScreen().setVisible(false);
                     AnimationPanel animation = new AnimationPanel(getScreenCreateNewPlan3(),

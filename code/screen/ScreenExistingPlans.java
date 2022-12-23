@@ -120,6 +120,8 @@ public class ScreenExistingPlans extends JPanel {
             tempButton.setLocationButton(contentPanel.getWidth() / 2, heightScroll, Button.TOP_CENTER);
             scrollPanel.add(tempButton);
             buttonPlans[i] = tempButton;
+            buttonPlans[i].setToolTipText(String.format("%s | %s | %s", plans.get(i).getSchoolName(),
+                    plans.get(i).getDepartmentName(), plans.get(i).getMajorName()));
             buttonPlans[i].addMouseListener(new MouseHandler());
             heightScroll += tempButton.getHeight() + 120;
 

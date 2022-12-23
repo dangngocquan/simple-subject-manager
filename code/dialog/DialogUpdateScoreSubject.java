@@ -59,6 +59,7 @@ public class DialogUpdateScoreSubject {
                 dialog = new JDialog(f, title, true);
                 dialog.setLayout(null);
                 dialog.setSize(width, height);
+                dialog.setIconImage(Setting.LOGO.getImage());
                 dialog.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 int xPos = x, yPos = y;
                 switch (rootLocationType) {

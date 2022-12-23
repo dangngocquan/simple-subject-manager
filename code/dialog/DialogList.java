@@ -38,6 +38,7 @@ public class DialogList {
         if (width < Setting.WIDTH / 24 * 11) {
             width = Setting.WIDTH / 24 * 11;
         }
+        dialog.setIconImage(Setting.LOGO.getImage());
         dialog.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         int xPos = x, yPos = y;
         switch (rootLocationType) {

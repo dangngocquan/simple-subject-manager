@@ -212,6 +212,9 @@ public class ScreenCreateNewPlan1 extends JPanel {
                 screenCreateNewPlan2.getCheckBox().setSelected(false);
                 screenCreateNewPlan2.setMajor(major);
                 screenCreateNewPlan2.setIndexConversionTable(Data.getIndexConnversion(school.getName()));
+                screenCreateNewPlan2.setSchoolName(school.getName());
+                screenCreateNewPlan2.setDepartmentName(department.getName());
+                screenCreateNewPlan2.setMajorName(major.getName());
                 screenCreateNewPlan2.setVisible(true);
                 mainScreen.setVisible(false);
                 AnimationPanel animation = new AnimationPanel(screenCreateNewPlan2,

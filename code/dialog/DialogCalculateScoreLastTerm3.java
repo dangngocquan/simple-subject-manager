@@ -44,6 +44,7 @@ public class DialogCalculateScoreLastTerm3 {
         dialog.setLayout(null);
         dialog.setSize(width, height);
         dialog.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        dialog.setIconImage(Setting.LOGO.getImage());
         int xPos = x, yPos = y;
         switch (rootLocationType) {
             case 0:

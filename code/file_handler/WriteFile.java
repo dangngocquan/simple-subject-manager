@@ -285,7 +285,9 @@ public class WriteFile {
             }
         }
         // Write data for information.txt
-        writeStringToFile(path2, plan.getName() + "\n" + plan.getIndexConversionTable(), false);
+        writeStringToFile(path2, String.format("%s\n%s\n%s\n%s\n%d", plan.getName(),
+                plan.getSchoolName(), plan.getDepartmentName(), plan.getMajorName(), plan.getIndexConversionTable()),
+                false);
 
         // Create files for each subject in plan
         List<Subject> subjects = plan.getSubjects();
@@ -331,7 +333,9 @@ public class WriteFile {
             }
         }
         // Write data for information.txt
-        writeStringToFile(path2, name + "\n" + plan.getIndexConversionTable(), false);
+        writeStringToFile(path2, String.format("%s\n&s\n%s\n%s\n%d", name,
+                plan.getSchoolName(), plan.getDepartmentName(), plan.getMajorName(), plan.getIndexConversionTable()),
+                false);
 
         // Create files for each subject in plan
         List<Subject> subjects = plan.getSubjects();
@@ -362,7 +366,9 @@ public class WriteFile {
             if (tempFile.isDirectory()) {
                 if (count == indexPlan) {
                     String path2 = path1 + "/" + "informations.txt";
-                    writeStringToFile(path2, name + "\n" + plan.getIndexConversionTable(), false);
+                    writeStringToFile(path2, String.format("%s\n&s\n%s\n%s\n%d", name,
+                            plan.getSchoolName(), plan.getDepartmentName(), plan.getMajorName(),
+                            plan.getIndexConversionTable()), false);
                 } else {
                     count++;
                 }

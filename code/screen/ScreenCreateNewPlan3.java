@@ -30,6 +30,7 @@ public class ScreenCreateNewPlan3 extends JPanel {
     private Button[] buttons;
     private List<Subject> subjects;
     private int indexConversionTable = 0;
+    private String schoolName = "", departmentName = "", majorName = "";
 
     // Constructor
     public ScreenCreateNewPlan3(int width, int height, ScreenCreateNewPlan2 parentScreen, Application frame,
@@ -97,6 +98,18 @@ public class ScreenCreateNewPlan3 extends JPanel {
         return this.applicationFrame;
     }
 
+    public String getSchoolName() {
+        return this.schoolName;
+    }
+
+    public String getDepartmentName() {
+        return this.departmentName;
+    }
+
+    public String getMajorName() {
+        return this.majorName;
+    }
+
     // Get buttons
     public Button[] getButtons() {
         return this.buttons;
@@ -127,6 +140,18 @@ public class ScreenCreateNewPlan3 extends JPanel {
         this.indexConversionTable = index;
     }
 
+    public void setSchoolName(String name) {
+        this.schoolName = name;
+    }
+
+    public void setDepartmentName(String name) {
+        this.departmentName = name;
+    }
+
+    public void setMajorName(String name) {
+        this.majorName = name;
+    }
+
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -150,6 +175,9 @@ public class ScreenCreateNewPlan3 extends JPanel {
                             "Information", new String[] { "Bạn chưa nhập Họ và tên" }, Setting.WARNING);
                 } else {
                     Plan plan = new Plan(fieldName.getText(), subjects, indexConversionTable);
+                    plan.setSchoolName(schoolName);
+                    plan.setDepartmentName(departmentName);
+                    plan.setMajorName(majorName);
                     WriteFile.createNewPlan(plan);
                     new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
                             DialogMessage.CENTER_CENTER,

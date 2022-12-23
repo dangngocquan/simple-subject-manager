@@ -138,9 +138,19 @@ public class Button extends JPanel {
         return this.xPos + getWidth() / 2;
     }
 
+    // Get right X
+    public int getRightX() {
+        return this.xPos + getWidth();
+    }
+
     // Get bottom Y
     public int getBottomY() {
         return this.yPos + getHeight();
+    }
+
+    // Get center Y
+    public int getCenterY() {
+        return this.yPos + getHeight() / 2;
     }
 
     // Get basic width and height of text with a input font

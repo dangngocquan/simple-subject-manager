@@ -112,7 +112,11 @@ public class ReadFile {
     public static Plan getPlanFromFile(String path) {
         List<String> data = getStringLinesFromFile(path + "/informations.txt");
         String name = data.get(0);
-        int indexConversionTable = Integer.parseInt(data.get(1));
+        String schoolName = "", departmentName = "", majorName = "";
+        schoolName = data.get(1);
+        departmentName = data.get(2);
+        majorName = data.get(3);
+        int indexConversionTable = Integer.parseInt(data.get(4));
         List<Subject> subjects = new LinkedList<Subject>();
         File file = new File(path);
         for (String nameFile : file.list()) {
@@ -144,6 +148,9 @@ public class ReadFile {
         }
 
         Plan plan = new Plan(name, subjects, indexConversionTable);
+        plan.setSchoolName(schoolName);
+        plan.setDepartmentName(departmentName);
+        plan.setMajorName(majorName);
         return plan;
     }
 

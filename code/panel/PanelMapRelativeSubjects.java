@@ -8,6 +8,7 @@ import java.awt.event.MouseWheelEvent;
 import code.Setting;
 import code.dialog.DialogUpdateMapRelative;
 import code.file_handler.WriteFile;
+import code.objects.ArrowVector;
 import code.objects.Button;
 import code.objects.Plan;
 import code.objects.Subject;
@@ -149,8 +150,23 @@ public class PanelMapRelativeSubjects extends JPanel {
             Subject subject = plan.getSubjects().get(i);
             for (Subject parentSubject : subject.getParentSubjectsByList()) {
                 int j = plan.getIndexOfSubject(parentSubject);
-                Line2D line = new Line2D.Float(panelSubjects[j].getCenterX(), panelSubjects[j].getBottomY(),
-                        panelSubjects[i].getCenterX(), panelSubjects[i].getY());
+                Line2D line = null;
+                if (subject.getRowIndexSorted() < parentSubject.getRowIndexSorted()) {
+                    line = new Line2D.Float(panelSubjects[j].getCenterX(), panelSubjects[j].getY(),
+                            panelSubjects[i].getCenterX(), panelSubjects[i].getBottomY());
+                } else if (subject.getRowIndexSorted() == parentSubject.getRowIndexSorted()) {
+                    if (subject.getColumnIndexSorted() < parentSubject.getColumnIndexSorted()) {
+                        line = new Line2D.Float(panelSubjects[j].getX(), panelSubjects[j].getCenterY(),
+                                panelSubjects[i].getRightX(), panelSubjects[i].getCenterY());
+                    } else {
+                        line = new Line2D.Float(panelSubjects[j].getRightX(), panelSubjects[j].getCenterY(),
+                                panelSubjects[i].getX(), panelSubjects[i].getCenterY());
+                    }
+                } else if (subject.getRowIndexSorted() > parentSubject.getRowIndexSorted()) {
+                    line = new Line2D.Float(panelSubjects[j].getCenterX(), panelSubjects[j].getBottomY(),
+                            panelSubjects[i].getCenterX(), panelSubjects[i].getY());
+                }
+
                 lines.get(i).add(line);
                 lines.get(j).add(line);
                 indexes.get(i).add(j);
@@ -223,8 +239,22 @@ public class PanelMapRelativeSubjects extends JPanel {
             Subject subject = plan.getSubjects().get(i);
             for (Subject parentSubject : subject.getParentSubjectsByList()) {
                 int j = plan.getIndexOfSubject(parentSubject);
-                Line2D line = new Line2D.Float(panelSubjects[j].getCenterX(), panelSubjects[j].getBottomY(),
-                        panelSubjects[i].getCenterX(), panelSubjects[i].getY());
+                Line2D line = null;
+                if (subject.getRowIndexSorted() < parentSubject.getRowIndexSorted()) {
+                    line = new Line2D.Float(panelSubjects[j].getCenterX(), panelSubjects[j].getY(),
+                            panelSubjects[i].getCenterX(), panelSubjects[i].getBottomY());
+                } else if (subject.getRowIndexSorted() == parentSubject.getRowIndexSorted()) {
+                    if (subject.getColumnIndexSorted() < parentSubject.getColumnIndexSorted()) {
+                        line = new Line2D.Float(panelSubjects[j].getX(), panelSubjects[j].getCenterY(),
+                                panelSubjects[i].getRightX(), panelSubjects[i].getCenterY());
+                    } else {
+                        line = new Line2D.Float(panelSubjects[j].getRightX(), panelSubjects[j].getCenterY(),
+                                panelSubjects[i].getX(), panelSubjects[i].getCenterY());
+                    }
+                } else if (subject.getRowIndexSorted() > parentSubject.getRowIndexSorted()) {
+                    line = new Line2D.Float(panelSubjects[j].getCenterX(), panelSubjects[j].getBottomY(),
+                            panelSubjects[i].getCenterX(), panelSubjects[i].getY());
+                }
                 lines.get(i).add(line);
                 lines.get(j).add(line);
             }
@@ -367,18 +397,22 @@ public class PanelMapRelativeSubjects extends JPanel {
                 for (Line2D line : lines.get(i)) {
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2.draw(line);
+                    // g2.draw(line);
+                    ArrowVector.drawArrowLine(g2, (int) line.getX1(), (int) line.getY1(), (int) line.getX2(),
+                            (int) line.getY2(), 12, 6);
                 }
             }
         }
 
         if (indexSubjectEntering > -1) {
-            g2.setStroke(new BasicStroke(4));
+            g2.setStroke(new BasicStroke(2));
             g2.setColor(tempColorLineEntered);
             for (Line2D line : lines.get(indexSubjectEntering)) {
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                         RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.draw(line);
+                // g2.draw(line);
+                ArrowVector.drawArrowLine(g2, (int) line.getX1(), (int) line.getY1(), (int) line.getX2(),
+                        (int) line.getY2(), 12, 6);
             }
         }
 

@@ -2,6 +2,7 @@ package code.objects;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import code.curriculum.Data;
 import code.file_handler.WriteFile;
@@ -11,6 +12,7 @@ public class Plan {
     private List<Subject> subjects;
     private ConversionTable conversionTable;
     private int indexConversionTable;
+    private String schoolName = "", departmentName = "", majorName = "";
 
     public Plan(String name, List<Subject> subjects, int index) {
         this.name = name;
@@ -22,6 +24,18 @@ public class Plan {
     // Getter
     public String getName() {
         return this.name;
+    }
+
+    public String getSchoolName() {
+        return this.schoolName;
+    }
+
+    public String getDepartmentName() {
+        return this.departmentName;
+    }
+
+    public String getMajorName() {
+        return this.majorName;
     }
 
     public List<Subject> getSubjects() {
@@ -776,9 +790,69 @@ public class Plan {
         return null;
     }
 
+    // Sort way 4
+    public void sortMap4(int[] rows, int[] columns, int indexPlan) {
+        List<List<Subject>> groupSubjects = new LinkedList<List<Subject>>();
+
+        // Status of subjects
+        boolean[] isGrouped = new boolean[subjects.size()];
+        for (int index = 0; index < subjects.size(); index++) {
+            isGrouped[index] = false;
+        }
+
+        // Start create group subject
+        Queue<Subject> queue = new LinkedList<Subject>();
+        for (int index = 0; index < subjects.size(); index++) {
+            if (isGrouped[index]) {
+                continue;
+            }
+            List<Subject> group = new LinkedList<>();
+            group.add(subjects.get(index));
+            queue.add(subjects.get(index));
+            isGrouped[index] = true;
+            while (queue.size() > 0) {
+                Subject subject = queue.poll();
+                List<Subject> nearSubjects = getParentAndChildSubjects(subject);
+                for (Subject nearSubject : nearSubjects) {
+                    int indexOfNearSubject = getIndexOfSubject(nearSubject);
+                    if (!isGrouped[indexOfNearSubject]) {
+                        group.add(nearSubject);
+                        queue.add(nearSubject);
+                        isGrouped[indexOfNearSubject] = true;
+                    }
+                }
+            }
+            groupSubjects.add(group);
+        }
+    }
+
+    // Get list parent subject and child subject of input subject
+    public List<Subject> getParentAndChildSubjects(Subject subject) {
+        List<Subject> listSubjects = new LinkedList<>();
+        for (Subject subjectCheck : subjects) {
+            if (subject.getParentSubjectCodesByList().contains(subjectCheck.getCode())
+                    || subjectCheck.getParentSubjectCodesByList().contains(subject.getCode())) {
+                listSubjects.add(subjectCheck);
+            }
+        }
+        return listSubjects;
+    }
+
     // Setter
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setSchoolName(String name) {
+        this.schoolName = name;
+    }
+
+    public void setDepartmentName(String name) {
+        this.departmentName = name;
+    }
+
+    public void setMajorName(String name) {
+        this.majorName = name;
     }
 
     public void setSubjects(List<Subject> subjects) {
