@@ -233,6 +233,7 @@ public class WriteFile {
         int level = subject.getLevel();
         int rowIndexSorted = subject.getRowIndexSorted();
         int columnIndexSorted = subject.getColumnIndexSorted();
+        int enable = (subject.getEnable()) ? 1 : 0;
         String timeTable = "";
         for (List<Integer> times : subject.getListTimes()) {
             String temp = "";
@@ -242,9 +243,9 @@ public class WriteFile {
             timeTable += temp + "\n";
         }
 
-        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n%s\n%d\n%d\n%d\n%d\n",
+        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n%s\n%d\n%d\n%d\n%d\n%d\n",
                 code, name, credits, parentSubjectCodes, state, characterScore, color, score10, score4, semester,
-                level, rowIndexSorted, columnIndexSorted) + timeTable;
+                level, rowIndexSorted, columnIndexSorted, enable) + timeTable;
 
         writeStringToFile(path, data, false);
     }
@@ -259,8 +260,18 @@ public class WriteFile {
             File file = new File(path1);
             if (file.isDirectory()) {
                 if (indexPlan == tempIndexPlan) {
-                    String path2 = path1 + "/" + (new File(path1)).list()[indexSubject + 1];
-                    createNewSubject(path2, subject);
+                    int tempIndexSubject = 0;
+                    File file1 = new File(path1);
+                    for (String nameFile : file1.list()) {
+                        if (nameFile.matches("subject[0-9]{1,}[.]txt")) {
+                            if (tempIndexSubject == indexSubject) {
+                                String path2 = path1 + "/" + nameFile;
+                                createNewSubject(path2, subject);
+                            }
+                            tempIndexSubject++;
+                        }
+                    }
+
                 }
                 tempIndexPlan++;
             }
@@ -292,10 +303,53 @@ public class WriteFile {
             file0.mkdirs();
         }
 
-        String path4 = path3 + "/" + String.format("subject%03d.txt", file0.list().length);
+        // Create name folder for subject
+        String path4 = path3 + "/count.txt";
+        File file4 = new File(path4);
+        if (!file4.exists()) {
+            try {
+                file4.createNewFile();
+            } catch (Exception e) {
 
-        createNewSubject(path4, subject);
+            }
+            writeStringToFile(path4, "0", false);
+        }
+        int count = Integer.parseInt(ReadFile.getStringFromFile(path4));
+        writeStringToFile(path4, (count + 1) + "", false);
 
+        String path5 = path3 + "/" + String.format("subject%03d.txt", count);
+
+        createNewSubject(path5, subject);
+
+    }
+
+    // Edit subject in time table of plan
+    public static void editSubjectTimeTable(int indexPlan, int indexSubject, Subject subject) {
+        String path = ReadFile.getPathCurrentAccount();
+        String[] planFolderNames = (new File(path)).list();
+        int tempIndexPlan = 0;
+        for (String planFolderName : planFolderNames) {
+            String path1 = path + "/" + planFolderName;
+            File file = new File(path1);
+            if (file.isDirectory()) {
+                if (indexPlan == tempIndexPlan) {
+                    int tempIndexSubject = 0;
+                    String path2 = path1 + "/TimeTable";
+                    File file1 = new File(path2);
+                    for (String nameFile : file1.list()) {
+                        if (nameFile.matches("subject[0-9]{1,}[.]txt")) {
+                            if (tempIndexSubject == indexSubject) {
+                                String path3 = path2 + "/" + nameFile;
+                                createNewSubject(path3, subject);
+                            }
+                            tempIndexSubject++;
+                        }
+                    }
+
+                }
+                tempIndexPlan++;
+            }
+        }
     }
 
     // Create new plan for current account

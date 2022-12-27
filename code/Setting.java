@@ -43,6 +43,7 @@ public class Setting {
         public static Color COLOR_RED_05 = new Color(235, 188, 188);
         public static Color COLOR_RED_06 = new Color(235, 201, 201);
         public static Color COLOR_RED_07 = new Color(255, 218, 218);
+        public static Color COLOR_RED_08 = new Color(255, 0, 0);
         public static Color COLOR_VIOLET_01 = new Color(230, 228, 255);
         public static Color COLOR_VIOLET_02 = new Color(211, 202, 255);
         public static Color COLOR_VIOLET_03 = new Color(240, 237, 255);

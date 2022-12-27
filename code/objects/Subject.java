@@ -28,6 +28,7 @@ public class Subject {
     private int rowIndexSorted = -1, columnIndexSorted = -1;
     // Use in time table
     private List<List<Integer>> listTimes = null;
+    private boolean enable = true;
 
     // Constructor
     public Subject(String name, String code, int credits) {
@@ -54,6 +55,10 @@ public class Subject {
 
     public int getSemester() {
         return this.semester;
+    }
+
+    public boolean getEnable() {
+        return this.enable;
     }
 
     public List<Subject[]> getParentSubjects() {
@@ -217,6 +222,10 @@ public class Subject {
 
     public void setSemester(int semes) {
         this.semester = semes;
+    }
+
+    public void setEnable(boolean flag) {
+        this.enable = flag;
     }
 
     public void setNumberCredits(int numberCredits) {

@@ -33,15 +33,15 @@ public class PanelTimeTable extends JPanel {
     // Properties
     private int width, height; // size of this panel
     private int xPos, yPos, rootLocationType; // location of top-left point
-    private JFrame applicationFrame;
-    private JPanel panelSubjectList = null;
+    private PanelSubjectList2 panelSubjectList = null;
+    private PanelSubject4 panelContent = null;
     private Plan plan;
     private int indexPlan;
+    private int indexPressing = -1;
 
     // Constructor
     public PanelTimeTable(int x, int y, int width, int height, Font font,
             int rootLocationType, Plan plan, int indexPlan, JFrame applicationFrame) {
-        this.applicationFrame = applicationFrame;
         this.plan = plan;
         this.indexPlan = indexPlan;
         // Properties, Objects
@@ -54,16 +54,27 @@ public class PanelTimeTable extends JPanel {
         setBackground(COLOR_STROKE);
 
         // panels
-        panelSubjectList = new PanelSubjectList2(0, 0, width / 4, height, plan, PanelSubjectList2.TOP_LEFT, indexPlan);
+        panelSubjectList = new PanelSubjectList2(0, 0, width / 4, height, this.plan, PanelSubjectList2.TOP_LEFT,
+                this.indexPlan, this);
+        panelContent = new PanelSubject4(panelSubjectList.getWidth(), panelSubjectList.getY(),
+                width - panelSubjectList.getWidth(), panelSubjectList.getHeight(), plan, indexPlan, this.indexPressing,
+                PanelSubject4.TOP_LEFT);
 
         // add panel
         add(panelSubjectList);
+        add(panelContent);
 
     }
 
     // Update content data
     public void updateContent() {
-
+        this.indexPressing = panelSubjectList.getIndexPressing();
+        remove(panelContent);
+        panelContent = new PanelSubject4(panelSubjectList.getWidth(), panelSubjectList.getY(),
+                width - panelSubjectList.getWidth(), panelSubjectList.getHeight(), plan, indexPlan, this.indexPressing,
+                PanelSubject4.TOP_LEFT);
+        add(panelContent);
+        repaint();
     }
 
     // Get rootLocationType
