@@ -183,5 +183,6 @@ public class Setting {
         public static final ImageIcon CHANGE = new ImageIcon("assets/icon/change.png");
         public static final ImageIcon INFORMATION = new ImageIcon("assets/icon/information.png");
         public static final ImageIcon WARNING = new ImageIcon("assets/icon/warning.png");
+        public static final ImageIcon ADD = new ImageIcon("assets/icon/add.png");
 
 }

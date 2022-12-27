@@ -13,6 +13,9 @@ import java.awt.FontMetrics;
 import java.awt.RenderingHints;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import java.awt.Shape;
+import java.awt.geom.Rectangle2D;
+import java.awt.Polygon;
 
 public class Button extends JPanel {
     // Constants button's root location
@@ -50,6 +53,9 @@ public class Button extends JPanel {
     public static final int STROKE_WIDTH_2 = 2;
     public static final int STROKE_WIDTH_3 = 3;
 
+    // Constant shape
+    public static final int RECTANGLE = 0;
+
     // Properties
     private boolean enable = true;
     // properties of button (size, location, button color, stroke width, stroke
@@ -73,6 +79,7 @@ public class Button extends JPanel {
     private Color backgroundColor = null;
     private Color backgroundColorEntered = null;
     private Color backgroundColorExited = null;
+    private Color backgroundColorApp = Setting.COLOR_NULL;
 
     // properties of text
     private String text = "";
@@ -81,6 +88,10 @@ public class Button extends JPanel {
     private int xText = 0;
     private int yText = 0;
     private Color textColor;
+
+    // Shape
+    private Shape shape;
+    private int shapeType = 0;
 
     public Button(String text) {
         setLayout(null);
@@ -241,6 +252,12 @@ public class Button extends JPanel {
         repaint();
     }
 
+    // Set background color of application
+    public void setBackgroundColorApp(Color color) {
+        this.backgroundColorApp = color;
+        repaint();
+    }
+
     // Set current gradient color of background
     public void setGradientBackgroundColor(double[][] point1s, double[][] point2s, Color[][] colors) {
         this.gradientBackgroundColor = colors;
@@ -339,87 +356,209 @@ public class Button extends JPanel {
         repaint();
     }
 
+    // Set shape type
+    public void setShapeType(int type) {
+        this.shapeType = type;
+        repaint();
+    }
+
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
+        if (shapeType == 0) {
+            Graphics2D g2 = (Graphics2D) g;
 
-        // Draw stroke
-        g2.setColor(this.strokeColor);
-        g2.fillRect(0, 0, this.width, this.height);
+            // Draw stroke
+            g2.setColor(this.strokeColor);
+            g2.fillRect(0, 0, this.width, this.height);
 
-        // Draw background of button
-        if (gradientBackgroundColor != null) {
-            int heightPerRow = this.height / this.gradientBackgroundColor.length;
-            for (int i = 0; i < this.gradientBackgroundColor.length; i++) {
-                GradientPaint gradientPaint = new GradientPaint(
-                        (int) this.gradientPoint1[i][0] * width, (int) this.gradientPoint1[i][1] * heightPerRow,
-                        this.gradientBackgroundColor[i][0],
-                        (int) this.gradientPoint2[i][0] * width, (int) this.gradientPoint2[i][1] * heightPerRow,
-                        this.gradientBackgroundColor[i][1]);
-                g2.setPaint(gradientPaint);
-                if (i == 0 && i == this.gradientBackgroundColor.length - 1) {
-                    g2.fillRect(this.strokeWidth, this.strokeWidth,
-                            this.width - 2 * this.strokeWidth, this.height - 2 * this.strokeWidth);
-                } else if (i == 0) {
-                    g2.fillRect(this.strokeWidth, this.strokeWidth,
-                            this.width - 2 * this.strokeWidth, heightPerRow - this.strokeWidth);
-                } else if (i == this.gradientBackgroundColor.length - 1) {
-                    g2.fillRect(this.strokeWidth, 0,
-                            this.width - 2 * this.strokeWidth, this.height - heightPerRow * i -
-                                    this.strokeWidth);
-                } else {
-                    g2.fillRect(this.strokeWidth, 0,
-                            this.width - 2 * this.strokeWidth, heightPerRow);
+            // Draw background of button
+            if (gradientBackgroundColor != null) {
+                int heightPerRow = this.height / this.gradientBackgroundColor.length;
+                for (int i = 0; i < this.gradientBackgroundColor.length; i++) {
+                    GradientPaint gradientPaint = new GradientPaint(
+                            (int) this.gradientPoint1[i][0] * width, (int) this.gradientPoint1[i][1] * heightPerRow,
+                            this.gradientBackgroundColor[i][0],
+                            (int) this.gradientPoint2[i][0] * width, (int) this.gradientPoint2[i][1] * heightPerRow,
+                            this.gradientBackgroundColor[i][1]);
+                    g2.setPaint(gradientPaint);
+                    if (i == 0 && i == this.gradientBackgroundColor.length - 1) {
+                        g2.fillRect(this.strokeWidth, this.strokeWidth,
+                                this.width - 2 * this.strokeWidth, this.height - 2 * this.strokeWidth);
+                    } else if (i == 0) {
+                        g2.fillRect(this.strokeWidth, this.strokeWidth,
+                                this.width - 2 * this.strokeWidth, heightPerRow - this.strokeWidth);
+                    } else if (i == this.gradientBackgroundColor.length - 1) {
+                        g2.fillRect(this.strokeWidth, 0,
+                                this.width - 2 * this.strokeWidth, this.height - heightPerRow * i -
+                                        this.strokeWidth);
+                    } else {
+                        g2.fillRect(this.strokeWidth, 0,
+                                this.width - 2 * this.strokeWidth, heightPerRow);
+                    }
+                    g2.translate(0, heightPerRow);
                 }
-                g2.translate(0, heightPerRow);
+                g2.translate(0, -heightPerRow * this.gradientBackgroundColor.length);
             }
-            g2.translate(0, -heightPerRow * this.gradientBackgroundColor.length);
-        }
 
-        // Background color
-        if (backgroundColor != null) {
-            g2.setColor(backgroundColor);
-            g2.fillRect(strokeWidth, strokeWidth, width - strokeWidth * 2, height - strokeWidth * 2);
-        }
+            // Background color
+            if (backgroundColor != null) {
+                g2.setColor(backgroundColor);
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.fillRect(strokeWidth, strokeWidth, width - strokeWidth * 2, height - strokeWidth * 2);
+            }
 
-        // draw background image (if have)
-        if (this.backgroundImage != null) {
-            g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-                    RenderingHints.VALUE_RENDER_QUALITY);
-            g2.drawImage(this.backgroundImage.getImage(), 0, 0, this.width, this.height, null);
-        }
-        // draw background icon (if have)
-        if (this.backgroundIcon != null) {
-            int tempWidth = this.width / 4 * 3;
-            int tempHeight = this.height / 4 * 3;
-            g2.setRenderingHint(RenderingHints.KEY_RENDERING,
-                    RenderingHints.VALUE_RENDER_QUALITY);
-            g2.drawImage(this.backgroundIcon.getImage(), (this.width - tempWidth) / 2, (this.height - tempHeight) / 2,
-                    tempWidth, tempHeight, null);
-        }
+            // draw background image (if have)
+            if (this.backgroundImage != null) {
+                g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                        RenderingHints.VALUE_RENDER_QUALITY);
+                g2.drawImage(this.backgroundImage.getImage(), 0, 0, this.width, this.height, null);
+            }
+            // draw background icon (if have)
+            if (this.backgroundIcon != null) {
+                int tempWidth = this.width / 4 * 3;
+                int tempHeight = this.height / 4 * 3;
+                g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                        RenderingHints.VALUE_RENDER_QUALITY);
+                g2.drawImage(this.backgroundIcon.getImage(), (this.width - tempWidth) / 2,
+                        (this.height - tempHeight) / 2,
+                        tempWidth, tempHeight, null);
+            }
 
-        // Draw text
-        g2.setColor(this.textColor);
-        g2.setFont(this.font);
-        int tempX = 0, tempY = 0;
-        if (this.xText == 0) {
-            tempX = (this.width - sizeText[0]) / 2;
-        } else if (this.xText > 0) {
-            tempX = this.xText;
-        } else {
-            tempX = this.width - (sizeText[0] + (-this.xText));
-        }
+            // Draw text
+            g2.setColor(this.textColor);
+            g2.setFont(this.font);
+            int tempX = 0, tempY = 0;
+            if (this.xText == 0) {
+                tempX = (this.width - sizeText[0]) / 2;
+            } else if (this.xText > 0) {
+                tempX = this.xText;
+            } else {
+                tempX = this.width - (sizeText[0] + (-this.xText));
+            }
 
-        if (this.yText == 0) {
-            tempY = (this.height - sizeText[1]) / 2 + (sizeText[1] - sizeText[2]);
-        } else if (this.yText > 0) {
-            tempY = this.yText + (sizeText[1] - sizeText[2]);
-        } else {
-            tempY = this.height - (sizeText[1] + (-this.yText)) + (sizeText[1] - sizeText[2]);
+            if (this.yText == 0) {
+                tempY = (this.height - sizeText[1]) / 2 + (sizeText[1] - sizeText[2]);
+            } else if (this.yText > 0) {
+                tempY = this.yText + (sizeText[1] - sizeText[2]);
+            } else {
+                tempY = this.height - (sizeText[1] + (-this.yText)) + (sizeText[1] - sizeText[2]);
+            }
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2.drawString(this.text, tempX, tempY);
+        } else if (shapeType == 1) {
+            Graphics2D g2 = (Graphics2D) g;
+
+            g2.setColor(backgroundColorApp);
+            g2.fillRect(0, 0, this.width, this.height);
+
+            int w = width;
+            int h = height - strokeWidth;
+            int xPoints[] = { 0, (int) (w * 1.0 / 4), (int) (w * 3.0 / 4), w, (int) (w * 3.0 / 4),
+                    (int) (w * 1.0 / 4) };
+            int yPoints[] = { (int) (h * 1.0 / 2), 0, 0, (int) (h * 1.0 / 2), h, h };
+
+            // Draw stroke
+            g2.setColor(this.strokeColor);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.fillPolygon(new Polygon(xPoints, yPoints, xPoints.length));
+
+            // Coordinate background
+            double sinAlpha = h * 1.0 / 2 / Math.sqrt(h * h * 1.0 / 4 + w * w * 1.0 / 16);
+            int strokeH = strokeWidth;
+            int strokeW = (int) (strokeH * 1.0 / sinAlpha);
+            w = w - 2 * strokeW;
+            h = h - 2 * strokeH;
+            int xPoints2[] = { strokeW, strokeW + (int) (w * 1.0 / 4),
+                    strokeW + (int) (w * 3.0 / 4),
+                    strokeW + w, strokeW + (int) (w * 3.0 / 4),
+                    strokeW + (int) (w * 1.0 / 4) };
+            int yPoints2[] = { strokeH + (int) (h * 1.0 / 2), strokeH, strokeH,
+                    strokeH + (int) (h * 1.0 / 2), h + strokeH, h + strokeH };
+
+            // Draw background of button
+            if (gradientBackgroundColor != null) {
+                int heightPerRow = this.height / this.gradientBackgroundColor.length;
+                for (int i = 0; i < 1; i++) {
+                    GradientPaint gradientPaint = new GradientPaint(
+                            (int) this.gradientPoint1[i][0] * width, (int) this.gradientPoint1[i][1] * heightPerRow,
+                            this.gradientBackgroundColor[i][0],
+                            (int) this.gradientPoint2[i][0] * width, (int) this.gradientPoint2[i][1] * heightPerRow,
+                            this.gradientBackgroundColor[i][1]);
+                    g2.setPaint(gradientPaint);
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2.fillPolygon(new Polygon(xPoints2, yPoints2, xPoints2.length));
+                }
+            }
+
+            // Background color
+            // backgroundColor = Setting.COLOR_BLUE_02;
+            if (backgroundColor != null) {
+                g2.setColor(backgroundColor);
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.fillPolygon(new Polygon(xPoints2, yPoints2, xPoints2.length));
+            }
+
+            // draw background image (if have)
+            if (this.backgroundImage != null) {
+                g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                        RenderingHints.VALUE_RENDER_QUALITY);
+                g2.drawImage(this.backgroundImage.getImage(), 0, 0, this.width, this.height, null);
+            }
+            // draw background icon (if have)
+            if (this.backgroundIcon != null) {
+                int tempWidth = this.width / 4 * 3;
+                int tempHeight = this.height / 4 * 3;
+                g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                        RenderingHints.VALUE_RENDER_QUALITY);
+                g2.drawImage(this.backgroundIcon.getImage(), (this.width - tempWidth) / 2,
+                        (this.height - tempHeight) / 2,
+                        tempWidth, tempHeight, null);
+            }
+
+            // Draw text
+            g2.setColor(this.textColor);
+            g2.setFont(this.font);
+            int tempX = 0, tempY = 0;
+            if (this.xText == 0) {
+                tempX = (this.width - sizeText[0]) / 2;
+            } else if (this.xText > 0) {
+                tempX = this.xText;
+            } else {
+                tempX = this.width - (sizeText[0] + (-this.xText));
+            }
+
+            if (this.yText == 0) {
+                tempY = (this.height - sizeText[1]) / 2 + (sizeText[1] - sizeText[2]);
+            } else if (this.yText > 0) {
+                tempY = this.yText + (sizeText[1] - sizeText[2]);
+            } else {
+                tempY = this.height - (sizeText[1] + (-this.yText)) + (sizeText[1] -
+                        sizeText[2]);
+            }
+            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2.drawString(this.text, tempX, tempY);
         }
-        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g2.drawString(this.text, tempX, tempY);
+    }
+
+    public boolean contains(int x, int y) {
+        if (shape == null || !shape.getBounds().equals(getBounds())) {
+            if (shapeType == 0) {
+                shape = new Rectangle2D.Float(0, 0, this.width, this.height);
+
+            } else if (shapeType == 1) {
+                int xPoints[] = { 0, (int) (width * 1.0 / 4), (int) (width * 3.0 / 4), width, (int) (width * 3.0 / 4),
+                        (int) (width * 1.0 / 4) };
+                int yPoints[] = { (int) (height * 1.0 / 2), 0, 0, (int) (height * 1.0 / 2), height, height };
+                shape = new Polygon(xPoints, yPoints, xPoints.length);
+            }
+        }
+        return shape.contains(x, y);
     }
 
     private class MouseHandler implements MouseListener {

@@ -21,10 +21,13 @@ public class Subject {
     private String characterScore = "";
     private double score10 = -1.0;
     private double score4 = -1.0;
+    // Use in map
     private Color color = new Color(255, 255, 255);
     private int semester = 0; // 1, 2, 3, ...
     private int level = -1;
     private int rowIndexSorted = -1, columnIndexSorted = -1;
+    // Use in time table
+    private List<List<Integer>> listTimes = null;
 
     // Constructor
     public Subject(String name, String code, int credits) {
@@ -33,6 +36,7 @@ public class Subject {
         this.numberCredits = credits;
         this.parentSubjects = new LinkedList<Subject[]>();
         this.parentSubjectCodes = new LinkedList<String[]>();
+        this.listTimes = new LinkedList<>();
     }
 
     // Getter method
@@ -198,6 +202,10 @@ public class Subject {
         return (rowIndexSorted > -1 && columnIndexSorted > -1);
     }
 
+    public List<List<Integer>> getListTimes() {
+        return this.listTimes;
+    }
+
     // Setter method
     public void setName(String name) {
         this.subjectName = name;
@@ -257,5 +265,13 @@ public class Subject {
 
     public void setColumnIndexSorted(int column) {
         this.columnIndexSorted = column;
+    }
+
+    public void addTimeLesson(List<Integer> timeLessons) {
+        this.listTimes.add(timeLessons);
+    }
+
+    public void setListTimes(List<List<Integer>> listTimes) {
+        this.listTimes = listTimes;
     }
 }

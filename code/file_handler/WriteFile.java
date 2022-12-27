@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
-
 import code.objects.Account;
 import code.objects.Plan;
 import code.objects.Subject;
@@ -234,10 +233,18 @@ public class WriteFile {
         int level = subject.getLevel();
         int rowIndexSorted = subject.getRowIndexSorted();
         int columnIndexSorted = subject.getColumnIndexSorted();
+        String timeTable = "";
+        for (List<Integer> times : subject.getListTimes()) {
+            String temp = "";
+            for (int time : times) {
+                temp += time + " ";
+            }
+            timeTable += temp + "\n";
+        }
 
-        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n%s\n%d\n%d\n%d\n%d",
+        String data = String.format("%s\n%s\n%d\n%s\n%d\n%s\n%s\n%s\n%s\n%d\n%d\n%d\n%d\n",
                 code, name, credits, parentSubjectCodes, state, characterScore, color, score10, score4, semester,
-                level, rowIndexSorted, columnIndexSorted);
+                level, rowIndexSorted, columnIndexSorted) + timeTable;
 
         writeStringToFile(path, data, false);
     }
@@ -258,6 +265,37 @@ public class WriteFile {
                 tempIndexPlan++;
             }
         }
+    }
+
+    // Create new subject in time table of plan
+    public static void createNewSubjectTimeTable(int indexPlan, Subject subject) {
+        String path = ReadFile.getPathCurrentAccount();
+        String[] planFolderNames = (new File(path)).list();
+        String path1 = "";
+        int tempIndexPlan = 0;
+        for (String planFolderName : planFolderNames) {
+            String tempPath = path + "/" + planFolderName;
+            File file = new File(tempPath);
+            if (file.isDirectory()) {
+                if (indexPlan == tempIndexPlan) {
+                    path1 = tempPath;
+
+                }
+                tempIndexPlan++;
+            }
+        }
+
+        // Create folder 'TImeTable'
+        String path3 = path1 + "/TimeTable";
+        File file0 = new File(path3);
+        if (!file0.exists()) {
+            file0.mkdirs();
+        }
+
+        String path4 = path3 + "/" + String.format("subject%03d.txt", file0.list().length);
+
+        createNewSubject(path4, subject);
+
     }
 
     // Create new plan for current account
@@ -306,6 +344,46 @@ public class WriteFile {
 
             createNewSubject(tempPath, subjects.get(i));
         }
+
+        // Create folder 'TImeTable'
+        String path3 = path1 + "/TimeTable";
+        File file0 = new File(path3);
+        if (!file0.exists()) {
+            file0.mkdir();
+        }
+
+        // Create file information.txt in folder TimeTable
+        String path4 = path3 + "/informations.txt";
+        File file4 = new File(path4);
+        if (!file4.exists()) {
+            try {
+                file4.createNewFile();
+            } catch (Exception e) {
+
+            }
+        }
+
+        // Write data for information.txt
+        writeStringToFile(path4, String.format("%d", plan.getTimeTable().getMaxLessonPerDay()), false);
+
+        // Create subject of timeTable
+        List<Subject> subjectTimeTables = plan.getTimeTable().getSubjects();
+        for (int i = 0; i < subjectTimeTables.size(); i++) {
+            // Create file for subject
+            String tempPath = path3 + String.format("/subject%03d.txt", i);
+            File tempFile = new File(tempPath);
+            if (!tempFile.exists()) {
+                try {
+                    tempFile.createNewFile();
+                } catch (Exception e) {
+
+                }
+            }
+            // Write data
+
+            createNewSubject(tempPath, subjects.get(i));
+        }
+
     }
 
     // Create new copy of plan for current account
@@ -351,6 +429,40 @@ public class WriteFile {
                 }
             }
             // Write data
+            createNewSubject(tempPath, subjects.get(i));
+        }
+
+        // Create folder 'TImeTable'
+        String path3 = path1 + "/TimeTable";
+
+        // Create file information.txt in folder TimeTable
+        String path4 = path3 + "/informations.txt";
+        File file4 = new File(path2);
+        if (!file4.exists()) {
+            try {
+                file4.createNewFile();
+            } catch (Exception e) {
+
+            }
+        }
+
+        // Write data for information.txt
+        writeStringToFile(path4, String.format("%d", plan.getTimeTable().getMaxLessonPerDay()), false);
+
+        List<Subject> subjectTimeTables = plan.getTimeTable().getSubjects();
+        for (int i = 0; i < subjectTimeTables.size(); i++) {
+            // Create file for subject
+            String tempPath = path3 + String.format("/subject%03d.txt", i);
+            File tempFile = new File(tempPath);
+            if (!tempFile.exists()) {
+                try {
+                    tempFile.createNewFile();
+                } catch (Exception e) {
+
+                }
+            }
+            // Write data
+
             createNewSubject(tempPath, subjects.get(i));
         }
     }

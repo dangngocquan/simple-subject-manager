@@ -12,15 +12,21 @@ public class Plan {
     private ConversionTable conversionTable;
     private int indexConversionTable;
     private String schoolName = "", departmentName = "", majorName = "";
+    private TimeTable timeTable = null;
 
     public Plan(String name, List<Subject> subjects, int index) {
         this.name = name;
         this.subjects = subjects;
         this.indexConversionTable = index;
         this.conversionTable = Data.CONVERSIONS.getConversionTables().get(index);
+        this.timeTable = new TimeTable();
     }
 
     // Getter
+    public TimeTable getTimeTable() {
+        return this.timeTable;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -886,23 +892,6 @@ public class Plan {
                 }
             }
 
-            // for (int i = 0; i < status.length; i++) {
-            // for (int j = 0; j < status[0].length; j++) {
-            // System.out.print((status[i][j]) + " ");
-            // }
-            // System.out.println();
-            // }
-            // System.out.println(groups.size() +
-            // "======================================================");
-        }
-
-        // Print test
-        status = getMatrixStatus(groups);
-        for (int i = 0; i < status.length; i++) {
-            for (int j = 0; j < status[0].length; j++) {
-                System.out.print((status[i][j]) + " ");
-            }
-            System.out.println();
         }
 
         // Save new data to file
@@ -992,6 +981,10 @@ public class Plan {
     }
 
     // Setter
+    public void setTimeTable(TimeTable times) {
+        this.timeTable = times;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

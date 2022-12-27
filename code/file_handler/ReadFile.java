@@ -12,6 +12,7 @@ import code.objects.KnowledgePart;
 import code.objects.Major;
 import code.objects.Plan;
 import code.objects.Subject;
+import code.objects.TimeTable;
 
 public class ReadFile {
     public static final String PATH_DATA = "C:/GPA_Plan";
@@ -90,6 +91,17 @@ public class ReadFile {
         int level = Integer.parseInt(data.get(10));
         int rowIndexSorted = Integer.parseInt(data.get(11));
         int columnIndexSorted = Integer.parseInt(data.get(12));
+        List<List<Integer>> listTimes = new LinkedList<>();
+
+        for (int indexLine = 13; indexLine < data.size(); indexLine++) {
+            String line = data.get(indexLine);
+            List<Integer> tempList = new LinkedList<>();
+            String[] times = line.split(" ");
+            for (String num : times) {
+                tempList.add(Integer.parseInt(num));
+            }
+            listTimes.add(tempList);
+        }
 
         Subject subject = new Subject(name, code, credits);
         for (String[] parentCode : parentSubjectCodes) {
@@ -104,6 +116,7 @@ public class ReadFile {
         subject.setLevel(level);
         subject.setRowIndexSorted(rowIndexSorted);
         subject.setColumnIndexSorted(columnIndexSorted);
+        subject.setListTimes(listTimes);
 
         return subject;
     }
@@ -118,13 +131,26 @@ public class ReadFile {
         majorName = data.get(3);
         int indexConversionTable = Integer.parseInt(data.get(4));
         List<Subject> subjects = new LinkedList<Subject>();
+        TimeTable timeTable = new TimeTable();
+
         File file = new File(path);
         for (String nameFile : file.list()) {
             String tempPath = path + "/" + nameFile;
             if (nameFile.matches("subject[0-9]{1,}[.]txt")) {
                 subjects.add(getSubjectFromFile(tempPath));
+            } else if (nameFile.equals("TimeTable")) {
+                File file1 = new File(tempPath);
+                for (String nameFile2 : file1.list()) {
+                    String tempPath2 = tempPath + "/" + nameFile2;
+                    if (nameFile2.matches("subject[0-9]{1,}[.]txt")) {
+                        timeTable.addSubject(getSubjectFromFile(tempPath2));
+                    } else if (nameFile2.equals("informations.txt")) {
+                        timeTable.setMaxLessonPerDay(Integer.parseInt(getStringFromFile(tempPath2)));
+                    }
+                }
             }
         }
+
         // Create relative between subjects
         for (Subject subject : subjects) {
             for (int i = 0; i < subject.getParentSubjectCodes().size(); i++) {
@@ -151,6 +177,7 @@ public class ReadFile {
         plan.setSchoolName(schoolName);
         plan.setDepartmentName(departmentName);
         plan.setMajorName(majorName);
+        plan.setTimeTable(timeTable);
         return plan;
     }
 
