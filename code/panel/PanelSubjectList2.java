@@ -492,13 +492,13 @@ public class PanelSubjectList2 extends JPanel {
                                         if (event.getSource() == buttonSubjectEnable.get(index)) {
                                                 subject.setEnable(!subject.getEnable());
                                                 WriteFile.editSubjectTimeTable(indexPlan, index, subject);
+                                                // setIndexPressing(index);
+                                                updateDataContent();
+                                        } else if (event.getSource() == buttonSubjects.get(index)) {
                                                 setIndexPressing(index);
-                                        } else if (event.getSource() == buttonSubjects.get(index)
-                                                        || event.getSource() == buttonCountTimeLessons.get(index)) {
-                                                setIndexPressing(index);
+                                                updateDataContent();
                                         }
                                 }
-                                updateDataContent();
                         }
                 }
 

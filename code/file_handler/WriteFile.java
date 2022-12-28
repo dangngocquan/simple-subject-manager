@@ -235,8 +235,10 @@ public class WriteFile {
         int columnIndexSorted = subject.getColumnIndexSorted();
         int enable = (subject.getEnable()) ? 1 : 0;
         String timeTable = "";
-        for (List<Integer> times : subject.getListTimes()) {
-            String temp = "";
+        for (int index = 0; index < subject.getListTimeNames().size(); index++) {
+            String timeName = subject.getListTimeNames().get(index);
+            String temp = timeName + "\n";
+            List<Integer> times = subject.getListTimes().get(index);
             for (int time : times) {
                 temp += time + " ";
             }
@@ -341,6 +343,35 @@ public class WriteFile {
                             if (tempIndexSubject == indexSubject) {
                                 String path3 = path2 + "/" + nameFile;
                                 createNewSubject(path3, subject);
+                            }
+                            tempIndexSubject++;
+                        }
+                    }
+
+                }
+                tempIndexPlan++;
+            }
+        }
+    }
+
+    // Remove subject in time table of plan
+    public static void removeSubjectTimeTable(int indexPlan, int indexSubject) {
+        String path = ReadFile.getPathCurrentAccount();
+        String[] planFolderNames = (new File(path)).list();
+        int tempIndexPlan = 0;
+        for (String planFolderName : planFolderNames) {
+            String path1 = path + "/" + planFolderName;
+            File file = new File(path1);
+            if (file.isDirectory()) {
+                if (indexPlan == tempIndexPlan) {
+                    int tempIndexSubject = 0;
+                    String path2 = path1 + "/TimeTable";
+                    File file1 = new File(path2);
+                    for (String nameFile : file1.list()) {
+                        if (nameFile.matches("subject[0-9]{1,}[.]txt")) {
+                            if (tempIndexSubject == indexSubject) {
+                                String path3 = path2 + "/" + nameFile;
+                                removeFolder(new File(path3));
                             }
                             tempIndexSubject++;
                         }

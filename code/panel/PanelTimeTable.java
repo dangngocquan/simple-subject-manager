@@ -3,6 +3,7 @@ package code.panel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import code.Setting;
+import code.file_handler.WriteFile;
 import code.objects.Plan;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -58,7 +59,7 @@ public class PanelTimeTable extends JPanel {
                 this.indexPlan, this);
         panelContent = new PanelSubject4(panelSubjectList.getWidth(), panelSubjectList.getY(),
                 width - panelSubjectList.getWidth(), panelSubjectList.getHeight(), plan, indexPlan, this.indexPressing,
-                PanelSubject4.TOP_LEFT);
+                PanelSubject4.TOP_LEFT, this);
 
         // add panel
         add(panelSubjectList);
@@ -72,9 +73,18 @@ public class PanelTimeTable extends JPanel {
         remove(panelContent);
         panelContent = new PanelSubject4(panelSubjectList.getWidth(), panelSubjectList.getY(),
                 width - panelSubjectList.getWidth(), panelSubjectList.getHeight(), plan, indexPlan, this.indexPressing,
-                PanelSubject4.TOP_LEFT);
+                PanelSubject4.TOP_LEFT, this);
         add(panelContent);
         repaint();
+    }
+
+    // Remove subject
+    public void removeSubject(int indexSubject) {
+        WriteFile.removeSubjectTimeTable(indexPlan, indexSubject);
+        panelSubjectList.setIndexPressing(-1);
+        plan.getTimeTable().getSubjects().remove(indexSubject);
+        panelSubjectList.updateDataContent();
+        updateContent();
     }
 
     // Get rootLocationType

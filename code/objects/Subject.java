@@ -28,6 +28,7 @@ public class Subject {
     private int rowIndexSorted = -1, columnIndexSorted = -1;
     // Use in time table
     private List<List<Integer>> listTimes = null;
+    private List<String> listTimeNames = null;
     private boolean enable = true;
 
     // Constructor
@@ -38,6 +39,7 @@ public class Subject {
         this.parentSubjects = new LinkedList<Subject[]>();
         this.parentSubjectCodes = new LinkedList<String[]>();
         this.listTimes = new LinkedList<>();
+        this.listTimeNames = new LinkedList<>();
     }
 
     // Getter method
@@ -211,6 +213,10 @@ public class Subject {
         return this.listTimes;
     }
 
+    public List<String> getListTimeNames() {
+        return this.listTimeNames;
+    }
+
     // Setter method
     public void setName(String name) {
         this.subjectName = name;
@@ -280,7 +286,15 @@ public class Subject {
         this.listTimes.add(timeLessons);
     }
 
+    public void addTimeName(String name) {
+        this.listTimeNames.add(name);
+    }
+
     public void setListTimes(List<List<Integer>> listTimes) {
         this.listTimes = listTimes;
+    }
+
+    public void setListTimeNames(List<String> listTimeNames) {
+        this.listTimeNames = listTimeNames;
     }
 }

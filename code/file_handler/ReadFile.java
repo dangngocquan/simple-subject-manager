@@ -93,9 +93,15 @@ public class ReadFile {
         int columnIndexSorted = Integer.parseInt(data.get(12));
         boolean enable = data.get(13).equals("1");
         List<List<Integer>> listTimes = new LinkedList<>();
+        List<String> listTimeNames = new LinkedList<>();
 
-        for (int indexLine = 14; indexLine < data.size(); indexLine++) {
-            String line = data.get(indexLine);
+        for (int indexLine = 14; indexLine < data.size(); indexLine += 2) {
+            // time name
+            String line0 = data.get(indexLine);
+            listTimeNames.add(line0);
+
+            // time lesson
+            String line = data.get(indexLine + 1);
             List<Integer> tempList = new LinkedList<>();
             String[] times = line.split(" ");
             for (String num : times) {
@@ -118,6 +124,7 @@ public class ReadFile {
         subject.setRowIndexSorted(rowIndexSorted);
         subject.setColumnIndexSorted(columnIndexSorted);
         subject.setEnable(enable);
+        subject.setListTimeNames(listTimeNames);
         subject.setListTimes(listTimes);
         return subject;
     }
