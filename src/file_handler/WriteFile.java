@@ -238,7 +238,8 @@ public class WriteFile {
         String timeTable = "";
         for (int index = 0; index < subject.getListTimeNames().size(); index++) {
             String timeName = subject.getListTimeNames().get(index);
-            String temp = timeName + "\n";
+            String timeEnable = (subject.getListEnableTimeLessons().get(index)) ? "1" : "0";
+            String temp = timeName + "\n" + timeEnable + "\n";
             List<Integer> times = subject.getListTimes().get(index);
             for (int time : times) {
                 temp += time + " ";

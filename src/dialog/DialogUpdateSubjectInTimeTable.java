@@ -31,17 +31,10 @@ public class DialogUpdateSubjectInTimeTable {
     private int width;
     private JDialog dialog = null;
     private Subject subject;
+    private int indexTimeLesson;
     private JPanel panelScroll = null;
     private int scrollCursor = 0;
-    private PanelString panelTitle = null;
-    private PanelString panelSubjectName = null;
-    private PanelString panelSubjectCode = null;
-    private PanelString panelSubjectCredits = null;
-    private JPanel panelSubjectParentCodes = null;
-    private PanelString panelSubjectParentCodes1 = null;
-    private PanelString panelSubjectParentCodes2 = null;
-    private PanelString panelAdvice = null;
-    private Button panelStatus = null;
+    private Button panelTimeLessonName = null;
     private String[] buttonTexts = {
             ""
     };
@@ -49,9 +42,10 @@ public class DialogUpdateSubjectInTimeTable {
 
     // Constructor
     public DialogUpdateSubjectInTimeTable(int x, int y, int width, int height, int rootLocationType, String title,
-            String[] messageLines, Subject subject) {
+            String[] messageLines, Subject subject, int indexTimeLesson) {
         this.width = width;
         this.subject = subject;
+        this.indexTimeLesson = indexTimeLesson;
         // Create frame and set propertis of this frame
         JFrame f = new JFrame();
         dialog = new JDialog(f, title, true);
@@ -106,53 +100,18 @@ public class DialogUpdateSubjectInTimeTable {
 
         // Create objects in this panel (String, button, ...)
         int tempHeight = 30;
-        String[] titles = {
-                "Thông tin môn học",
-                "=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:="
-        };
-        panelTitle = new PanelString(width / 2, tempHeight, titles, width,
-                new Font(Setting.FONT_NAME_01,
-                        Setting.FONT_STYLE_01,
-                        Setting.FONT_SIZE_MEDIUM),
-                PanelString.TOP_CENTER, 0);
-        tempHeight += panelTitle.getHeight() + 20;
-        panelSubjectName = new PanelString(0, tempHeight, "Tên môn học: " + subject.getName(),
-                width, null, PanelString.TOP_LEFT, width / 10);
-        tempHeight += panelSubjectName.getHeight() + 5;
-        panelSubjectCode = new PanelString(0, tempHeight, "Mã môn học: " + subject.getCode(),
-                width, null, PanelString.TOP_LEFT, width / 10);
-        tempHeight += panelSubjectCode.getHeight() + 5;
-        panelSubjectCredits = new PanelString(0, tempHeight, "Số tín chỉ: " + subject.getNumberCredits(),
-                width, null, PanelString.TOP_LEFT, width / 10);
-        tempHeight += panelSubjectCredits.getHeight() + 5;
-        panelSubjectParentCodes1 = new PanelString(0, 0,
-                "Các môn học tiên quyết: ",
-                width / 3, null, PanelString.TOP_LEFT, width / 10);
-        panelSubjectParentCodes2 = new PanelString(panelSubjectParentCodes1.getWidth(), 0,
-                subject.getParentSubjectCodes(),
-                width - panelSubjectParentCodes1.getWidth(), null, PanelString.TOP_LEFT, 1);
-        panelSubjectParentCodes = new JPanel();
-        panelSubjectParentCodes.setLayout(null);
-        panelSubjectParentCodes.setSize(width,
-                Math.max(panelSubjectParentCodes1.getHeight(),
-                        panelSubjectParentCodes2.getHeight()));
-        panelSubjectParentCodes.setBounds(0, tempHeight, panelSubjectParentCodes.getWidth(),
-                panelSubjectParentCodes.getHeight());
-        tempHeight += panelSubjectParentCodes.getHeight() + 5;
-        panelAdvice = new PanelString(0, tempHeight, "Khả năng đăng kí: " + subject.getAdvice(),
-                width, null, PanelString.TOP_LEFT, width / 10);
-        tempHeight += panelAdvice.getHeight() + 5;
 
-        panelStatus = new Button("Trạng thái: " + subject.getStringStatus());
-        panelStatus.setFontText(Button.ARIAL_BOLD_18);
-        panelStatus.setCorrectSizeButton();
-        panelStatus.setSizeButton(this.width / 3, panelStatus.getHeight() / 7 * 8 + 10);
-        panelStatus.setLocationButton(0, tempHeight, Button.TOP_LEFT);
-        panelStatus.setLocationText(width / 10, 0);
-        panelStatus.setBackgroundColorButton(dialog.getBackground());
-        panelStatus.setStrokeWidth(0);
-        panelStatus.setEnable(false);
-        tempHeight += panelStatus.getHeight() + 100;
+        panelTimeLessonName = new Button("Mã lớp học: " + subject.getListTimeNames().get(indexTimeLesson));
+        panelTimeLessonName.setFontText(Button.ARIAL_BOLD_18);
+        panelTimeLessonName.setCorrectSizeButton();
+        panelTimeLessonName.setSizeButton(Math.min(width / 3 * 2, panelTimeLessonName.getWidth() + width / 10),
+                panelTimeLessonName.getHeight() / 7 * 8 + 10);
+        panelTimeLessonName.setLocationButton(0, tempHeight, Button.TOP_LEFT);
+        panelTimeLessonName.setLocationText(width / 10, 0);
+        panelTimeLessonName.setBackgroundColorButton(dialog.getBackground());
+        panelTimeLessonName.setStrokeWidth(0);
+        panelTimeLessonName.setEnable(false);
+        tempHeight += panelTimeLessonName.getHeight() + 100;
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -169,22 +128,15 @@ public class DialogUpdateSubjectInTimeTable {
         }
 
         // Set location for each button
-        buttons[0].setLocationButton(panelStatus.getX() + panelStatus.getWidth() + 20, panelStatus.getY(),
+        buttons[0].setLocationButton(panelTimeLessonName.getX() + panelTimeLessonName.getWidth() + 20,
+                panelTimeLessonName.getY(),
                 Button.TOP_LEFT);
 
-        panelScroll.setSize(width, tempHeight);
+        panelScroll.setSize(width, Math.max(tempHeight, height));
         panelScroll.setBounds(0, -this.scrollCursor, panelScroll.getWidth(), panelScroll.getHeight());
 
         // add panel
-        panelScroll.add(panelTitle);
-        panelScroll.add(panelSubjectName);
-        panelScroll.add(panelSubjectCode);
-        panelScroll.add(panelSubjectCredits);
-        panelScroll.add(panelSubjectParentCodes);
-        panelSubjectParentCodes.add(panelSubjectParentCodes1);
-        panelSubjectParentCodes.add(panelSubjectParentCodes2);
-        panelScroll.add(panelAdvice);
-        panelScroll.add(panelStatus);
+        panelScroll.add(panelTimeLessonName);
 
         panelScroll.addMouseWheelListener(new MouseWheelHandler());
         dialog.add(panelScroll);
@@ -194,9 +146,16 @@ public class DialogUpdateSubjectInTimeTable {
     }
 
     public void updateContent() {
-        panelStatus.setTextButton("Trạng thái: " + subject.getStringStatus());
+        panelTimeLessonName.setTextButton("Mã lớp học: " + subject.getListTimeNames().get(indexTimeLesson));
+        panelTimeLessonName.setCorrectSizeButton();
+        panelTimeLessonName.setSizeButton(Math.min(width / 3 * 2, panelTimeLessonName.getWidth() + width / 10),
+                panelTimeLessonName.getHeight() / 7 * 8 + 10);
+        buttons[0].setLocationButton(panelTimeLessonName.getX() + panelTimeLessonName.getWidth() + 20,
+                panelTimeLessonName.getY(),
+                Button.TOP_LEFT);
         panelScroll.setBounds(panelScroll.getX(), -this.scrollCursor, panelScroll.getWidth(),
                 panelScroll.getHeight());
+
     }
 
     // Get subject
@@ -239,23 +198,23 @@ public class DialogUpdateSubjectInTimeTable {
         @Override
         public void mousePressed(MouseEvent event) {
             if (event.getSource() == buttons[0]) {
-                String[] values = {
-                        "Chưa đăng kí",
-                        "Dự định đăng kí",
-                        "Đã đăng kí"
-                };
-
-                DialogList dialog1 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
-                        Setting.WIDTH / 3, Setting.HEIGHT / 3, DialogList.CENTER_CENTER,
-                        "Edit status", new String[] { "Chọn trạng thái môn mà bạn muốn cập nhật" },
-                        values);
-                String status = dialog1.getText();
-                if (status != null) {
-                    for (int i = 0; i < values.length; i++) {
-                        if (values[i].equals(status)) {
-                            subject.setState(i);
-                        }
-                    }
+                DialogInput dialog = new DialogInput(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                        Setting.WIDTH / 3, Setting.HEIGHT / 3, DialogInput.CENTER_CENTER,
+                        "Edit", new String[] { "Nhập mã lớp học mới:" },
+                        Setting.INFORMATION, new String[] { "Tên môn học" });
+                String[] input = dialog.getInputString();
+                if (input[0].isEmpty()) {
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                            Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER, "Information",
+                            new String[] { "Sửa mã lớp học thất bại" }, Setting.WARNING);
+                } else {
+                    subject.getListTimeNames().set(indexTimeLesson, input[0]);
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                            Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER, "Information",
+                            new String[] { "Sửa mã lớp học thành công" },
+                            Setting.INFORMATION);
                     updateContent();
                 }
             }

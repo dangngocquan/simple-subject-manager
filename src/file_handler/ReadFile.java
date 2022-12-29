@@ -95,14 +95,19 @@ public class ReadFile {
         boolean enable = data.get(13).equals("1");
         List<List<Integer>> listTimes = new LinkedList<>();
         List<String> listTimeNames = new LinkedList<>();
+        List<Boolean> listTimeLessonEnable = new LinkedList<>();
 
-        for (int indexLine = 14; indexLine < data.size(); indexLine += 2) {
+        for (int indexLine = 14; indexLine < data.size(); indexLine += 3) {
             // time name
             String line0 = data.get(indexLine);
             listTimeNames.add(line0);
 
+            // Time enable
+            Boolean line1 = data.get(indexLine + 1).equals("1");
+            listTimeLessonEnable.add(line1);
+
             // time lesson
-            String line = data.get(indexLine + 1);
+            String line = data.get(indexLine + 2);
             List<Integer> tempList = new LinkedList<>();
             String[] times = line.split(" ");
             for (String num : times) {
@@ -127,6 +132,7 @@ public class ReadFile {
         subject.setEnable(enable);
         subject.setListTimeNames(listTimeNames);
         subject.setListTimes(listTimes);
+        subject.setLIstEnableTimeLessons(listTimeLessonEnable);
         return subject;
     }
 

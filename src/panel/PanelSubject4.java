@@ -6,11 +6,11 @@ import src.Setting;
 import src.animation.AnimationPanel;
 import src.dialog.DialogInput;
 import src.dialog.DialogMessage;
+import src.dialog.DialogUpdateSubjectInTimeTable;
 import src.file_handler.WriteFile;
 import src.objects.Button;
 import src.objects.Plan;
 import src.objects.Subject;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.event.MouseListener;
@@ -56,6 +56,8 @@ public class PanelSubject4 extends JPanel {
         private Button panelSubjectName;
         private int indexTimeLessonStart = 0;
         private List<Button> panelTimeNames = null;
+        private Button[] buttonRemoveTimeLessons = null;
+        private Button[] buttonEnableTimeLessons = null;
 
         // Constructor
         public PanelSubject4(int x, int y, int width, int height, Plan plan, int indexPlan, int indexSubject,
@@ -94,12 +96,14 @@ public class PanelSubject4 extends JPanel {
                         panelMainSubject.setSizeButton(panelMainSubject.getWidth(),
                                         (int) (panelMainSubject.getWidth() * Math.sqrt(3) / 2));
                         panelMainSubject.setLocationButton(width / 2, height / 2, Button.CENTER_CENTER);
+                        // Add panel
+                        add(panelMainSubject);
+                        runAnimationHead(true, false);
                 } else {
                         updateContentData();
+                        runAnimationHead(true, true);
+                        runAnimationBody();
                 }
-
-                // Add panel
-                add(panelMainSubject);
 
         }
 
@@ -110,11 +114,23 @@ public class PanelSubject4 extends JPanel {
                         panelTimeName.setVisible(false);
                 }
 
-                // Set location and shape of some panelTimeName
+                // Set visible to false
+                for (Button button : buttonEnableTimeLessons) {
+                        button.setVisible(false);
+                }
+
+                // Set visible to false
+                for (Button button : buttonRemoveTimeLessons) {
+                        button.setVisible(false);
+                }
+
+                // Set location and shape of some panelTimeName, set location of buttonRemove
+                // and buttonEnable
                 for (int index = indexTimeLessonStart; index < indexTimeLessonStart + 8; index++) {
                         if (index >= 0 && index < panelTimeNames.size()) {
                                 Button panel = panelTimeNames.get(index);
                                 panel.setVisible(true);
+                                panel.setSizeButton(panelMainSubject.getWidth() / 9 * 5, panel.getHeight());
                                 switch (index - indexTimeLessonStart) {
                                         case 0:
                                                 panel.setShapeType(Button.RECT_SLANTED_RIGHT);
@@ -183,29 +199,29 @@ public class PanelSubject4 extends JPanel {
 
                                 }
 
-                                if (panel.getX() < 0 || (panel.getX() + panel.getWidth() > this.width)) {
-                                        panel.setSizeButton(panel.getWidth() - 50, panel.getHeight());
-                                        index--;
-                                }
-                        }
-                }
-
-                for (int index = indexTimeLessonStart; index < indexTimeLessonStart + 8; index++) {
-                        if (index >= 0 && index < this.panelTimeNames.size()) {
-                                Button panel = this.panelTimeNames.get(index);
-                                int index1 = (index - indexTimeLessonStart);
+                                int index1 = index - indexTimeLessonStart;
                                 if (index1 % 2 == 0) {
-                                        AnimationPanel animation = new AnimationPanel(panel, -panel.getWidth(),
-                                                        panel.getY(),
-                                                        panel.getX(), panel.getY(),
-                                                        300, index1 / 2 * 100);
-                                        animation.start();
+                                        buttonEnableTimeLessons[index1].setVisible(true);
+                                        buttonEnableTimeLessons[index1].setLocationButton(panel.getX(), panel.getY(),
+                                                        Button.TOP_RIGHT);
+
+                                        buttonRemoveTimeLessons[index1].setVisible(true);
+                                        buttonRemoveTimeLessons[index1].setLocationButton(
+                                                        buttonEnableTimeLessons[index1].getX(), panel.getY(),
+                                                        Button.TOP_RIGHT);
                                 } else {
-                                        AnimationPanel animation = new AnimationPanel(panel, this.width, panel.getY(),
-                                                        panel.getX(), panel.getY(),
-                                                        300, index1 / 2 * 100);
-                                        animation.start();
+                                        buttonEnableTimeLessons[index1].setVisible(true);
+                                        buttonEnableTimeLessons[index1].setLocationButton(
+                                                        panel.getX() + panel.getWidth(), panel.getY(),
+                                                        Button.TOP_LEFT);
+                                        buttonRemoveTimeLessons[index1].setVisible(true);
+                                        buttonRemoveTimeLessons[index1].setLocationButton(
+                                                        buttonEnableTimeLessons[index1].getX()
+                                                                        + buttonEnableTimeLessons[index1].getWidth(),
+                                                        panel.getY(),
+                                                        Button.TOP_LEFT);
                                 }
+
                         }
                 }
 
@@ -369,18 +385,6 @@ public class PanelSubject4 extends JPanel {
                                                 - (int) (panelSubjectCode.getHeight() / Math.sqrt(3)) + 10,
                                 panelSubjectCode.getY() + panelSubjectCode.getHeight(), Button.BOTTOM_LEFT);
 
-                // Animation for subject code and subject name
-                AnimationPanel animation = new AnimationPanel(panelSubjectCode, 0, panelSubjectCode.getY(),
-                                panelSubjectCode.getX(),
-                                panelSubjectCode.getY(),
-                                300);
-                animation.start();
-                animation = new AnimationPanel(panelSubjectName, width, panelSubjectName.getY(),
-                                panelSubjectName.getX(),
-                                panelSubjectName.getY(),
-                                300);
-                animation.start();
-
                 // Create panel time names
                 panelTimeNames = new LinkedList<>();
                 for (String timeName : subject.getListTimeNames()) {
@@ -404,20 +408,173 @@ public class PanelSubject4 extends JPanel {
                         add(panelTimeName);
                 }
 
+                buttonEnableTimeLessons = new Button[8];
+                buttonRemoveTimeLessons = new Button[8];
+                for (int index = 0; index < 8; index++) {
+                        Button buttonEnable = new Button("");
+                        if (index == 0 || index == 2 || index == 5 || index == 7) {
+                                buttonEnable.setShapeType(Button.RECT_SLANTED_RIGHT);
+                        } else {
+                                buttonEnable.setShapeType(Button.RECT_SLANTED_LEFT);
+                        }
+                        buttonEnable.addMouseListener(new MouseHandler());
+                        buttonEnable.setFontText(
+                                        new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01,
+                                                        Setting.FONT_SIZE_SMALL));
+                        buttonEnable.setLocationText(0, 0);
+
+                        if (index < subject.getListEnableTimeLessons().size()) {
+                                buttonEnable.setBackgroundColorExitedButton(
+                                                subject.getListEnableTimeLessons().get(index) ? Setting.COLOR_GREEN_03
+                                                                : Setting.COLOR_RED_08);
+                                buttonEnable.setBackgroundColorButton(
+                                                subject.getListEnableTimeLessons().get(index) ? Setting.COLOR_GREEN_03
+                                                                : Setting.COLOR_RED_08);
+                                buttonEnable.setBackgroundColorEnteredButton(
+                                                subject.getListEnableTimeLessons().get(index) ? Setting.COLOR_GREEN_03
+                                                                : Setting.COLOR_RED_08);
+                        }
+                        buttonEnable.setSizeButton(buttonEnable.getHeight(),
+                                        buttonEnable.getHeight());
+                        buttonEnableTimeLessons[index] = buttonEnable;
+                        add(buttonEnable);
+
+                        Button buttonRemoveTimeLesson = new Button("X");
+                        if (index == 0 || index == 2 || index == 5 || index == 7) {
+                                buttonRemoveTimeLesson.setShapeType(Button.RECT_SLANTED_RIGHT);
+                        } else {
+                                buttonRemoveTimeLesson.setShapeType(Button.RECT_SLANTED_LEFT);
+                        }
+                        buttonRemoveTimeLesson.addMouseListener(new MouseHandler());
+                        buttonRemoveTimeLesson.setFontText(
+                                        new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01,
+                                                        Setting.FONT_SIZE_SMALL));
+                        buttonRemoveTimeLesson.setLocationText(0, 0);
+
+                        if (index < subject.getListTimeNames().size()) {
+                                buttonRemoveTimeLesson.setBackgroundColorExitedButton(Setting.COLOR_RED_08);
+                                buttonRemoveTimeLesson.setBackgroundColorButton(Setting.COLOR_RED_08);
+                                buttonRemoveTimeLesson.setBackgroundColorEnteredButton(Setting.COLOR_RED_08);
+                        }
+                        buttonRemoveTimeLesson.setSizeButton(buttonRemoveTimeLesson.getHeight() / 3 * 4,
+                                        buttonRemoveTimeLesson.getHeight());
+                        buttonRemoveTimeLessons[index] = buttonRemoveTimeLesson;
+                        add(buttonRemoveTimeLesson);
+                }
+
                 updateContentShowing();
 
-                setIndexTimeLessonStart(0);
-
-                // Animation for panel main subject
-                animation = new AnimationPanel(panelMainSubject, panelMainSubject.getX(), height,
-                                panelMainSubject.getX(),
-                                panelMainSubject.getY(),
-                                300);
-                animation.start();
+                if (indexTimeLessonStart >= 0 && indexTimeLessonStart / 8 <= (panelTimeNames.size() + 7) / 8) {
+                        setIndexTimeLessonStart(indexTimeLessonStart);
+                } else {
+                        setIndexTimeLessonStart(0);
+                }
 
                 // Add panel
+                add(panelMainSubject);
                 add(panelSubjectCode);
                 add(panelSubjectName);
+        }
+
+        // Run animation header
+        public void runAnimationHead(boolean flag1, boolean flag2) {
+                if (flag1) {
+                        // Animation for panel main subject
+                        AnimationPanel animation = new AnimationPanel(panelMainSubject, panelMainSubject.getX(), height,
+                                        panelMainSubject.getX(),
+                                        panelMainSubject.getY(),
+                                        300);
+                        animation.start();
+                }
+
+                if (flag2) {
+                        // Animation for subject code and subject name
+                        AnimationPanel animation = new AnimationPanel(panelSubjectCode, 0, panelSubjectCode.getY(),
+                                        panelSubjectCode.getX(),
+                                        panelSubjectCode.getY(),
+                                        300);
+                        animation.start();
+                        animation = new AnimationPanel(panelSubjectName, width, panelSubjectName.getY(),
+                                        panelSubjectName.getX(),
+                                        panelSubjectName.getY(),
+                                        300);
+                        animation.start();
+                }
+
+        }
+
+        // RUn animation
+        public void runAnimationBody() {
+                int timeDelay = -100;
+                for (int index = indexTimeLessonStart; index < indexTimeLessonStart + 8; index++) {
+                        if (index >= 0 && index < this.panelTimeNames.size()) {
+                                Button panel = this.panelTimeNames.get(index);
+                                int index1 = (index - indexTimeLessonStart);
+                                if (index1 % 2 == 0) {
+                                        timeDelay += 100;
+                                        AnimationPanel animation = new AnimationPanel(panel, -panel.getWidth(),
+                                                        panel.getY(),
+                                                        panel.getX(), panel.getY(),
+                                                        300, timeDelay);
+                                        animation.start();
+
+                                } else {
+                                        AnimationPanel animation = new AnimationPanel(panel, this.width, panel.getY(),
+                                                        panel.getX(), panel.getY(),
+                                                        300, timeDelay);
+                                        animation.start();
+                                }
+                        }
+                }
+
+                timeDelay += 200;
+
+                for (int index = indexTimeLessonStart; index < indexTimeLessonStart + 8; index++) {
+                        if (index >= 0 && index < this.panelTimeNames.size()) {
+                                int index1 = (index - indexTimeLessonStart);
+                                Button panelEnable = buttonEnableTimeLessons[index1];
+                                if (index1 % 2 == 0) {
+                                        timeDelay += 100;
+                                        AnimationPanel animation = new AnimationPanel(panelEnable,
+                                                        -panelEnable.getWidth(),
+                                                        panelEnable.getY(),
+                                                        panelEnable.getX(), panelEnable.getY(),
+                                                        200, timeDelay);
+                                        animation.start();
+
+                                } else {
+                                        AnimationPanel animation = new AnimationPanel(panelEnable, this.width,
+                                                        panelEnable.getY(),
+                                                        panelEnable.getX(), panelEnable.getY(),
+                                                        200, timeDelay);
+                                        animation.start();
+                                }
+                        }
+                }
+
+                timeDelay += 100;
+                for (int index = indexTimeLessonStart; index < indexTimeLessonStart + 8; index++) {
+                        if (index >= 0 && index < this.panelTimeNames.size()) {
+                                int index1 = (index - indexTimeLessonStart);
+                                Button panelRemoveTimeLesson = buttonRemoveTimeLessons[index1];
+                                if (index1 % 2 == 0) {
+                                        timeDelay += 100;
+                                        AnimationPanel animation = new AnimationPanel(panelRemoveTimeLesson,
+                                                        -panelRemoveTimeLesson.getWidth(),
+                                                        panelRemoveTimeLesson.getY(),
+                                                        panelRemoveTimeLesson.getX(), panelRemoveTimeLesson.getY(),
+                                                        200, timeDelay);
+                                        animation.start();
+
+                                } else {
+                                        AnimationPanel animation = new AnimationPanel(panelRemoveTimeLesson, this.width,
+                                                        panelRemoveTimeLesson.getY(),
+                                                        panelRemoveTimeLesson.getX(), panelRemoveTimeLesson.getY(),
+                                                        200, timeDelay);
+                                        animation.start();
+                                }
+                        }
+                }
         }
 
         // Set indexTimeLessonStart
@@ -507,8 +664,10 @@ public class PanelSubject4 extends JPanel {
                 public void mousePressed(MouseEvent e) {
                         if (e.getSource() == buttonUp) {
                                 setIndexTimeLessonStart(indexTimeLessonStart - 8);
+                                runAnimationBody();
                         } else if (e.getSource() == buttonDown) {
                                 setIndexTimeLessonStart(indexTimeLessonStart + 8);
+                                runAnimationBody();
                         } else if (e.getSource() == buttonRemove) {
                                 parentPanel.removeSubject(indexSubject);
                         } else if (e.getSource() == panelSubjectCode) {
@@ -558,7 +717,37 @@ public class PanelSubject4 extends JPanel {
                                         parentPanel.updateDataSubjectList();
                                         parentPanel.updateContent();
                                 }
+                        } else {
+                                for (int index = 0; index < panelTimeNames.size(); index++) {
+                                        if (e.getSource() == panelTimeNames.get(index)) {
+                                                new DialogUpdateSubjectInTimeTable(
+                                                                Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                                Setting.WIDTH / 5 * 4, Setting.HEIGHT / 5 * 4,
+                                                                DialogUpdateSubjectInTimeTable.CENTER_CENTER,
+                                                                "Update subject in time table", new String[] {},
+                                                                plan.getTimeTable().getSubjects().get(indexSubject),
+                                                                index);
+                                                WriteFile.editSubjectTimeTable(indexPlan, indexSubject,
+                                                                plan.getTimeTable().getSubjects().get(indexSubject));
+                                                updateContentData();
+                                        } else {
+                                                int index1 = index - indexTimeLessonStart;
+                                                if (0 <= index1 && index1 < 8) {
+                                                        if (e.getSource() == buttonEnableTimeLessons[index1]) {
+                                                                Subject subject = plan.getTimeTable().getSubjects()
+                                                                                .get(indexSubject);
+                                                                boolean flag = subject.getListEnableTimeLessons()
+                                                                                .get(index);
+                                                                subject.getListEnableTimeLessons().set(index, !flag);
+                                                                WriteFile.editSubjectTimeTable(indexPlan, indexSubject,
+                                                                                plan.getTimeTable().getSubjects()
+                                                                                                .get(indexSubject));
+                                                                updateContentData();
+                                                        }
+                                                }
 
+                                        }
+                                }
                         }
                 }
 

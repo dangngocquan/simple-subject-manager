@@ -29,6 +29,7 @@ public class Subject {
     // Use in time table
     private List<List<Integer>> listTimes = null;
     private List<String> listTimeNames = null;
+    private List<Boolean> listEnableTimeLessons = null;
     private boolean enable = true;
 
     // Constructor
@@ -40,6 +41,7 @@ public class Subject {
         this.parentSubjectCodes = new LinkedList<String[]>();
         this.listTimes = new LinkedList<>();
         this.listTimeNames = new LinkedList<>();
+        this.listEnableTimeLessons = new LinkedList<>();
     }
 
     // Getter method
@@ -217,6 +219,10 @@ public class Subject {
         return this.listTimeNames;
     }
 
+    public List<Boolean> getListEnableTimeLessons() {
+        return this.listEnableTimeLessons;
+    }
+
     // Setter method
     public void setName(String name) {
         this.subjectName = name;
@@ -290,11 +296,19 @@ public class Subject {
         this.listTimeNames.add(name);
     }
 
+    public void addTimeLessonEnable(boolean enable) {
+        this.listEnableTimeLessons.add(enable);
+    }
+
     public void setListTimes(List<List<Integer>> listTimes) {
         this.listTimes = listTimes;
     }
 
     public void setListTimeNames(List<String> listTimeNames) {
         this.listTimeNames = listTimeNames;
+    }
+
+    public void setLIstEnableTimeLessons(List<Boolean> listEnable) {
+        this.listEnableTimeLessons = listEnable;
     }
 }
