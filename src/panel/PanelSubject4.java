@@ -45,12 +45,12 @@ public class PanelSubject4 extends JPanel {
         private int width, height; // size of this panel
         private int xPos, yPos, rootLocationType; // location of top-left point
         private Plan plan; // data plan
-        private PanelSubject2[] panelSubjects = null;
         private int indexPlan;
         private int indexSubject;
         private Button panelMainSubject;
         private Button buttonUp;
         private Button buttonRemove;
+        private Button buttonAddNewTimeLesson;
         private Button buttonDown;
         private Button panelSubjectCode;
         private Button panelSubjectName;
@@ -292,12 +292,38 @@ public class PanelSubject4 extends JPanel {
                                 Setting.GRADIENT_COLORS_5);
                 buttonRemove.setSizeButton(buttonRemove.getHeight(), buttonRemove.getHeight());
                 buttonRemove.setBackgroundIcon(Setting.REMOVE);
-                buttonRemove.setLocationButton(panelMainSubject.getWidth() / 2,
+                buttonRemove.setLocationButton(panelMainSubject.getWidth() / 2 + buttonRemove.getWidth() / 2,
                                 panelMainSubject.getHeight() / 2,
-                                Button.CENTER_CENTER);
+                                Button.CENTER_LEFT);
                 buttonRemove.setToolTipText("Xóa môn học");
 
                 panelMainSubject.add(buttonRemove);
+
+                // Panel button add new time lesson
+                buttonAddNewTimeLesson = new Button("");
+                buttonAddNewTimeLesson.addMouseListener(new MouseHandler());
+                buttonAddNewTimeLesson.setFontText(
+                                new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_BIG));
+                buttonAddNewTimeLesson.setLocationText(0, 0);
+                buttonAddNewTimeLesson.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_5,
+                                Setting.GRADIENT_POINTS2_5,
+                                Setting.GRADIENT_COLORS_5);
+                buttonAddNewTimeLesson.setGradientBackgroundColorExited(Setting.GRADIENT_POINTS1_5,
+                                Setting.GRADIENT_POINTS2_5,
+                                Setting.GRADIENT_COLORS_5);
+                buttonAddNewTimeLesson.setGradientBackgroundColorEntered(Setting.GRADIENT_POINTS1_5,
+                                Setting.GRADIENT_POINTS2_5,
+                                Setting.GRADIENT_COLORS_5);
+                buttonAddNewTimeLesson.setSizeButton(buttonAddNewTimeLesson.getHeight(),
+                                buttonAddNewTimeLesson.getHeight());
+                buttonAddNewTimeLesson.setBackgroundIcon(Setting.ADD);
+                buttonAddNewTimeLesson.setLocationButton(
+                                panelMainSubject.getWidth() / 2 - buttonAddNewTimeLesson.getWidth() / 2,
+                                panelMainSubject.getHeight() / 2,
+                                Button.CENTER_RIGHT);
+                buttonAddNewTimeLesson.setToolTipText("Thêm mã lớp học");
+
+                panelMainSubject.add(buttonAddNewTimeLesson);
 
                 // Panel button down
                 buttonDown = new Button("");
@@ -422,17 +448,16 @@ public class PanelSubject4 extends JPanel {
                                         new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01,
                                                         Setting.FONT_SIZE_SMALL));
                         buttonEnable.setLocationText(0, 0);
-
-                        if (index < subject.getListEnableTimeLessons().size()) {
+                        int index1 = index + indexTimeLessonStart;
+                        if (index1 < subject.getListEnableTimeLessons().size()) {
+                                boolean enable = subject.getListEnableTimeLessons().get(index1);
                                 buttonEnable.setBackgroundColorExitedButton(
-                                                subject.getListEnableTimeLessons().get(index) ? Setting.COLOR_GREEN_03
-                                                                : Setting.COLOR_RED_08);
+                                                enable ? Setting.COLOR_GREEN_03 : Setting.COLOR_RED_08);
                                 buttonEnable.setBackgroundColorButton(
-                                                subject.getListEnableTimeLessons().get(index) ? Setting.COLOR_GREEN_03
-                                                                : Setting.COLOR_RED_08);
+                                                enable ? Setting.COLOR_GREEN_03 : Setting.COLOR_RED_08);
                                 buttonEnable.setBackgroundColorEnteredButton(
-                                                subject.getListEnableTimeLessons().get(index) ? Setting.COLOR_GREEN_03
-                                                                : Setting.COLOR_RED_08);
+                                                enable ? Setting.COLOR_GREEN_03 : Setting.COLOR_RED_08);
+                                buttonEnable.setToolTipText(enable ? "Đang sử dụng" : "Đang không sử dụng");
                         }
                         buttonEnable.setSizeButton(buttonEnable.getHeight(),
                                         buttonEnable.getHeight());
@@ -451,10 +476,11 @@ public class PanelSubject4 extends JPanel {
                                                         Setting.FONT_SIZE_SMALL));
                         buttonRemoveTimeLesson.setLocationText(0, 0);
 
-                        if (index < subject.getListTimeNames().size()) {
+                        if (index1 < subject.getListTimeNames().size()) {
                                 buttonRemoveTimeLesson.setBackgroundColorExitedButton(Setting.COLOR_RED_08);
                                 buttonRemoveTimeLesson.setBackgroundColorButton(Setting.COLOR_RED_08);
                                 buttonRemoveTimeLesson.setBackgroundColorEnteredButton(Setting.COLOR_RED_08);
+                                buttonRemoveTimeLesson.setToolTipText("Xóa");
                         }
                         buttonRemoveTimeLesson.setSizeButton(buttonRemoveTimeLesson.getHeight() / 3 * 4,
                                         buttonRemoveTimeLesson.getHeight());
@@ -593,6 +619,7 @@ public class PanelSubject4 extends JPanel {
                 } else if (indexTimeLessonStart / 8 == (panelTimeNames.size() + 7) / 8 - 1) {
                         buttonDown.setVisible(false);
                 }
+
         }
 
         // Get rootLocationType
@@ -664,9 +691,11 @@ public class PanelSubject4 extends JPanel {
                 public void mousePressed(MouseEvent e) {
                         if (e.getSource() == buttonUp) {
                                 setIndexTimeLessonStart(indexTimeLessonStart - 8);
+                                updateContentData();
                                 runAnimationBody();
                         } else if (e.getSource() == buttonDown) {
                                 setIndexTimeLessonStart(indexTimeLessonStart + 8);
+                                updateContentData();
                                 runAnimationBody();
                         } else if (e.getSource() == buttonRemove) {
                                 parentPanel.removeSubject(indexSubject);
@@ -730,6 +759,7 @@ public class PanelSubject4 extends JPanel {
                                                 WriteFile.editSubjectTimeTable(indexPlan, indexSubject,
                                                                 plan.getTimeTable().getSubjects().get(indexSubject));
                                                 updateContentData();
+                                                break;
                                         } else {
                                                 int index1 = index - indexTimeLessonStart;
                                                 if (0 <= index1 && index1 < 8) {
@@ -743,6 +773,18 @@ public class PanelSubject4 extends JPanel {
                                                                                 plan.getTimeTable().getSubjects()
                                                                                                 .get(indexSubject));
                                                                 updateContentData();
+                                                                break;
+                                                        } else if (e.getSource() == buttonRemoveTimeLessons[index1]) {
+                                                                Subject subject = plan.getTimeTable().getSubjects()
+                                                                                .get(indexSubject);
+                                                                subject.getListTimeNames().remove(index);
+                                                                subject.getListTimes().remove(index);
+                                                                subject.getListEnableTimeLessons().remove(index);
+                                                                WriteFile.editSubjectTimeTable(indexPlan, indexSubject,
+                                                                                plan.getTimeTable().getSubjects()
+                                                                                                .get(indexSubject));
+                                                                updateContentData();
+                                                                break;
                                                         }
                                                 }
 

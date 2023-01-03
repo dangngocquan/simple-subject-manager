@@ -172,6 +172,26 @@ public class Setting {
                         new double[] { 0, 1 },
                         new double[] { 0, 1 }
         };
+        // Combo 11 // Use for panel
+        public static final Color[][] GRADIENT_COLORS_11 = {
+                        new Color[] { COLOR_GRAY_04, COLOR_GREEN_03 }
+        };
+        public static final double[][] GRADIENT_POINTS1_11 = {
+                        new double[] { 1, 3 }
+        };
+        public static final double[][] GRADIENT_POINTS2_11 = {
+                        new double[] { 0, 0 }
+        };
+        // Combo 12 // Use for panel
+        public static final Color[][] GRADIENT_COLORS_12 = {
+                        new Color[] { COLOR_GRAY_04, COLOR_GREEN_03 }
+        };
+        public static final double[][] GRADIENT_POINTS1_12 = {
+                        new double[] { 0, 1 }
+        };
+        public static final double[][] GRADIENT_POINTS2_12 = {
+                        new double[] { 0, 0 }
+        };
 
         // ImageIcon
         public static final ImageIcon LOGO = new ImageIcon("assets/icon/logo.png");
@@ -185,5 +205,7 @@ public class Setting {
         public static final ImageIcon INFORMATION = new ImageIcon("assets/icon/information.png");
         public static final ImageIcon WARNING = new ImageIcon("assets/icon/warning.png");
         public static final ImageIcon ADD = new ImageIcon("assets/icon/add.png");
+        public static final ImageIcon LOCK = new ImageIcon("assets/icon/lock.png");
+        public static final ImageIcon UNLOCK = new ImageIcon("assets/icon/unlock.png");
 
 }

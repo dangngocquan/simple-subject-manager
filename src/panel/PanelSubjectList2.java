@@ -485,7 +485,8 @@ public class PanelSubjectList2 extends JPanel {
                                 new DialogCreateNewSubject(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3,
                                                 Setting.HEIGHT / 3,
                                                 DialogCreateNewSubject.CENTER_CENTER, "Add new subject",
-                                                new String[] {}, plan,
+                                                new String[] { "Nhập mã môn học và tên môn học mà bạn muốn thêm:" },
+                                                plan,
                                                 indexPlan);
                                 updateDataContent();
                         } else {

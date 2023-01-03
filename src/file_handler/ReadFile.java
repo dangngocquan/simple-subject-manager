@@ -111,7 +111,9 @@ public class ReadFile {
             List<Integer> tempList = new LinkedList<>();
             String[] times = line.split(" ");
             for (String num : times) {
-                tempList.add(Integer.parseInt(num));
+                if (num.matches("[0-9]{1,}")) {
+                    tempList.add(Integer.parseInt(num));
+                }
             }
             listTimes.add(tempList);
         }

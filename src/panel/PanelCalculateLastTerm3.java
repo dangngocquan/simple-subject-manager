@@ -2,14 +2,12 @@ package src.panel;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import src.Setting;
 import src.dialog.DialogCalculateScoreLastTerm3;
 import src.dialog.DialogMessage;
 import src.objects.Button;
 import src.objects.ConversionTable;
 import src.objects.TextField;
-
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
