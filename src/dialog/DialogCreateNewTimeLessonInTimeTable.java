@@ -3,10 +3,10 @@ package src.dialog;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import src.Setting;
 import src.objects.Button;
 import src.objects.Subject;
+import src.objects.TextField;
 import src.panel.PanelTable;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -14,9 +14,8 @@ import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.event.MouseWheelEvent;
-import java.awt.Font;
 
-public class DialogUpdateSubjectInTimeTable {
+public class DialogCreateNewTimeLessonInTimeTable {
     // Constants dialog's root location
     public static final int TOP_LEFT = 0;
     public static final int TOP_CENTER = 1;
@@ -31,26 +30,22 @@ public class DialogUpdateSubjectInTimeTable {
     // Properties
     private int width;
     private JDialog dialog = null;
-    private Subject subject;
     private int indexTimeLesson;
     private JPanel panelScroll = null;
     private int scrollCursor = 0;
     private Button panelTimeLessonName = null;
+    private TextField fieldTimeLessonName = null;
     private Button panelTimeInfor = null;
-    private String[] buttonTexts = {
-            "", ""
-    };
-    private boolean canEditPanelTime = false;
-    private Button[] buttons;
-
     private PanelTable panelTimeTable = null;
+    private Button buttonOK = null;
+    private boolean pressedOK = false;
+    private Subject rootSubject = null;
 
     // Constructor
-    public DialogUpdateSubjectInTimeTable(int x, int y, int width, int height, int rootLocationType, String title,
-            String[] messageLines, Subject subject, int indexTimeLesson) {
+    public DialogCreateNewTimeLessonInTimeTable(int x, int y, int width, int height, int rootLocationType, String title,
+            String[] messageLines, Subject rootSubject) {
         this.width = width;
-        this.subject = subject;
-        this.indexTimeLesson = indexTimeLesson;
+        this.rootSubject = rootSubject;
         // Create frame and set propertis of this frame
         JFrame f = new JFrame();
         dialog = new JDialog(f, title, true);
@@ -106,7 +101,7 @@ public class DialogUpdateSubjectInTimeTable {
         // Create objects in this panel (String, button, ...)
         int tempHeight = 30;
 
-        panelTimeLessonName = new Button("Mã lớp học: " + subject.getListTimeNames().get(indexTimeLesson));
+        panelTimeLessonName = new Button("Mã lớp học: ");
         panelTimeLessonName.setFontText(Button.ARIAL_BOLD_18);
         panelTimeLessonName.setCorrectSizeButton();
         panelTimeLessonName.setSizeButton(Math.min(width / 3 * 2, panelTimeLessonName.getWidth() + width / 10),
@@ -117,6 +112,11 @@ public class DialogUpdateSubjectInTimeTable {
         panelTimeLessonName.setStrokeWidth(0);
         panelTimeLessonName.setEnable(false);
         tempHeight += panelTimeLessonName.getHeight() + 10;
+
+        // Create text field to get time lesson name
+        fieldTimeLessonName = new TextField(panelTimeLessonName.getX() + panelTimeLessonName.getWidth(),
+                panelTimeLessonName.getY(), width / 2, panelTimeLessonName.getHeight(), TextField.TOP_LEFT,
+                "Mã lớp học", 2, 15, 15);
 
         // Panel time information
         panelTimeInfor = new Button("Thời gian:");
@@ -131,53 +131,31 @@ public class DialogUpdateSubjectInTimeTable {
         panelTimeInfor.setEnable(false);
         tempHeight += panelTimeInfor.getHeight() + 10;
 
-        // Create buttons
-        buttons = new Button[buttonTexts.length];
-        for (int count = 0; count < buttonTexts.length; count++) {
-            buttons[count] = new Button(buttonTexts[count]);
-            buttons[count].setFont(new Font(
-                    Setting.FONT_NAME_01,
-                    Setting.FONT_STYLE_01,
-                    Setting.FONT_SIZE_SMALL));
-            buttons[count].setSizeButton(buttons[count].getHeight(), buttons[count].getHeight());
-            if (count == 0) {
-                buttons[count].setBackgroundIcon(Setting.EDIT);
-                buttons[count].setToolTipText("Sửa");
-            } else if (count == 1) {
-                buttons[count].setBackgroundIcon(canEditPanelTime ? Setting.UNLOCK : Setting.LOCK);
-                buttons[count].setToolTipText(canEditPanelTime ? "Có thể chỉnh sửa" : "Chỉ xem");
-            }
-
-            buttons[count].addMouseListener(new MouseHandler());
-            panelScroll.add(buttons[count]);
-        }
-
-        // Set location for each button
-        buttons[0].setLocationButton(panelTimeLessonName.getX() + panelTimeLessonName.getWidth() + 20,
-                panelTimeLessonName.getY(),
-                Button.TOP_LEFT);
-
-        buttons[1].setLocationButton(panelTimeInfor.getX() + panelTimeInfor.getWidth() + 20,
-                panelTimeInfor.getY(),
-                Button.TOP_LEFT);
-
         // Panel Time table
         List<Subject> subjects = new LinkedList<>();
-        subjects.add(subject);
+        subjects.add(null);
         List<Integer> indexTimeLessons = new LinkedList<>();
         indexTimeLessons.add(indexTimeLesson);
         panelTimeTable = new PanelTable(width / 10, tempHeight, width / 10 * 8, height / 18 * 11 + 2, null,
                 PanelTable.TOP_LEFT, 10, 7, subjects, indexTimeLessons, true);
-        panelTimeTable.setEditable(canEditPanelTime);
-        tempHeight += panelTimeTable.getHeight();
+        panelTimeTable.setEditable(true);
+        tempHeight += panelTimeTable.getHeight() + 30;
+
+        // Button OK
+        buttonOK = new Button("OK");
+        buttonOK.addMouseListener(new MouseHandler());
+        buttonOK.setLocationButton(width / 2, tempHeight, Button.TOP_CENTER);
+        tempHeight += buttonOK.getHeight() + 10;
 
         panelScroll.setSize(width, Math.max(tempHeight, height));
         panelScroll.setBounds(0, -this.scrollCursor, panelScroll.getWidth(), panelScroll.getHeight());
 
         // add panel
         panelScroll.add(panelTimeLessonName);
+        panelScroll.add(fieldTimeLessonName);
         panelScroll.add(panelTimeInfor);
         panelScroll.add(panelTimeTable);
+        panelScroll.add(buttonOK);
 
         panelScroll.addMouseWheelListener(new MouseWheelHandler());
         dialog.add(panelScroll);
@@ -187,13 +165,11 @@ public class DialogUpdateSubjectInTimeTable {
     }
 
     public void updateContent() {
-        panelTimeLessonName.setTextButton("Mã lớp học: " + subject.getListTimeNames().get(indexTimeLesson));
+        panelTimeLessonName.setTextButton("Mã lớp học: " + rootSubject.getListTimeNames().get(indexTimeLesson));
         panelTimeLessonName.setCorrectSizeButton();
         panelTimeLessonName.setSizeButton(Math.min(width / 3 * 2, panelTimeLessonName.getWidth() + width / 10),
                 panelTimeLessonName.getHeight() / 7 * 8 + 10);
-        buttons[0].setLocationButton(panelTimeLessonName.getX() + panelTimeLessonName.getWidth() + 20,
-                panelTimeLessonName.getY(),
-                Button.TOP_LEFT);
+
         panelScroll.setBounds(panelScroll.getX(), -this.scrollCursor, panelScroll.getWidth(),
                 panelScroll.getHeight());
 
@@ -201,7 +177,12 @@ public class DialogUpdateSubjectInTimeTable {
 
     // Get subject
     public Subject getSubject() {
-        return this.subject;
+        return this.rootSubject;
+    }
+
+    // Get boolean pressedOK
+    public boolean pressedOK() {
+        return this.pressedOK;
     }
 
     // Get max of scrollCursor
@@ -238,31 +219,29 @@ public class DialogUpdateSubjectInTimeTable {
 
         @Override
         public void mousePressed(MouseEvent event) {
-            if (event.getSource() == buttons[0]) {
-                DialogInput dialog = new DialogInput(Setting.WIDTH / 2, Setting.HEIGHT / 2,
-                        Setting.WIDTH / 3, Setting.HEIGHT / 3, DialogInput.CENTER_CENTER,
-                        "Edit", new String[] { "Nhập mã lớp học mới:" },
-                        Setting.INFORMATION, new String[] { "Tên môn học" });
-                String[] input = dialog.getInputString();
-                if (input[0].isEmpty()) {
+            if (event.getSource() == buttonOK) {
+                String inputText = fieldTimeLessonName.getText();
+                if (inputText == null || inputText.isEmpty()) {
                     new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2,
                             Setting.WIDTH / 3, Setting.HEIGHT / 3,
                             DialogMessage.CENTER_CENTER, "Information",
-                            new String[] { "Sửa mã lớp học thất bại" }, Setting.WARNING);
+                            new String[] { "Mã lớp học không được để trống." }, Setting.WARNING);
+                } else if (rootSubject.getListTimeNames().contains(inputText)) {
+                    new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                            Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                            DialogMessage.CENTER_CENTER, "Information",
+                            new String[] { "Mã lớp học này đã tồn tại." }, Setting.WARNING);
                 } else {
-                    subject.getListTimeNames().set(indexTimeLesson, input[0]);
+                    rootSubject.getListTimeNames().add(0, inputText);
+                    rootSubject.getListTimes().add(0, panelTimeTable.getSelectedIndexPanels());
+                    rootSubject.getListEnableTimeLessons().add(0, true);
                     new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2,
                             Setting.WIDTH / 3, Setting.HEIGHT / 3,
                             DialogMessage.CENTER_CENTER, "Information",
-                            new String[] { "Sửa mã lớp học thành công" },
-                            Setting.INFORMATION);
-                    updateContent();
+                            new String[] { "Tạo mã lớp học mới thành công." }, Setting.WARNING);
+                    pressedOK = true;
+                    dialog.dispose();
                 }
-            } else if (event.getSource() == buttons[1]) {
-                canEditPanelTime = !canEditPanelTime;
-                buttons[1].setBackgroundIcon(canEditPanelTime ? Setting.UNLOCK : Setting.LOCK);
-                buttons[1].setToolTipText(canEditPanelTime ? "Có thể chỉnh sửa" : "Chỉ xem");
-                panelTimeTable.setEditable(canEditPanelTime);
             }
         }
 

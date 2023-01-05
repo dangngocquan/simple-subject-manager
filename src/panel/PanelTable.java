@@ -29,7 +29,7 @@ public class PanelTable extends JPanel {
     public static final Color COLOR_STROKE = Setting.COLOR_BLACK;
     public static final Color COLOR_PANEL_SELECTED = Setting.COLOR_GREEN_03;
     public static final Color COLOR_PANEL_UNSELECTED = Setting.COLOR_WHITE;
-    public static final Color COLOR_PANEL_ENTERED = Setting.COLOR_VIOLET_02;
+    public static final Color COLOR_PANEL_ENTERED = Setting.COLOR_VIOLET_03;
 
     // Properties
     private int width, height; // size of this panel
@@ -44,20 +44,26 @@ public class PanelTable extends JPanel {
     private Button[] panelDays = null;
     private Button[] panelTimeLessons = null;
     private boolean canEdit = true;
-    private Subject subject;
-    private int indexTimeLesson;
+    private List<Subject> subjects;
+    private List<Integer> indexTimeLessons;
+    private boolean hiddenNameSubject = true;
 
     // Constructor
     public PanelTable(int x, int y, int width, int height, Font font,
-            int rootLocationType, int numberRows, int numberColumns, Subject subject, int indexTimeLesson) {
+            int rootLocationType, int numberRows, int numberColumns, List<Subject> subjects,
+            List<Integer> indexTimeLessons, boolean hiddenNameSubject) {
         // Properties, Objects
         this.width = width;
         this.height = height;
         this.rootLocationType = rootLocationType;
         this.numberRows = numberRows;
         this.numberColumns = numberColumns;
-        this.subject = subject;
-        this.indexTimeLesson = indexTimeLesson;
+        this.subjects = subjects;
+        this.indexTimeLessons = indexTimeLessons;
+        this.hiddenNameSubject = hiddenNameSubject;
+        if (subjects.size() == 0) {
+            this.canEdit = false;
+        }
         setLayout(null);
         setSize(width, height);
         setLocation(x, y, rootLocationType);
@@ -71,7 +77,7 @@ public class PanelTable extends JPanel {
 
         int gapRow = 2;
         int gapColumn = 2;
-        int heightPerRow = height / (numberRows + 1);
+        int heightPerRow = (height - gapRow) / (numberRows + 1);
         int widthPerColumn = width / (numberColumns + 1);
 
         panelDays = new Button[textDays.length];
@@ -97,12 +103,18 @@ public class PanelTable extends JPanel {
         }
 
         panelTimeLessons = new Button[numberRows];
+        int midIndexRow = numberRows / 2;
         for (int index = 0; index < panelTimeLessons.length; index++) {
             panelTimeLessons[index] = new Button("Tiết " + (index + 1));
             panelTimeLessons[index].setFontText(Button.ARIAL_BOLD_13);
             panelTimeLessons[index].setCorrectSizeButton();
             panelTimeLessons[index].setSizeButton(widthPerColumn - gapColumn, heightPerRow);
-            panelTimeLessons[index].setLocationButton(0, (index + 1) * heightPerRow, Button.TOP_LEFT);
+            if (index < midIndexRow) {
+                panelTimeLessons[index].setLocationButton(0, (index + 1) * heightPerRow, Button.TOP_LEFT);
+            } else {
+                panelTimeLessons[index].setLocationButton(0, (index + 1) * heightPerRow + gapRow, Button.TOP_LEFT);
+            }
+
             panelTimeLessons[index].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                     Setting.GRADIENT_COLORS_8);
             panelTimeLessons[index].setEnable(false);
@@ -119,19 +131,41 @@ public class PanelTable extends JPanel {
                 panelTimes[count].setFontText(Button.ARIAL_BOLD_13);
                 panelTimes[count].setCorrectSizeButton();
                 panelTimes[count].setSizeButton(widthPerColumn, heightPerRow);
-                panelTimes[count].setLocationButton(indexColumn * widthPerColumn, indexRow * heightPerRow,
-                        Button.TOP_LEFT);
+                if (indexRow <= midIndexRow) {
+                    panelTimes[count].setLocationButton(indexColumn * widthPerColumn, indexRow * heightPerRow,
+                            Button.TOP_LEFT);
+                } else {
+                    panelTimes[count].setLocationButton(indexColumn * widthPerColumn, indexRow * heightPerRow + gapRow,
+                            Button.TOP_LEFT);
+                }
+
                 panelTimes[count].setBackgroundColorButton(COLOR_PANEL_UNSELECTED);
                 panelTimes[count].setBackgroundColorEnteredButton(COLOR_PANEL_ENTERED);
                 panelTimes[count].setBackgroundColorExitedButton(COLOR_PANEL_UNSELECTED);
+                panelTimes[count].setToolTipText(String.format("%s - %s", panelDays[indexColumn].getTextButton(),
+                        panelTimeLessons[indexRow - 1].getTextButton()));
                 panelMain.add(panelTimes[count]);
                 count++;
             }
         }
 
-        if (subject != null) {
-            setSelectedPanel(subject.getListTimes().get(indexTimeLesson));
+        List<Integer> indexPanelSelected = new LinkedList<>();
+        for (int indexSubject = 0; indexSubject < subjects.size(); indexSubject++) {
+            Subject subject = subjects.get(indexSubject);
+            int indexTimeLesson = indexTimeLessons.get(indexSubject);
+            if (subject != null && indexTimeLesson < subject.getListTimes().size()) {
+                for (int i : subject.getListTimes().get(indexTimeLesson)) {
+                    indexPanelSelected.add(i);
+                    if (!this.hiddenNameSubject) {
+                        panelTimes[i].setTextButton(String.format("%s - %s", subject.getCode(),
+                                subject.getListTimeNames().get(indexTimeLesson)));
+                    }
+                }
+            }
         }
+        setSelectedPanel(indexPanelSelected);
+
+        updateContent();
 
         // add panel
         panelMain.setBackground(COLOR_STROKE);
@@ -156,8 +190,26 @@ public class PanelTable extends JPanel {
                     panelTimes[count].setBackgroundColorExitedButton(COLOR_PANEL_UNSELECTED);
                 }
                 // Update editable
-                panelTimes[count].setEnable(canEdit);
+                panelTimes[count].setEnable(this.canEdit);
                 count++;
+            }
+        }
+
+        if (subjects.size() > 1) {
+            for (int indexSubject = 0; indexSubject < subjects.size(); indexSubject++) {
+                Subject subject = subjects.get(indexSubject);
+                int indexTimeLesson = indexTimeLessons.get(indexSubject);
+                if (subject != null && indexTimeLesson < subject.getListTimes().size()) {
+                    for (int i : subject.getListTimes().get(indexTimeLesson)) {
+                        panelTimes[i]
+                                .setBackgroundColorButton(
+                                        Setting.ARRAY_COLORS[indexSubject % Setting.ARRAY_COLORS.length]);
+                        panelTimes[i].setBackgroundColorEnteredButton(
+                                Setting.ARRAY_COLORS[indexSubject % Setting.ARRAY_COLORS.length]);
+                        panelTimes[i].setBackgroundColorExitedButton(
+                                Setting.ARRAY_COLORS[indexSubject % Setting.ARRAY_COLORS.length]);
+                    }
+                }
             }
         }
     }
@@ -256,9 +308,14 @@ public class PanelTable extends JPanel {
                 for (int index = 0; index < panelTimes.length; index++) {
                     if (event.getSource() == panelTimes[index]) {
                         selected[index] = !selected[index];
-                        if (subject != null) {
-                            subject.getListTimes().set(indexTimeLesson, getSelectedIndexPanels());
+                        if (subjects.size() == 1) {
+                            Subject subject = subjects.get(0);
+                            int indexTimeLesson = indexTimeLessons.get(0);
+                            if (subject != null && indexTimeLesson < subject.getListTimes().size()) {
+                                subject.getListTimes().set(indexTimeLesson, getSelectedIndexPanels());
+                            }
                         }
+
                         updateContent();
                     }
                 }

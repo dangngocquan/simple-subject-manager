@@ -51,6 +51,23 @@ public class Setting {
         public static Color COLOR_BLUE_02 = new Color(222, 255, 253);
         public static Color COLOR_BLUE_03 = new Color(189, 239, 255);
         public static Color COLOR_BLUE_04 = new Color(168, 200, 200);
+        public static Color[] ARRAY_COLORS = {
+                        new Color(255, 175, 153),
+                        new Color(255, 214, 89),
+                        new Color(255, 242, 38),
+                        new Color(138, 255, 128),
+                        new Color(40, 249, 255),
+                        new Color(131, 144, 255),
+                        new Color(215, 155, 255),
+                        new Color(255, 174, 223),
+                        new Color(255, 218, 212),
+                        new Color(255, 245, 221),
+                        new Color(255, 255, 221),
+                        new Color(227, 255, 228),
+                        new Color(235, 255, 255),
+                        new Color(237, 233, 255),
+                        new Color(255, 243, 245)
+        };
         // Gradien color combo
         // Combo 1 // No color
         public static final Color[][] GRADIENT_COLORS_1 = {
@@ -196,6 +213,8 @@ public class Setting {
         // ImageIcon
         public static final ImageIcon LOGO = new ImageIcon("assets/icon/logo.png");
         public static final ImageIcon ARROW_DOWN = new ImageIcon("assets/icon/arrow_down.png");
+        public static final ImageIcon ARROW_LEFT = new ImageIcon("assets/icon/arrow_left.png");
+        public static final ImageIcon ARROW_RIGHT = new ImageIcon("assets/icon/arrow_right.png");
         public static final ImageIcon ARROW_UP = new ImageIcon("assets/icon/arrow_up.png");
         public static final ImageIcon SETTING = new ImageIcon("assets/icon/setting.png");
         public static final ImageIcon EDIT = new ImageIcon("assets/icon/edit.png");
@@ -207,5 +226,6 @@ public class Setting {
         public static final ImageIcon ADD = new ImageIcon("assets/icon/add.png");
         public static final ImageIcon LOCK = new ImageIcon("assets/icon/lock.png");
         public static final ImageIcon UNLOCK = new ImageIcon("assets/icon/unlock.png");
+        public static final ImageIcon RUN = new ImageIcon("assets/icon/run.png");
 
 }

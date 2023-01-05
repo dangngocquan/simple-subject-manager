@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import src.Setting;
 import src.animation.AnimationPanel;
+import src.dialog.DialogCreateNewTimeLessonInTimeTable;
 import src.dialog.DialogInput;
 import src.dialog.DialogMessage;
 import src.dialog.DialogUpdateSubjectInTimeTable;
@@ -603,6 +604,11 @@ public class PanelSubject4 extends JPanel {
                 }
         }
 
+        // Get index time lesson start
+        public int getIndexTimeLessonStart() {
+                return this.indexTimeLessonStart;
+        }
+
         // Set indexTimeLessonStart
         public void setIndexTimeLessonStart(int index) {
                 if (index >= 0 && index / 8 <= (panelTimeNames.size() + 7) / 8) {
@@ -699,6 +705,20 @@ public class PanelSubject4 extends JPanel {
                                 runAnimationBody();
                         } else if (e.getSource() == buttonRemove) {
                                 parentPanel.removeSubject(indexSubject);
+                        } else if (e.getSource() == buttonAddNewTimeLesson) {
+                                DialogCreateNewTimeLessonInTimeTable dialog1 = new DialogCreateNewTimeLessonInTimeTable(
+                                                Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 16 * 14,
+                                                Setting.HEIGHT / 11 * 10,
+                                                DialogCreateNewTimeLessonInTimeTable.CENTER_CENTER,
+                                                "Add new", new String[] {},
+                                                plan.getTimeTable().getSubjects().get(indexSubject));
+                                if (dialog1.pressedOK()) {
+                                        WriteFile.editSubjectTimeTable(indexPlan, indexSubject,
+                                                        plan.getTimeTable().getSubjects().get(indexSubject));
+                                        parentPanel.updateDataSubjectList();
+                                        parentPanel.updateContent();
+                                }
+
                         } else if (e.getSource() == panelSubjectCode) {
                                 DialogInput dialog = new DialogInput(Setting.WIDTH / 2, Setting.HEIGHT / 2,
                                                 Setting.WIDTH / 3, Setting.HEIGHT / 3, DialogInput.CENTER_CENTER,
@@ -747,47 +767,62 @@ public class PanelSubject4 extends JPanel {
                                         parentPanel.updateContent();
                                 }
                         } else {
-                                for (int index = 0; index < panelTimeNames.size(); index++) {
-                                        if (e.getSource() == panelTimeNames.get(index)) {
-                                                new DialogUpdateSubjectInTimeTable(
-                                                                Setting.WIDTH / 2, Setting.HEIGHT / 2,
-                                                                Setting.WIDTH / 5 * 4, Setting.HEIGHT / 5 * 4,
-                                                                DialogUpdateSubjectInTimeTable.CENTER_CENTER,
-                                                                "Update subject in time table", new String[] {},
-                                                                plan.getTimeTable().getSubjects().get(indexSubject),
-                                                                index);
-                                                WriteFile.editSubjectTimeTable(indexPlan, indexSubject,
-                                                                plan.getTimeTable().getSubjects().get(indexSubject));
-                                                updateContentData();
-                                                break;
-                                        } else {
-                                                int index1 = index - indexTimeLessonStart;
-                                                if (0 <= index1 && index1 < 8) {
-                                                        if (e.getSource() == buttonEnableTimeLessons[index1]) {
-                                                                Subject subject = plan.getTimeTable().getSubjects()
-                                                                                .get(indexSubject);
-                                                                boolean flag = subject.getListEnableTimeLessons()
-                                                                                .get(index);
-                                                                subject.getListEnableTimeLessons().set(index, !flag);
-                                                                WriteFile.editSubjectTimeTable(indexPlan, indexSubject,
-                                                                                plan.getTimeTable().getSubjects()
-                                                                                                .get(indexSubject));
-                                                                updateContentData();
-                                                                break;
-                                                        } else if (e.getSource() == buttonRemoveTimeLessons[index1]) {
-                                                                Subject subject = plan.getTimeTable().getSubjects()
-                                                                                .get(indexSubject);
-                                                                subject.getListTimeNames().remove(index);
-                                                                subject.getListTimes().remove(index);
-                                                                subject.getListEnableTimeLessons().remove(index);
-                                                                WriteFile.editSubjectTimeTable(indexPlan, indexSubject,
-                                                                                plan.getTimeTable().getSubjects()
-                                                                                                .get(indexSubject));
-                                                                updateContentData();
-                                                                break;
+                                if (panelTimeNames != null) {
+                                        for (int index = 0; index < panelTimeNames.size(); index++) {
+                                                if (e.getSource() == panelTimeNames.get(index)) {
+                                                        new DialogUpdateSubjectInTimeTable(
+                                                                        Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                                        Setting.WIDTH / 16 * 14,
+                                                                        Setting.HEIGHT / 11 * 10,
+                                                                        DialogUpdateSubjectInTimeTable.CENTER_CENTER,
+                                                                        "Update subject in time table", new String[] {},
+                                                                        plan.getTimeTable().getSubjects()
+                                                                                        .get(indexSubject),
+                                                                        index);
+                                                        WriteFile.editSubjectTimeTable(indexPlan, indexSubject,
+                                                                        plan.getTimeTable().getSubjects()
+                                                                                        .get(indexSubject));
+                                                        updateContentData();
+                                                        break;
+                                                } else {
+                                                        int index1 = index - indexTimeLessonStart;
+                                                        if (0 <= index1 && index1 < 8) {
+                                                                if (e.getSource() == buttonEnableTimeLessons[index1]) {
+                                                                        Subject subject = plan.getTimeTable()
+                                                                                        .getSubjects()
+                                                                                        .get(indexSubject);
+                                                                        boolean flag = subject
+                                                                                        .getListEnableTimeLessons()
+                                                                                        .get(index);
+                                                                        subject.getListEnableTimeLessons().set(index,
+                                                                                        !flag);
+                                                                        WriteFile.editSubjectTimeTable(indexPlan,
+                                                                                        indexSubject,
+                                                                                        plan.getTimeTable()
+                                                                                                        .getSubjects()
+                                                                                                        .get(indexSubject));
+                                                                        updateContentData();
+                                                                        break;
+                                                                } else if (e.getSource() == buttonRemoveTimeLessons[index1]) {
+                                                                        Subject subject = plan.getTimeTable()
+                                                                                        .getSubjects()
+                                                                                        .get(indexSubject);
+                                                                        subject.getListTimeNames().remove(index);
+                                                                        subject.getListTimes().remove(index);
+                                                                        subject.getListEnableTimeLessons()
+                                                                                        .remove(index);
+                                                                        WriteFile.editSubjectTimeTable(indexPlan,
+                                                                                        indexSubject,
+                                                                                        plan.getTimeTable()
+                                                                                                        .getSubjects()
+                                                                                                        .get(indexSubject));
+                                                                        updateContentData();
+                                                                        parentPanel.updateDataSubjectList();
+                                                                        break;
+                                                                }
                                                         }
-                                                }
 
+                                                }
                                         }
                                 }
                         }

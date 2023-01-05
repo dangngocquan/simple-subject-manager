@@ -2,11 +2,9 @@ package src.panel;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import src.Setting;
 import src.file_handler.WriteFile;
 import src.objects.Plan;
-
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Font;

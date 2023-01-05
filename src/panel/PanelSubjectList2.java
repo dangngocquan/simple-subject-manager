@@ -1,14 +1,13 @@
 package src.panel;
 
 import javax.swing.JPanel;
-
 import src.Setting;
+import src.dialog.DialogCalulateTimeTable;
 import src.dialog.DialogCreateNewSubject;
 import src.file_handler.WriteFile;
 import src.objects.Button;
 import src.objects.Plan;
 import src.objects.Subject;
-
 import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,6 +45,7 @@ public class PanelSubjectList2 extends JPanel {
         private JPanel contentPanel; // a part of scrollPanel wil be shown here
         private JPanel scrollPanel; // Contains all information of plan
         private int cursorScroll = 0; // to define where the contentPanel in scrolllPanel
+        private Button buttonRun = null;
         private List<Button> buttonSubjects;
         private List<Button> buttonCountTimeLessons;
         private List<Button> buttonSubjectEnable;
@@ -89,10 +89,22 @@ public class PanelSubjectList2 extends JPanel {
                 title.setEnable(false);
                 title.setLocationText(0, 0);
                 title.setStrokeWidth(0);
-                title.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
-                                Setting.GRADIENT_COLORS_4);
-                title.setSizeButton(headerPanel.getWidth() / 2, headerPanel.getHeight() / 10 * 8);
+                title.setBackgroundColorButton(Setting.COLOR_RED_06);
+                title.setSizeButton(
+                                headerPanel.getWidth() - title.getHeight()
+                                                - (title.getHeight() - title.getHeight() / 10 * 8),
+                                headerPanel.getHeight() / 10 * 8);
                 title.setBounds(0, 0, title.getWidth(), title.getHeight());
+
+                buttonRun = new Button("");
+                buttonRun.addMouseListener(new MouseHandler());
+                buttonRun.setFontText(Button.ARIAL_BOLD_24);
+                buttonRun.setCorrectSizeButton();
+                buttonRun.setLocationText(0, 0);
+                buttonRun.setSizeButton(buttonRun.getHeight(), buttonRun.getHeight());
+                buttonRun.setBackgroundIcon(Setting.RUN);
+                buttonRun.setLocationButton(headerPanel.getX() + headerPanel.getWidth(), headerPanel.getY(),
+                                Button.TOP_RIGHT);
 
                 // Create scrollPanel
                 scrollPanel = new JPanel();
@@ -237,6 +249,7 @@ public class PanelSubjectList2 extends JPanel {
                 add(headerPanel);
                 add(contentPanel);
                 headerPanel.add(title);
+                headerPanel.add(buttonRun);
                 contentPanel.add(scrollPanel);
                 scrollPanel.setBackground(Setting.COLOR_ORANGE_02);
 
@@ -489,6 +502,11 @@ public class PanelSubjectList2 extends JPanel {
                                                 plan,
                                                 indexPlan);
                                 updateDataContent();
+                        } else if (event.getSource() == buttonRun) {
+                                new DialogCalulateTimeTable(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                Setting.WIDTH / 16 * 14, Setting.HEIGHT / 12 * 11,
+                                                DialogCalulateTimeTable.CENTER_CENTER, "", new String[] {},
+                                                plan.getTimeTable());
                         } else {
                                 for (int index = 0; index < buttonSubjects.size(); index++) {
                                         Subject subject = plan.getTimeTable().getSubjects().get(index);
