@@ -7,6 +7,7 @@ import src.Setting;
 import src.animation.AnimationPanel;
 import src.objects.Button;
 import src.objects.Plan;
+import src.panel.PanelCPA;
 import src.panel.PanelCalculateScoreLastTerm;
 import src.panel.PanelMapRelativeSubjects;
 import src.panel.PanelSubjectList;
@@ -36,10 +37,11 @@ public class ScreenPlanView extends JPanel {
         private PanelMapRelativeSubjects panelMapRelativeSubjects;
         private PanelCalculateScoreLastTerm panelCalculateScoreLastTerm;
         private PanelTimeTable panelTimeTable;
+        private PanelCPA panelCPA;
         private String[] buttonTexts = {
                         "Quay lại", "Danh sách môn học", "Cập nhật điểm số", "Sơ đồ liên hệ các môn học",
                         "Lịch học khả thi",
-                        "Cập nhật trạng thái môn", "Tính toán điểm cuối kỳ"
+                        "Cập nhật trạng thái môn", "Tính toán điểm cuối kỳ", "CPA"
         };
         private Button[] buttons;
         private int indexButtonEntering = 1;
@@ -129,6 +131,8 @@ public class ScreenPlanView extends JPanel {
                                 Button.TOP_LEFT);
                 buttons[4].setLocationButton(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 20,
                                 Button.TOP_LEFT);
+                buttons[7].setLocationButton(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 23,
+                                Button.TOP_LEFT);
 
                 // Create panels
                 panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
@@ -150,6 +154,8 @@ public class ScreenPlanView extends JPanel {
                 panelTimeTable = new PanelTimeTable(0, 0, contentPanel.getWidth(),
                                 contentPanel.getHeight(), null, PanelTimeTable.TOP_LEFT,
                                 plan, indexPlan, applicationFrame);
+                panelCPA = new PanelCPA(0, 0, contentPanel.getWidth(),
+                                contentPanel.getHeight(), plan, PanelTimeTable.TOP_LEFT);
 
                 panelButtonEnetering = new JPanel();
                 panelButtonEnetering.setLayout(null);
@@ -168,6 +174,7 @@ public class ScreenPlanView extends JPanel {
                 optionalPanel.add(buttons[4]);
                 optionalPanel.add(buttons[5]);
                 optionalPanel.add(buttons[6]);
+                optionalPanel.add(buttons[7]);
                 optionalPanel.add(panelButtonEnetering);
                 viewPanel.add(contentPanel);
                 contentPanel.add(panelSubjectList);
@@ -176,6 +183,7 @@ public class ScreenPlanView extends JPanel {
                 contentPanel.add(panelMapRelativeSubjects);
                 contentPanel.add(panelCalculateScoreLastTerm);
                 contentPanel.add(panelTimeTable);
+                contentPanel.add(panelCPA);
 
                 // Set visible of screens
                 mainScreen.setVisible(true);
@@ -184,6 +192,7 @@ public class ScreenPlanView extends JPanel {
                 panelUpdateStatusSubject.setVisible(false);
                 panelMapRelativeSubjects.setVisible(false);
                 panelTimeTable.setVisible(false);
+                panelCPA.setVisible(false);
                 panelCalculateScoreLastTerm.setVisible(false);
                 // optionalPanel.setBackground(Setting.COLOR_BLUE_03);
         }
@@ -244,6 +253,7 @@ public class ScreenPlanView extends JPanel {
                                 panelMapRelativeSubjects.setVisible(false);
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(false);
+                                panelCPA.setVisible(false);
                                 AnimationPanel animation = new AnimationPanel(panelSubjectList,
                                                 panelSubjectList.getWidth(), 0, 0, 0,
                                                 300);
@@ -259,6 +269,7 @@ public class ScreenPlanView extends JPanel {
                                 panelMapRelativeSubjects.setVisible(false);
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(false);
+                                panelCPA.setVisible(false);
                                 AnimationPanel animation = new AnimationPanel(panelUpdateScoreSubject,
                                                 panelUpdateScoreSubject.getWidth(), 0, 0, 0,
                                                 300);
@@ -274,6 +285,7 @@ public class ScreenPlanView extends JPanel {
                                 panelMapRelativeSubjects.setVisible(false);
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(false);
+                                panelCPA.setVisible(false);
                                 AnimationPanel animation = new AnimationPanel(panelUpdateStatusSubject,
                                                 panelUpdateStatusSubject.getWidth(), 0, 0, 0,
                                                 300);
@@ -288,6 +300,7 @@ public class ScreenPlanView extends JPanel {
                                 panelMapRelativeSubjects.setVisible(true);
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(false);
+                                panelCPA.setVisible(false);
                                 AnimationPanel animation = new AnimationPanel(panelMapRelativeSubjects,
                                                 panelMapRelativeSubjects.getWidth(), 0, 0, 0,
                                                 300);
@@ -302,6 +315,7 @@ public class ScreenPlanView extends JPanel {
                                 panelMapRelativeSubjects.setVisible(false);
                                 panelCalculateScoreLastTerm.setVisible(true);
                                 panelTimeTable.setVisible(false);
+                                panelCPA.setVisible(false);
                                 AnimationPanel animation = new AnimationPanel(panelCalculateScoreLastTerm,
                                                 panelCalculateScoreLastTerm.getWidth(), 0, 0, 0,
                                                 300);
@@ -317,8 +331,25 @@ public class ScreenPlanView extends JPanel {
                                 panelMapRelativeSubjects.setVisible(false);
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(true);
+                                panelCPA.setVisible(false);
                                 AnimationPanel animation = new AnimationPanel(panelTimeTable,
                                                 panelTimeTable.getWidth(), 0, 0, 0,
+                                                300);
+                                animation.start();
+                        }
+                        // Press at "CPA" button
+                        else if (event.getSource() == buttons[7]) {
+                                setIndexButtonEntering(7);
+                                panelSubjectList.setVisible(false);
+                                panelUpdateScoreSubject.setVisible(false);
+                                panelUpdateStatusSubject.setVisible(false);
+                                panelMapRelativeSubjects.setVisible(false);
+                                panelCalculateScoreLastTerm.setVisible(false);
+                                panelTimeTable.setVisible(false);
+                                panelCPA.setVisible(true);
+                                panelCPA.updateCalculate();
+                                AnimationPanel animation = new AnimationPanel(panelCPA,
+                                                panelCPA.getWidth(), 0, 0, 0,
                                                 300);
                                 animation.start();
                         }
