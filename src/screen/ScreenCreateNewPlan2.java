@@ -204,7 +204,8 @@ public class ScreenCreateNewPlan2 extends JPanel {
         public void itemStateChanged(ItemEvent event) {
             // Press checkbox "Auto selection"
             if (event.getSource() == checkbox) {
-
+                panelMajor.setSelectedCompulsorySubject(checkbox.isSelected());
+                panelMajor.updateBackgroundSelectedPanels();
             }
         }
     }

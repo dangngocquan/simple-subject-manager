@@ -32,6 +32,7 @@ public class Button extends JPanel {
     public static final int BOTTOM_RIGHT = 8;
 
     // Constant font
+    public static final Font ARIAL_BOLD_12 = new Font("Arial", Font.BOLD, 12);
     public static final Font ARIAL_BOLD_13 = new Font("Arial", Font.BOLD, 13);
     public static final Font ARIAL_BOLD_18 = new Font("Arial", Font.BOLD, 18);
     public static final Font ARIAL_BOLD_21 = new Font("Arial", Font.BOLD, 21);

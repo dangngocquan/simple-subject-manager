@@ -238,6 +238,7 @@ public class ScreenPlanView extends JPanel {
                         // Press at "Back" button
                         if (event.getSource() == buttons[0]) {
                                 getParentScreen().getMainScreen().setVisible(true);
+                                panelCPA.getTimer().start();
                                 getParentScreen().getScreenPlanViews()[indexPlan].setVisible(false);
                                 AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
                                                 -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
@@ -254,6 +255,7 @@ public class ScreenPlanView extends JPanel {
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(false);
                                 panelCPA.setVisible(false);
+                                panelCPA.getTimer().stop();
                                 AnimationPanel animation = new AnimationPanel(panelSubjectList,
                                                 panelSubjectList.getWidth(), 0, 0, 0,
                                                 300);
@@ -270,6 +272,7 @@ public class ScreenPlanView extends JPanel {
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(false);
                                 panelCPA.setVisible(false);
+                                panelCPA.getTimer().stop();
                                 AnimationPanel animation = new AnimationPanel(panelUpdateScoreSubject,
                                                 panelUpdateScoreSubject.getWidth(), 0, 0, 0,
                                                 300);
@@ -286,6 +289,7 @@ public class ScreenPlanView extends JPanel {
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(false);
                                 panelCPA.setVisible(false);
+                                panelCPA.getTimer().stop();
                                 AnimationPanel animation = new AnimationPanel(panelUpdateStatusSubject,
                                                 panelUpdateStatusSubject.getWidth(), 0, 0, 0,
                                                 300);
@@ -301,6 +305,7 @@ public class ScreenPlanView extends JPanel {
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(false);
                                 panelCPA.setVisible(false);
+                                panelCPA.getTimer().stop();
                                 AnimationPanel animation = new AnimationPanel(panelMapRelativeSubjects,
                                                 panelMapRelativeSubjects.getWidth(), 0, 0, 0,
                                                 300);
@@ -316,6 +321,7 @@ public class ScreenPlanView extends JPanel {
                                 panelCalculateScoreLastTerm.setVisible(true);
                                 panelTimeTable.setVisible(false);
                                 panelCPA.setVisible(false);
+                                panelCPA.getTimer().stop();
                                 AnimationPanel animation = new AnimationPanel(panelCalculateScoreLastTerm,
                                                 panelCalculateScoreLastTerm.getWidth(), 0, 0, 0,
                                                 300);
@@ -332,6 +338,7 @@ public class ScreenPlanView extends JPanel {
                                 panelCalculateScoreLastTerm.setVisible(false);
                                 panelTimeTable.setVisible(true);
                                 panelCPA.setVisible(false);
+                                panelCPA.getTimer().stop();
                                 AnimationPanel animation = new AnimationPanel(panelTimeTable,
                                                 panelTimeTable.getWidth(), 0, 0, 0,
                                                 300);
@@ -348,6 +355,7 @@ public class ScreenPlanView extends JPanel {
                                 panelTimeTable.setVisible(false);
                                 panelCPA.setVisible(true);
                                 panelCPA.updateCalculate();
+                                panelCPA.getTimer().start();
                                 AnimationPanel animation = new AnimationPanel(panelCPA,
                                                 panelCPA.getWidth(), 0, 0, 0,
                                                 300);
