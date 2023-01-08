@@ -504,7 +504,7 @@ public class PanelSubjectList2 extends JPanel {
                                 updateDataContent();
                         } else if (event.getSource() == buttonRun) {
                                 new DialogCalulateTimeTable(Setting.WIDTH / 2, Setting.HEIGHT / 2,
-                                                Setting.WIDTH / 16 * 14, Setting.HEIGHT / 12 * 11,
+                                                Setting.WIDTH - 100, Setting.HEIGHT - 50,
                                                 DialogCalulateTimeTable.CENTER_CENTER, "", new String[] {},
                                                 plan.getTimeTable());
                         } else {

@@ -53,6 +53,7 @@ public class ScreenMainMenu extends JPanel {
         // Create buttons
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
+            // buttons[count] = new Button(buttonTexts[count]);
             buttons[count] = new Button(buttonTexts[count]);
             buttons[count].setFontText(Button.ARIAL_BOLD_24);
             buttons[count].setCorrectSizeButton();

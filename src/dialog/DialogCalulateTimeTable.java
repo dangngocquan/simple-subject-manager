@@ -58,8 +58,9 @@ public class DialogCalulateTimeTable {
         panelContent = new JPanel();
         panelContent.setLayout(null);
         panelContent.setSize(width / 18 * 16,
-                height / (timeTable.getMaxLessonPerDay() + 8) * (timeTable.getMaxLessonPerDay() + 1) + 2);
-        panelContent.setBounds(width / 16, height / 18 * 3, panelContent.getWidth(), panelContent.getHeight());
+                height / (timeTable.getMaxLessonPerDay() + 1 + 2) * (timeTable.getMaxLessonPerDay() + 1) + 2);
+        panelContent.setBounds((width - panelContent.getWidth()) / 2, height / (timeTable.getMaxLessonPerDay() + 1 + 2),
+                panelContent.getWidth(), panelContent.getHeight());
 
         // Create panelScroll
         this.panelScroll = new JPanel();

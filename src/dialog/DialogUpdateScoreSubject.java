@@ -406,6 +406,7 @@ public class DialogUpdateScoreSubject {
                                 subject.setScore10(-1.0);
                                 subject.setCharacterScore("");
                                 subject.setScore4(-1.0);
+                                subject.setState(Subject.STILL_NOT_REGISTER);
                                 new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2,
                                                 Setting.WIDTH / 3, Setting.HEIGHT / 3,
                                                 DialogMessage.CENTER_CENTER,

@@ -17,6 +17,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
+import java.util.LinkedList;
+import java.util.List;
 import java.awt.Polygon;
 
 public class Button extends JPanel {
@@ -95,6 +97,8 @@ public class Button extends JPanel {
     private int yText = 0;
     private Color textColor;
 
+    private String[] textLines = null;
+
     // Shape
     private Shape shape;
     private int shapeType = 0;
@@ -103,6 +107,48 @@ public class Button extends JPanel {
         setLayout(null);
         // create text
         this.text = text;
+        this.textLines = null;
+        // Create default font of text
+        this.font = ARIAL_BOLD_24;
+        // set size of text
+        setDefaultSizeText();
+        // Create default size of button
+        setSizeButton(sizeText[0] + getSizeText("A", this.font)[0] * 6, sizeText[1] / 4 * 7);
+        // Set default location of button
+        setLocationButton(0, 0, TOP_LEFT);
+        // Set default location of text in button
+        setLocationText(0, 0); // CENTER_CENTER
+        // Set default Stroke width
+        setStrokeWidth(STROKE_WIDTH_1);
+        // Set default stroke color
+        setStrokeColor(STROKE_COLOR_BLACK);
+        // Set default text color
+        setTextColor(Setting.COLOR_BLACK);
+        // Set default gradient color background
+        setGradientBackgroundColor(
+                Setting.GRADIENT_POINTS1_2,
+                Setting.GRADIENT_POINTS2_2,
+                Setting.GRADIENT_COLORS_2);
+        // Set default gradient color background
+        setGradientBackgroundColorEntered(
+                Setting.GRADIENT_POINTS1_9,
+                Setting.GRADIENT_POINTS2_9,
+                Setting.GRADIENT_COLORS_9);
+        // Set default gradient color background
+        setGradientBackgroundColorExited(
+                Setting.GRADIENT_POINTS1_2,
+                Setting.GRADIENT_POINTS2_2,
+                Setting.GRADIENT_COLORS_2);
+        // Add mouse handle
+        addMouseListener(new MouseHandler());
+
+    }
+
+    public Button(String[] lineTexts) {
+        setLayout(null);
+        // create text
+        this.text = "";
+        this.textLines = lineTexts;
         // Create default font of text
         this.font = ARIAL_BOLD_24;
         // set size of text
@@ -182,7 +228,19 @@ public class Button extends JPanel {
 
     // set basic width and height of text with a input font
     public void setDefaultSizeText() {
-        this.sizeText = getSizeText(this.text, this.font);
+        if (textLines == null) {
+            this.sizeText = getSizeText(this.text, this.font);
+        } else {
+            Canvas c = new Canvas();
+            FontMetrics fontMetrics = c.getFontMetrics(font);
+            int w = 0;
+            for (String textLine : textLines) {
+                w = Math.max(w, fontMetrics.stringWidth(textLine));
+            }
+            int h = fontMetrics.getHeight() * textLines.length;
+            int descent = fontMetrics.getDescent();
+            this.sizeText = new int[] { w, h, descent };
+        }
     }
 
     // Set size of button
@@ -195,16 +253,34 @@ public class Button extends JPanel {
 
     // Set size button with current text
     public void setCorrectSizeButton() {
-        this.width = this.sizeText[0] + getSizeText("A", this.font)[0] * 6;
-        this.height = this.sizeText[1] / 4 * 7;
-        setSize(this.width, this.height);
-        setLocationText(xText, yText);
-        repaint();
+        if (textLines == null) {
+            this.width = this.sizeText[0] + getSizeText("A", this.font)[0] * 6;
+            this.height = this.sizeText[1] / 4 * 7;
+            setSize(this.width, this.height);
+            setLocationText(xText, yText);
+            repaint();
+        } else {
+            setDefaultSizeText();
+            this.width = this.sizeText[0] + getSizeText("A", this.font)[0] * 6;
+            this.height = this.sizeText[1] + getSizeText("A", this.font)[1] / 4 * 3;
+            setSize(this.width, this.height);
+            setLocationText(xText, yText);
+            repaint();
+        }
+
     }
 
     // Set text
     public void setTextButton(String text) {
         this.text = text;
+        setDefaultSizeText();
+        setLocationText(xText, yText);
+        repaint();
+    }
+
+    // Set text lines
+    public void setTextLinesButton(String[] textLines) {
+        this.textLines = textLines;
         setDefaultSizeText();
         setLocationText(xText, yText);
         repaint();
@@ -435,24 +511,96 @@ public class Button extends JPanel {
             g2.setColor(this.textColor);
             g2.setFont(this.font);
             int tempX = 0, tempY = 0;
-            if (this.xText == 0) {
-                tempX = (this.width - sizeText[0]) / 2;
-            } else if (this.xText > 0) {
-                tempX = this.xText;
+            if (textLines == null) {
+                if (this.xText == 0) {
+                    tempX = (this.width - sizeText[0]) / 2;
+                } else if (this.xText > 0) {
+                    tempX = this.xText;
+                } else {
+                    tempX = this.width - (sizeText[0] + (-this.xText));
+                }
+
+                if (this.yText == 0) {
+                    tempY = (this.height - sizeText[1]) / 2 + (sizeText[1] - sizeText[2]);
+                } else if (this.yText > 0) {
+                    tempY = this.yText + (sizeText[1] - sizeText[2]);
+                } else {
+                    tempY = this.height - (sizeText[1] + (-this.yText)) + (sizeText[1] - sizeText[2]);
+                }
+                g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                g2.drawString(this.text, tempX, tempY);
             } else {
-                tempX = this.width - (sizeText[0] + (-this.xText));
+                // check first
+                int maxLine = (this.height - 6) / getSizeText("A", font)[1];
+                List<String> tempTextLines = new LinkedList<>();
+                for (int index = 0; index < textLines.length; index++) {
+                    String textLine = this.textLines[index];
+                    String[] words = textLine.split(" ");
+                    String tempString = "";
+                    for (int index1 = 0; index1 < words.length; index1++) {
+                        if (getSizeText((tempString + " " + words[index1]).trim(), font)[0] <= this.width - 4) {
+                            tempString = (tempString + " " + words[index1]).trim();
+                        } else {
+                            if (tempString.isEmpty()) {
+                                tempString += words[index1];
+                                if (maxLine - tempTextLines.size() - (textLines.length - 1 - index) - 1 > 0) {
+                                    tempTextLines.add(tempString);
+                                    tempString = "";
+                                }
+                            } else {
+                                if (maxLine - tempTextLines.size() - (textLines.length - 1 - index) - 1 > 0) {
+                                    tempTextLines.add(tempString);
+                                    tempString = words[index1];
+                                } else {
+                                    tempString = (tempString + " " + words[index1]).trim();
+                                }
+
+                            }
+                        }
+                    }
+                    if (!tempString.isEmpty()) {
+                        tempTextLines.add(tempString);
+                    }
+                }
+
+                String[] arrTempTextLines = new String[tempTextLines.size()];
+                for (int index = 0; index < tempTextLines.size(); index++) {
+                    arrTempTextLines[index] = tempTextLines.get(index);
+                }
+                setTextLinesButton(arrTempTextLines);
+                setDefaultSizeText();
+
+                // Draw string
+                for (int index = 0; index < tempTextLines.size(); index++) {
+                    int[] sizeTextPerLine = getSizeText(tempTextLines.get(index), font);
+                    if (this.xText == 0) {
+                        tempX = (this.width - sizeTextPerLine[0]) / 2;
+                    } else if (this.xText > 0) {
+                        tempX = this.xText;
+                    } else {
+                        tempX = this.width - (sizeTextPerLine[0] + (-this.xText));
+                    }
+
+                    if (this.yText == 0) {
+                        tempY = (this.height - sizeText[1]) / 2 + (sizeTextPerLine[1] - sizeTextPerLine[2])
+                                + sizeTextPerLine[1] * index;
+                    } else if (this.yText > 0) {
+                        tempY = this.yText + (sizeTextPerLine[1] - sizeTextPerLine[2]) + sizeTextPerLine[1] * index;
+                    } else {
+                        tempY = this.height - (sizeTextPerLine[1] * (textLines.length - index) + (-this.yText))
+                                + (sizeTextPerLine[1] - sizeTextPerLine[2]);
+                    }
+                    g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                            RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                    if (sizeTextPerLine[0] < this.width) {
+                        g2.drawString(tempTextLines.get(index), tempX, tempY);
+                    } else {
+                        g2.drawString(tempTextLines.get(index), 2, tempY);
+                    }
+                }
             }
 
-            if (this.yText == 0) {
-                tempY = (this.height - sizeText[1]) / 2 + (sizeText[1] - sizeText[2]);
-            } else if (this.yText > 0) {
-                tempY = this.yText + (sizeText[1] - sizeText[2]);
-            } else {
-                tempY = this.height - (sizeText[1] + (-this.yText)) + (sizeText[1] - sizeText[2]);
-            }
-            g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2.drawString(this.text, tempX, tempY);
         } else if (shapeType == HEXAGON) {
             Graphics2D g2 = (Graphics2D) g;
 
@@ -530,6 +678,7 @@ public class Button extends JPanel {
             g2.setColor(this.textColor);
             g2.setFont(this.font);
             int tempX = 0, tempY = 0;
+
             if (this.xText == 0) {
                 tempX = (this.width - sizeText[0]) / 2;
             } else if (this.xText > 0) {
@@ -549,6 +698,7 @@ public class Button extends JPanel {
             g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g2.drawString(this.text, tempX, tempY);
+
         } else if (shapeType == RECT_SLANTED_RIGHT) {
             Graphics2D g2 = (Graphics2D) g;
 

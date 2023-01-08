@@ -157,8 +157,12 @@ public class PanelTable extends JPanel {
                 for (int i : subject.getListTimes().get(indexTimeLesson)) {
                     indexPanelSelected.add(i);
                     if (!this.hiddenNameSubject) {
-                        panelTimes[i].setTextButton(String.format("%s - %s", subject.getCode(),
-                                subject.getListTimeNames().get(indexTimeLesson)));
+                        panelTimes[i].setTextLinesButton(
+                                new String[] {
+                                        String.format("%s - %s", subject.getCode(),
+                                                subject.getListTimeNames().get(indexTimeLesson)),
+                                        subject.getName()
+                                });
                     }
                 }
             }
