@@ -140,6 +140,15 @@ public class PanelMapRelativeSubjects extends JPanel {
             panelSubjects[count].setStrokeWidth(2);
             panelSubjects[count].setToolTipText(String.format("%s - %s", subject.getCode(), subject.getName()));
             panelSubjects[count].addMouseListener(new MouseHandler());
+            if (panelSubjects[count].getHeight()
+                    / panelSubjects[count].getSizeText("A", panelSubjects[count].getFontText())[0] >= 4) {
+                panelSubjects[count].setTextLinesButton(new String[] {
+                        subject.getCode(),
+                        subject.getName()
+                });
+            } else {
+                panelSubjects[count].setTextLinesButton(null);
+            }
             add(panelSubjects[count]);
             count++;
         }
@@ -235,6 +244,15 @@ public class PanelMapRelativeSubjects extends JPanel {
             panelSubjects[count].setLocationButton(
                     column * widthPerSubjectPanel + (int) (widthPerSubjectPanel * 1.0 / 2),
                     row * heightPerSubjectPanel + (int) (heightPerSubjectPanel * 1.0 / 2), Button.CENTER_CENTER);
+            if (panelSubjects[count].getHeight()
+                    / panelSubjects[count].getSizeText("A", panelSubjects[count].getFontText())[0] >= 8) {
+                panelSubjects[count].setTextLinesButton(new String[] {
+                        subject.getCode(),
+                        subject.getName()
+                });
+            } else {
+                panelSubjects[count].setTextLinesButton(null);
+            }
             count++;
         }
 
