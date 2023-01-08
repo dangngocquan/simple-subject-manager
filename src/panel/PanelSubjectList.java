@@ -2,16 +2,14 @@ package src.panel;
 
 import javax.swing.JPanel;
 
-import src.Setting;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Plan;
 import src.objects.Subject;
-
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.Font;
 
 public class PanelSubjectList extends JPanel {
     // Constants panel's root location
@@ -68,7 +66,7 @@ public class PanelSubjectList extends JPanel {
 
         // Create titles for headerPanel
         Button titleOrder = new Button("STT");
-        titleOrder.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleOrder.setFontText(Button.ARIAL_BOLD_21);
         titleOrder.setEnable(false);
         titleOrder.setLocationText(0, 0);
         titleOrder.setStrokeWidth(0);
@@ -78,39 +76,39 @@ public class PanelSubjectList extends JPanel {
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
         Button titleCode = new Button("Mã");
-        titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCode.setFontText(Button.ARIAL_BOLD_21);
         titleCode.setEnable(false);
         titleCode.setLocationText(15, 0);
         titleCode.setStrokeWidth(0);
         titleCode.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
                 Setting.GRADIENT_COLORS_4);
         titleCode.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
-        titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
+        titleCode.setBounds(titleOrder.getX() + titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
         Button titleName = new Button("Tên môn học");
-        titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleName.setFontText(Button.ARIAL_BOLD_21);
         titleName.setEnable(false);
         titleName.setLocationText(15, 0);
         titleName.setStrokeWidth(0);
         titleName.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
                 Setting.GRADIENT_COLORS_4);
         titleName.setSizeButton(headerPanel.getWidth() / 12 * 5, headerPanel.getHeight());
-        titleName.setBounds(titleOrder.getWidth() + titleCode.getWidth(), 0, titleName.getWidth(),
+        titleName.setBounds(titleCode.getX() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
 
         Button titleCredits = new Button("Số tín");
-        titleCredits.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCredits.setFontText(Button.ARIAL_BOLD_21);
         titleCredits.setEnable(false);
         titleCredits.setLocationText(0, 0);
         titleCredits.setStrokeWidth(0);
         titleCredits.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
                 Setting.GRADIENT_COLORS_4);
         titleCredits.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
-        titleCredits.setBounds(titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth(), 0,
+        titleCredits.setBounds(titleName.getX() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
 
         Button titleParentCodes = new Button("Mã học phần tiên quyết");
-        titleParentCodes.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleParentCodes.setFontText(Button.ARIAL_BOLD_21);
         titleParentCodes.setEnable(false);
         titleParentCodes.setLocationText(15, 0);
         titleParentCodes.setStrokeWidth(0);
@@ -120,8 +118,7 @@ public class PanelSubjectList extends JPanel {
                 headerPanel.getWidth() - titleOrder.getWidth() - titleCode.getWidth() - titleName.getWidth()
                         - titleCredits.getWidth(),
                 headerPanel.getHeight());
-        titleParentCodes.setBounds(
-                titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth() + titleCredits.getWidth(), 0,
+        titleParentCodes.setBounds(titleCredits.getX() + titleCredits.getWidth(), 0,
                 titleParentCodes.getWidth(), titleParentCodes.getHeight());
 
         // Create scrollPanel
@@ -131,8 +128,8 @@ public class PanelSubjectList extends JPanel {
 
         // START Create panel for compulsory subjects (if have)
         for (Subject subject : plan.getSubjects()) {
-            PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, width,
-                    null, countSubjects + 1);
+            PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, headerPanel.getWidth(),
+                    Button.ARIAL_BOLD_15, countSubjects + 1);
             if (countSubjects % 2 == 0) {
                 panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
             } else {

@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-import src.Application;
-import src.Setting;
 import src.animation.AnimationPanel;
+import src.launcher.Application;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Major;
 import src.panel.PanelMajor;

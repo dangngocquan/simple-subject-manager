@@ -2,7 +2,7 @@ package src.panel;
 
 import javax.swing.JPanel;
 
-import src.Setting;
+import src.launcher.Setting;
 import src.objects.Account;
 
 import java.awt.Font;

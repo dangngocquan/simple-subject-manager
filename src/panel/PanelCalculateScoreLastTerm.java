@@ -3,7 +3,7 @@ package src.panel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import src.Setting;
+import src.launcher.Setting;
 import src.objects.ConversionTable;
 
 import java.awt.Graphics;

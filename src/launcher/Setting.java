@@ -1,4 +1,4 @@
-package src;
+package src.launcher;
 
 import java.awt.GraphicsEnvironment;
 

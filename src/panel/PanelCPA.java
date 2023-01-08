@@ -5,8 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import src.Setting;
+
 import src.algorithm.CalculateCPA;
+import src.launcher.Setting;
 import src.objects.ArrowVector;
 import src.objects.Button;
 import src.objects.Plan;

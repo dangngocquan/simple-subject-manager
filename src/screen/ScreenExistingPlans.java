@@ -2,8 +2,6 @@ package src.screen;
 
 import javax.swing.JPanel;
 
-import src.Application;
-import src.Setting;
 import src.animation.AnimationPanel;
 import src.dialog.DialogCopyPlan;
 import src.dialog.DialogMessage;
@@ -11,6 +9,8 @@ import src.dialog.DialogRemovePlan;
 import src.dialog.DialogRenamePlan;
 import src.file_handler.ReadFile;
 import src.file_handler.WriteFile;
+import src.launcher.Application;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Plan;
 
@@ -166,12 +166,7 @@ public class ScreenExistingPlans extends JPanel {
         }
 
         screenPlanViews = new ScreenPlanView[plans.size()];
-        for (int i = 0; i < plans.size(); i++) {
-            screenPlanViews[i] = new ScreenPlanView(mainScreen.getWidth(), mainScreen.getHeight(), this,
-                    applicationFrame, i, plans.get(i));
-            screenPlanViews[i].setVisible(false);
-            add(screenPlanViews[i]);
-        }
+
     }
 
     // Update contentPanel
@@ -234,7 +229,14 @@ public class ScreenExistingPlans extends JPanel {
                 for (int i = 0; i < plans.size(); i++) {
                     if (event.getSource() == buttonPlans[i]) {
                         getMainScreen().setVisible(false);
-                        getScreenPlanViews()[i].setVisible(true);
+                        if (screenPlanViews[i] == null) {
+                            screenPlanViews[i] = new ScreenPlanView(mainScreen.getWidth(), mainScreen.getHeight(),
+                                    ScreenExistingPlans.this,
+                                    applicationFrame, i, plans.get(i));
+                            add(screenPlanViews[i]);
+                        } else {
+                            screenPlanViews[i].setVisible(true);
+                        }
                         AnimationPanel animation = new AnimationPanel(getScreenPlanViews()[i],
                                 getScreenPlanViews()[i].getWidth(), 0, 0, 0,
                                 300);

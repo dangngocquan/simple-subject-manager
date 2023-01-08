@@ -4,7 +4,8 @@ import javax.swing.JColorChooser;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import src.Setting;
+
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Subject;
 import src.panel.PanelString;

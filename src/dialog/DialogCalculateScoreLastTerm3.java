@@ -4,8 +4,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import src.Setting;
 import src.algorithm.CalculateScoreLastTerm;
+import src.launcher.Setting;
 import src.objects.ConversionTable;
 import src.panel.PanelString;
 

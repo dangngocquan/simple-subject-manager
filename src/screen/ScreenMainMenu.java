@@ -2,9 +2,9 @@ package src.screen;
 
 import javax.swing.JPanel;
 
-import src.Application;
 import src.animation.AnimationPanel;
 import src.file_handler.ReadFile;
+import src.launcher.Application;
 import src.objects.Account;
 import src.objects.Button;
 import src.panel.PanelString;
@@ -39,9 +39,6 @@ public class ScreenMainMenu extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, mainScreen.getWidth(), mainScreen.getHeight());
-        screenPlans = new ScreenPlans(width, height, this, applicationFrame);
-        screenInformation = new ScreenInformation(width, height, this, applicationFrame);
-        screenAccounts = new ScreenAccounts(width, height, this, applicationFrame);
 
         // Create description (Who is using app?)
         descriptionPanel = new PanelString(getWidth() / 2, getHeight() / 12 * 2,
@@ -72,15 +69,9 @@ public class ScreenMainMenu extends JPanel {
 
         // Add screens to this screen
         add(mainScreen);
-        add(screenPlans);
-        add(screenAccounts);
-        add(screenInformation);
 
         // Set visible of screens
         mainScreen.setVisible(true);
-        screenPlans.setVisible(false);
-        screenAccounts.setVisible(false);
-        screenInformation.setVisible(false);
     }
 
     // Get application frame
@@ -143,6 +134,11 @@ public class ScreenMainMenu extends JPanel {
         public void mousePressed(MouseEvent event) {
             // Press "Plans" button on "screenMainMenu" screen
             if (event.getSource() == getButtons()[0]) {
+                if (screenPlans == null) {
+                    screenPlans = new ScreenPlans(mainScreen.getWidth(), mainScreen.getHeight(), ScreenMainMenu.this,
+                            applicationFrame);
+                    ScreenMainMenu.this.add(screenPlans);
+                }
                 getScreenPlans().setVisible(true);
                 getMainScreen().setVisible(false);
                 AnimationPanel animation = new AnimationPanel(getScreenPlans(),
@@ -152,6 +148,11 @@ public class ScreenMainMenu extends JPanel {
             }
             // Press "Accounts" button on "screenMainMenu" screen
             else if (event.getSource() == getButtons()[1]) {
+                if (screenAccounts == null) {
+                    screenAccounts = new ScreenAccounts(mainScreen.getWidth(), mainScreen.getHeight(),
+                            ScreenMainMenu.this, applicationFrame);
+                    ScreenMainMenu.this.add(screenAccounts);
+                }
                 getScreenAccounts().setVisible(true);
                 getMainScreen().setVisible(false);
                 AnimationPanel animation = new AnimationPanel(getScreenAccounts(),
@@ -161,6 +162,11 @@ public class ScreenMainMenu extends JPanel {
             }
             // Press "Information" button on "screenMainMenu" screen
             else if (event.getSource() == getButtons()[2]) {
+                if (screenInformation == null) {
+                    screenInformation = new ScreenInformation(mainScreen.getWidth(), mainScreen.getHeight(),
+                            ScreenMainMenu.this, applicationFrame);
+                    ScreenMainMenu.this.add(screenInformation);
+                }
                 getScreenInformation().setVisible(true);
                 getMainScreen().setVisible(false);
                 AnimationPanel animation = new AnimationPanel(getScreenInformation(),

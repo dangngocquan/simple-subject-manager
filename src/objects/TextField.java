@@ -3,7 +3,7 @@ package src.objects;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import src.Setting;
+import src.launcher.Setting;
 
 import java.awt.Shape;
 import java.awt.event.FocusAdapter;

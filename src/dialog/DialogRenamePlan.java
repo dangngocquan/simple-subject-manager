@@ -3,9 +3,9 @@ package src.dialog;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import src.Setting;
 import src.file_handler.ReadFile;
 import src.file_handler.WriteFile;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Plan;
 import src.objects.TextField;

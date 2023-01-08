@@ -3,11 +3,11 @@ package src.screen;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
-import src.Application;
-import src.Setting;
 import src.animation.AnimationPanel;
 import src.curriculum.Data;
 import src.dialog.DialogList;
+import src.launcher.Application;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Department;
 import src.objects.Major;
@@ -28,15 +28,19 @@ public class ScreenCreateNewPlan1 extends JPanel {
     private ScreenPlans parentScreen;
     private JPanel mainScreen, contentPanel, optionPanel;
 
-    private School school = Data.SCHOOLS.getSchools().get(0);
-    private Department department = school.getDepartments().get(0);
-    private Major major = department.getMajors().get(0);
+    private School school = null;
+    private Department department = null;
+    private Major major = null;
 
     private ScreenCreateNewPlan2 screenCreateNewPlan2;
 
     // Constructor
     public ScreenCreateNewPlan1(int width, int height, ScreenPlans parentScreen, Application frame) {
         // Set basic properties
+        school = Data.SCHOOLS.getSchools().get(0);
+        department = school.getDepartments().get(0);
+        major = department.getMajors().get(0);
+
         this.applicationFrame = frame;
         setLayout(null);
         setSize(width, height);

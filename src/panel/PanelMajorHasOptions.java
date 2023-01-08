@@ -1,22 +1,19 @@
 package src.panel;
 
 import javax.swing.JPanel;
-
-import src.Application;
-import src.Setting;
 import src.dialog.DialogMessage;
+import src.launcher.Application;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.KnowledgePart;
 import src.objects.Major;
 import src.objects.Subject;
-
 import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Color;
 
@@ -81,7 +78,7 @@ public class PanelMajorHasOptions extends JPanel {
 
         // Create titles for headerPanel
         Button titleOrder = new Button("STT");
-        titleOrder.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleOrder.setFontText(Button.ARIAL_BOLD_21);
         titleOrder.setEnable(false);
         titleOrder.setStrokeWidth(0);
         titleOrder.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
@@ -90,36 +87,36 @@ public class PanelMajorHasOptions extends JPanel {
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
         Button titleCode = new Button("Mã");
-        titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCode.setFontText(Button.ARIAL_BOLD_21);
         titleCode.setEnable(false);
         titleCode.setStrokeWidth(0);
         titleCode.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
                 Setting.GRADIENT_COLORS_4);
         titleCode.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
-        titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
+        titleCode.setBounds(titleOrder.getX() + titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
         Button titleName = new Button("Tên môn học");
-        titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleName.setFontText(Button.ARIAL_BOLD_21);
         titleName.setEnable(false);
         titleName.setStrokeWidth(0);
         titleName.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
                 Setting.GRADIENT_COLORS_4);
         titleName.setSizeButton(headerPanel.getWidth() / 12 * 5, headerPanel.getHeight());
-        titleName.setBounds(titleOrder.getWidth() + titleCode.getWidth(), 0, titleName.getWidth(),
+        titleName.setBounds(titleCode.getX() + titleCode.getWidth(), 0, titleName.getWidth(),
                 titleName.getHeight());
 
         Button titleCredits = new Button("Số tín");
-        titleCredits.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCredits.setFontText(Button.ARIAL_BOLD_21);
         titleCredits.setEnable(false);
         titleCredits.setStrokeWidth(0);
         titleCredits.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
                 Setting.GRADIENT_COLORS_4);
         titleCredits.setSizeButton(headerPanel.getWidth() / 12, headerPanel.getHeight());
-        titleCredits.setBounds(titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth(), 0,
+        titleCredits.setBounds(titleName.getX() + titleName.getWidth(), 0,
                 titleCredits.getWidth(), titleCredits.getHeight());
 
         Button titleParentCodes = new Button("Mã học phần tiên quyết");
-        titleParentCodes.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleParentCodes.setFontText(Button.ARIAL_BOLD_21);
         titleParentCodes.setEnable(false);
         titleParentCodes.setStrokeWidth(0);
         titleParentCodes.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_4, Setting.GRADIENT_POINTS2_4,
@@ -128,7 +125,7 @@ public class PanelMajorHasOptions extends JPanel {
                 headerPanel.getWidth() - titleCode.getWidth() - titleName.getWidth() - titleCredits.getWidth(),
                 headerPanel.getHeight());
         titleParentCodes.setBounds(
-                titleOrder.getWidth() + titleCode.getWidth() + titleName.getWidth() + titleCredits.getWidth(), 0,
+                titleCredits.getX() + titleCredits.getWidth(), 0,
                 titleParentCodes.getWidth(), titleParentCodes.getHeight());
         // Create scrollPanel
         scrollPanel = new JPanel();
@@ -138,7 +135,8 @@ public class PanelMajorHasOptions extends JPanel {
             // START Create panel for knowledgePart
 
             // START Create panel for knowledge name
-            PanelString knowledgeNamePanel = new PanelString(0, heightScroll, knowledgePart.getName(), width, null,
+            PanelString knowledgeNamePanel = new PanelString(0, heightScroll, knowledgePart.getName(), width,
+                    Button.ARIAL_BOLD_15,
                     PanelString.TOP_LEFT, 0);
             knowledgeNamePanel.setBackground(COLOR_BACKGROUND_KNOWLEDGE_NAME);
             knowledgeNamePanel.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_6, Setting.GRADIENT_POINTS2_6,
@@ -157,9 +155,7 @@ public class PanelMajorHasOptions extends JPanel {
                 // START Create panel for description
                 PanelString desCompulsoryPanel = new PanelString(0, heightScroll,
                         compulsoryDescription, width,
-                        new Font(Setting.FONT_NAME_01,
-                                Setting.FONT_STYLE_03,
-                                Setting.FONT_SIZE_SMALL),
+                        Button.ARIAL_BOLD_15,
                         PanelString.TOP_LEFT, 0);
                 desCompulsoryPanel.setBackground(COLOR_BACKGROUND_DESCRIPTION);
                 scrollPanel.add(desCompulsoryPanel);
@@ -171,7 +167,7 @@ public class PanelMajorHasOptions extends JPanel {
                 // START Create panel for subjects
                 for (Subject subject : compulsorySubjectList) {
                     PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, width,
-                            null, countSubjects + 1);
+                            Button.ARIAL_BOLD_15, countSubjects + 1);
                     if (countSubjects % 2 == 0) {
                         panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
                     } else {
@@ -196,9 +192,7 @@ public class PanelMajorHasOptions extends JPanel {
                 String str = knowledgePart.getMainDescriptionOptionalSubjects();
                 PanelString desMainOptionalSubjectPanel = new PanelString(0, heightScroll,
                         str, width,
-                        new Font(Setting.FONT_NAME_01,
-                                Setting.FONT_STYLE_03,
-                                Setting.FONT_SIZE_SMALL),
+                        Button.ARIAL_BOLD_15,
                         PanelString.TOP_LEFT, 0);
                 desMainOptionalSubjectPanel.setBackground(COLOR_BACKGROUND_DESCRIPTION_2);
                 scrollPanel.add(desMainOptionalSubjectPanel);
@@ -215,9 +209,7 @@ public class PanelMajorHasOptions extends JPanel {
                 // START Create panel for description
                 PanelString desOptionalPanel = new PanelString(0, heightScroll,
                         optionalDescription, width,
-                        new Font(Setting.FONT_NAME_01,
-                                Setting.FONT_STYLE_03,
-                                Setting.FONT_SIZE_SMALL),
+                        Button.ARIAL_BOLD_15,
                         PanelString.TOP_LEFT, 0);
                 desOptionalPanel.setBackground(COLOR_BACKGROUND_DESCRIPTION);
                 scrollPanel.add(desOptionalPanel);
@@ -229,7 +221,7 @@ public class PanelMajorHasOptions extends JPanel {
                 // START Create panel for subjects
                 for (Subject subject : optionalSubjectList) {
                     PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, width,
-                            null, countSubjects + 1);
+                            Button.ARIAL_BOLD_15, countSubjects + 1);
                     if (countSubjects % 2 == 0) {
                         panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
                     } else {

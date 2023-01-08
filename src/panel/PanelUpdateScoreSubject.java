@@ -1,21 +1,18 @@
 package src.panel;
 
 import javax.swing.JPanel;
-
-import src.Setting;
 import src.dialog.DialogUpdateScoreSubject;
 import src.file_handler.WriteFile;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Plan;
 import src.objects.Subject;
-
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.Font;
 
 public class PanelUpdateScoreSubject extends JPanel {
     // Constants panel's root location
@@ -79,7 +76,7 @@ public class PanelUpdateScoreSubject extends JPanel {
 
         // Create titles for headerPanel
         Button titleOrder = new Button("STT");
-        titleOrder.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleOrder.setFontText(Button.ARIAL_BOLD_21);
         titleOrder.setEnable(false);
         titleOrder.setLocationText(0, 0);
         titleOrder.setStrokeWidth(0);
@@ -89,7 +86,7 @@ public class PanelUpdateScoreSubject extends JPanel {
         titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
         Button titleCode = new Button("Mã");
-        titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCode.setFontText(Button.ARIAL_BOLD_21);
         titleCode.setEnable(false);
         titleCode.setLocationText(15, 0);
         titleCode.setStrokeWidth(0);
@@ -99,7 +96,7 @@ public class PanelUpdateScoreSubject extends JPanel {
         titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
         Button titleName = new Button("Tên môn học");
-        titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleName.setFontText(Button.ARIAL_BOLD_21);
         titleName.setEnable(false);
         titleName.setLocationText(15, 0);
         titleName.setStrokeWidth(0);
@@ -110,7 +107,7 @@ public class PanelUpdateScoreSubject extends JPanel {
                 titleName.getHeight());
 
         Button titleCredits = new Button("Số tín ");
-        titleCredits.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleCredits.setFontText(Button.ARIAL_BOLD_21);
         titleCredits.setEnable(false);
         titleCredits.setLocationText(0, 0);
         titleCredits.setStrokeWidth(0);
@@ -121,7 +118,7 @@ public class PanelUpdateScoreSubject extends JPanel {
                 titleCredits.getWidth(), titleCredits.getHeight());
 
         Button titleScore10 = new Button("Điểm hệ 10");
-        titleScore10.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleScore10.setFontText(Button.ARIAL_BOLD_21);
         titleScore10.setEnable(false);
         titleScore10.setLocationText(0, 0);
         titleScore10.setStrokeWidth(0);
@@ -133,7 +130,7 @@ public class PanelUpdateScoreSubject extends JPanel {
 
         Button titleCharacterScore = new Button("Điểm chữ");
         titleCharacterScore
-                .setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+                .setFontText(Button.ARIAL_BOLD_21);
         titleCharacterScore.setEnable(false);
         titleCharacterScore.setLocationText(0, 0);
         titleCharacterScore.setStrokeWidth(0);
@@ -144,7 +141,7 @@ public class PanelUpdateScoreSubject extends JPanel {
                 titleCharacterScore.getWidth(), titleCharacterScore.getHeight());
 
         Button titleScore4 = new Button("Điểm hệ 4");
-        titleScore4.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_MEDIUM));
+        titleScore4.setFontText(Button.ARIAL_BOLD_21);
         titleScore4.setEnable(false);
         titleScore4.setLocationText(0, 0);
         titleScore4.setStrokeWidth(0);
@@ -166,7 +163,7 @@ public class PanelUpdateScoreSubject extends JPanel {
         // START Create panel for compulsory subjects (if have)
         for (Subject subject : plan.getSubjects()) {
             PanelSubject2 panelSubject = new PanelSubject2(0, heightScroll, subject, width,
-                    null, countSubjects + 1);
+                    Button.ARIAL_BOLD_15, countSubjects + 1);
             panelSubjects[countSubjects] = panelSubject;
             panelSubjects[countSubjects].addMouseListener(new MouseHandler());
             if (countSubjects % 2 == 0) {
@@ -218,7 +215,7 @@ public class PanelUpdateScoreSubject extends JPanel {
         // START Create panel for compulsory subjects (if have)
         for (Subject subject : plan.getSubjects()) {
             PanelSubject2 panelSubject = new PanelSubject2(0, heightScroll, subject, width,
-                    null, countSubjects + 1);
+                    Button.ARIAL_BOLD_15, countSubjects + 1);
             panelSubjects[countSubjects] = panelSubject;
             panelSubjects[countSubjects].addMouseListener(new MouseHandler());
             if (countSubjects % 2 == 0) {

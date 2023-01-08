@@ -3,7 +3,7 @@ package src.panel;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import src.Setting;
+import src.launcher.Setting;
 import src.objects.Button;
 
 import java.awt.Font;

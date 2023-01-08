@@ -1,21 +1,18 @@
 package src.panel;
 
 import javax.swing.JPanel;
-
-import src.Setting;
 import src.dialog.DialogUpdateStatusSubject;
 import src.file_handler.WriteFile;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Plan;
 import src.objects.Subject;
-
 import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.Graphics;
 import java.awt.Color;
-import java.awt.Font;
 
 public class PanelUpdateStatusSubject extends JPanel {
         // Constants panel's root location
@@ -88,7 +85,7 @@ public class PanelUpdateStatusSubject extends JPanel {
                 // Create titles for headerPanel
                 Button titleOrder = new Button("STT");
                 titleOrder.setFontText(
-                                new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+                                Button.ARIAL_BOLD_21);
                 titleOrder.setEnable(false);
                 titleOrder.setLocationText(0, 0);
                 titleOrder.setStrokeWidth(0);
@@ -98,7 +95,7 @@ public class PanelUpdateStatusSubject extends JPanel {
                 titleOrder.setBounds(0, 0, titleOrder.getWidth(), titleOrder.getHeight());
 
                 Button titleCode = new Button("Mã");
-                titleCode.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+                titleCode.setFontText(Button.ARIAL_BOLD_21);
                 titleCode.setEnable(false);
                 titleCode.setLocationText(15, 0);
                 titleCode.setStrokeWidth(0);
@@ -108,7 +105,7 @@ public class PanelUpdateStatusSubject extends JPanel {
                 titleCode.setBounds(titleOrder.getWidth(), 0, titleCode.getWidth(), titleCode.getHeight());
 
                 Button titleName = new Button("Tên môn học");
-                titleName.setFontText(new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+                titleName.setFontText(Button.ARIAL_BOLD_21);
                 titleName.setEnable(false);
                 titleName.setLocationText(15, 0);
                 titleName.setStrokeWidth(0);
@@ -120,7 +117,7 @@ public class PanelUpdateStatusSubject extends JPanel {
 
                 Button titleCredits = new Button("Số tín");
                 titleCredits.setFontText(
-                                new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+                                Button.ARIAL_BOLD_21);
                 titleCredits.setEnable(false);
                 titleCredits.setLocationText(0, 0);
                 titleCredits.setStrokeWidth(0);
@@ -133,7 +130,7 @@ public class PanelUpdateStatusSubject extends JPanel {
 
                 Button titleStatus = new Button("Trạng thái");
                 titleStatus.setFontText(
-                                new Font(Setting.FONT_NAME_01, Setting.FONT_STYLE_01, Setting.FONT_SIZE_SMALL_2));
+                                Button.ARIAL_BOLD_21);
                 titleStatus.setEnable(false);
                 titleStatus.setLocationText(0, 0);
                 titleStatus.setStrokeWidth(0);
@@ -156,7 +153,7 @@ public class PanelUpdateStatusSubject extends JPanel {
                 // START Create panel for compulsory subjects (if have)
                 for (Subject subject : plan.getSubjects()) {
                         PanelSubject3 panelSubject = new PanelSubject3(0, heightScroll, subject, headerPanel.getWidth(),
-                                        null, countSubjects + 1);
+                                        Button.ARIAL_BOLD_15, countSubjects + 1);
                         panelSubjects[countSubjects] = panelSubject;
                         panelSubjects[countSubjects].addMouseListener(new MouseHandler());
                         if (countSubjects % 2 == 0) {
@@ -177,48 +174,48 @@ public class PanelUpdateStatusSubject extends JPanel {
                 panelInfors = new PanelString[8];
                 int tempHeight = headerPanel.getHeight() * 2;
                 panelInfors[0] = new PanelString(5, tempHeight, "Tổng số môn học: " + plan.getSubjects().size(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[0].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[0].getHeight() + 15;
                 panelInfors[1] = new PanelString(5, tempHeight, "Tổng số tín chỉ: " + plan.getTotalCredits(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[1].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[1].getHeight() + 15;
                 panelInfors[2] = new PanelString(5, tempHeight,
                                 "Số môn học đã hoàn thành: " + plan.getNumberSubjectCompleted(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[2].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[2].getHeight() + 15;
                 panelInfors[3] = new PanelString(5, tempHeight,
                                 "Số tín chỉ đã hoàn thành: " + plan.getNumberCreditCompleted(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[3].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[3].getHeight() + 15;
                 panelInfors[4] = new PanelString(5, tempHeight,
                                 "Số môn học đã đăng kí: " + plan.getNumberSubjectRegistered(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[4].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[4].getHeight() + 15;
                 panelInfors[5] = new PanelString(5, tempHeight,
                                 "Số tín chỉ đã đăng kí: " + plan.getNumberCreditRegistered(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[5].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[5].getHeight() + 15;
                 panelInfors[6] = new PanelString(5, tempHeight,
                                 "Số môn học dự tính đăng kí: " + plan.getNumberSubjectGoingToRegister(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[6].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[6].getHeight() + 15;
                 panelInfors[7] = new PanelString(5, tempHeight,
                                 "Số tín chỉ dự tính đăng kí: " + plan.getNumberCreditGoingToRegister(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[7].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[7].getHeight() + 15;
@@ -268,7 +265,7 @@ public class PanelUpdateStatusSubject extends JPanel {
                 // START Create panel for compulsory subjects (if have)
                 for (Subject subject : plan.getSubjects()) {
                         PanelSubject3 panelSubject = new PanelSubject3(0, heightScroll, subject, headerPanel.getWidth(),
-                                        null, countSubjects + 1);
+                                        Button.ARIAL_BOLD_15, countSubjects + 1);
                         panelSubjects[countSubjects] = panelSubject;
                         panelSubjects[countSubjects].addMouseListener(new MouseHandler());
                         if (countSubjects % 2 == 0) {
@@ -287,48 +284,48 @@ public class PanelUpdateStatusSubject extends JPanel {
                 summaryPanel.removeAll();
                 int tempHeight = headerPanel.getHeight() * 2;
                 panelInfors[0] = new PanelString(5, tempHeight, "Tổng số môn học: " + plan.getSubjects().size(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[0].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[0].getHeight() + 15;
                 panelInfors[1] = new PanelString(5, tempHeight, "Tổng số tín chỉ: " + plan.getTotalCredits(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[1].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[1].getHeight() + 15;
                 panelInfors[2] = new PanelString(5, tempHeight,
                                 "Số môn học đã hoàn thành: " + plan.getNumberSubjectCompleted(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[2].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[2].getHeight() + 15;
                 panelInfors[3] = new PanelString(5, tempHeight,
                                 "Số tín chỉ đã hoàn thành: " + plan.getNumberCreditCompleted(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[3].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[3].getHeight() + 15;
                 panelInfors[4] = new PanelString(5, tempHeight,
                                 "Số môn học đã đăng kí: " + plan.getNumberSubjectRegistered(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[4].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[4].getHeight() + 15;
                 panelInfors[5] = new PanelString(5, tempHeight,
                                 "Số tín chỉ đã đăng kí: " + plan.getNumberCreditRegistered(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[5].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[5].getHeight() + 15;
                 panelInfors[6] = new PanelString(5, tempHeight,
                                 "Số môn học dự tính đăng kí: " + plan.getNumberSubjectGoingToRegister(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[6].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[6].getHeight() + 15;
                 panelInfors[7] = new PanelString(5, tempHeight,
                                 "Số tín chỉ dự tính đăng kí: " + plan.getNumberCreditGoingToRegister(),
-                                summaryPanel.getWidth(), null, PanelString.TOP_LEFT, 15);
+                                summaryPanel.getWidth(), Button.ARIAL_BOLD_15, PanelString.TOP_LEFT, 15);
                 panelInfors[7].setGradientBackgroundColor(Setting.GRADIENT_POINTS1_8, Setting.GRADIENT_POINTS2_8,
                                 Setting.GRADIENT_COLORS_8);
                 tempHeight += panelInfors[7].getHeight() + 15;

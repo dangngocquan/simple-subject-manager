@@ -3,7 +3,7 @@ package src.objects;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import src.Setting;
+import src.launcher.Setting;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -36,6 +36,7 @@ public class Button extends JPanel {
     // Constant font
     public static final Font ARIAL_BOLD_12 = new Font("Arial", Font.BOLD, 12);
     public static final Font ARIAL_BOLD_13 = new Font("Arial", Font.BOLD, 13);
+    public static final Font ARIAL_BOLD_15 = new Font("Arial", Font.BOLD, 15);
     public static final Font ARIAL_BOLD_18 = new Font("Arial", Font.BOLD, 18);
     public static final Font ARIAL_BOLD_21 = new Font("Arial", Font.BOLD, 21);
     public static final Font ARIAL_BOLD_24 = new Font("Arial", Font.BOLD, 24);

@@ -1,4 +1,4 @@
-package src;
+package src.launcher;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;

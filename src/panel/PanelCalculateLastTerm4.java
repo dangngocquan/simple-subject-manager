@@ -3,10 +3,10 @@ package src.panel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import src.Setting;
 import src.dialog.DialogCalculateScoreLastTerm3;
 import src.dialog.DialogCalculateScoreLastTerm4;
 import src.dialog.DialogMessage;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.ConversionTable;
 import src.objects.TextField;
@@ -35,16 +35,12 @@ public class PanelCalculateLastTerm4 extends JPanel {
                 this.conversionTable = convertionTable;
                 // Create defaulr font
                 if (font == null) {
-                        font = new Font(Setting.FONT_NAME_01,
-                                        Setting.FONT_STYLE_01,
-                                        Setting.FONT_SIZE_SMALL);
+                        font = Button.ARIAL_BOLD_15;
                 }
 
                 // Create panels
                 panelTitle = new PanelString(0, 0, "Tính toán đối với môn 4 thành phần điểm", width,
-                                new Font(Setting.FONT_NAME_01,
-                                                Setting.FONT_STYLE_01,
-                                                Setting.FONT_SIZE_MEDIUM),
+                                Button.ARIAL_BOLD_21,
                                 PanelString.TOP_LEFT,
                                 15);
                 panelScore1 = new PanelString(0, panelTitle.getHeight() + 20, "Điểm thứ nhất: ", width / 8, font,
@@ -93,7 +89,7 @@ public class PanelCalculateLastTerm4 extends JPanel {
                                 textFieldCoefficient1.getX() + textFieldCoefficient1.getWidth() + width / 5,
                                 panelScore1.getY(),
                                 Button.TOP_LEFT);
-                buttonSubmit.setFont(font);
+                buttonSubmit.setFontText(Button.ARIAL_BOLD_21);
 
                 // mainPanel
                 mainPanel = new JPanel();

@@ -1,10 +1,11 @@
 package src.panel;
 
 import javax.swing.JPanel;
-import src.Setting;
+
 import src.dialog.DialogCalulateTimeTable;
 import src.dialog.DialogCreateNewSubject;
 import src.file_handler.WriteFile;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Plan;
 import src.objects.Subject;

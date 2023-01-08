@@ -2,8 +2,8 @@ package src.screen;
 
 import javax.swing.JPanel;
 
-import src.Application;
 import src.animation.AnimationPanel;
+import src.launcher.Application;
 import src.objects.Button;
 
 import java.awt.Graphics;
@@ -36,8 +36,6 @@ public class ScreenPlans extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, width, height);
-        screenCreateNewPlan1 = new ScreenCreateNewPlan1(width, height, this, applicationFrame);
-        screenExistingPlans = new ScreenExistingPlans(width, height, this, applicationFrame);
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -60,13 +58,9 @@ public class ScreenPlans extends JPanel {
 
         // Add screens to this panel
         add(mainScreen);
-        add(screenCreateNewPlan1);
-        add(screenExistingPlans);
 
         // Set visible screens
         mainScreen.setVisible(true);
-        screenCreateNewPlan1.setVisible(false);
-        screenExistingPlans.setVisible(false);
     }
 
     // Get application frame
@@ -114,6 +108,11 @@ public class ScreenPlans extends JPanel {
         public void mousePressed(MouseEvent event) {
             // Press at "Existing plans" button
             if (event.getSource() == buttons[0]) {
+                if (screenExistingPlans == null) {
+                    screenExistingPlans = new ScreenExistingPlans(mainScreen.getWidth(), mainScreen.getHeight(),
+                            ScreenPlans.this, applicationFrame);
+                    ScreenPlans.this.add(screenExistingPlans);
+                }
                 getScreenExistingPlans().setCurscorScroll(0);
                 getScreenExistingPlans().updateButton();
                 getScreenExistingPlans().setVisible(true);
@@ -125,6 +124,11 @@ public class ScreenPlans extends JPanel {
             }
             // Press at "Create new plan" button
             else if (event.getSource() == buttons[1]) {
+                if (screenCreateNewPlan1 == null) {
+                    screenCreateNewPlan1 = new ScreenCreateNewPlan1(mainScreen.getWidth(), mainScreen.getHeight(),
+                            ScreenPlans.this, applicationFrame);
+                    ScreenPlans.this.add(screenCreateNewPlan1);
+                }
                 getScreenCreateNewPlan1().setVisible(true);
                 getMainScreen().setVisible(false);
                 AnimationPanel animation = new AnimationPanel(getScreenCreateNewPlan1(),

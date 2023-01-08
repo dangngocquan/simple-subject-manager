@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import src.Setting;
+import src.launcher.Setting;
 import src.objects.Button;
 import src.panel.PanelString;
 

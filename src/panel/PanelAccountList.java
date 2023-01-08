@@ -6,8 +6,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import javax.swing.JPanel;
 
-import src.Setting;
 import src.file_handler.ReadFile;
+import src.launcher.Setting;
 import src.objects.Account;
 import src.objects.Button;
 import src.screen.ScreenExistingAccounts;

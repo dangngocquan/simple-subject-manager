@@ -2,7 +2,7 @@ package src.objects;
 
 import javax.swing.JPanel;
 
-import src.Setting;
+import src.launcher.Setting;
 
 import java.awt.Graphics;
 // import java.awt.Graphics2D;
