@@ -129,7 +129,7 @@ public class PanelSubjectList extends JPanel {
         // START Create panel for compulsory subjects (if have)
         for (Subject subject : plan.getSubjects()) {
             PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, headerPanel.getWidth(),
-                    Button.ARIAL_BOLD_15, countSubjects + 1);
+                    Button.ARIAL_BOLD_18, countSubjects + 1);
             if (countSubjects % 2 == 0) {
                 panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
             } else {

@@ -6,24 +6,37 @@ import java.util.List;
 public class KnowledgePart {
     // Properties
     private String name;
+
     private List<List<Subject>> compulsorySubjecs;
-    private List<List<Subject>> optionalSubjects;
     private List<Integer> minCreditsCompulsorySubjects;
-    private List<Integer> minCreditsOptionalSubjects;
     private List<String> descriptionCompulsory;
-    private String mainDescriptionOptionalSubjects;
-    private List<String> descriptionOptionals;
+
+    private List<List<Subject>> optionalSubjects; // OR optinals
+    private List<Integer> minCreditsOptionalSubjects; // OR optinals
+    private String mainDescriptionOptionalSubjects; // OR optinals
+    private List<String> descriptionOptionals; // OR optinals
+
+    private List<List<Subject>> optionalSubjectsAND; // AND optinals
+    private List<Integer> minCreditsOptionalSubjectsAND; // AND optinals
+    private String mainDescriptionOptionalSubjectsAND; // AND optinals
+    private List<String> descriptionOptionalsAND; // AND optinals
 
     // Constructor
     public KnowledgePart(String name) {
         this.name = name;
         this.compulsorySubjecs = new LinkedList<List<Subject>>();
-        this.optionalSubjects = new LinkedList<List<Subject>>();
         this.minCreditsCompulsorySubjects = new LinkedList<Integer>();
-        this.minCreditsOptionalSubjects = new LinkedList<Integer>();
         this.descriptionCompulsory = new LinkedList<String>();
+
+        this.optionalSubjects = new LinkedList<List<Subject>>();
+        this.minCreditsOptionalSubjects = new LinkedList<Integer>();
         this.mainDescriptionOptionalSubjects = "";
         this.descriptionOptionals = new LinkedList<String>();
+
+        this.optionalSubjectsAND = new LinkedList<List<Subject>>();
+        this.minCreditsOptionalSubjectsAND = new LinkedList<Integer>();
+        this.mainDescriptionOptionalSubjectsAND = "";
+        this.descriptionOptionalsAND = new LinkedList<String>();
     }
 
     // Getter
@@ -37,6 +50,10 @@ public class KnowledgePart {
 
     public List<Integer> getMinCreditsOptionalSubjects() {
         return this.minCreditsOptionalSubjects;
+    }
+
+    public List<Integer> getMinCreditsOptionalSubjectsAND() {
+        return this.minCreditsOptionalSubjectsAND;
     }
 
     public List<List<Subject>> getCompulsorySubjects() {
@@ -57,9 +74,23 @@ public class KnowledgePart {
         return this.optionalSubjects;
     }
 
+    public List<List<Subject>> getOptionalSubjectsAND() {
+        return this.optionalSubjectsAND;
+    }
+
     public List<Subject> getOptionalSubjectsByList() {
         List<Subject> lst = new LinkedList<Subject>();
         for (List<Subject> subjects : optionalSubjects) {
+            for (Subject subject : subjects) {
+                lst.add(subject);
+            }
+        }
+        return lst;
+    }
+
+    public List<Subject> getOptionalSubjectsANDByList() {
+        List<Subject> lst = new LinkedList<Subject>();
+        for (List<Subject> subjects : optionalSubjectsAND) {
             for (Subject subject : subjects) {
                 lst.add(subject);
             }
@@ -75,8 +106,16 @@ public class KnowledgePart {
         return this.mainDescriptionOptionalSubjects;
     }
 
+    public String getMainDescriptionOptionalSubjectsAND() {
+        return this.mainDescriptionOptionalSubjectsAND;
+    }
+
     public List<String> getDescriptionOptionals() {
         return this.descriptionOptionals;
+    }
+
+    public List<String> getDescriptionOptionalsAND() {
+        return this.descriptionOptionalsAND;
     }
 
     public List<Subject> getSubjects() {
@@ -87,11 +126,18 @@ public class KnowledgePart {
         for (Subject subject : getOptionalSubjectsByList()) {
             subjects.add(subject);
         }
+        for (Subject subject : getOptionalSubjectsANDByList()) {
+            subjects.add(subject);
+        }
         return subjects;
     }
 
     public int getNumberOfOptionalSubjectsList() {
         return this.optionalSubjects.size();
+    }
+
+    public int getNumberOfOptionalSubjectsANDList() {
+        return this.optionalSubjectsAND.size();
     }
 
     public int getNumberOfCompulsorySubjectsList() {
@@ -111,6 +157,10 @@ public class KnowledgePart {
         this.minCreditsOptionalSubjects.add(credits);
     }
 
+    public void addMinCreditsOptionalSubjectsAND(int credits) {
+        this.minCreditsOptionalSubjectsAND.add(credits);
+    }
+
     public void addCompulaorySubjects(List<Subject> subjects) {
         this.compulsorySubjecs.add(subjects);
     }
@@ -123,9 +173,19 @@ public class KnowledgePart {
         this.optionalSubjects.add(subjects);
     }
 
+    public void addOptionalSubjectsAND(List<Subject> subjects) {
+        this.optionalSubjectsAND.add(subjects);
+    }
+
     public void addOptionalSubject(Subject subject, int indexOptional) {
         if (indexOptional < this.optionalSubjects.size()) {
             optionalSubjects.get(indexOptional).add(subject);
+        }
+    }
+
+    public void addOptionalSubjectAND(Subject subject, int indexOptional) {
+        if (indexOptional < this.optionalSubjectsAND.size()) {
+            optionalSubjectsAND.get(indexOptional).add(subject);
         }
     }
 
@@ -137,7 +197,15 @@ public class KnowledgePart {
         this.mainDescriptionOptionalSubjects = des;
     }
 
+    public void setMainDescriptionOptionalSubjectsAND(String des) {
+        this.mainDescriptionOptionalSubjectsAND = des;
+    }
+
     public void addDescriptionOptional(String description) {
         this.descriptionOptionals.add(description);
+    }
+
+    public void addDescriptionOptionalAND(String description) {
+        this.descriptionOptionalsAND.add(description);
     }
 }

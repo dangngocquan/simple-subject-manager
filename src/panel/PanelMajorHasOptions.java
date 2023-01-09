@@ -136,7 +136,7 @@ public class PanelMajorHasOptions extends JPanel {
 
             // START Create panel for knowledge name
             PanelString knowledgeNamePanel = new PanelString(0, heightScroll, knowledgePart.getName(), width,
-                    Button.ARIAL_BOLD_15,
+                    Button.ARIAL_BOLD_18,
                     PanelString.TOP_LEFT, 0);
             knowledgeNamePanel.setBackground(COLOR_BACKGROUND_KNOWLEDGE_NAME);
             knowledgeNamePanel.setGradientBackgroundColor(Setting.GRADIENT_POINTS1_6, Setting.GRADIENT_POINTS2_6,
@@ -155,7 +155,7 @@ public class PanelMajorHasOptions extends JPanel {
                 // START Create panel for description
                 PanelString desCompulsoryPanel = new PanelString(0, heightScroll,
                         compulsoryDescription, width,
-                        Button.ARIAL_BOLD_15,
+                        Button.ARIAL_BOLD_18,
                         PanelString.TOP_LEFT, 0);
                 desCompulsoryPanel.setBackground(COLOR_BACKGROUND_DESCRIPTION);
                 scrollPanel.add(desCompulsoryPanel);
@@ -167,7 +167,7 @@ public class PanelMajorHasOptions extends JPanel {
                 // START Create panel for subjects
                 for (Subject subject : compulsorySubjectList) {
                     PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, width,
-                            Button.ARIAL_BOLD_15, countSubjects + 1);
+                            Button.ARIAL_BOLD_18, countSubjects + 1);
                     if (countSubjects % 2 == 0) {
                         panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
                     } else {
@@ -187,20 +187,21 @@ public class PanelMajorHasOptions extends JPanel {
             // are
             // many description Compulsory)
 
-            // START Create panel for main description of optional subjects
+            // START Create panel for main description of optional subjects type OR
             if (!knowledgePart.getMainDescriptionOptionalSubjects().isEmpty()) {
                 String str = knowledgePart.getMainDescriptionOptionalSubjects();
                 PanelString desMainOptionalSubjectPanel = new PanelString(0, heightScroll,
                         str, width,
-                        Button.ARIAL_BOLD_15,
+                        Button.ARIAL_BOLD_18,
                         PanelString.TOP_LEFT, 0);
                 desMainOptionalSubjectPanel.setBackground(COLOR_BACKGROUND_DESCRIPTION_2);
                 scrollPanel.add(desMainOptionalSubjectPanel);
                 heightScroll += desMainOptionalSubjectPanel.getHeight();
             }
-            // FINISH Create panel for main description of optional subjects
+            // FINISH Create panel for main description of optional subjects type OR
 
-            // START Create panel for description Optional and subjects optional (there are
+            // START Create panel for description Optional and subjects optional type OR
+            // (there are
             // many description optional)
             for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsList(); count++) {
                 // Get String of description
@@ -209,7 +210,7 @@ public class PanelMajorHasOptions extends JPanel {
                 // START Create panel for description
                 PanelString desOptionalPanel = new PanelString(0, heightScroll,
                         optionalDescription, width,
-                        Button.ARIAL_BOLD_15,
+                        Button.ARIAL_BOLD_18,
                         PanelString.TOP_LEFT, 0);
                 desOptionalPanel.setBackground(COLOR_BACKGROUND_DESCRIPTION);
                 scrollPanel.add(desOptionalPanel);
@@ -221,7 +222,7 @@ public class PanelMajorHasOptions extends JPanel {
                 // START Create panel for subjects
                 for (Subject subject : optionalSubjectList) {
                     PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, width,
-                            Button.ARIAL_BOLD_15, countSubjects + 1);
+                            Button.ARIAL_BOLD_18, countSubjects + 1);
                     if (countSubjects % 2 == 0) {
                         panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
                     } else {
@@ -237,7 +238,63 @@ public class PanelMajorHasOptions extends JPanel {
                 }
                 // FINISH Create panel for subjects
             }
-            // FINISH Create panel for description Optional and subjects optional (there are
+            // FINISH Create panel for description Optional and subjects optional type OR
+            // (there are
+            // many description optional)
+
+            // START Create panel for main description of optional subjects type AND
+            if (!knowledgePart.getMainDescriptionOptionalSubjectsAND().isEmpty()) {
+                String str = knowledgePart.getMainDescriptionOptionalSubjectsAND();
+                PanelString desMainOptionalSubjectANDPanel = new PanelString(0, heightScroll,
+                        str, width,
+                        Button.ARIAL_BOLD_18,
+                        PanelString.TOP_LEFT, 0);
+                desMainOptionalSubjectANDPanel.setBackground(COLOR_BACKGROUND_DESCRIPTION_2);
+                scrollPanel.add(desMainOptionalSubjectANDPanel);
+                heightScroll += desMainOptionalSubjectANDPanel.getHeight();
+            }
+            // FINISH Create panel for main description of optional subjects type AND
+
+            // START Create panel for description Optional and subjects optional type AND
+            // (there are
+            // many description optional)
+            for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsANDList(); count++) {
+                // Get String of description
+                String optionalDescriptionAND = knowledgePart.getDescriptionOptionalsAND().get(count) + " ("
+                        + knowledgePart.getMinCreditsOptionalSubjectsAND().get(count) + " tín chỉ)";
+                // START Create panel for description
+                PanelString desOptionalPanelAND = new PanelString(0, heightScroll,
+                        optionalDescriptionAND, width,
+                        Button.ARIAL_BOLD_18,
+                        PanelString.TOP_LEFT, 0);
+                desOptionalPanelAND.setBackground(COLOR_BACKGROUND_DESCRIPTION);
+                scrollPanel.add(desOptionalPanelAND);
+                heightScroll += desOptionalPanelAND.getHeight();
+                // FINISH Create panel for description
+
+                // Get list subjects of this optional
+                List<Subject> optionalSubjectANDList = knowledgePart.getOptionalSubjectsAND().get(count);
+                // START Create panel for subjects
+                for (Subject subject : optionalSubjectANDList) {
+                    PanelSubject panelSubject = new PanelSubject(0, heightScroll, subject, width,
+                            Button.ARIAL_BOLD_18, countSubjects + 1);
+                    if (countSubjects % 2 == 0) {
+                        panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_1);
+                    } else {
+                        panelSubject.setBackgroundColorPanelSubject(COLOR_SUBJECT_2);
+                    }
+
+                    panelSubjects[countSubjects] = panelSubject;
+                    panelSubjects[countSubjects].addMouseListener(new MouseHandler());
+
+                    countSubjects++;
+                    scrollPanel.add(panelSubject);
+                    heightScroll += panelSubject.getHeight();
+                }
+                // FINISH Create panel for subjects
+            }
+            // FINISH Create panel for description Optional and subjects optional type OR
+            // (there are
             // many description optional)
 
             // FINISH Create panel for 'knowledgePart'
@@ -286,6 +343,7 @@ public class PanelMajorHasOptions extends JPanel {
                     indexSubject++;
                 }
                 if (tempCredits < knowledgePart.getMinCreditsCompulsorySubjects().get(count)) {
+                    System.out.println(tempCredits + " " + knowledgePart.getMinCreditsCompulsorySubjects().get(count));
                     new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
                             DialogMessage.CENTER_CENTER,
                             "Information", new String[] { "Bạn chưa đăng kí đủ tín chỉ ở", knowledgePart.getName() },
@@ -319,6 +377,38 @@ public class PanelMajorHasOptions extends JPanel {
             }
 
             if (!isEnough) {
+                new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
+                        DialogMessage.CENTER_CENTER,
+                        "Information", new String[] { "Bạn chưa đăng kí đủ tín chỉ ở", knowledgePart.getName() },
+                        Setting.WARNING);
+                return false;
+            }
+            // FINISH Check each list optional subjects
+
+            boolean isEnoughAND = true;
+            if (knowledgePart.getNumberOfOptionalSubjectsANDList() == 0) {
+                isEnoughAND = true;
+            }
+            // START Check each list optional subjects type AND
+            for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsANDList(); count++) {
+                // Get list subjects of this optional type AND
+                List<Subject> optionalSubjectList = knowledgePart.getOptionalSubjectsAND().get(count);
+                tempCredits = 0;
+                // START Check a list optional subjects AND
+                for (Subject subject : optionalSubjectList) {
+                    if (isSelectedSubject[indexSubject]) {
+                        tempCredits += subject.getNumberCredits();
+                    }
+                    indexSubject++;
+                }
+                if (tempCredits < knowledgePart.getMinCreditsOptionalSubjectsAND().get(count)) {
+                    isEnoughAND = false;
+                    break;
+                }
+                // FINISH Check a list optional subjects
+            }
+
+            if (!isEnoughAND) {
                 new DialogMessage(Setting.WIDTH / 2, Setting.HEIGHT / 2, Setting.WIDTH / 3, Setting.HEIGHT / 3,
                         DialogMessage.CENTER_CENTER,
                         "Information", new String[] { "Bạn chưa đăng kí đủ tín chỉ ở", knowledgePart.getName() },
@@ -383,6 +473,12 @@ public class PanelMajorHasOptions extends JPanel {
             for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsList(); count++) {
                 // Get list subjects of this optional
                 List<Subject> optionalSubjectList = knowledgePart.getOptionalSubjects().get(count);
+                index += optionalSubjectList.size();
+            }
+
+            for (int count = 0; count < knowledgePart.getNumberOfOptionalSubjectsANDList(); count++) {
+                // Get list subjects of this optional
+                List<Subject> optionalSubjectList = knowledgePart.getOptionalSubjectsAND().get(count);
                 index += optionalSubjectList.size();
             }
         }

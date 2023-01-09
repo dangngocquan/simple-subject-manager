@@ -151,7 +151,7 @@ public class ScreenPlanView extends JPanel {
                                 contentPanel.getHeight(),
                                 plan, indexPlan, PanelUpdateStatusSubject.TOP_LEFT);
                 panelCalculateScoreLastTerm = new PanelCalculateScoreLastTerm(0, 0, contentPanel.getWidth(),
-                                contentPanel.getHeight(), Button.ARIAL_BOLD_15, PanelMapRelativeSubjects.TOP_LEFT,
+                                contentPanel.getHeight(), Button.ARIAL_BOLD_18, PanelMapRelativeSubjects.TOP_LEFT,
                                 this.plan.getConversionTable(),
                                 applicationFrame);
                 panelTimeTable = new PanelTimeTable(0, 0, contentPanel.getWidth(),

@@ -343,6 +343,7 @@ public class ReadFile {
             String line = reader.readLine(); // Title
             line = reader.readLine();
             String typeSubject = ""; // "compulsory" | "optional"
+            String typeOptinal = "mainDesOptional"; // "OR" | "AND"
             while (line != null) {
                 String[] datas = line.split(",");
                 String type = datas[0];
@@ -366,29 +367,50 @@ public class ReadFile {
                                 subject,
                                 major.getKnowledgeParts().get(lastIndex).getNumberOfCompulsorySubjectsList() - 1);
                     } else if (typeSubject.equals("optional")) {
-                        major.getKnowledgeParts().get(lastIndex).addOptionalSubject(
-                                subject,
-                                major.getKnowledgeParts().get(lastIndex).getNumberOfOptionalSubjectsList() - 1);
+                        if (typeOptinal.equals("mainDesOptional")) {
+                            major.getKnowledgeParts().get(lastIndex).addOptionalSubject(
+                                    subject,
+                                    major.getKnowledgeParts().get(lastIndex).getNumberOfOptionalSubjectsList() - 1);
+                        } else if (typeOptinal.equals("mainDesOptionalAND")) {
+                            major.getKnowledgeParts().get(lastIndex).addOptionalSubjectAND(
+                                    subject,
+                                    major.getKnowledgeParts().get(lastIndex).getNumberOfOptionalSubjectsANDList() - 1);
+                        }
+
                     }
                 } else if (type.equals("knowledge")) {
                     // Create and add new KnowledgePart to major
                     major.addKnowledgePart(new KnowledgePart(datas[1]));
                 } else {
                     // Add compulsory | optional to last knowledgePart of major
-                    typeSubject = type;
                     int lastIndex = major.getKnowledgeParts().size() - 1;
                     if (type.equals("compulsory")) {
+                        typeSubject = type;
                         major.getKnowledgeParts().get(lastIndex).getCompulsorySubjects().add(new LinkedList<Subject>());
                         major.getKnowledgeParts().get(lastIndex).addDescriptionCompulsory(datas[1]);
                         major.getKnowledgeParts().get(lastIndex)
                                 .addMinCreditsCompulsorySubjects(Integer.parseInt(datas[3]));
                     } else if (type.equals("mainDesOptional")) {
+                        typeOptinal = type;
                         major.getKnowledgeParts().get(lastIndex).setMainDescriptionOptionalSubjects(datas[1]);
+                    } else if (type.equals("mainDesOptionalAND")) {
+                        typeOptinal = type;
+                        major.getKnowledgeParts().get(lastIndex).setMainDescriptionOptionalSubjectsAND(datas[1]);
                     } else if (type.equals("optional")) {
-                        major.getKnowledgeParts().get(lastIndex).getOptionalSubjects().add(new LinkedList<Subject>());
-                        major.getKnowledgeParts().get(lastIndex).addDescriptionOptional(datas[1]);
-                        major.getKnowledgeParts().get(lastIndex)
-                                .addMinCreditsOptionalSubjects(Integer.parseInt(datas[3]));
+                        typeSubject = type;
+                        if (typeOptinal.equals("mainDesOptional")) {
+                            major.getKnowledgeParts().get(lastIndex).getOptionalSubjects()
+                                    .add(new LinkedList<Subject>());
+                            major.getKnowledgeParts().get(lastIndex).addDescriptionOptional(datas[1]);
+                            major.getKnowledgeParts().get(lastIndex)
+                                    .addMinCreditsOptionalSubjects(Integer.parseInt(datas[3]));
+                        } else if (typeOptinal.equals("mainDesOptionalAND")) {
+                            major.getKnowledgeParts().get(lastIndex).getOptionalSubjectsAND()
+                                    .add(new LinkedList<Subject>());
+                            major.getKnowledgeParts().get(lastIndex).addDescriptionOptionalAND(datas[1]);
+                            major.getKnowledgeParts().get(lastIndex)
+                                    .addMinCreditsOptionalSubjectsAND(Integer.parseInt(datas[3]));
+                        }
                     }
                 }
                 // Go to next line

@@ -163,7 +163,7 @@ public class PanelUpdateScoreSubject extends JPanel {
         // START Create panel for compulsory subjects (if have)
         for (Subject subject : plan.getSubjects()) {
             PanelSubject2 panelSubject = new PanelSubject2(0, heightScroll, subject, width,
-                    Button.ARIAL_BOLD_15, countSubjects + 1);
+                    Button.ARIAL_BOLD_18, countSubjects + 1);
             panelSubjects[countSubjects] = panelSubject;
             panelSubjects[countSubjects].addMouseListener(new MouseHandler());
             if (countSubjects % 2 == 0) {
@@ -215,7 +215,7 @@ public class PanelUpdateScoreSubject extends JPanel {
         // START Create panel for compulsory subjects (if have)
         for (Subject subject : plan.getSubjects()) {
             PanelSubject2 panelSubject = new PanelSubject2(0, heightScroll, subject, width,
-                    Button.ARIAL_BOLD_15, countSubjects + 1);
+                    Button.ARIAL_BOLD_18, countSubjects + 1);
             panelSubjects[countSubjects] = panelSubject;
             panelSubjects[countSubjects].addMouseListener(new MouseHandler());
             if (countSubjects % 2 == 0) {
