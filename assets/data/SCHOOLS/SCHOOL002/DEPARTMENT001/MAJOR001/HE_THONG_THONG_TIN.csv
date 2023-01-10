@@ -1,0 +1,80 @@
+﻿Type,Code,Name,Credits,Parents,YearStudy
+knowledge,Khối kiến thức chung,;,;,;,0
+compulsory,Các học phần bắt buộc,;,31,;,0
+subject,BAS1150,Triết học Mác - Lênin,3,;,1
+subject,BAS1151,Kinh tế chính trị Mác - Lênin,2,;,2
+subject,BAS1152,Chủ nghĩa xã hội khoa học,2,;,3
+subject,BAS1122,Tư tưởng Hồ Chí Minh,2,;,4
+subject,BAS1153,Lịch sử Đảng Cộng sản Việt Nam,2,;,5
+subject,BAS1157,Tiếng Anh (Course 1),4,;,2
+subject,BAS1158,Tiếng Anh (Course 2),4,;,3
+subject,BAS1159,Tiếng Anh (Course 3),4,;,4
+subject,BAS1160,Tiếng Anh (Course 3 Plus),2,;,5
+subject,INT1154,Tin học cơ sở 1,2,;,1
+subject,INT1155,Tin học cơ sở 2,2,INT1154,2
+subject,SKD1108,Phương pháp luận nghiên cứu khoa học,2,;,7
+compulsory,Giáo dục thể chất và giáo dục quốc phòng,;,12,;,0
+subject,BAS1106,Giáo dục thể chất 1,2,;,1
+subject,BAS1107,Giáo dục thể chất 2,2,;,2
+subject,BAS1105,Giáo dục quốc phòng,8,;,1
+optional,Kiến thức các môn kỹ năng,;,3,;,0
+subject,SKD1101,Kỹ năng thuyết trình,1,;,4
+subject,SKD1102,Kỹ năng làm việc nhóm,1,;,4
+subject,SKD1103,Kỹ năng tạo lập văn bản,1,;,4
+subject,SKD1104,Kỹ năng lập kế hoạch và tổ chức công việc,1,;,4
+subject,SKD1105,Kỹ năng giao tiếp,1,;,4
+subject,SKD1106,Kỹ năng giải quyết vấn đề,1,;,4
+subject,SKD1107,Kỹ năng tư duy sáng tạo,1,;,4
+knowledge,Khối kiến thức cơ bản nhóm ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,19,;,0
+subject,BAS1203,Giải tích 1,3,;,1
+subject,BAS1204,Giải tích 2,3,;,2
+subject,BAS1201,Đại số,3,;,1
+subject,BAS1224,Vật lý 1 và thí nghiệm,4,;,2
+subject,BAS1227,Vật lý 3 và thí nghiệm,4,;,3
+subject,BAS1226,Xác suất thống kê,2,;,2
+knowledge,Khối kiến thức giáo dục chuyên nghiệp,;,;,;,0
+knowledge,Kiến thức cơ sở ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,55,;,0
+subject,ELE1433,Kỹ thuật số,2,;,2
+subject,INT1358,Toán rời rạc 1,3,;,3
+subject,INT1359,Toán rời rạc 2,3,INT1358,4
+subject,INT1339,Ngôn ngữ lập trình C++,3,;,3
+subject,INT1306,Cấu trúc dữ liệu và giải thuật,3,INT1155,4
+subject,INT1313,Cơ sở dữ liệu,3,INT1155,5
+subject,INT13145,Kiến trúc máy tính,3,INT1155,4
+subject,ELE1330,Xử lý tín hiệu số,2,;,3
+subject,INT1319,Hệ điều hành,3,;,5
+subject,INT1332,Lập trình hướng đối tượng,3,INT1339,5
+subject,INT1336,Mạng máy tính,3,INT1155,5
+subject,INT1340,Nhập môn công nghệ phần mềm,3,INT1339,6
+subject,INT1341,Nhập môn trí tuệ nhân tạo,3,INT1339,6
+subject,INT1342,Phân tích và thiết kế hệ thống thông tin,3,;,7
+subject,ELE1319,Lý thuyết thông tin,3,;,4
+subject,INT13162,Lập trình với Python,3,INT1155,5
+subject,INT1303,An toàn và bảo mật với hệ thống thông tin,3,;,6
+subject,INT13146,Xử lý ảnh,3,;,7
+subject,INT13147,Thực tập cơ sở,3,;,6
+knowledge,Kiến thức chuyên ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,30,;,0
+subject,INT1434,Lập trình Web,3,INT1339,6
+subject,INT1450,Quản lý dự án phần mềm,2,;,7
+subject,INT14148,Cơ sở dữ liệu phân tán,3,;,6
+subject,INT14149,IoT và ứng dụng,3,;,7
+subject,INT1446,Phát triển hệ thống thương mại điện tử,3,;,8
+subject,INT1418,Hệ cơ sở dữ liệu đa phương tiện,3,;,8
+subject,INT1445,Phát triển hệ thống thông tin quản lý,3,;,8
+subject,INT1422,Kho dữ liệu và khai phá dữ liệu,3,;,8
+subject,INT1405,Các hệ thống phân tán,3,;,8
+subject,INT14150,Nhập môn khoa học dữ liệu,3,;,7
+subject,INT1409,Chuyên đề hệ thống thông tin,1,;,8
+optional,Học phần tự chọn,;,3,;,0
+subject,INT1421,Hệ trợ giúp quyết định,3,;,7
+subject,INT1404,Các hệ thống dựa trên tri thức,3,;,7
+subject,INT1448,Phát triển phần mềm hướng dịch vụ,3,;,7
+subject,INT14101,Cấu trúc dữ liệu và giải thuật nâng cao trên Java,3,;,7
+subject,INT1433,Lập trình mạng,3,;,7
+knowledge,Học phần thay thế tốt nghiệp,;,;,;,0
+compulsory,Các học phần bắt buộc,;,6,;,0
+subject,INT1497,Phát triển các hệ thống dựa trên tri thức,3,;,9
+subject,INT1498,Phát triển ứng dụng phân tán,3,;,9

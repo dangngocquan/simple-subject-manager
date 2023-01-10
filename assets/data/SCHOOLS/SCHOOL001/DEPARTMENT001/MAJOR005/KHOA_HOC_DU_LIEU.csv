@@ -1,0 +1,85 @@
+﻿Type,Code,Name,Credits,Parents,YearStudy
+knowledge,Khối kiến thức chung (chưa tính Giáo dục thể chất và Giáo dục quốc phòng - an ninh),;,;,;,0
+compulsory,Các học phần bắt buộc,;,16,;,0
+subject,PHI1006,Triết học Mác - Lênin,3,;,0
+subject,PEC1008,Kinh tế chính trị Mác - Lênin,2,PHI1006,0
+subject,PHI1002,Chủ nghĩa xã hội khoa học,2,;,0
+subject,HIS1001,Lịch sử Đảng Cộng sản Việt Nam,2,;,0
+subject,POL1001,Tư tưởng Hồ Chí Minh,2,;,0
+subject,FLF1107,Tiếng Anh B1,5,;,0
+knowledge,Khối kiến thức theo lĩnh vực,;,;,;,0
+compulsory,Các học phần bắt buộc,;,2,;,0
+subject,INM1000,Tin học cơ sở,2,;,0
+optional,Các học phần tự chọn,;,5,;,0
+subject,HIS1056,Cơ sở văn hóa Việt Nam,3,;,0
+subject,GEO1050,Khoa học trái đất và sự sống,3,;,0
+subject,THL1057,Nhà nước và pháp luật đại cương,2,PHI1006,0
+subject,MAT1060,Nhập môn phân tích dữ liệu,2,;,0
+subject,PHY1070,Nhập môn Internet kết nối vạn vật,2,;,0
+subject,PHY1020,Nhập môn Robotics,3,;,0
+knowledge,Khối kiến thức theo khối ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,6,;,0
+subject,PHY1100,Cơ - Nhiệt,3,MAT2501,0
+subject,PHY1103,Điện - Quang,3,MAT2501,0
+knowledge,Khối kiến thức theo nhóm ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,33,;,0
+subject,MAT2400,Đại số tuyến tính,5,;,0
+subject,MAT2501,Giải tích 1,4,;,0
+subject,MAT2502,Giải tích 2,4,MAT2501,0
+subject,MAT2503,Giải tích 3,2,MAT2502;MAT2400,0
+subject,MAT2403,Phương trình vi phân,3,MAT2501;MAT2400,0
+subject,MAT2034,Giải tích số,3,MAT2502;MAT2403;MAT3372,0
+subject,MAT2323,Xác suất - Thống kê,4,MAT2502;MAT2316/MAT2317/MAT2318/MAT2319,0
+subject,MAT2407,Tối ưu hóa,3,MAT2502,0
+subject,MAT2315,Phương pháp nghiên cứu khoa học,3,MAT3514;MAT2323;MAT2506;MAT2034,0
+subject,MAT2506,Kĩ năng mềm,2,;,0
+optional,Các học phần tự chọn,;,3,;,0
+subject,MAT2316,Lập trình C++,3,INM1000,0
+subject,MAT2317,Lập trình Java,3,INM1000,0
+subject,MAT2318,Lập trình Python,3,INM1000,0
+subject,MAT2319,Lập trình Julia,3,INM1000,0
+knowledge,Khối kiến thức ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,34,;,0
+subject,MAT3500,Toán rời rạc,4,MAT2400;MAT2501,0
+subject,MAT3557,Môi trường lập trình Linux,2,;,0
+subject,MAT3372,Các thành phần phần mềm,3,MAT2316/MAT2317/MAT2318/MAT2319,0
+subject,MAT3514,Cấu trúc dữ liệu và thuật toán,4,MAT2316/MAT2317/MAT2318/MAT2319,0
+subject,MAT3507,Cơ sở dữ liệu,4,MAT2316/MAT2317/MAT2318/MAT2319,0
+subject,MAT3378,Quản trị dữ liệu lớn,3,MAT3507;MAT3372,0
+subject,MAT3148,Tính toán song song,3,MAT3514;MAT3557,0
+subject,MAT3379,Phân tích hồi qui và ứng dụng,3,MAT2323;MAT2400;MAT2316/MAT2317/MAT2318/MAT2319,0
+subject,MAT3533,Học máy,3,MAT2034;MAT3514;MAT2323;MAT2400,0
+subject,MAT3380,Seminar Một số vấn đề chọn lọc về Khoa học dữ liệu,2,MAT3514;MAT2323,0
+subject,MAT3381,Thực tập thực tế về Khoa học dữ liệu,3,MAT3372;MAT3507;MAT2506,0
+mainDesOptionalAND,Các học phần tự chọn,;,;,;,0
+optional,Tự chọn về kỹ năng phần mềm,;,4,;,0
+subject,MAT3382,Lập trình cho Khoa học dữ liệu,2,MAT3514,0
+subject,MAT3383,Trực quan hóa thông tin,2,MAT3372;MAT3500,0
+subject,MAT3384,Tự động hóa,2,MAT3533,0
+optional,Tự chọn về khoa học máy tính,;,6,;,0
+subject,MAT3385,Cơ sở dữ liệu Web và hệ thống thông tin,3,MAT3372,0
+subject,MAT3504,Thiết kế và đánh giá thuật toán,3,MAT3514,0
+subject,MAT3508,Nhập môn trí tuệ nhân tạo,3,MAT3372;MAT3507,0
+optional,Thống kê và khai phá dữ liệu,;,9,;,0
+subject,MAT3534,Khai phá dữ liệu,3,MAT3507;MAT2323,0
+subject,MAT3386,Phương pháp tính toán trong thống kê và khoa học dữ liệu,3,MAT2323,0
+subject,MAT3387,Kĩ thuật lấy mẫu khảo sát,3,MAT2323,0
+subject,MAT3388,Phân tích chuỗi thời gian,3,MAT3507;MAT2323,0
+subject,MAT3389,Quy hoạch thực nghiệm,3,MAT2323,0
+optional,Tự chọn về ứng dụng khoa học dữ liệu,;,9,;,0
+subject,MAT3390,Nhập môn Tin sinh học,3,MAT3533,0
+subject,MAT3391,Hệ thống thông tin địa lí,3,MAT3372;MAT3500;MAT3507,0
+subject,MAT3392,Ứng dụng dữ liệu lớn trong quản lí rủi ro tai biến thiên nhiên,3,MAT3507;MAT2323,0
+subject,MAT3393,Khai thác dữ liệu trong Hóa học,3,MAT3533,0
+subject,MAT3394,Mô hình toán sinh thái,3,MAT2403,0
+subject,MAT3562,Thị giác máy tính,3,MAT3533,0
+subject,MAT3395,Lí thuyết trò chơi,3,MAT2323,0
+subject,MAT3535,Tìm kiếm thông tin,3,MAt3514,0
+subject,MAT3399,Xử lí ngôn ngữ tự nhiên và học sâu,3,MAT3533,0
+knowledge,Khối kiến thức thực tập và tốt nghiệp,;,;,;,0
+mainDesOptional,Chọn Khóa luận tốt nghiệp hoặc Các học phần thay thế,;,;,;,0
+optional,Khóa luận tốt nghiệp,;,7,;,0
+subject,MAT4083,Khóa luận tốt nghiệp,7,;,0
+optional,Các học phần thay thế,;,7,;,0
+subject,MAT3397,Một số vấn đề ứng dụng của khoa học dữ liệu,3,MAT3533,0
+subject,MAT3398,Một số chủ đề trong mô hình hóa và phân tích dữ liệu,4,MAT3533,0
