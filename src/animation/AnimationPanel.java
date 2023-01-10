@@ -55,7 +55,6 @@ public class AnimationPanel {
                             process = 1f;
                             x = xTo;
                             y = yTo;
-                            ((JPanel) panel).repaint();
                             ((Timer) event.getSource()).stop();
                         }
                         x = xFrom + (xTo - xFrom) * process;

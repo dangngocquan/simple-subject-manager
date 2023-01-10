@@ -2,14 +2,7 @@ package src.panel;
 
 import javax.swing.JPanel;
 import src.launcher.Setting;
-import src.objects.Button;
 import src.objects.ConversionTable;
-import src.objects.KnowledgePart;
-import src.objects.Major;
-import src.objects.Subject;
-import java.awt.event.MouseWheelListener;
-import java.util.List;
-import java.awt.event.MouseWheelEvent;
 import java.awt.Graphics;
 import java.awt.Color;
 

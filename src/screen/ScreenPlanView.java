@@ -2,6 +2,7 @@ package src.screen;
 
 import javax.swing.JPanel;
 import src.animation.AnimationPanel;
+import src.dialog.DialogGuideTimeTable;
 import src.launcher.Application;
 import src.launcher.Setting;
 import src.objects.Button;
@@ -44,6 +45,7 @@ public class ScreenPlanView extends JPanel {
         private Button[] buttons;
         private int indexButtonEntering = 1;
         private JPanel panelButtonEnetering;
+        private Button buttonGuide;
 
         // Constructor
         public ScreenPlanView(int width, int height, ScreenExistingPlans parentScreen, Application frame, int indexPlan,
@@ -114,14 +116,20 @@ public class ScreenPlanView extends JPanel {
                         buttons[count].addMouseListener(new MouseHandler());
                 }
 
+                buttonGuide = new Button("?");
+                buttonGuide.setFontText(Button.ARIAL_BOLD_21);
+                buttonGuide.setCorrectSizeButton();
+                buttonGuide.setSizeButton(buttonGuide.getHeight(), buttonGuide.getHeight());
+                buttonGuide.addMouseListener(new MouseHandler());
+
                 // Set size button
-                buttons[1].setSizeButton(width / 4 - optionalPanel.getWidth() / 12 * 2, buttons[1].getHeight() * 6 / 5);
-                buttons[2].setSizeButton(width / 4 - optionalPanel.getWidth() / 12 * 2, buttons[2].getHeight() * 6 / 5);
-                buttons[3].setSizeButton(width / 4 - optionalPanel.getWidth() / 12 * 2, buttons[3].getHeight() * 6 / 5);
-                buttons[4].setSizeButton(width / 4 - optionalPanel.getWidth() / 12 * 2, buttons[4].getHeight() * 6 / 5);
-                buttons[5].setSizeButton(width / 4 - optionalPanel.getWidth() / 12 * 2, buttons[5].getHeight() * 6 / 5);
-                buttons[6].setSizeButton(width / 4 - optionalPanel.getWidth() / 12 * 2, buttons[6].getHeight() * 6 / 5);
-                buttons[7].setSizeButton(width / 4 - optionalPanel.getWidth() / 12 * 2, buttons[7].getHeight() * 6 / 5);
+                buttons[1].setSizeButton(width / 4 - (buttonGuide.getWidth() + 10) * 2, buttons[1].getHeight() * 6 / 5);
+                buttons[2].setSizeButton(width / 4 - (buttonGuide.getWidth() + 10) * 2, buttons[2].getHeight() * 6 / 5);
+                buttons[3].setSizeButton(width / 4 - (buttonGuide.getWidth() + 10) * 2, buttons[3].getHeight() * 6 / 5);
+                buttons[4].setSizeButton(width / 4 - (buttonGuide.getWidth() + 10) * 2, buttons[4].getHeight() * 6 / 5);
+                buttons[5].setSizeButton(width / 4 - (buttonGuide.getWidth() + 10) * 2, buttons[5].getHeight() * 6 / 5);
+                buttons[6].setSizeButton(width / 4 - (buttonGuide.getWidth() + 10) * 2, buttons[6].getHeight() * 6 / 5);
+                buttons[7].setSizeButton(width / 4 - (buttonGuide.getWidth() + 10) * 2, buttons[7].getHeight() * 6 / 5);
 
                 // Set location for each button
                 buttons[0].setLocationButton(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 1,
@@ -140,6 +148,10 @@ public class ScreenPlanView extends JPanel {
                                 Button.TOP_LEFT);
                 buttons[7].setLocationButton(optionalPanel.getWidth() / 12, optionalPanel.getHeight() / 27 * 23,
                                 Button.TOP_LEFT);
+                buttonGuide.setLocationButton(
+                                buttons[indexButtonEntering].getX() + buttons[indexButtonEntering].getWidth() + 10,
+                                buttons[indexButtonEntering].getY() + buttons[indexButtonEntering].getHeight() / 2,
+                                Button.CENTER_LEFT);
 
                 // Create panels
                 panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
@@ -164,6 +176,7 @@ public class ScreenPlanView extends JPanel {
                 optionalPanel.add(buttons[5]);
                 optionalPanel.add(buttons[6]);
                 optionalPanel.add(buttons[7]);
+                optionalPanel.add(buttonGuide);
                 optionalPanel.add(panelButtonEnetering);
                 viewPanel.add(contentPanel);
                 contentPanel.add(panelSubjectList);
@@ -194,8 +207,19 @@ public class ScreenPlanView extends JPanel {
                                                 / 2;
                 this.indexButtonEntering = index;
 
+                int x3 = buttonGuide.getX();
+                int y3 = buttonGuide.getY();
+                int x4 = buttons[indexButtonEntering].getX() + buttons[indexButtonEntering].getWidth() + 10;
+                int y4 = buttons[indexButtonEntering].getY() + buttons[indexButtonEntering].getHeight() / 2
+                                - buttonGuide.getHeight() / 2;
+                buttonGuide.setLocationButton(
+                                x4, y4,
+                                Button.TOP_LEFT);
                 AnimationPanel animation = new AnimationPanel(panelButtonEnetering, x1, y1, x2, y2, 300);
+                AnimationPanel animation2 = new AnimationPanel(buttonGuide, x3, y3, x4, y4, 300);
                 animation.start();
+                animation2.start();
+
         }
 
         // Auto called method of JPanel
@@ -232,11 +256,22 @@ public class ScreenPlanView extends JPanel {
                                 if (panelCalculateScoreLastTerm != null) {
                                         panelCalculateScoreLastTerm.setVisible(false);
                                 }
+                                if (panelTimeTable != null) {
+                                        panelTimeTable.setVisible(false);
+                                }
                                 getParentScreen().getScreenPlanViews()[indexPlan].setVisible(false);
                                 AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
                                                 -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
                                                 300);
                                 animation.start();
+                        }
+                        // Press buttonGuide
+                        else if (event.getSource() == buttonGuide) {
+                                if (indexButtonEntering == 4) {
+                                        new DialogGuideTimeTable(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                        Setting.WIDTH / 10 * 9, Setting.HEIGHT / 10 * 9,
+                                                        DialogGuideTimeTable.CENTER_CENTER, "Guide");
+                                }
                         }
                         // Press at "List subject" button
                         else if (event.getSource() == buttons[1]) {
@@ -255,7 +290,7 @@ public class ScreenPlanView extends JPanel {
                                         panelCalculateScoreLastTerm.setVisible(false);
                                 }
                                 if (panelTimeTable != null) {
-                                        panelTimeTable.setVisible(true);
+                                        panelTimeTable.setVisible(false);
                                 }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
@@ -291,7 +326,7 @@ public class ScreenPlanView extends JPanel {
                                         panelCalculateScoreLastTerm.setVisible(false);
                                 }
                                 if (panelTimeTable != null) {
-                                        panelTimeTable.setVisible(true);
+                                        panelTimeTable.setVisible(false);
                                 }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
@@ -327,7 +362,7 @@ public class ScreenPlanView extends JPanel {
                                         panelCalculateScoreLastTerm.setVisible(false);
                                 }
                                 if (panelTimeTable != null) {
-                                        panelTimeTable.setVisible(true);
+                                        panelTimeTable.setVisible(false);
                                 }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
@@ -361,7 +396,7 @@ public class ScreenPlanView extends JPanel {
                                         panelCalculateScoreLastTerm.setVisible(false);
                                 }
                                 if (panelTimeTable != null) {
-                                        panelTimeTable.setVisible(true);
+                                        panelTimeTable.setVisible(false);
                                 }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
@@ -389,7 +424,7 @@ public class ScreenPlanView extends JPanel {
                                         panelCalculateScoreLastTerm = new PanelCalculateScoreLastTerm(0, 0,
                                                         contentPanel.getWidth(),
                                                         contentPanel.getHeight(), Button.ARIAL_BOLD_18,
-                                                        PanelMapRelativeSubjects.TOP_LEFT,
+                                                        PanelCalculateScoreLastTerm.TOP_LEFT,
                                                         plan.getConversionTable(),
                                                         applicationFrame);
                                         contentPanel.add(panelCalculateScoreLastTerm);
@@ -397,7 +432,7 @@ public class ScreenPlanView extends JPanel {
                                         panelCalculateScoreLastTerm.setVisible(true);
                                 }
                                 if (panelTimeTable != null) {
-                                        panelTimeTable.setVisible(true);
+                                        panelTimeTable.setVisible(false);
                                 }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
@@ -459,7 +494,7 @@ public class ScreenPlanView extends JPanel {
                                         panelCalculateScoreLastTerm.setVisible(false);
                                 }
                                 if (panelTimeTable != null) {
-                                        panelTimeTable.setVisible(true);
+                                        panelTimeTable.setVisible(false);
                                 }
                                 if (panelCPA == null) {
                                         panelCPA = new PanelCPA(0, 0, contentPanel.getWidth(),

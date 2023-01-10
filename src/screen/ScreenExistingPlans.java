@@ -115,9 +115,18 @@ public class ScreenExistingPlans extends JPanel {
         buttonPlansCopy = new Button[plans.size()];
         buttonPlansRemove = new Button[plans.size()];
         int heightScroll = 0;
+        int maxWidth = 0;
+
+        for (int i = 0; i < plans.size(); i++) {
+            Button tempButton = new Button(plans.get(i).getName());
+            maxWidth = Math.max(maxWidth, tempButton.getWidth());
+        }
+        maxWidth = Math.min(maxWidth, contentPanel.getWidth() / 5 * 3);
+
         for (int i = 0; i < plans.size(); i++) {
             // Create button with name of plan
             Button tempButton = new Button(plans.get(i).getName());
+            tempButton.setSizeButton(maxWidth, tempButton.getHeight() * 3 / 2);
             tempButton.setLocationButton(contentPanel.getWidth() / 2, heightScroll, Button.TOP_CENTER);
             scrollPanel.add(tempButton);
             buttonPlans[i] = tempButton;
@@ -127,9 +136,10 @@ public class ScreenExistingPlans extends JPanel {
             heightScroll += tempButton.getHeight() + 120;
 
             Button buttonEdit = new Button("");
-            buttonEdit.setLocationButton(tempButton.getX() + tempButton.getWidth() + 30, tempButton.getY(),
-                    Button.TOP_LEFT);
-            buttonEdit.setSizeButton(tempButton.getHeight(), tempButton.getHeight());
+            buttonEdit.setLocationButton(tempButton.getX() + tempButton.getWidth() + 30,
+                    tempButton.getY() + tempButton.getHeight() / 2,
+                    Button.CENTER_LEFT);
+            buttonEdit.setSizeButton(tempButton.getHeight() / 2, tempButton.getHeight() / 2);
             buttonEdit.setBackgroundIcon(Setting.EDIT);
             buttonEdit.setToolTipText("Sửa tên kế hoạch này");
             scrollPanel.add(buttonEdit);
@@ -137,9 +147,10 @@ public class ScreenExistingPlans extends JPanel {
             buttonPlansEdit[i].addMouseListener(new MouseHandler());
 
             Button buttonCopy = new Button("");
-            buttonCopy.setLocationButton(buttonEdit.getX() + buttonEdit.getWidth() + 15, tempButton.getY(),
-                    Button.TOP_LEFT);
-            buttonCopy.setSizeButton(tempButton.getHeight(), tempButton.getHeight());
+            buttonCopy.setLocationButton(buttonEdit.getX() + buttonEdit.getWidth() + 15,
+                    tempButton.getY() + tempButton.getHeight() / 2,
+                    Button.CENTER_LEFT);
+            buttonCopy.setSizeButton(tempButton.getHeight() / 2, tempButton.getHeight() / 2);
             buttonCopy.setBackgroundIcon(Setting.COPY);
             buttonCopy.setToolTipText("Tạo bản sao của kế hoạch này");
             scrollPanel.add(buttonCopy);
@@ -147,15 +158,17 @@ public class ScreenExistingPlans extends JPanel {
             buttonPlansCopy[i].addMouseListener(new MouseHandler());
 
             Button buttonRemove = new Button("");
-            buttonRemove.setLocationButton(buttonCopy.getX() + buttonCopy.getWidth() + 15, tempButton.getY(),
-                    Button.TOP_LEFT);
-            buttonRemove.setSizeButton(tempButton.getHeight(), tempButton.getHeight());
+            buttonRemove.setLocationButton(buttonCopy.getX() + buttonCopy.getWidth() + 15,
+                    tempButton.getY() + tempButton.getHeight() / 2,
+                    Button.CENTER_LEFT);
+            buttonRemove.setSizeButton(tempButton.getHeight() / 2, tempButton.getHeight() / 2);
             buttonRemove.setBackgroundIcon(Setting.REMOVE);
             buttonRemove.setToolTipText("Xóa kế hoạch này");
             scrollPanel.add(buttonRemove);
             buttonPlansRemove[i] = buttonRemove;
             buttonPlansRemove[i].addMouseListener(new MouseHandler());
         }
+
         scrollPanel.setLayout(null);
         scrollPanel.setSize(contentPanel.getWidth(), heightScroll);
         if (scrollPanel.getHeight() > contentPanel.getHeight()) {
@@ -190,6 +203,12 @@ public class ScreenExistingPlans extends JPanel {
     public void setCurscorScroll(int value) {
         if (value >= 0 && value <= getMaxCursorScroll()) {
             this.cursorScroll = value;
+        }
+        if (value > getMaxCursorScroll()) {
+            this.cursorScroll = getMaxCursorScroll();
+        }
+        if (value < 0) {
+            this.cursorScroll = 0;
         }
         updateContentShowing();
     }
@@ -266,6 +285,7 @@ public class ScreenExistingPlans extends JPanel {
                                     DialogMessage.CENTER_CENTER,
                                     "Information", new String[] { "Xóa kế hoạch thành công" }, Setting.INFORMATION);
                             updateButton();
+                            setCurscorScroll(getCursorScroll());
                             repaint();
                             break;
                         }

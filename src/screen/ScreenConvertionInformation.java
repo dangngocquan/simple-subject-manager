@@ -1,7 +1,6 @@
 package src.screen;
 
 import javax.swing.JPanel;
-
 import src.animation.AnimationPanel;
 import src.curriculum.Data;
 import src.dialog.DialogList;
@@ -9,12 +8,7 @@ import src.launcher.Application;
 import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.ConversionTable;
-import src.objects.Department;
-import src.objects.Major;
-import src.objects.School;
 import src.panel.PanelConvertion;
-import src.panel.PanelMajor;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.Graphics;

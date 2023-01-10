@@ -540,7 +540,8 @@ public class Button extends JPanel {
                     String[] words = textLine.split(" ");
                     String tempString = "";
                     for (int index1 = 0; index1 < words.length; index1++) {
-                        if (getSizeText((tempString + " " + words[index1]).trim(), font)[0] <= this.width - 4) {
+                        if (getSizeText((tempString + " " + words[index1]).trim(), font)[0] <= this.width - 4
+                                - Math.abs(xText * 2)) {
                             tempString = (tempString + " " + words[index1]).trim();
                         } else {
                             if (tempString.isEmpty()) {

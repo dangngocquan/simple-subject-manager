@@ -228,4 +228,24 @@ public class Setting {
         public static final ImageIcon UNLOCK = new ImageIcon("assets/icon/unlock.png");
         public static final ImageIcon RUN = new ImageIcon("assets/icon/run.png");
 
+        // Image guide
+        public static final ImageIcon GUIDE_ADD_NEW_SUBJECT = new ImageIcon(
+                        "assets/images/guide/time_table/add_new_subject.png");
+        public static final ImageIcon GUIDE_EDIT_SUBJECT = new ImageIcon(
+                        "assets/images/guide/time_table/edit_subject.png");
+        public static final ImageIcon GUIDE_REMOVE_SUBJECT = new ImageIcon(
+                        "assets/images/guide/time_table/remove_subject.png");
+        public static final ImageIcon GUIDE_ADD_NEW_CLASS_OF_SUBJECT = new ImageIcon(
+                        "assets/images/guide/time_table/add_new_class_of_subject.png");
+        public static final ImageIcon GUIDE_REMOVE_CLASS_OF_SUBJECT = new ImageIcon(
+                        "assets/images/guide/time_table/remove_class_of_subject.png");
+        public static final ImageIcon GUIDE_TURN_OFF_SUBJECT = new ImageIcon(
+                        "assets/images/guide/time_table/turn_off_subject.png");
+        public static final ImageIcon GUIDE_TURN_OFF_CLASS_OF_SUBJECT = new ImageIcon(
+                        "assets/images/guide/time_table/turn_off_class_of_subject.png");
+        public static final ImageIcon GUIDE_CHECK_VALID_TIME_TABLE_1 = new ImageIcon(
+                        "assets/images/guide/time_table/check_valid_time_table_1.png");
+        public static final ImageIcon GUIDE_CHECK_VALID_TIME_TABLE_2 = new ImageIcon(
+                        "assets/images/guide/time_table/check_valid_time_table_2.png");
+
 }
