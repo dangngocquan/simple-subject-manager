@@ -23,6 +23,14 @@ public class ConversionTableManager {
         return names;
     }
 
+    public String[] getArrayConvertionNames() {
+        String[] names = new String[this.conversionTables.size()];
+        for (int i = 0; i < names.length; i++) {
+            names[i] = this.conversionTables.get(i).getName();
+        }
+        return names;
+    }
+
     // Setter
     public void setConversionTables(List<ConversionTable> lst) {
         this.conversionTables = lst;

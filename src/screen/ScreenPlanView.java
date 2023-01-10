@@ -1,7 +1,6 @@
 package src.screen;
 
 import javax.swing.JPanel;
-
 import src.animation.AnimationPanel;
 import src.launcher.Application;
 import src.launcher.Setting;
@@ -14,7 +13,6 @@ import src.panel.PanelSubjectList;
 import src.panel.PanelTimeTable;
 import src.panel.PanelUpdateScoreSubject;
 import src.panel.PanelUpdateStatusSubject;
-
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
@@ -147,16 +145,6 @@ public class ScreenPlanView extends JPanel {
                 panelSubjectList = new PanelSubjectList(0, 0, contentPanel.getWidth(), contentPanel.getHeight(),
                                 this.plan,
                                 PanelSubjectList.TOP_LEFT);
-                panelUpdateStatusSubject = new PanelUpdateStatusSubject(0, 0, contentPanel.getWidth(),
-                                contentPanel.getHeight(),
-                                plan, indexPlan, PanelUpdateStatusSubject.TOP_LEFT);
-                panelCalculateScoreLastTerm = new PanelCalculateScoreLastTerm(0, 0, contentPanel.getWidth(),
-                                contentPanel.getHeight(), Button.ARIAL_BOLD_18, PanelMapRelativeSubjects.TOP_LEFT,
-                                this.plan.getConversionTable(),
-                                applicationFrame);
-                panelTimeTable = new PanelTimeTable(0, 0, contentPanel.getWidth(),
-                                contentPanel.getHeight(), null, PanelTimeTable.TOP_LEFT,
-                                plan, indexPlan, applicationFrame);
 
                 panelButtonEnetering = new JPanel();
                 panelButtonEnetering.setLayout(null);
@@ -179,16 +167,10 @@ public class ScreenPlanView extends JPanel {
                 optionalPanel.add(panelButtonEnetering);
                 viewPanel.add(contentPanel);
                 contentPanel.add(panelSubjectList);
-                contentPanel.add(panelUpdateStatusSubject);
-                contentPanel.add(panelCalculateScoreLastTerm);
-                contentPanel.add(panelTimeTable);
 
                 // Set visible of screens
                 mainScreen.setVisible(true);
                 panelSubjectList.setVisible(true);
-                panelUpdateStatusSubject.setVisible(false);
-                panelTimeTable.setVisible(false);
-                panelCalculateScoreLastTerm.setVisible(false);
         }
 
         // Getter
@@ -232,6 +214,8 @@ public class ScreenPlanView extends JPanel {
                         // Press at "Back" button
                         if (event.getSource() == buttons[0]) {
                                 getParentScreen().getMainScreen().setVisible(true);
+                                setIndexButtonEntering(1);
+                                panelSubjectList.setVisible(true);
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
                                         panelCPA.getTimer().stop();
@@ -241,6 +225,12 @@ public class ScreenPlanView extends JPanel {
                                 }
                                 if (panelMapRelativeSubjects != null) {
                                         panelMapRelativeSubjects.setVisible(false);
+                                }
+                                if (panelUpdateStatusSubject != null) {
+                                        panelUpdateStatusSubject.setVisible(false);
+                                }
+                                if (panelCalculateScoreLastTerm != null) {
+                                        panelCalculateScoreLastTerm.setVisible(false);
                                 }
                                 getParentScreen().getScreenPlanViews()[indexPlan].setVisible(false);
                                 AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
@@ -255,13 +245,18 @@ public class ScreenPlanView extends JPanel {
                                 if (panelUpdateScoreSubject != null) {
                                         panelUpdateScoreSubject.setVisible(false);
                                 }
-
-                                panelUpdateStatusSubject.setVisible(false);
+                                if (panelUpdateStatusSubject != null) {
+                                        panelUpdateStatusSubject.setVisible(false);
+                                }
                                 if (panelMapRelativeSubjects != null) {
                                         panelMapRelativeSubjects.setVisible(false);
                                 }
-                                panelCalculateScoreLastTerm.setVisible(false);
-                                panelTimeTable.setVisible(false);
+                                if (panelCalculateScoreLastTerm != null) {
+                                        panelCalculateScoreLastTerm.setVisible(false);
+                                }
+                                if (panelTimeTable != null) {
+                                        panelTimeTable.setVisible(true);
+                                }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
                                         panelCPA.getTimer().stop();
@@ -274,23 +269,30 @@ public class ScreenPlanView extends JPanel {
                         // Press at "Update score of subjects" button
                         else if (event.getSource() == buttons[2]) {
                                 setIndexButtonEntering(2);
+                                panelSubjectList.setVisible(false);
                                 if (panelUpdateScoreSubject == null) {
                                         panelUpdateScoreSubject = new PanelUpdateScoreSubject(0, 0,
                                                         contentPanel.getWidth(),
                                                         contentPanel.getHeight(),
                                                         plan, indexPlan, PanelUpdateScoreSubject.TOP_LEFT);
+                                        panelUpdateScoreSubject.updateContentData();
                                         contentPanel.add(panelUpdateScoreSubject);
                                 } else {
+                                        panelUpdateScoreSubject.updateContentData();
                                         panelUpdateScoreSubject.setVisible(true);
                                 }
-                                panelSubjectList.setVisible(false);
-                                panelUpdateScoreSubject.updateContentData();
-                                panelUpdateStatusSubject.setVisible(false);
+                                if (panelUpdateStatusSubject != null) {
+                                        panelUpdateStatusSubject.setVisible(false);
+                                }
                                 if (panelMapRelativeSubjects != null) {
                                         panelMapRelativeSubjects.setVisible(false);
                                 }
-                                panelCalculateScoreLastTerm.setVisible(false);
-                                panelTimeTable.setVisible(false);
+                                if (panelCalculateScoreLastTerm != null) {
+                                        panelCalculateScoreLastTerm.setVisible(false);
+                                }
+                                if (panelTimeTable != null) {
+                                        panelTimeTable.setVisible(true);
+                                }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
                                         panelCPA.getTimer().stop();
@@ -307,13 +309,26 @@ public class ScreenPlanView extends JPanel {
                                 if (panelUpdateScoreSubject != null) {
                                         panelUpdateScoreSubject.setVisible(false);
                                 }
-                                panelUpdateStatusSubject.updateContentData();
-                                panelUpdateStatusSubject.setVisible(true);
+                                if (panelUpdateStatusSubject == null) {
+                                        panelUpdateStatusSubject = new PanelUpdateStatusSubject(0, 0,
+                                                        contentPanel.getWidth(),
+                                                        contentPanel.getHeight(),
+                                                        plan, indexPlan, PanelUpdateStatusSubject.TOP_LEFT);
+                                        contentPanel.add(panelUpdateStatusSubject);
+                                        panelUpdateStatusSubject.updateContentData();
+                                } else {
+                                        panelUpdateStatusSubject.updateContentData();
+                                        panelUpdateStatusSubject.setVisible(true);
+                                }
                                 if (panelMapRelativeSubjects != null) {
                                         panelMapRelativeSubjects.setVisible(false);
                                 }
-                                panelCalculateScoreLastTerm.setVisible(false);
-                                panelTimeTable.setVisible(false);
+                                if (panelCalculateScoreLastTerm != null) {
+                                        panelCalculateScoreLastTerm.setVisible(false);
+                                }
+                                if (panelTimeTable != null) {
+                                        panelTimeTable.setVisible(true);
+                                }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
                                         panelCPA.getTimer().stop();
@@ -326,6 +341,13 @@ public class ScreenPlanView extends JPanel {
                         // Press at "Map relative subjects" button
                         else if (event.getSource() == buttons[3]) {
                                 setIndexButtonEntering(3);
+                                panelSubjectList.setVisible(false);
+                                if (panelUpdateScoreSubject != null) {
+                                        panelUpdateScoreSubject.setVisible(false);
+                                }
+                                if (panelUpdateStatusSubject != null) {
+                                        panelUpdateStatusSubject.setVisible(false);
+                                }
                                 if (panelMapRelativeSubjects == null) {
                                         panelMapRelativeSubjects = new PanelMapRelativeSubjects(0, 0,
                                                         contentPanel.getWidth(),
@@ -335,14 +357,12 @@ public class ScreenPlanView extends JPanel {
                                 } else {
                                         panelMapRelativeSubjects.setVisible(true);
                                 }
-                                panelSubjectList.setVisible(false);
-                                if (panelUpdateScoreSubject != null) {
-                                        panelUpdateScoreSubject.setVisible(false);
+                                if (panelCalculateScoreLastTerm != null) {
+                                        panelCalculateScoreLastTerm.setVisible(false);
                                 }
-                                panelUpdateStatusSubject.setVisible(false);
-                                panelMapRelativeSubjects.setVisible(true);
-                                panelCalculateScoreLastTerm.setVisible(false);
-                                panelTimeTable.setVisible(false);
+                                if (panelTimeTable != null) {
+                                        panelTimeTable.setVisible(true);
+                                }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
                                         panelCPA.getTimer().stop();
@@ -359,12 +379,26 @@ public class ScreenPlanView extends JPanel {
                                 if (panelUpdateScoreSubject != null) {
                                         panelUpdateScoreSubject.setVisible(false);
                                 }
-                                panelUpdateStatusSubject.setVisible(false);
+                                if (panelUpdateStatusSubject != null) {
+                                        panelUpdateStatusSubject.setVisible(false);
+                                }
                                 if (panelMapRelativeSubjects != null) {
                                         panelMapRelativeSubjects.setVisible(false);
                                 }
-                                panelCalculateScoreLastTerm.setVisible(true);
-                                panelTimeTable.setVisible(false);
+                                if (panelCalculateScoreLastTerm == null) {
+                                        panelCalculateScoreLastTerm = new PanelCalculateScoreLastTerm(0, 0,
+                                                        contentPanel.getWidth(),
+                                                        contentPanel.getHeight(), Button.ARIAL_BOLD_18,
+                                                        PanelMapRelativeSubjects.TOP_LEFT,
+                                                        plan.getConversionTable(),
+                                                        applicationFrame);
+                                        contentPanel.add(panelCalculateScoreLastTerm);
+                                } else {
+                                        panelCalculateScoreLastTerm.setVisible(true);
+                                }
+                                if (panelTimeTable != null) {
+                                        panelTimeTable.setVisible(true);
+                                }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
                                         panelCPA.getTimer().stop();
@@ -382,12 +416,23 @@ public class ScreenPlanView extends JPanel {
                                 if (panelUpdateScoreSubject != null) {
                                         panelUpdateScoreSubject.setVisible(false);
                                 }
-                                panelUpdateStatusSubject.setVisible(false);
+                                if (panelUpdateStatusSubject != null) {
+                                        panelUpdateStatusSubject.setVisible(false);
+                                }
                                 if (panelMapRelativeSubjects != null) {
                                         panelMapRelativeSubjects.setVisible(false);
                                 }
-                                panelCalculateScoreLastTerm.setVisible(false);
-                                panelTimeTable.setVisible(true);
+                                if (panelCalculateScoreLastTerm != null) {
+                                        panelCalculateScoreLastTerm.setVisible(false);
+                                }
+                                if (panelTimeTable == null) {
+                                        panelTimeTable = new PanelTimeTable(0, 0, contentPanel.getWidth(),
+                                                        contentPanel.getHeight(), null, PanelTimeTable.TOP_LEFT,
+                                                        plan, indexPlan, applicationFrame);
+                                        contentPanel.add(panelTimeTable);
+                                } else {
+                                        panelTimeTable.setVisible(true);
+                                }
                                 if (panelCPA != null) {
                                         panelCPA.setVisible(false);
                                         panelCPA.getTimer().stop();
@@ -404,13 +449,18 @@ public class ScreenPlanView extends JPanel {
                                 if (panelUpdateScoreSubject != null) {
                                         panelUpdateScoreSubject.setVisible(false);
                                 }
-                                panelUpdateStatusSubject.setVisible(false);
+                                if (panelUpdateStatusSubject != null) {
+                                        panelUpdateStatusSubject.setVisible(false);
+                                }
                                 if (panelMapRelativeSubjects != null) {
                                         panelMapRelativeSubjects.setVisible(false);
                                 }
-
-                                panelCalculateScoreLastTerm.setVisible(false);
-                                panelTimeTable.setVisible(false);
+                                if (panelCalculateScoreLastTerm != null) {
+                                        panelCalculateScoreLastTerm.setVisible(false);
+                                }
+                                if (panelTimeTable != null) {
+                                        panelTimeTable.setVisible(true);
+                                }
                                 if (panelCPA == null) {
                                         panelCPA = new PanelCPA(0, 0, contentPanel.getWidth(),
                                                         contentPanel.getHeight(), plan, PanelTimeTable.TOP_LEFT);

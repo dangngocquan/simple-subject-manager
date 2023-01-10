@@ -138,6 +138,7 @@ public class ScreenPlans extends JPanel {
             }
             // Press at "Back" button
             else if (event.getSource() == buttons[2]) {
+                // getParentScreen().getMainScreen().repaint();
                 getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenPlans().setVisible(false);
                 AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),

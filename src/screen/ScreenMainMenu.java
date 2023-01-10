@@ -1,14 +1,12 @@
 package src.screen;
 
 import javax.swing.JPanel;
-
 import src.animation.AnimationPanel;
 import src.file_handler.ReadFile;
 import src.launcher.Application;
 import src.objects.Account;
 import src.objects.Button;
 import src.panel.PanelString;
-
 import java.awt.Graphics;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -39,6 +37,7 @@ public class ScreenMainMenu extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, mainScreen.getWidth(), mainScreen.getHeight());
+        // mainScreen.addMouseMotionListener(new MouseMotionHandler());
 
         // Create description (Who is using app?)
         descriptionPanel = new PanelString(getWidth() / 2, getHeight() / 12 * 2,
@@ -50,7 +49,6 @@ public class ScreenMainMenu extends JPanel {
         // Create buttons
         buttons = new Button[buttonTexts.length];
         for (int count = 0; count < buttonTexts.length; count++) {
-            // buttons[count] = new Button(buttonTexts[count]);
             buttons[count] = new Button(buttonTexts[count]);
             buttons[count].setFontText(Button.ARIAL_BOLD_24);
             buttons[count].setCorrectSizeButton();
@@ -178,7 +176,6 @@ public class ScreenMainMenu extends JPanel {
 
         @Override
         public void mouseReleased(MouseEvent event) {
-
         }
 
         @Override

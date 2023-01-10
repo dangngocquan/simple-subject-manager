@@ -14,12 +14,13 @@ public class ScreenInformation extends JPanel {
     // Properties, Objects and Screens
     private Application applicationFrame;
     private String[] buttonTexts = {
-            "Khung chương trình đào tạo", "Quay lại"
+            "Khung chương trình đào tạo", "Quay lại", "Bảng quy đổi điểm"
     };
     private Button[] buttons;
     private ScreenMainMenu parentScreen;
     private JPanel mainScreen;
     private ScreenCurriculumInformation screenCurriculumInformation;
+    private ScreenConvertionInformation screenConvertionInformation;
 
     // Constructor
     public ScreenInformation(int width, int height, ScreenMainMenu parentScreen, Application frame) {
@@ -35,7 +36,6 @@ public class ScreenInformation extends JPanel {
         mainScreen.setLayout(null);
         mainScreen.setSize(width, height);
         mainScreen.setBounds(0, 0, width, height);
-        screenCurriculumInformation = new ScreenCurriculumInformation(width, height, this, applicationFrame);
 
         // Create buttons
         buttons = new Button[buttonTexts.length];
@@ -47,8 +47,9 @@ public class ScreenInformation extends JPanel {
         }
 
         // Set location for each button
-        buttons[0].setLocationButton(width / 2, height / 12 * 5, Button.TOP_CENTER);
+        buttons[0].setLocationButton(width / 2, height / 12 * 3, Button.TOP_CENTER);
         buttons[1].setLocationButton(width / 2, height / 12 * 7, Button.TOP_CENTER);
+        buttons[2].setLocationButton(width / 2, height / 12 * 5, Button.TOP_CENTER);
 
         // Add buttons to mainScreen
         for (Button button : buttons) {
@@ -57,11 +58,9 @@ public class ScreenInformation extends JPanel {
 
         // Add screen to this panel
         add(mainScreen);
-        add(screenCurriculumInformation);
 
         // Set visible of screens
         mainScreen.setVisible(true);
-        screenCurriculumInformation.setVisible(false);
     }
 
     // Get application frame
@@ -89,6 +88,11 @@ public class ScreenInformation extends JPanel {
         return this.screenCurriculumInformation;
     }
 
+    // Get screenConvetionInformation
+    public ScreenConvertionInformation getScreenConvertionInformation() {
+        return this.screenConvertionInformation;
+    }
+
     // Auto called method of JPanel
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -104,17 +108,50 @@ public class ScreenInformation extends JPanel {
         public void mousePressed(MouseEvent event) {
             // Press at "Curriculums" in mainScreen
             if (event.getSource() == buttons[0]) {
-                getScreenCurriculumInformation().setVisible(true);
                 getMainScreen().setVisible(false);
+                if (screenCurriculumInformation == null) {
+                    screenCurriculumInformation = new ScreenCurriculumInformation(mainScreen.getWidth(),
+                            mainScreen.getHeight(), ScreenInformation.this, applicationFrame);
+                    ScreenInformation.this.add(screenCurriculumInformation);
+                } else {
+                    screenCurriculumInformation.setVisible(true);
+                }
+                if (screenConvertionInformation != null) {
+                    screenConvertionInformation.setVisible(false);
+                }
                 AnimationPanel animation = new AnimationPanel(getScreenCurriculumInformation(),
                         getScreenCurriculumInformation().getWidth(), 0, 0, 0,
                         300);
                 animation.start();
             }
+            // Press at "Convertion" in mainScreen
+            else if (event.getSource() == buttons[2]) {
+                getMainScreen().setVisible(false);
+                if (screenCurriculumInformation != null) {
+                    screenCurriculumInformation.setVisible(false);
+                }
+                if (screenConvertionInformation == null) {
+                    screenConvertionInformation = new ScreenConvertionInformation(mainScreen.getWidth(),
+                            mainScreen.getHeight(), ScreenInformation.this, applicationFrame);
+                    ScreenInformation.this.add(screenConvertionInformation);
+                } else {
+                    screenConvertionInformation.setVisible(true);
+                }
+                AnimationPanel animation = new AnimationPanel(getScreenConvertionInformation(),
+                        getScreenConvertionInformation().getWidth(), 0, 0, 0,
+                        300);
+                animation.start();
+            }
             // Press at "Back" in mainScreen
             else if (event.getSource() == buttons[1]) {
-                getParentScreen().getMainScreen().setVisible(true);
                 getParentScreen().getScreenInformation().setVisible(false);
+                getParentScreen().getMainScreen().setVisible(true);
+                if (screenCurriculumInformation != null) {
+                    screenCurriculumInformation.setVisible(false);
+                }
+                if (screenConvertionInformation != null) {
+                    screenConvertionInformation.setVisible(false);
+                }
                 AnimationPanel animation = new AnimationPanel(getParentScreen().getMainScreen(),
                         -getParentScreen().getMainScreen().getWidth(), 0, 0, 0,
                         300);
