@@ -495,7 +495,8 @@ public class Button extends JPanel {
             if (this.backgroundImage != null) {
                 g2.setRenderingHint(RenderingHints.KEY_RENDERING,
                         RenderingHints.VALUE_RENDER_QUALITY);
-                g2.drawImage(this.backgroundImage.getImage(), 0, 0, this.width, this.height, null);
+                g2.drawImage(this.backgroundImage.getImage(), strokeWidth, strokeWidth, this.width - 2 * strokeWidth,
+                        this.height - 2 * strokeWidth, null);
             }
             // draw background icon (if have)
             if (this.backgroundIcon != null) {

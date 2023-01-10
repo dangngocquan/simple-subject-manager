@@ -2,6 +2,7 @@ package src.screen;
 
 import javax.swing.JPanel;
 import src.animation.AnimationPanel;
+import src.dialog.DialogGuideMapRelative;
 import src.dialog.DialogGuideTimeTable;
 import src.launcher.Application;
 import src.launcher.Setting;
@@ -269,6 +270,10 @@ public class ScreenPlanView extends JPanel {
                         else if (event.getSource() == buttonGuide) {
                                 if (indexButtonEntering == 4) {
                                         new DialogGuideTimeTable(Setting.WIDTH / 2, Setting.HEIGHT / 2,
+                                                        Setting.WIDTH / 10 * 9, Setting.HEIGHT / 10 * 9,
+                                                        DialogGuideTimeTable.CENTER_CENTER, "Guide");
+                                } else if (indexButtonEntering == 3) {
+                                        new DialogGuideMapRelative(Setting.WIDTH / 2, Setting.HEIGHT / 2,
                                                         Setting.WIDTH / 10 * 9, Setting.HEIGHT / 10 * 9,
                                                         DialogGuideTimeTable.CENTER_CENTER, "Guide");
                                 }

@@ -228,7 +228,7 @@ public class Setting {
         public static final ImageIcon UNLOCK = new ImageIcon("assets/icon/unlock.png");
         public static final ImageIcon RUN = new ImageIcon("assets/icon/run.png");
 
-        // Image guide
+        // Image guide in Time table
         public static final ImageIcon GUIDE_ADD_NEW_SUBJECT = new ImageIcon(
                         "assets/images/guide/time_table/add_new_subject.png");
         public static final ImageIcon GUIDE_EDIT_SUBJECT = new ImageIcon(
@@ -247,5 +247,27 @@ public class Setting {
                         "assets/images/guide/time_table/check_valid_time_table_1.png");
         public static final ImageIcon GUIDE_CHECK_VALID_TIME_TABLE_2 = new ImageIcon(
                         "assets/images/guide/time_table/check_valid_time_table_2.png");
+
+        // Image guide in Map Relative
+        public static final ImageIcon GUIDE_ZOOM_MAP_1 = new ImageIcon(
+                        "assets/images/guide/map_relative/zoom_1.png");
+        public static final ImageIcon GUIDE_ZOOM_MAP_2 = new ImageIcon(
+                        "assets/images/guide/map_relative/zoom_2.png");
+        public static final ImageIcon GUIDE_CTRL_ZOOM_MAP_1 = new ImageIcon(
+                        "assets/images/guide/map_relative/ctrl_zoom_1.png");
+        public static final ImageIcon GUIDE_CTRL_ZOOM_MAP_2 = new ImageIcon(
+                        "assets/images/guide/map_relative/ctrl_zoom_2.png");
+        public static final ImageIcon GUIDE_SHIFT_ZOOM_MAP_1 = new ImageIcon(
+                        "assets/images/guide/map_relative/shift_zoom_1.png");
+        public static final ImageIcon GUIDE_SHIFT_ZOOM_MAP_2 = new ImageIcon(
+                        "assets/images/guide/map_relative/shift_zoom_2.png");
+        public static final ImageIcon GUIDE_DRAGGED_MAP_1 = new ImageIcon(
+                        "assets/images/guide/map_relative/dragged_1.png");
+        public static final ImageIcon GUIDE_DRAGGED_MAP_2 = new ImageIcon(
+                        "assets/images/guide/map_relative/dragged_2.png");
+        public static final ImageIcon GUIDE_ENTERED_MAP = new ImageIcon(
+                        "assets/images/guide/map_relative/entered.png");
+        public static final ImageIcon GUIDE_PRESSED_MAP_1 = new ImageIcon(
+                        "assets/images/guide/map_relative/pressed_1.png");
 
 }
