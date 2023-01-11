@@ -204,7 +204,6 @@ public class Plan {
     public boolean checkValidMap() {
         for (Subject subject : this.subjects) {
             if (!subject.hasValidCoordinateInMap()) {
-                // System.out.println(subject.getCode() + " " + getIndexOfSubject(subject));
                 for (Subject subject1 : subjects) {
                     subject1.setRowIndexSorted(-1);
                     subject1.setColumnIndexSorted(-1);

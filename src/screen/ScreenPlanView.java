@@ -220,6 +220,11 @@ public class ScreenPlanView extends JPanel {
                 AnimationPanel animation2 = new AnimationPanel(buttonGuide, x3, y3, x4, y4, 300);
                 animation.start();
                 animation2.start();
+                if (index == 3 || index == 4) {
+                        buttonGuide.setVisible(true);
+                } else {
+                        buttonGuide.setVisible(false);
+                }
 
         }
 

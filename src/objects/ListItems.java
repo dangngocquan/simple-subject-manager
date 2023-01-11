@@ -1,17 +1,10 @@
 package src.objects;
 
 import javax.swing.JPanel;
-
 import src.launcher.Setting;
-
 import java.awt.Graphics;
-// import java.awt.Graphics2D;
 import java.awt.Font;
 import java.awt.Color;
-// import java.awt.GradientPaint;
-// import java.awt.Canvas;
-// import java.awt.FontMetrics;
-// import java.awt.RenderingHints;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelListener;

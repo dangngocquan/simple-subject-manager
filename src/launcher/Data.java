@@ -18,6 +18,7 @@ public class Data {
     public static SchoolManager SCHOOLS = null;
     public static ConversionTableManager CONVERSIONS = null;
     public static Data instance = null;
+    public static int maxCount = 6, tempCount = 0;
 
     public Data() {
         instance = this;
@@ -32,8 +33,31 @@ public class Data {
                 Department department1s1 = new Department("");
                 department1s1.setName(getStringFromFile(path + "/SCHOOL001/DEPARTMENT001/departmentName.txt", true));
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR001"));
+
+                try {
+                    Thread.sleep(800);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                tempCount++;
+
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR002"));
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR003"));
+
+                try {
+                    Thread.sleep(800);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                tempCount++;
+
+                try {
+                    Thread.sleep(300);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                tempCount++;
+
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR004"));
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR005"));
                 school1.addDepartment(department1s1);
@@ -44,6 +68,12 @@ public class Data {
                 school1.addDepartment(department4s1);
 
                 SCHOOLS.addSchool(school1);
+                try {
+                    Thread.sleep(300);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                tempCount++;
 
                 School school2 = new School("");
                 school2.setName(getStringFromFile(path + "/SCHOOL002/schoolName.txt", true));
@@ -55,6 +85,12 @@ public class Data {
                 school2.addDepartment(department1s2);
 
                 SCHOOLS.addSchool(school2);
+                try {
+                    Thread.sleep(700);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                tempCount++;
             } catch (Exception e) {
                 System.out.println("Error when read major " + e.getMessage());
             }
@@ -72,6 +108,14 @@ public class Data {
                 for (String nameFile : nameFiles) {
                     CONVERSIONS.addConversionTable(getConversionTableFromFile(path + "/" + nameFile));
                 }
+
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                tempCount++;
             } catch (Exception e) {
 
             }

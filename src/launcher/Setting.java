@@ -253,6 +253,9 @@ public class Setting {
         public static ImageIcon GUIDE_ENTERED_MAP = null;
         public static ImageIcon GUIDE_PRESSED_MAP_1 = null;
 
+        // Splash screen
+        public static ImageIcon[] SPLASH = null;
+
         public Setting() {
                 instance = this;
                 try {
@@ -336,6 +339,22 @@ public class Setting {
                                         "assets/images/guide/map_relative/entered.png"));
                         GUIDE_PRESSED_MAP_1 = new ImageIcon(instance.getClass().getResource(
                                         "assets/images/guide/map_relative/pressed_1.png"));
+
+                        // Splash
+                        SPLASH = new ImageIcon[] {
+                                        new ImageIcon(instance.getClass()
+                                                        .getResource("assets/images/splash/splash_1.png")),
+                                        new ImageIcon(instance.getClass()
+                                                        .getResource("assets/images/splash/splash_2.png")),
+                                        new ImageIcon(instance.getClass()
+                                                        .getResource("assets/images/splash/splash_3.png")),
+                                        new ImageIcon(instance.getClass()
+                                                        .getResource("assets/images/splash/splash_4.png")),
+                                        new ImageIcon(instance.getClass()
+                                                        .getResource("assets/images/splash/splash_5.png")),
+                                        new ImageIcon(instance.getClass()
+                                                        .getResource("assets/images/splash/splash_6.png")),
+                        };
                 } catch (Exception e) {
                         System.out.println("Error when read img");
                 }

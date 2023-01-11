@@ -284,7 +284,7 @@ public class DialogGuideMapRelative {
         button17.setBackgroundImage(Setting.GUIDE_PRESSED_MAP_1);
         button17.setEnable(false);
         panelScroll.add(button17);
-        tempHeight += button17.getHeight() + 10;
+        tempHeight += button17.getHeight() + 100;
 
         panelScroll.setSize(width, Math.max(tempHeight, height));
         panelScroll.setLocation(0, 0);
