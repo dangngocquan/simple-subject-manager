@@ -3,8 +3,8 @@ package src.panel;
 import javax.swing.JPanel;
 
 import src.dialog.DialogUpdateMapRelative;
-import src.file_handler.WriteFile;
 import src.launcher.Setting;
+import src.launcher.WriteFile;
 import src.objects.ArrowVector;
 import src.objects.Button;
 import src.objects.Plan;

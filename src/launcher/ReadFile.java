@@ -1,4 +1,4 @@
-package src.file_handler;
+package src.launcher;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,19 +8,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 import src.objects.Account;
-import src.objects.ConversionTable;
-import src.objects.KnowledgePart;
-import src.objects.Major;
 import src.objects.Plan;
 import src.objects.Subject;
 import src.objects.TimeTable;
 
 public class ReadFile {
-    public static final String PATH_DATA = "C:/GPA_Plan";
-    public static final String PATH_DATA_TEMP = "C:/GPA_Plan/Temp";
-    public static final String PATH_DATA_TEMP_1 = "C:/GPA_Plan/Temp/tempAccount.txt";
-    public static final String PATH_DATA_ACCOUNT = "C:/GPA_Plan/Accounts";
-    public static final String PATH_DATA_ACCOUNT_1 = "C:/GPA_Plan/Accounts/count.txt";
+    public static final String PATH_DATA = "C:/SimpleSubjectManager";
+    public static final String PATH_DATA_TEMP = "C:/SimpleSubjectManager/Temp";
+    public static final String PATH_DATA_TEMP_1 = "C:/SimpleSubjectManager/Temp/tempAccount.txt";
+    public static final String PATH_DATA_ACCOUNT = "C:/SimpleSubjectManager/Accounts";
+    public static final String PATH_DATA_ACCOUNT_1 = "C:/SimpleSubjectManager/Accounts/count.txt";
+
+    public static ReadFile instance;
+
+    public ReadFile() {
+        instance = this;
+    }
 
     // Get number current accounts
     public static int getNumberExistingAccounts() {
@@ -312,151 +315,4 @@ public class ReadFile {
         return -1;
     }
 
-    // Get a Major instance from a folder, this folder contains a file txt and a
-    // file csv
-    public static Major getMajorFromFolder(String path) {
-        // Get file names
-        File folder = new File(path);
-        String path1 = ""; // path of file csv
-        String path2 = ""; // path to file txt
-        String[] nameFiles = folder.list();
-        if (nameFiles[0].matches("\\w{0,}\\.csv")) {
-            path1 = path + "\\" + nameFiles[0];
-            path2 = path + "\\" + nameFiles[1];
-        } else {
-            path1 = path + "\\" + nameFiles[1];
-            path2 = path + "\\" + nameFiles[0];
-        }
-
-        // get major name
-        String majorName = getStringFromFile(path2);
-        Major major = new Major(majorName);
-
-        // get major departments
-        try {
-            // Open file csv
-            FileInputStream file = new FileInputStream(path1);
-            InputStreamReader inputStreamReader = new InputStreamReader(file, "UTF-8");
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-
-            // read data
-            String line = reader.readLine(); // Title
-            line = reader.readLine();
-            String typeSubject = ""; // "compulsory" | "optional"
-            String typeOptinal = "mainDesOptional"; // "OR" | "AND"
-            while (line != null) {
-                String[] datas = line.split(",");
-                String type = datas[0];
-                if (type.equals("subject")) {
-                    // Create subject
-                    String code = datas[1];
-                    String name = datas[2];
-                    int credits = Integer.parseInt(datas[3]);
-                    int defaultYearStudy = Integer.parseInt(datas[5]);
-                    String[] parentSubjectCodes = datas[4].split(";");
-                    Subject subject = new Subject(name, code, credits);
-                    subject.setSemester(defaultYearStudy);
-                    // Add parent subject codes for this subject
-                    for (String parentSubjectCode : parentSubjectCodes) {
-                        subject.addParentSubjectCode(parentSubjectCode.split("/"));
-                    }
-                    // Add subject to KnowlegePart of Major
-                    int lastIndex = major.getKnowledgeParts().size() - 1;
-                    if (typeSubject.equals("compulsory")) {
-                        major.getKnowledgeParts().get(lastIndex).addCompulsorySubject(
-                                subject,
-                                major.getKnowledgeParts().get(lastIndex).getNumberOfCompulsorySubjectsList() - 1);
-                    } else if (typeSubject.equals("optional")) {
-                        if (typeOptinal.equals("mainDesOptional")) {
-                            major.getKnowledgeParts().get(lastIndex).addOptionalSubject(
-                                    subject,
-                                    major.getKnowledgeParts().get(lastIndex).getNumberOfOptionalSubjectsList() - 1);
-                        } else if (typeOptinal.equals("mainDesOptionalAND")) {
-                            major.getKnowledgeParts().get(lastIndex).addOptionalSubjectAND(
-                                    subject,
-                                    major.getKnowledgeParts().get(lastIndex).getNumberOfOptionalSubjectsANDList() - 1);
-                        }
-
-                    }
-                } else if (type.equals("knowledge")) {
-                    // Create and add new KnowledgePart to major
-                    major.addKnowledgePart(new KnowledgePart(datas[1]));
-                } else {
-                    // Add compulsory | optional to last knowledgePart of major
-                    int lastIndex = major.getKnowledgeParts().size() - 1;
-                    if (type.equals("compulsory")) {
-                        typeSubject = type;
-                        major.getKnowledgeParts().get(lastIndex).getCompulsorySubjects().add(new LinkedList<Subject>());
-                        major.getKnowledgeParts().get(lastIndex).addDescriptionCompulsory(datas[1]);
-                        major.getKnowledgeParts().get(lastIndex)
-                                .addMinCreditsCompulsorySubjects(Integer.parseInt(datas[3]));
-                    } else if (type.equals("mainDesOptional")) {
-                        typeOptinal = type;
-                        major.getKnowledgeParts().get(lastIndex).setMainDescriptionOptionalSubjects(datas[1]);
-                    } else if (type.equals("mainDesOptionalAND")) {
-                        typeOptinal = type;
-                        major.getKnowledgeParts().get(lastIndex).setMainDescriptionOptionalSubjectsAND(datas[1]);
-                    } else if (type.equals("optional")) {
-                        typeSubject = type;
-                        if (typeOptinal.equals("mainDesOptional")) {
-                            major.getKnowledgeParts().get(lastIndex).getOptionalSubjects()
-                                    .add(new LinkedList<Subject>());
-                            major.getKnowledgeParts().get(lastIndex).addDescriptionOptional(datas[1]);
-                            major.getKnowledgeParts().get(lastIndex)
-                                    .addMinCreditsOptionalSubjects(Integer.parseInt(datas[3]));
-                        } else if (typeOptinal.equals("mainDesOptionalAND")) {
-                            major.getKnowledgeParts().get(lastIndex).getOptionalSubjectsAND()
-                                    .add(new LinkedList<Subject>());
-                            major.getKnowledgeParts().get(lastIndex).addDescriptionOptionalAND(datas[1]);
-                            major.getKnowledgeParts().get(lastIndex)
-                                    .addMinCreditsOptionalSubjectsAND(Integer.parseInt(datas[3]));
-                        }
-                    }
-                }
-                // Go to next line
-                line = reader.readLine();
-            }
-
-            // Add relative between subject
-            for (Subject subject : major.getSubjects()) {
-                for (String[] parentSubjectCodes : subject.getParentSubjectCodes()) {
-                    List<Subject> parentSubjectsList = new LinkedList<>();
-                    for (String parentSubjectCode : parentSubjectCodes) {
-                        for (Subject checkingSubject : major.getSubjects()) {
-                            if (parentSubjectCode.equals(checkingSubject.getCode())) {
-                                parentSubjectsList.add(checkingSubject);
-                            }
-                        }
-                    }
-                    Subject[] parentSubjects = new Subject[parentSubjectsList.size()];
-                    for (int index = 0; index < parentSubjectsList.size(); index++) {
-                        parentSubjects[index] = parentSubjectsList.get(index);
-                    }
-                    subject.addParentSubject(parentSubjects);
-                }
-
-            }
-
-            // Close file
-            reader.close();
-            inputStreamReader.close();
-            file.close();
-        } catch (Exception e) {
-        }
-        return major;
-    }
-
-    // Get conversion table from a file txt
-    public static ConversionTable getConversionTableFromFile(String path) {
-        List<String> data = getStringLinesFromFile(path);
-        String name = data.get(0);
-        String[] score10 = data.get(1).split(",");
-        String[] characterScore = data.get(2).split(",");
-        String[] score4 = data.get(3).split(",");
-        ConversionTable conversionTable = new ConversionTable(name);
-        conversionTable.setScore10(score10);
-        conversionTable.setCharacterScore(characterScore);
-        conversionTable.setScore4(score4);
-        return conversionTable;
-    }
 }

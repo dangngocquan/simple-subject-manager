@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Color;
 
 public class Setting {
+        public static Setting instance = null;
+
         public static int WIDTH = (int) (GraphicsEnvironment.getLocalGraphicsEnvironment()
                         .getMaximumWindowBounds().getWidth());
         public static int HEIGHT = (int) ((GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -211,63 +213,133 @@ public class Setting {
         };
 
         // ImageIcon
-        public static final ImageIcon LOGO = new ImageIcon("assets/icon/logo.png");
-        public static final ImageIcon ARROW_DOWN = new ImageIcon("assets/icon/arrow_down.png");
-        public static final ImageIcon ARROW_LEFT = new ImageIcon("assets/icon/arrow_left.png");
-        public static final ImageIcon ARROW_RIGHT = new ImageIcon("assets/icon/arrow_right.png");
-        public static final ImageIcon ARROW_UP = new ImageIcon("assets/icon/arrow_up.png");
-        public static final ImageIcon SETTING = new ImageIcon("assets/icon/setting.png");
-        public static final ImageIcon EDIT = new ImageIcon("assets/icon/edit.png");
-        public static final ImageIcon REMOVE = new ImageIcon("assets/icon/remove.png");
-        public static final ImageIcon COPY = new ImageIcon("assets/icon/copy.png");
-        public static final ImageIcon CHANGE = new ImageIcon("assets/icon/change.png");
-        public static final ImageIcon INFORMATION = new ImageIcon("assets/icon/information.png");
-        public static final ImageIcon WARNING = new ImageIcon("assets/icon/warning.png");
-        public static final ImageIcon ADD = new ImageIcon("assets/icon/add.png");
-        public static final ImageIcon LOCK = new ImageIcon("assets/icon/lock.png");
-        public static final ImageIcon UNLOCK = new ImageIcon("assets/icon/unlock.png");
-        public static final ImageIcon RUN = new ImageIcon("assets/icon/run.png");
+        public static ImageIcon LOGO = null;
+        public static ImageIcon ARROW_DOWN = null;
+        public static ImageIcon ARROW_LEFT = null;
+        public static ImageIcon ARROW_RIGHT = null;
+        public static ImageIcon ARROW_UP = null;
+        public static ImageIcon SETTING = null;
+        public static ImageIcon EDIT = null;
+        public static ImageIcon REMOVE = null;
+        public static ImageIcon COPY = null;
+        public static ImageIcon CHANGE = null;
+        public static ImageIcon INFORMATION = null;
+        public static ImageIcon WARNING = null;
+        public static ImageIcon ADD = null;
+        public static ImageIcon LOCK = null;
+        public static ImageIcon UNLOCK = null;
+        public static ImageIcon RUN = null;
 
         // Image guide in Time table
-        public static final ImageIcon GUIDE_ADD_NEW_SUBJECT = new ImageIcon(
-                        "assets/images/guide/time_table/add_new_subject.png");
-        public static final ImageIcon GUIDE_EDIT_SUBJECT = new ImageIcon(
-                        "assets/images/guide/time_table/edit_subject.png");
-        public static final ImageIcon GUIDE_REMOVE_SUBJECT = new ImageIcon(
-                        "assets/images/guide/time_table/remove_subject.png");
-        public static final ImageIcon GUIDE_ADD_NEW_CLASS_OF_SUBJECT = new ImageIcon(
-                        "assets/images/guide/time_table/add_new_class_of_subject.png");
-        public static final ImageIcon GUIDE_REMOVE_CLASS_OF_SUBJECT = new ImageIcon(
-                        "assets/images/guide/time_table/remove_class_of_subject.png");
-        public static final ImageIcon GUIDE_TURN_OFF_SUBJECT = new ImageIcon(
-                        "assets/images/guide/time_table/turn_off_subject.png");
-        public static final ImageIcon GUIDE_TURN_OFF_CLASS_OF_SUBJECT = new ImageIcon(
-                        "assets/images/guide/time_table/turn_off_class_of_subject.png");
-        public static final ImageIcon GUIDE_CHECK_VALID_TIME_TABLE_1 = new ImageIcon(
-                        "assets/images/guide/time_table/check_valid_time_table_1.png");
-        public static final ImageIcon GUIDE_CHECK_VALID_TIME_TABLE_2 = new ImageIcon(
-                        "assets/images/guide/time_table/check_valid_time_table_2.png");
+        public static ImageIcon GUIDE_ADD_NEW_SUBJECT = null;
+        public static ImageIcon GUIDE_EDIT_SUBJECT = null;
+        public static ImageIcon GUIDE_REMOVE_SUBJECT = null;
+        public static ImageIcon GUIDE_ADD_NEW_CLASS_OF_SUBJECT = null;
+        public static ImageIcon GUIDE_REMOVE_CLASS_OF_SUBJECT = null;
+        public static ImageIcon GUIDE_TURN_OFF_SUBJECT = null;
+        public static ImageIcon GUIDE_TURN_OFF_CLASS_OF_SUBJECT = null;
+        public static ImageIcon GUIDE_CHECK_VALID_TIME_TABLE_1 = null;
+        public static ImageIcon GUIDE_CHECK_VALID_TIME_TABLE_2 = null;
 
         // Image guide in Map Relative
-        public static final ImageIcon GUIDE_ZOOM_MAP_1 = new ImageIcon(
-                        "assets/images/guide/map_relative/zoom_1.png");
-        public static final ImageIcon GUIDE_ZOOM_MAP_2 = new ImageIcon(
-                        "assets/images/guide/map_relative/zoom_2.png");
-        public static final ImageIcon GUIDE_CTRL_ZOOM_MAP_1 = new ImageIcon(
-                        "assets/images/guide/map_relative/ctrl_zoom_1.png");
-        public static final ImageIcon GUIDE_CTRL_ZOOM_MAP_2 = new ImageIcon(
-                        "assets/images/guide/map_relative/ctrl_zoom_2.png");
-        public static final ImageIcon GUIDE_SHIFT_ZOOM_MAP_1 = new ImageIcon(
-                        "assets/images/guide/map_relative/shift_zoom_1.png");
-        public static final ImageIcon GUIDE_SHIFT_ZOOM_MAP_2 = new ImageIcon(
-                        "assets/images/guide/map_relative/shift_zoom_2.png");
-        public static final ImageIcon GUIDE_DRAGGED_MAP_1 = new ImageIcon(
-                        "assets/images/guide/map_relative/dragged_1.png");
-        public static final ImageIcon GUIDE_DRAGGED_MAP_2 = new ImageIcon(
-                        "assets/images/guide/map_relative/dragged_2.png");
-        public static final ImageIcon GUIDE_ENTERED_MAP = new ImageIcon(
-                        "assets/images/guide/map_relative/entered.png");
-        public static final ImageIcon GUIDE_PRESSED_MAP_1 = new ImageIcon(
-                        "assets/images/guide/map_relative/pressed_1.png");
+        public static ImageIcon GUIDE_ZOOM_MAP_1 = null;
+        public static ImageIcon GUIDE_ZOOM_MAP_2 = null;
+        public static ImageIcon GUIDE_CTRL_ZOOM_MAP_1 = null;
+        public static ImageIcon GUIDE_CTRL_ZOOM_MAP_2 = null;
+        public static ImageIcon GUIDE_SHIFT_ZOOM_MAP_1 = null;
+        public static ImageIcon GUIDE_SHIFT_ZOOM_MAP_2 = null;
+        public static ImageIcon GUIDE_DRAGGED_MAP_1 = null;
+        public static ImageIcon GUIDE_DRAGGED_MAP_2 = null;
+        public static ImageIcon GUIDE_ENTERED_MAP = null;
+        public static ImageIcon GUIDE_PRESSED_MAP_1 = null;
+
+        public Setting() {
+                instance = this;
+                try {
+                        // ImageIcon
+                        LOGO = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/logo.png"));
+                        ARROW_DOWN = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/arrow_down.png"));
+                        ARROW_LEFT = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/arrow_left.png"));
+                        ARROW_RIGHT = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/arrow_right.png"));
+                        ARROW_UP = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/arrow_up.png"));
+                        SETTING = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/setting.png"));
+                        EDIT = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/edit.png"));
+                        REMOVE = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/remove.png"));
+                        COPY = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/copy.png"));
+                        CHANGE = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/change.png"));
+                        INFORMATION = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/information.png"));
+                        WARNING = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/warning.png"));
+                        ADD = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/add.png"));
+                        LOCK = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/lock.png"));
+                        UNLOCK = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/unlock.png"));
+                        RUN = new ImageIcon(
+                                        instance.getClass().getResource("assets/icon/run.png"));
+
+                        // Image guide in Time table
+                        GUIDE_ADD_NEW_SUBJECT = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/time_table/add_new_subject.png"));
+                        GUIDE_EDIT_SUBJECT = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/time_table/edit_subject.png"));
+                        GUIDE_REMOVE_SUBJECT = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/time_table/remove_subject.png"));
+                        GUIDE_ADD_NEW_CLASS_OF_SUBJECT = new ImageIcon(
+                                        instance.getClass().getResource(
+                                                        "assets/images/guide/time_table/add_new_class_of_subject.png"));
+                        GUIDE_REMOVE_CLASS_OF_SUBJECT = new ImageIcon(
+                                        instance.getClass().getResource(
+                                                        "assets/images/guide/time_table/remove_class_of_subject.png"));
+                        GUIDE_TURN_OFF_SUBJECT = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/time_table/turn_off_subject.png"));
+                        GUIDE_TURN_OFF_CLASS_OF_SUBJECT = new ImageIcon(
+                                        instance.getClass().getResource(
+                                                        "assets/images/guide/time_table/turn_off_class_of_subject.png"));
+                        GUIDE_CHECK_VALID_TIME_TABLE_1 = new ImageIcon(
+                                        instance.getClass().getResource(
+                                                        "assets/images/guide/time_table/check_valid_time_table_1.png"));
+                        GUIDE_CHECK_VALID_TIME_TABLE_2 = new ImageIcon(
+                                        instance.getClass().getResource(
+                                                        "assets/images/guide/time_table/check_valid_time_table_2.png"));
+
+                        // Image guide in Map Relative
+                        GUIDE_ZOOM_MAP_1 = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/zoom_1.png"));
+                        GUIDE_ZOOM_MAP_2 = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/zoom_2.png"));
+                        GUIDE_CTRL_ZOOM_MAP_1 = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/ctrl_zoom_1.png"));
+                        GUIDE_CTRL_ZOOM_MAP_2 = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/ctrl_zoom_2.png"));
+                        GUIDE_SHIFT_ZOOM_MAP_1 = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/shift_zoom_1.png"));
+                        GUIDE_SHIFT_ZOOM_MAP_2 = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/shift_zoom_2.png"));
+                        GUIDE_DRAGGED_MAP_1 = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/dragged_1.png"));
+                        GUIDE_DRAGGED_MAP_2 = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/dragged_2.png"));
+                        GUIDE_ENTERED_MAP = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/entered.png"));
+                        GUIDE_PRESSED_MAP_1 = new ImageIcon(instance.getClass().getResource(
+                                        "assets/images/guide/map_relative/pressed_1.png"));
+                } catch (Exception e) {
+                        System.out.println("Error when read img");
+                }
+
+        }
 
 }

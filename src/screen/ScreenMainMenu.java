@@ -2,8 +2,8 @@ package src.screen;
 
 import javax.swing.JPanel;
 import src.animation.AnimationPanel;
-import src.file_handler.ReadFile;
 import src.launcher.Application;
+import src.launcher.ReadFile;
 import src.objects.Account;
 import src.objects.Button;
 import src.panel.PanelString;

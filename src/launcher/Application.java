@@ -5,9 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-import src.curriculum.Data;
 import src.dialog.DialogCreateNewAccount;
-import src.file_handler.ReadFile;
 import src.screen.ScreenMainMenu;
 
 import java.awt.Font;
@@ -35,7 +33,6 @@ public class Application extends JFrame {
                 setLayout(null);
                 ImageIcon icon = Setting.LOGO;
                 setIconImage(icon.getImage());
-                new Data();
 
                 // Create screens
                 screenMainMenu = new ScreenMainMenu(width - 14, height - 36, this);

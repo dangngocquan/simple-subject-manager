@@ -4,8 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import src.curriculum.Data;
-import src.file_handler.WriteFile;
+import src.launcher.Data;
+import src.launcher.WriteFile;
 
 public class Plan {
     private String name;

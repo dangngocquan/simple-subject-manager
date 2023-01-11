@@ -2,8 +2,8 @@ package src.panel;
 
 import javax.swing.JPanel;
 import src.dialog.DialogUpdateScoreSubject;
-import src.file_handler.WriteFile;
 import src.launcher.Setting;
+import src.launcher.WriteFile;
 import src.objects.Button;
 import src.objects.Plan;
 import src.objects.Subject;

@@ -4,9 +4,9 @@ import javax.swing.JPanel;
 
 import src.animation.AnimationPanel;
 import src.dialog.DialogMessage;
-import src.file_handler.WriteFile;
 import src.launcher.Application;
 import src.launcher.Setting;
+import src.launcher.WriteFile;
 import src.objects.Button;
 import src.objects.Plan;
 import src.objects.Subject;

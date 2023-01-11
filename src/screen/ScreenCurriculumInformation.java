@@ -3,9 +3,9 @@ package src.screen;
 import javax.swing.JPanel;
 
 import src.animation.AnimationPanel;
-import src.curriculum.Data;
 import src.dialog.DialogList;
 import src.launcher.Application;
+import src.launcher.Data;
 import src.launcher.Setting;
 import src.objects.Button;
 import src.objects.Department;
