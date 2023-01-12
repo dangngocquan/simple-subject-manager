@@ -18,7 +18,6 @@ public class Data {
     public static SchoolManager SCHOOLS = null;
     public static ConversionTableManager CONVERSIONS = null;
     public static Data instance = null;
-    public static int maxCount = 6, tempCount = 0;
 
     public Data() {
         instance = this;
@@ -27,6 +26,7 @@ public class Data {
             try {
                 String path = "assets/data/SCHOOLS";
 
+                // School 1
                 School school1 = new School("");
                 school1.setName(getStringFromFile(path + "/SCHOOL001/schoolName.txt", true));
 
@@ -35,32 +35,37 @@ public class Data {
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR001"));
 
                 try {
-                    Thread.sleep(800);
+                    Thread.sleep(400);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                tempCount++;
+                SplashScreen.tempCount++;
 
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR002"));
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR003"));
 
                 try {
-                    Thread.sleep(800);
+                    Thread.sleep(500);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                tempCount++;
+                SplashScreen.tempCount++;
 
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(150);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                tempCount++;
+                SplashScreen.tempCount++;
 
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR004"));
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR005"));
                 school1.addDepartment(department1s1);
+
+                Department department2s1 = new Department("");
+                department2s1.setName(getStringFromFile(path + "/SCHOOL001/DEPARTMENT002/departmentName.txt", true));
+                department2s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT002/MAJOR001"));
+                school1.addDepartment(department2s1);
 
                 Department department4s1 = new Department("");
                 department4s1.setName(getStringFromFile(path + "/SCHOOL001/DEPARTMENT004/departmentName.txt", true));
@@ -69,28 +74,32 @@ public class Data {
 
                 SCHOOLS.addSchool(school1);
                 try {
-                    Thread.sleep(300);
+                    Thread.sleep(150);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                tempCount++;
+                SplashScreen.tempCount++;
 
+                // School 2
                 School school2 = new School("");
                 school2.setName(getStringFromFile(path + "/SCHOOL002/schoolName.txt", true));
 
                 Department department1s2 = new Department("");
                 department1s2.setName(getStringFromFile(path + "/SCHOOL002/DEPARTMENT001/departmentName.txt", true));
                 department1s2.addMajor(getMajorFromFolder(path + "/SCHOOL002/DEPARTMENT001/MAJOR001"));
+                department1s2.addMajor(getMajorFromFolder(path + "/SCHOOL002/DEPARTMENT001/MAJOR002"));
+                department1s2.addMajor(getMajorFromFolder(path + "/SCHOOL002/DEPARTMENT001/MAJOR003"));
                 department1s2.addMajor(getMajorFromFolder(path + "/SCHOOL002/DEPARTMENT001/MAJOR004"));
+                department1s2.addMajor(getMajorFromFolder(path + "/SCHOOL002/DEPARTMENT001/MAJOR005"));
                 school2.addDepartment(department1s2);
 
                 SCHOOLS.addSchool(school2);
                 try {
-                    Thread.sleep(700);
+                    Thread.sleep(350);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                tempCount++;
+                SplashScreen.tempCount++;
             } catch (Exception e) {
                 System.out.println("Error when read major " + e.getMessage());
             }
@@ -110,12 +119,12 @@ public class Data {
                 }
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                tempCount++;
+                SplashScreen.tempCount++;
             } catch (Exception e) {
 
             }

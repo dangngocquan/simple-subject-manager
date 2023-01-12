@@ -519,12 +519,16 @@ public class WriteFile {
             createNewSubject(tempPath, subjects.get(i));
         }
 
-        // Create folder 'TImeTable'
+        // Create folder 'TimeTable'
         String path3 = path1 + "/TimeTable";
+        File file3 = new File(path3);
+        if (!file3.exists()) {
+            file3.mkdir();
+        }
 
         // Create file information.txt in folder TimeTable
         String path4 = path3 + "/informations.txt";
-        File file4 = new File(path2);
+        File file4 = new File(path4);
         if (!file4.exists()) {
             try {
                 file4.createNewFile();

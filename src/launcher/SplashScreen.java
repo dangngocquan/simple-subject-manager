@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 public class SplashScreen extends JWindow {
     Image splashScreen;
     ImageIcon imageIcon;
+    public static int maxCount = 6, tempCount = 0;
 
     public SplashScreen() {
         new Setting();
@@ -33,13 +34,13 @@ public class SplashScreen extends JWindow {
                     int temp = 0;
 
                     public void actionPerformed(ActionEvent event) {
-                        if (Data.tempCount > temp) {
-                            splashScreen = Setting.SPLASH[Data.tempCount % Setting.SPLASH.length].getImage();
-                            temp = Data.tempCount;
+                        if (tempCount > temp) {
+                            splashScreen = Setting.SPLASH[tempCount % Setting.SPLASH.length].getImage();
+                            temp = tempCount;
                             repaint();
                         }
 
-                        if (Data.tempCount >= Data.maxCount) {
+                        if (tempCount >= maxCount) {
                             ((Timer) event.getSource()).stop();
                             SplashScreen.this.dispose();
                         }
