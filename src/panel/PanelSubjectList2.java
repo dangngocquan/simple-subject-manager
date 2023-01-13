@@ -261,6 +261,7 @@ public class PanelSubjectList2 extends JPanel {
 
         // Update data
         public void updateDataContent() {
+                int oldCursorScroll = cursorScroll;
                 // Create scrollPanel
                 scrollPanel.removeAll();
                 int heightScroll = 10;
@@ -381,7 +382,7 @@ public class PanelSubjectList2 extends JPanel {
 
                 scrollPanel.setLayout(null);
                 scrollPanel.setSize(contentPanel.getWidth(), Math.max(heightScroll + 100, contentPanel.getHeight()));
-                setCurscorScroll(0);
+                setCurscorScroll(oldCursorScroll);
                 updateContentShowing();
         }
 
@@ -417,9 +418,13 @@ public class PanelSubjectList2 extends JPanel {
 
         // set cursorScroll
         public void setCurscorScroll(int value) {
-                if (value >= 0 && value <= getMaxCursorScroll()) {
-                        this.cursorScroll = value;
+                if (value < 0) {
+                        value = 0;
                 }
+                if (value > getMaxCursorScroll()) {
+                        value = getMaxCursorScroll();
+                }
+                this.cursorScroll = value;
                 updateContentShowing();
         }
 

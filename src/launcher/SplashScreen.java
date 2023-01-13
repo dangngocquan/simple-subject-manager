@@ -10,6 +10,7 @@ public class SplashScreen extends JWindow {
     Image splashScreen;
     ImageIcon imageIcon;
     public static int maxCount = 6, tempCount = 0;
+    public static int speedLevel = 4;
 
     public SplashScreen() {
         new Setting();

@@ -33,39 +33,39 @@ public class Data {
                 Department department1s1 = new Department("");
                 department1s1.setName(getStringFromFile(path + "/SCHOOL001/DEPARTMENT001/departmentName.txt", true));
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR001"));
-
-                try {
-                    Thread.sleep(400);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                SplashScreen.tempCount++;
-
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR002"));
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR003"));
-
-                try {
-                    Thread.sleep(500);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                SplashScreen.tempCount++;
-
-                try {
-                    Thread.sleep(150);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                SplashScreen.tempCount++;
-
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR004"));
                 department1s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT001/MAJOR005"));
                 school1.addDepartment(department1s1);
+                try {
+                    Thread.sleep(SplashScreen.speedLevel * 40);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                SplashScreen.tempCount++;
 
                 Department department2s1 = new Department("");
                 department2s1.setName(getStringFromFile(path + "/SCHOOL001/DEPARTMENT002/departmentName.txt", true));
                 department2s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT002/MAJOR001"));
                 school1.addDepartment(department2s1);
+                try {
+                    Thread.sleep(SplashScreen.speedLevel * 50);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                SplashScreen.tempCount++;
+
+                Department department3s1 = new Department("");
+                department3s1.setName(getStringFromFile(path + "/SCHOOL001/DEPARTMENT003/departmentName.txt", true));
+                department3s1.addMajor(getMajorFromFolder(path + "/SCHOOL001/DEPARTMENT003/MAJOR004"));
+                school1.addDepartment(department3s1);
+                try {
+                    Thread.sleep(SplashScreen.speedLevel * 15);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                SplashScreen.tempCount++;
 
                 Department department4s1 = new Department("");
                 department4s1.setName(getStringFromFile(path + "/SCHOOL001/DEPARTMENT004/departmentName.txt", true));
@@ -74,7 +74,7 @@ public class Data {
 
                 SCHOOLS.addSchool(school1);
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(SplashScreen.speedLevel * 15);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -95,7 +95,7 @@ public class Data {
 
                 SCHOOLS.addSchool(school2);
                 try {
-                    Thread.sleep(350);
+                    Thread.sleep(SplashScreen.speedLevel * 35);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -119,11 +119,10 @@ public class Data {
                 }
 
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(SplashScreen.speedLevel * 50);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
                 SplashScreen.tempCount++;
             } catch (Exception e) {
 

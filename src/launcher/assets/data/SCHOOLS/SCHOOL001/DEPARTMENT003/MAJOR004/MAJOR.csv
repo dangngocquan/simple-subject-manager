@@ -1,0 +1,92 @@
+﻿Type,Code,Name,Credits,Parents,YearStudy
+knowledge,Khối kiến thức chung,;,;,;,0
+compulsory,Các học phần bắt buộc,;,21,;,0
+subject,PHI1006,Triết học Mác - Lênin,3,;,0
+subject,PEC1008,Kinh tế chính trị Mác - Lênin,2,PHI1006,0
+subject,PHI1002,Chủ nghĩa xã hội khoa học,2,;,0
+subject,HIS1001,Lịch sử Đảng Cộng sản Việt Nam,2,;,0
+subject,POL1001,Tư tưởng Hồ Chí Minh,2,;,0
+subject,FLF1107,Tiếng Anh B1,5,;,0
+subject,FLF1108,Tiếng Anh B2 (***),5,;,0
+knowledge,Khối kiến thức theo lĩnh vực,;,;,;,0
+compulsory,Các học phần bắt buộc,;,2,;,0
+subject,INM1000,Tin học cơ sở,2,;,0
+optional,Các học phần tự chọn,;,5,;,0
+subject,HIS1056,Cơ sở văn hóa Việt Nam,3,;,0
+subject,GEO1050,Khoa học trái đất và sự sống,3,;,0
+subject,THL1057,Nhà nước và pháp luật đại cương,2,;,0
+subject,MAT1060,Nhập môn phân tích dữ liệu,2,;,0
+subject,PHY1070,Nhập môn Internet kết nối vạn vật,2,;,0
+subject,PHY1020,Nhập môn Robotics,3,;,0
+knowledge,Khối kiến thức theo khối ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,26,;,0
+subject,MAT1090,Đại số tuyến tính,3,;,0
+subject,MAT1091,Giải tích 1,3,;,0
+subject,MAT1092,Giải tích 2,3,MAT1091,0
+subject,MAT1101,Xác suất thống kê,3,MAT1091,0
+subject,PHY1100,Cơ - Nhiệt,3,MAT1091,0
+subject,PHY1103,Điện - Quang,3,MAT1091,0
+subject,CHE1051,Hóa học đại cương 1,3,;,0
+subject,CHE1052,Hóa học đại cương 2,3,;,0
+subject,CHE1096,Thực tập hóa học đại cương 2,2,CHE1052,0
+optional,Các học phần tự chọn,;,2,;,0
+subject,CHE1097E,Anh văn chuyên ngành Toán,2,;,0
+subject,CHE1098E,Anh văn chuyên ngành Lý,2,;,0
+subject,CHE1099E,Anh văn chuyên ngành Hóa,2,;,0
+knowledge,Khối kiến thức theo nhóm ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,34,;,0
+subject,CHE1077,Hóa học vô cơ 1,3,CHE1052,0
+subject,CHE1054,Thực tập hóa học vô cơ 1,2,CHE1077,0
+subject,CHE1131,Hóa học hữu cơ 1,4,CHE1052,0
+subject,CHE1191,Thực tập hóa học hữu cơ 1,2,CHE1131,0
+subject,CHE1082,Cơ sở hóa học phân tích,3,CHE1052,0
+subject,CHE1058,Thực tập hóa học phân tích,2,CHE1082,0
+subject,CHE3302,Hóa lý (***),5,CHE1051,0
+subject,CHE2019,Thực tập hóa lý,2,CHE3302,0
+subject,CHE1091,Hóa kỹ thuật,3,CHE1052,0
+subject,CHE1062,Thực tập hóa kỹ thuật,2,CHE1091,0
+subject,CHE1075E,Cơ sở hóa sinh,3,CHE1052,0
+subject,CHE2114E,Hóa học hữu cơ 2,3,CHE1131,0
+optional,Các học phần tự chọn,;,13,;,0
+subject,CHE3300,Các phương pháp phân tích cấu trúc và định lượng,4,CHE1052,0
+subject,CHE3301,Thực tập các phương pháp phân tích cấu trúc và định lượng,2,CHE3300,0
+subject,CHE1086,Các phương pháp phân tích công cụ,3,CHE1052,0
+subject,CHE1087,Thực tập các phương pháp phân tích công cụ,2,CHE1086,0
+subject,CHE1078,Các phương pháp vật lý và hóa lý ứng dụng trong hóa học,3,CHE1052,0
+subject,CHE1089,Thực tập các phương pháp vật lý và hóa lý ứng dụng trong hóa học,2,CHE1078,0
+subject,CHE1067,Hóa học các hợp chất cao phân tử,2,CHE1052,0
+subject,CHE1048,Hóa keo,2,CHE1052,0
+subject,CHE2147E,Hóa học xanh,3,CHE1052,0
+knowledge,Khối kiến thức ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,29,;,0
+subject,CHE2058,Hóa dược đại cương,3,CHE2114,0
+subject,CHE2030E,Hóa học dược liệu,3,CHE2114E,0
+subject,CHE2031E,Tổng hợp hóa dược,3,CHE2114E,0
+subject,CHE2061,Thực tập hóa dược,2,CHE2058;CHE2030E,0
+subject,CHE3171,Kiểm nghiệm thuốc và tiêu chuẩn dược phẩm,3,CHE2058;CHE2030E,0
+subject,CHE2014,Dược lý,3,CHE2030E,0
+subject,CHE3283,Sinh học tế bào và gen (***),3,CHE1075E,0
+subject,CHE3303E,Phương pháp nghiên cứu khoa học,3,CHE1096,0
+subject,CHE1133,Nghiên cứu khoa học (***),3,CHE3303E,0
+subject,CHE3286,Thực tập hướng nghiệp,3,CHE3303E,0
+mainDesOptionalAND,,;,;,;,0
+optional,Các học phần tự chọn,;,10,;,0
+subject,CHE3180,Phương pháp nghiên cứu dược liệu,2,CHE2030E,0
+subject,CHE3282E,Tổng hợp bất đối xứng,2,CHE2058,0
+subject,CHE3182,Chất chỉ thị dùng trong xét nghiệm y học,2,CHE2058,0
+subject,CHE2071,Vi sinh vật học,3,CHE2058;CHE2030E,0
+subject,CHE3142,Hóa học các hopwj chất thiên nhiên,3,CHE2030E,0
+subject,CHE3184,Sàng lọc và đánh giá hoạt tính của dược liệu,2,CHE2030E,0
+subject,CHE3162,Các thuốc kháng sinh và miễn dịch,3,CHE2058,0
+subject,CHE3185,Thực phẩm chức năng,2,CHE2030E,0
+subject,CHE3186,Dược học cổ truyền,2,CHE2058;CHE2030E,0
+subject,CHE3283E,Bán tổng hợp thuốc từ hợp chất,3,CHE2030E,0
+subject,CHE3175,Tổng hợp các thuốc kháng sinh - chống HIV - chống ung thư,3,CHE2058,0
+subject,CHE3165,Tổng hợp tá dược,3,CHE2058;CHE2030E,0
+subject,CHE2033E,Enzym và protein trong tổng hợp hóa dược,3,CHE2058;CHE2030E,0
+subject,CHE3170,Phân tích cấu trúc và các hợp chất có hoạt tính sinh học,3,CHE2058;CHE2030E,0
+subject,CHE2015,Công nghiệp Hóa dược,3,CHE2058;CHE2030E,0
+subject,CHE3287,Thiết kế thuốc (***),2,CHE2058;CHE2030E,0
+knowledge,Khóa luận tốt nghiệp,;,;,;,0
+compulsory,Các học phần bắt buộc,;,10,;,0
+subject,CHE4051,Khóa luận tốt nghiệp (**),10,;,0
