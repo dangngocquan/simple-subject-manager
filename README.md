@@ -35,6 +35,32 @@ The data of accounts only saved in your computer (offline)
 
 https://user-images.githubusercontent.com/95365566/212450597-42832779-0a58-4d07-94d8-6c271de5081d.mp4
 
+### 4. Plans
+
+#### 4.1. Create new plan
+
+You need choose subjects which you must study in your school, and enough the number credits of each knowledge part
+
+
+https://user-images.githubusercontent.com/95365566/212450816-893b01b2-52e8-42fa-8005-58cc4e4264ea.mp4
+
+
+#### 4.2. Existing plans
+
+- Have some optional for you with a plan: show list subject, update score of subjects, update status of subjects, the map relative between subjects, calculate the last term score, check able time table, calculate CPA, ...
+- You can rename, copy or remove the existing plan
+
+
+https://user-images.githubusercontent.com/95365566/212452053-64eb2ab1-25a3-4997-adb8-153012536ccb.mp4
+
+
+##### 4.2.1. List subject
+
+
+https://user-images.githubusercontent.com/95365566/212452490-04e94185-28bd-40a3-8358-90fcef34d054.mp4
+
+
+
 
 
 
