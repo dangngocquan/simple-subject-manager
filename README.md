@@ -54,10 +54,42 @@ https://user-images.githubusercontent.com/95365566/212450816-893b01b2-52e8-42fa-
 https://user-images.githubusercontent.com/95365566/212452053-64eb2ab1-25a3-4997-adb8-153012536ccb.mp4
 
 
-##### 4.2.1. List subject
+#### 4.2.1. List subject
 
 
 https://user-images.githubusercontent.com/95365566/212452490-04e94185-28bd-40a3-8358-90fcef34d054.mp4
+
+
+#### 4.2.2. Update score subjects
+
+https://user-images.githubusercontent.com/95365566/212460828-ea17efe6-3f6a-4bbc-9a8e-6364cc4ec123.mp4
+
+
+#### 4.2.3. Update status subjects
+
+https://user-images.githubusercontent.com/95365566/212460869-d505c1bf-122e-475d-b4a6-cdf05a64faac.mp4
+
+#### 4.2.4. Map relative subjects
+
+https://user-images.githubusercontent.com/95365566/212460918-576d39a9-8a40-4462-9c42-b0e9046640dd.mp4
+
+
+#### 4.2.5. Calculate score last term
+
+https://user-images.githubusercontent.com/95365566/212460960-3b541b2a-5825-4c66-bb17-2a13b48d1b27.mp4
+
+#### 4.2.6. Check valid time table
+
+https://user-images.githubusercontent.com/95365566/212461037-2df5f00e-1976-401d-81f7-574fc2432b48.mp4
+
+#### 4.2.7. CPA
+
+https://user-images.githubusercontent.com/95365566/212461087-68ba7f3c-0598-441b-91c9-19d40220068d.mp4
+
+
+
+
+
 
 
 
