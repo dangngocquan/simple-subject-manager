@@ -1,0 +1,149 @@
+﻿Type,Code,Name,Credits,Parents,YearStudy
+knowledge,Khối kiến thức chung,;,;,;,0
+compulsory,Các học phần bắt buộc,;,11,;,0
+subject,PHI1006,Triết học Mác - Lênin,3,;,0
+subject,PEC1008,Kinh tế chính trị Mác - Lênin,2,PHI1006,0
+subject,PHI1002,Chủ nghĩa xã hội khoa học,2,;,0
+subject,HIS1001,Lịch sử Đảng Cộng sản Việt Nam,2,;,0
+subject,POL1001,Tư tưởng Hồ Chí Minh,2,;,0
+optional,Ngoại ngữ B1,;,5,;,0
+subject,FLF1107,Tiếng Anh B1,5,;,0
+subject,FLF1307,Tiếng Pháp B1,5,;,0
+subject,FLF1407,Tiếng Trung B1,5,;,0
+knowledge,Khối kiến thức theo lĩnh vực,;,;,;,0
+compulsory,Các học phần bắt buộc,;,2,;,0
+subject,INM1000,Tin học cơ sở,2,;,0
+optional,Các học phần tự chọn,;,5,;,0
+subject,HIS1056,Cơ sở văn hóa Việt Nam,3,;,0
+subject,GEO1050,Khoa học trái đất và sự sống,3,;,0
+subject,THL1057,Nhà nước và pháp luật đại cương,2,;,0
+subject,MAT1060,Nhập môn phân tích dữ liệu,2,;,0
+subject,PHY1070,Nhập môn Internet kết nối vạn vật,2,;,0
+subject,PHY1020,Nhập môn Robotics,3,;,0
+knowledge,Khối kiến thức theo khối ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,12,;,0
+subject,PHY1106,Đại số tuyến tính,3,;,0
+subject,PHY1107,Giải tích 1,3,;,0
+subject,PHY1108,Giải tích 2,3,PHY1107,0
+subject,PHY1109,Xác suất thống kê,3,PHY1107,0
+optional,Các học phần tự chọn,;,3,;,0
+subject,CHE1080,Hóa học đại cương,3,;,0
+subject,PHY1112,Vật lý môi trường,3,PHY2302;PHY2304,0
+subject,PHY1113,Lập trình C,3,PHY1106;INM1000,0
+subject,PHY1114,Lập trình Matlab,3,INM1000,0
+knowledge,Khối kiến thức theo nhóm ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,29,;,0
+subject,PHY2201,Phương pháp toán cho Vật lý 1,3,PHY1106;PHY1108,0
+subject,PHY1050,Cơ học,3,;,0
+subject,PHY2302,Nhiệt động học và Vật lý phân tử,3,PHY1107;PHY1050,0
+subject,PHY2303,Điện và từ học,4,PHY1108,0
+subject,PHY2304,Quang học,3,PHY2303,0
+subject,PHY2307,Thực hành Vật lý đại cương 1,2,PHY1050,0
+subject,PHY2308,Thực hành Vật lý đại cương 2,2,PHY2307,0
+subject,PHY2309,Thực hành Vật lý đại cương 3,2,PHY2308,0
+subject,PHY2004,Vật lý hạt nhân,2,PHY1050,0
+subject,PHY2064,Vật lý nguyên tử,2,PHY2304,0
+subject,PHY2000,Phương pháp nghiên cứu khoa học,3,;,0
+optional,Các học phần tự chọn,;,3,;,0
+subject,PHY3509,Vật lý của vật chất,3,PHY2306,0
+subject,PHY4325,Mở đầu về thuyết tương đối và vật lý lượng tử,3,PHY3301,0
+subject,PHY3462,Mở đầu về công nghệ nano,3,CHE1080;PHY3346,0
+knowledge,Khối kiến thức ngành,;,;,;,0
+compulsory,Các học phần bắt buộc,;,39,;,0
+subject,PHY3301,Cơ học lý thuyết,3,PHY1108;PHY1050,0
+subject,PHY3606,Điện động lực học,4,PHY2304,0
+subject,PHY2306,Cơ học lượng tử,4,PHY2304,0
+subject,PHY3608,Cơ học thống kê,4,PHY3301;PHY3606,0
+subject,PHY3609,Điện tử tương tự,3,PHY2303,0
+subject,PHY3610,Điện tử số,3,PHY3609,0
+subject,PHY3502,Vật lý tính toán 1,3,INM1000;PHY1106;PHY1108,0
+subject,PHY3503,Tiếng Anh chuyên ngành,2,FLF1107,0
+subject,PHY3163,Phương pháp toán cho Vật lý 2,3,PHY2201,0
+subject,PHY3506,Các phương pháp thí nghiệm trong Vật lý hiện đại,2,PHY2308,0
+subject,PHY3507,Thực tập Vật lý hiện đại,2,PHY3506,0
+subject,PHY3508,Vật lý tính toán 2,3,PHY3502,0
+subject,PHY3510,Mở đầu Thiên văn học,3,PHY2304,0
+mainDesOptionalAND,,;,;,;,0
+optional,Thực tập chuyên ngành (Sinh viên chọn một trong các môn thực tập chuyên ngành dưới đây),;,3,;,0
+subject,PHY3357,Thực tập Vật lý lý thuyết,3,PHY2306;PHY3608,0
+subject,PHY3355,Thực tập Vật lý chất rắn,3,PHY3346,0
+subject,PHY3375,Thực tập Kỹ thuật điện tử hiện đại,3,PHY3512;PHY3517,0
+subject,PHY3356,Thực tập Quang lượng tử,3,PHY2304,0
+subject,PHY3359,Thực tập Vật lý trái đất,3,PHY3419,0
+subject,PHY3376,Thực tập tin học Vật lý,3,INM1000,0
+subject,PHY3358,Thực tập Vật lý nhiệt độ thấp,3,PHY3707,0
+subject,PHY3378,Thực tập Vật lý năng lượng cao và vũ trụ học,3,PHY3514;PHY3471;PHY3338,0
+subject,PHY3377,Thực tập tính toán trong Khoa học Vật liệu,3,PHY3346,0
+subject,PHY3453,Thực tập tính toán Khoa học và Vật liệu sinh học,3,PHY3608,0
+optional,Các học phần tự chọn,;,12,;,0
+subject,PHY3514,Mở đầu về lý thuyết trường lượng tử,3,PHY2306,0
+subject,PHY3337,Vật lý các hệ thấp chiều,3,PHY2306;PHY3608,0
+subject,PHY3513,Lý thuyết nhóm cho Vật lý,3,PHY1106;PHY1108,0
+subject,PHY3338,Lý thuyết hạt cơ bản,3,PHY2306,0
+subject,PHY3524,Mở đầu thuyết tương đối rộng,3,PHY2306,0
+subject,PHY3333,Thống kê lượng tử,3,PHY2306;PHY3608,0
+subject,PHY3334,Lý thuyết chất rắn,3,PHY2306;PHY3608,0
+subject,PHY3528,Lý thuyết trường lượng tử cho hệ nhiều hạt,3,PHY2306;PHY3608,0
+subject,PHY3530,Mở đầu về Vật lý sinh học,3,PHY2303,0
+subject,PHY3392,Mở đầu Vật lý vật liệu mềm và các hệ y sinh,3,PHY2303,0
+subject,PHY3346,Vật lý chất rắn,3,PHY2306,0
+subject,PHY3351,Vật lý linh kiện bán dẫn,3,PHY3347,0
+subject,PHY3348,Từ học và Siêu dẫn,3,PHY2306,0
+subject,PHY3347,Vật lý bán dẫn,3,PHY2306;PHY3608,0
+subject,PHY3707,Các phép đo từ,3,PHY2303,0
+subject,PHY3713,Quang điện tử và Quang tử,3,PHY2304,0
+subject,PHY3353,Quang bán dẫn,3,PHY3346;PHY3347,0
+subject,PHY3517,Lý thuyết xử lý tín hiệu số,3,PHY3610,0
+subject,PHY3512,Điều chế xung và điều chế số,3,PHY3610,0
+subject,PHY3521,Lý thuyết truyền dẫn số,3,PHY3610,0
+subject,PHY3522,Vi điều khiển,3,PHY3610,0
+subject,PHY3523,Điện tử ứng dụng trong đo đạc,3,PHY3610,0
+subject,PHY3423,Nguyên lý và ứng dụng siêu âm,3,PHY3610,0
+subject,PHY3424,Nguyên lý và ứng dụng kỹ thuật truyền tin số,3,PHY3610,0
+subject,PHY3379,Máy tính và ghép nối,3,INM1000,0
+subject,PHY3414,Dao động,3,PHY3606;PHY3163,0
+subject,PHY3329,Vật lý laser và ứng dụng,3,PHY2304,0
+subject,PHY3390,Quang phổ học phân tử,3,PHY2306,0
+subject,PHY3388,Quang phổ học nguyên tử,3,PHY2306;PHY3606,0
+subject,PHY3391,Quang phổ học thực nghiệm,3,PHY2306,0
+subject,PHY3401,Thông tin quang,3,PHY2304,0
+subject,PHY3419,Vật lý trái đất,3,PHY2304,0
+subject,PHY3515,Địa chấn học,3,PHY2304;INM1000,0
+subject,PHY3526,Các phương pháp trường thế áp dụng trong Địa Vật lý,3,PHY2304,0
+subject,PHY3404,Phương pháp thăm dò điện,3,PHY2304;PHY3163,0
+subject,PHY3405,Phương pháp thăm dò từ,3,PHY2303,0
+subject,PHY3406,Phóng xạ và địa vật lý hạt nhân,3,PHY2304,0
+subject,PHY3407,Địa vật lý giếng khoan,3,PHY2304,0
+subject,PHY3408,Địa chất cho địa vật lý,3,PHY2304,0
+subject,PHY3432,Mô phỏng Vật lý bằng máy tính,3,PHY3502,0
+subject,PHY3313,Lập trình nâng cao,3,INM1000,0
+subject,PHY3335,Hệ thống nhúng,3,INM1000;PHY3610,0
+subject,PHY3336,Lập trình cho thiết bị di động và Web,3,INM1000,0
+subject,PHY3380,Lập trình song song,3,INM1000,0
+subject,PHY3435,Hệ thống cơ sở dữ liệu,3,INM1000,0
+subject,PHY3527,Mở đầu lý thuyết lượng tử từ học,3,PHY2306,0
+subject,PHY3393,Vật lý chất rắn ở nhiệt độ thấp,3,PHY2306;PHY3608,0
+subject,PHY3446,Vật lý và kỹ thuật nhiệt độ thấp,3,PHY3608;PHY3348,0
+subject,PHY3394,Nhiệt động lực học và ứng dụng,3,PHY2303;PHY2306,0
+subject,PHY3448,Vật lý siêu dẫn và ứng dụng,3,PHY3608;PHY3348,0
+subject,PHY3472,Mô hình chuẩn và mở rộng,3,PHY3514,0
+subject,PHY3471,Vũ trụ học,3,PHY3510,0
+subject,PHY3525,Mở đầu Vật lý hạt và Vật lý năng lượng cao,3,PHY2306,0
+subject,PHY3461,Khoa học vật liệu đại cương,3,PHY2306,0
+subject,PHY3454,Thực tập thực tế,3,;,0
+optional,Môn học định hướng nghề nghiệp (Không tính tín chỉ),;,0,;,0
+subject,NFC01,Vật lý các quá trình chuyển hóa năng lượng xanh,2,PHY3704,0
+subject,NFC02,Năng lượng xanh và vật liệu tiên tiến,3,;,0
+subject,NFC03,Kỹ năng thuyết trình,2,INM1000,0
+subject,NFC04,Vật liệu mềm,3,;,0
+subject,NFC05,Vật liệu y sinh,3,;,0
+subject,NFC06,Máy tính lượng tử,3,;,0
+subject,NFC07,Điện tử Công nghiệp,3,;,0
+subject,NFC08,Lập trình LabVIEW,3,;,0
+knowledge,Khóa luận tốt nghiệp hoặc Các học phần thay thế,;,;,;,0
+mainDesOptional,Chọn Khóa luận tốt nghiệp hoặc Các học phần thay thế,;,;,;,0
+optional,Khóa luận tốt nghiệp,;,7,;,0
+subject,PHY4050,Khóa luận tốt nghiệp,7,;,0
+optional,Các học phần thay thế,;,7,;,0
+subject,PHY3720,Vật lý hiện đại,4,;,0
+subject,PHY3455,Tin học cho Vật lý,3,;,0
