@@ -194,7 +194,7 @@ public class ScreenConvertionInformation extends JPanel {
                 DialogList dialog1 = new DialogList(Setting.WIDTH / 2, Setting.HEIGHT / 2,
                         Setting.WIDTH / 3, Setting.HEIGHT / 2, DialogList.CENTER_CENTER,
                         "", new String[] { "Chọn trường đại học" },
-                        Data.CONVERSIONS.getArrayConvertionNames());
+                        Data.CONVERSIONS.getArrayConversionNames());
                 String convertionName = dialog1.getText();
                 if (convertionName == null || convertionName.isEmpty()) {
 

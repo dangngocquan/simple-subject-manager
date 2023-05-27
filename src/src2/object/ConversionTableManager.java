@@ -1,4 +1,4 @@
-package src.objects;
+package src2.object;
 
 import java.util.LinkedList;
 import java.util.List;

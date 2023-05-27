@@ -12,7 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
 public class ScreenMainMenu extends JPanel {
-    // Propertie, Objects and Screens
+    // Properties, Objects and Screens
     private Application applicationFrame;
     private String[] buttonTexts = {
             "Các kế hoạch", "Tài khoản", "Thông tin"

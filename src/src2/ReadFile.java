@@ -1,15 +1,12 @@
-package src.launcher;
+package src2;
 
+import src2.object.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
-import src.objects.Account;
-import src.objects.Plan;
-import src.objects.Subject;
-import src.objects.TimeTable;
 
 public class ReadFile {
     public static final String PATH_DATA = "C:/SimpleSubjectManager";
